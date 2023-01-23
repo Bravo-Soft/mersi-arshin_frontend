@@ -17,11 +17,6 @@ P.S Для работы сервера необходимо предварите
 
 ### Логины и пароли
 
-| Логин (email) |     Пароль     | Роли пользователя            |
-| ------------: | :------------: | :--------------------------- |
-| user1@test.ru | Sven174234!234 | `[USER_WRITER, USER_READER]` |
-| user2@test.ru | Sven174234!234 | `[USER_WRITER, USER_READER]` |
-| user3@test.ru | Sven174234!234 | `[USER_WRITER, USER_READER]` |
-| user4@test.ru | Sven174234!234 | `[USER_WRITER, USER_READER]` |
-| user5@test.ru | Sven174234!234 | `[USER_WRITER, USER_READER]` |
-| user6@test.ru | Sven174234!234 | `[USER_WRITER, USER_READER]` |
+| Логин (email) |                Пароль                | Роли пользователя |
+| ------------: | :----------------------------------: | :---------------- |
+| test1@mail.ru | bfd8bb02-ad5e-4bda-adc2-422e8b40c95c | `[ USER_READER]`  |
