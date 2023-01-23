@@ -1,0 +1,252 @@
+import { useState } from 'react';
+import { mask, maxDate, minDate } from 'constant/dateMasks';
+import { Controller, useFormContext } from 'react-hook-form';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { columnsFilters, linkOperators, operatorsFilters } from '../data';
+import { useNotificationFormActions } from '../hooks/useNotificationFormActions';
+import { Tag } from 'constant/tag';
+
+import type { Control } from 'react-hook-form';
+import type { FormFiltersTypes } from '../types';
+import type { ControllerRenderProps } from 'react-hook-form';
+import type { SelectChangeEvent } from '@mui/material/Select';
+import type { INotificationSettings } from 'types/notification';
+
+import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
+import Select from '@mui/material/Select';
+import ruLocale from 'date-fns/locale/ru';
+import MenuItem from '@mui/material/MenuItem';
+import TextField from '@mui/material/TextField';
+import IconButton from '@mui/material/IconButton';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+
+import CloseIcon from '@mui/icons-material/Close';
+
+interface INotificationFilterItemProps {
+	index: number;
+	indexK: number;
+	control: Control<INotificationSettings, `subscribedEmails.${number}.emailFilters`>;
+	removeEmail: (indexRemove: number) => () => void;
+}
+
+function NotificationFilterItem({
+	index,
+	indexK,
+	control,
+	removeEmail,
+}: INotificationFilterItemProps) {
+	const { setValue, watch } = useFormContext<INotificationSettings>();
+
+	const watchColumnField = watch(`subscribedEmails.${index}.emailFilters.${indexK}.columnFilter`);
+	const watchOperatorValue = watch(
+		`subscribedEmails.${index}.emailFilters.${indexK}.operatorValue`
+	);
+
+	const { filterType } = useNotificationFormActions();
+	const [operatorValueX, setOperatorValue] = useState<FormFiltersTypes>(
+		filterType(watchColumnField)
+	);
+
+	const onChangeColumnField =
+		(
+			field: ControllerRenderProps<
+				INotificationSettings,
+				`subscribedEmails.${number}.emailFilters.${number}.columnFilter`
+			>
+		) =>
+		(event: SelectChangeEvent<string>) => {
+			const eventFilterType = filterType(event.target.value);
+			if (eventFilterType !== operatorValueX) {
+				setOperatorValue(eventFilterType);
+				setValue(
+					`subscribedEmails.${index}.emailFilters.${indexK}.operatorValue`,
+					operatorsFilters[eventFilterType][0].operatorValue
+				);
+			}
+			if (eventFilterType !== filterType(watchColumnField)) {
+				setValue(`subscribedEmails.${index}.emailFilters.${indexK}.value`, '');
+			}
+			field.onChange(event.target.value);
+		};
+
+	const onChangeOperationField =
+		(
+			field: ControllerRenderProps<
+				INotificationSettings,
+				`subscribedEmails.${number}.emailFilters.${number}.operatorValue`
+			>
+		) =>
+		(event: SelectChangeEvent<string>) => {
+			if (watchOperatorValue === 'isEmpty') {
+				setValue(`subscribedEmails.${index}.emailFilters.${indexK}.value`, '');
+			}
+			field.onChange(event.target.value);
+		};
+
+	return (
+		<Stack direction='row' p={1} justifyContent='space-between' alignItems='flex-end' spacing={2}>
+			<Stack direction='row'>
+				<IconButton onClick={removeEmail(indexK)}>
+					<CloseIcon />
+				</IconButton>
+				{indexK !== 0 && (
+					<Controller
+						control={control}
+						name={`subscribedEmails.${index}.linkOperator`}
+						render={({ field }) => (
+							<FormControl variant='standard' size='medium'>
+								<Select
+									{...field}
+									value={field.value}
+									disabled={indexK !== 1}
+									sx={{ width: 58 }}
+								>
+									{linkOperators.map(({ linkValue, linkTitle }) => (
+										<MenuItem key={`${linkValue}_${linkTitle}`} value={linkValue}>
+											{linkTitle}
+										</MenuItem>
+									))}
+								</Select>
+							</FormControl>
+						)}
+					/>
+				)}
+			</Stack>
+			<Grid container width={478} spacing={0}>
+				<Grid item xs={4}>
+					<Controller
+						control={control}
+						name={`subscribedEmails.${index}.emailFilters.${indexK}.columnFilter`}
+						render={({ field }) => (
+							<FormControl variant='standard' fullWidth>
+								<InputLabel id='select-date-of-sending-label'>Столбцы</InputLabel>
+								<Select
+									{...field}
+									value={field.value}
+									id='select-column-filter'
+									labelId='select-column-filter-label'
+									onChange={onChangeColumnField(field)}
+									fullWidth
+									MenuProps={{
+										PaperProps: {
+											sx: {
+												maxHeight: 200,
+											},
+										},
+									}}
+								>
+									{columnsFilters.map(({ field, headerName }) => (
+										<MenuItem key={`${field}_${headerName}`} value={field}>
+											{headerName}
+										</MenuItem>
+									))}
+								</Select>
+							</FormControl>
+						)}
+					/>
+				</Grid>
+				<Grid item xs={4}>
+					<Controller
+						control={control}
+						name={`subscribedEmails.${index}.emailFilters.${indexK}.operatorValue`}
+						render={({ field }) => (
+							<FormControl variant='standard' fullWidth>
+								<InputLabel id='select-operator-filter-label'>Операторы</InputLabel>
+								<Select
+									{...field}
+									value={field.value}
+									id='select-operator-filter'
+									labelId='select-operator-filter-label'
+									onChange={onChangeOperationField(field)}
+									fullWidth
+									MenuProps={{
+										PaperProps: {
+											sx: {
+												maxHeight: 200,
+											},
+										},
+									}}
+								>
+									{operatorsFilters[operatorValueX].map(
+										({ operatorValue, columnField }) => (
+											<MenuItem
+												key={`${operatorValue}_${columnField}`}
+												value={operatorValue}
+											>
+												{columnField}
+											</MenuItem>
+										)
+									)}
+								</Select>
+							</FormControl>
+						)}
+					/>
+				</Grid>
+				<Grid item xs={4}>
+					{watchOperatorValue !== 'isEmpty' && (
+						<Controller
+							control={control}
+							name={`subscribedEmails.${index}.emailFilters.${indexK}.value`}
+							render={({ field, fieldState: { error } }) =>
+								operatorValueX === 'defaultFilters' ? (
+									<TextField
+										{...field}
+										label='Значение'
+										fullWidth
+										placeholder='Значение фильтра'
+										InputLabelProps={{
+											shrink: true,
+										}}
+									/>
+								) : operatorValueX === 'dateFilters' ? (
+									<LocalizationProvider
+										adapterLocale={ruLocale}
+										dateAdapter={AdapterDateFns}
+									>
+										<DatePicker
+											{...field}
+											mask={mask}
+											label={'Дата Фильтрации'}
+											minDate={minDate}
+											maxDate={maxDate}
+											InputProps={{
+												error: Boolean(error),
+											}}
+											renderInput={params => (
+												<TextField
+													{...params}
+													error={Boolean(error)}
+													helperText={error?.message}
+												/>
+											)}
+										/>
+									</LocalizationProvider>
+								) : (
+									<FormControl variant='standard' fullWidth>
+										<InputLabel shrink={true} id='select-operator-filter-label'>
+											Значение
+										</InputLabel>
+										<Select
+											{...field}
+											id='select-operator-filter'
+											labelId='select-operator-filter-label'
+										>
+											<MenuItem value={Tag.SMALL}>{Tag.SMALL}</MenuItem>
+											<MenuItem value={Tag.MEDIUM}>{Tag.MEDIUM}</MenuItem>
+											<MenuItem value={Tag.LARGE}>{Tag.LARGE}</MenuItem>
+										</Select>
+									</FormControl>
+								)
+							}
+						/>
+					)}
+				</Grid>
+			</Grid>
+		</Stack>
+	);
+}
+
+export default NotificationFilterItem;

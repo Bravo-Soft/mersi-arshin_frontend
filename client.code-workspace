@@ -1,0 +1,69 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../server"
+		}
+	],
+	"extensions": {
+		"recommendations": [
+			"esbenp.prettier-vscode",
+			"dbaeumer.vscode-eslint",
+			"EditorConfig.EditorConfig",
+			"ms-vscode.vscode-typescript-next",
+			"ms-vsliveshare.vsliveshare",
+			"formulahendry.auto-rename-tag",
+			"mhutchie.git-graph",
+			"liamhammett.inline-parameters",
+			"rangav.vscode-thunder-client",
+			"wayou.vscode-todo-highlight",
+			"quicktype.quicktype"
+		]
+	},
+	"settings": {
+		"editor.fontSize": 13,
+		"editor.fontLigatures": true,
+		"editor.lineHeight": 1.4,
+		"editor.glyphMargin": true,
+		"editor.fontFamily": " 'Jetbrains Mono', SFMono-Medium,  'Fira Code',  Consolas, 'Courier New', monospace",
+		"editor.formatOnPaste": true,
+		"editor.formatOnSave": true,
+		"editor.insertSpaces": false,
+		"editor.detectIndentation": true,
+		"editor.bracketPairColorization.enabled": true,
+		"[typescript]": {
+			"editor.defaultFormatter": "esbenp.prettier-vscode"
+		},
+		"[typescriptreact]": {
+			"editor.defaultFormatter": "esbenp.prettier-vscode"
+		},
+		"[javascript]": {
+			"editor.defaultFormatter": "esbenp.prettier-vscode"
+		},
+		"[javascriptreact]": {
+			"editor.defaultFormatter": "esbenp.prettier-vscode"
+		},
+		"files.eol": "\n",
+		"inline-parameters.border": "1px solid #f2f2f230",
+		"inline-parameters.borderRadius": "0.5em",
+		"inline-parameters.fontSize": "0.8em",
+		"inline-parameters.fontWeight": "600",
+		"inline-parameters.margin": "0.4em",
+		"inline-parameters.padding": "3px 3px"
+	},
+	"launch": {
+		"version": "0.2.0",
+		"configurations": [
+			{
+				"type": "chrome",
+				"request": "launch",
+				"name": "Default debugger",
+				"url": "http://localhost:3000",
+				"webRoot": "${workspaceFolder}"
+			}
+		],
+		"compounds": []
+	}
+}

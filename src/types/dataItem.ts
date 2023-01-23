@@ -1,0 +1,112 @@
+import type { Tag } from 'constant/tag';
+
+export interface IDataItem {
+	/**
+	 * Идентификационный номер
+	 */
+	id: string;
+	/**
+	 * Наименование
+	 */
+	name: string;
+	/**
+	 * Тип СИ
+	 */
+	type: string;
+	/**
+	 * Заводской номер
+	 */
+	factoryNumber: string;
+	/**
+	 * Инвентарный номер
+	 */
+	inventoryNumber: string;
+	/**
+	 * Подразделение
+	 */
+	division: string;
+	/**
+	 * Дата поверки
+	 */
+	verificationDate: string;
+	/**
+	 * Дата следующией поверки
+	 */
+	dateOfTheNextVerification: string;
+	/**
+	 * Вид работ
+	 */
+	typeOfWork: string;
+	/**
+	 * Состояние
+	 */
+	condition: string;
+	/**
+	 * Госреестр
+	 */
+	stateRegister: string;
+	/**
+	 * Свидетельство
+	 */
+	certificate: string;
+	/**
+	 * Дата производства
+	 */
+	productionDate: string;
+	/**
+	 * Организация
+	 */
+	organization: string;
+	/**
+	 * Класс точности
+	 */
+	accuracyClass: string;
+	/**
+	 * Предел измерения
+	 */
+	measurementLimit: string;
+	/**
+	 * Размер
+	 */
+	size: Tag;
+	/**
+	 * Примечания
+	 */
+	notes: string;
+	/**
+	 * Список документов
+	 */
+	documents: IDocument[];
+}
+
+export interface IDocument {
+	/**
+	 * Уникальный номер документа
+	 */
+	id: string;
+	/**
+	 * Название
+	 */
+	label: string;
+	/**
+	 * Размер в байтах
+	 */
+	size: number;
+}
+
+/* Интерфейс копирует родительский, но только изменяет тип данных трёх ключей. Необходим для отправки формы на сервер */
+export interface IDataItemWithDates
+	extends Omit<IDataItem, 'verificationDate' | 'productionDate' | 'dateOfTheNextVerification'> {
+	/**
+	 * Дата поверки
+	 */
+	verificationDate: Date;
+	/**
+	 * Дата производства
+	 */
+	productionDate: Date;
+	/**
+	 * Дата следующией поверки
+	 */
+	dateOfTheNextVerification: Date;
+}
