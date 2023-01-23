@@ -3,6 +3,9 @@
 		{
 			"path": "."
 		},
+		{
+			"path": "../mersi_server_3.0"
+		}
 	],
 	"extensions": {
 		"recommendations": [
