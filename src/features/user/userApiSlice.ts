@@ -6,12 +6,12 @@ import type { IGroup } from 'types/group';
 import type { INotificationSettings } from 'types/notification';
 import type { IPrintSettingResponse, IPrintSettings } from 'types/printSettings';
 import type { IProfile } from 'types/profile';
-import type { Role } from 'types/role';
 import type { ITemplateСonfig } from 'types/template';
+import type { Roles } from 'constant/roles';
 
 export interface IUserDataResponse {
 	id: string;
-	roles: Role[];
+	roles: Roles[];
 	group: IGroup;
 }
 

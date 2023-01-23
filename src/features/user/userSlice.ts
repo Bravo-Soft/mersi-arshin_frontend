@@ -1,14 +1,14 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from 'app/store';
 import type { IGroup } from 'types/group';
-import type { Role } from 'types/role';
 
 import { createSlice } from '@reduxjs/toolkit';
+import { Roles } from 'constant/roles';
 
 interface IUserState {
 	id: string | null;
 	group: IGroup | null;
-	roles: Role[];
+	roles: Roles[];
 }
 
 const initialState: IUserState = {
@@ -59,9 +59,9 @@ export const selectUserPermissions = ({ user }: RootState) => ({
 });
 
 export const selectUserRoles = ({ user }: RootState) => ({
-	isReader: user.roles.includes('USER_READER'),
-	isWriter: user.roles.includes('USER_WRITER'),
-	isAdmin: user.roles.includes('ADMIN'),
+	isReader: user.roles.includes(Roles.USER_READER),
+	isWriter: user.roles.includes(Roles.USER_WRITER),
+	isAdmin: user.roles.includes(Roles.ADMIN),
 });
 
 export const userPath = userSlice.name;
