@@ -4,7 +4,6 @@ import { selectUserPermissions } from 'features/user/userSlice';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { useGetAllDataQuery } from '../dataTableApiSlice';
 import { selectSelectedDataItem, selectSelectionModel } from '../dataTableSlice';
-import { useGetAllFavoriteIdsQuery } from '../favoritesApiSlice';
 import { useApplySelectedTemplate } from '../hooks/useApplySelectedTemplate';
 import { useContextMenuActions } from '../hooks/useContextMenuActions';
 import { useDataTableActions } from '../hooks/useDataTableActions';
@@ -40,7 +39,6 @@ function DataTable(): JSX.Element {
 	const { data: loadedData = [], isFetching: isFetchingData } = useGetAllDataQuery(undefined, {
 		pollingInterval: 60000,
 	});
-	const { data: favoriteIds = [], isLoading: isFetchingFavorites } = useGetAllFavoriteIdsQuery();
 
 	/* Хуки, создающие обработчики событий и обрабатывающие загруженные данные */
 	const { contextMenu, actionsOfContextMenu } = useContextMenuActions(apiRef, loadedData);
@@ -52,7 +50,7 @@ function DataTable(): JSX.Element {
 	const filteredRows = useChipFilter(rows);
 
 	/* Прочие хуки */
-	const generateClasses = useRowClasses(selectedId, favoriteIds);
+	const generateClasses = useRowClasses(selectedId);
 	useApplySelectedTemplate(apiRef);
 
 	const handleColumnsSorting = () =>
@@ -92,7 +90,7 @@ function DataTable(): JSX.Element {
 				componentsProps={{
 					row: {
 						onContextMenu: actionsOfContextMenu.handleOpenContextMenu,
-						style: { cursor: isFetchingFavorites ? 'progress' : 'pointer' },
+						style: { cursor: 'pointer' },
 					},
 				}}
 			/>

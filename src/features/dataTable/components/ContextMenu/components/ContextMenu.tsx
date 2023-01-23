@@ -6,9 +6,8 @@ import {
 	selectSelectedDataItem,
 	selectSelectionModel,
 } from 'features/dataTable/dataTableSlice';
-import { useGetAllFavoriteIdsQuery } from 'features/dataTable/favoritesApiSlice';
 import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
-import { selectUserPermissions, selectUserRoles } from 'features/user/userSlice';
+import { selectUserId, selectUserPermissions, selectUserRoles } from 'features/user/userSlice';
 import { isValueDefined } from 'guards/isValueDefined';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 
@@ -55,12 +54,11 @@ function ContextMenu({
 	const selectionModel = useAppSelector(selectSelectionModel);
 	const pinningRows = useAppSelector(selectedPinnedRows);
 	const { isWriter } = useAppSelector(selectUserRoles);
+	const userId = useAppSelector(selectUserId);
 	const { attachFiles, hasFavorites, hasClipboard } = useAppSelector(selectUserPermissions);
 
-	const { data: favoriteIds = [] } = useGetAllFavoriteIdsQuery();
-
 	const isFavoriteRow =
-		isValueDefined(selectedDataItem) && favoriteIds.includes(selectedDataItem.id);
+		isValueDefined(selectedDataItem) && userId && selectedDataItem.userIds.includes(userId);
 	const isPinnedRow =
 		isValueDefined(selectedDataItem) && pinningRows.includes(selectedDataItem.id);
 
@@ -128,7 +126,7 @@ function ContextMenu({
 		{
 			title: 'Скопировать данные',
 			Icon: hasClipboard ? CopyAllIcon : LockIcon,
-			isActive: hasClipboard,
+			isActive: isValueDefined(hasClipboard),
 			action: handleCopySelectedValues,
 		},
 		{

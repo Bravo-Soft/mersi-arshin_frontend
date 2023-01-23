@@ -3,14 +3,13 @@ import { useAppSelector } from 'hooks/redux';
 import { useMemo } from 'react';
 import { createDateISO } from 'utils/createDateISO';
 import { selectCurrentChipFilterVariant } from '../dataTableSlice';
-import { useGetAllFavoriteIdsQuery } from '../favoritesApiSlice';
 
 import type { IDataItem } from 'types/dataItem';
+import { selectUserId } from 'features/user/userSlice';
 
 const useChipFilter = (data: IDataItem[] = []) => {
 	const currentChipFilterOption = useAppSelector(selectCurrentChipFilterVariant);
-
-	const { data: favoriteList = [] } = useGetAllFavoriteIdsQuery();
+	const userId = useAppSelector(selectUserId);
 
 	return useMemo(() => {
 		const today = parseISO(createDateISO(new Date()));
@@ -25,7 +24,7 @@ const useChipFilter = (data: IDataItem[] = []) => {
 				);
 
 			case 'Избранное': {
-				return data.filter(row => favoriteList.includes(row.id));
+				return data.filter(row => (userId ? row.userIds.includes(userId) : false));
 			}
 
 			default:
@@ -33,7 +32,7 @@ const useChipFilter = (data: IDataItem[] = []) => {
 					row => getMonth(parseISO(row.dateOfTheNextVerification)) === currentChipFilterOption
 				);
 		}
-	}, [currentChipFilterOption, data, favoriteList]);
+	}, [currentChipFilterOption, data, userId]);
 };
 
 export default useChipFilter;

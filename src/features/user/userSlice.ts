@@ -55,8 +55,10 @@ export const selectUserPermissions = ({ user }: RootState) => ({
 	hasFavorites: user.group?.IsFavoriteIdsEnabled,
 	maxCountRowTable: user.group?.maxCountRowTable,
 	maxSizeOfSpacePerPosition: user.group?.maxSizeOfSpacePerPosition,
-	hasClipboard: true, // TODO: Добавить новый флаг
+	hasClipboard: user.group?.hasClipboard,
 });
+
+export const selectUserId = (state: RootState) => state.user.id;
 
 export const selectUserRoles = ({ user }: RootState) => ({
 	isReader: user.roles.includes(Roles.USER_READER),
