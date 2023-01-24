@@ -18,7 +18,7 @@ interface IVerificateFieldsProps {
 	isReader: boolean;
 }
 
-const fieldParams: AutocompleteKeysType[] = [
+export const fieldVerificationParams: AutocompleteKeysType[] = [
 	'typeOfWork',
 	'stateRegister',
 	'certificate',
@@ -41,7 +41,7 @@ function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
 	const { modifiedVerificationFields } = useAppSelector(selectedVisibleColumns);
 
 	const rendercol = modifiedVerificationFields ? modifiedVerificationFields : verificationFields;
-	const params = useFilterAutocomplete(fieldParams);
+	const params = useFilterAutocomplete(fieldVerificationParams);
 
 	return (
 		<Stack direction='column' px={3.5} pb={3.5} rowGap={1} flexGrow={1}>
@@ -58,7 +58,7 @@ function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
 					<Controller
 						key={key}
 						name={key}
-						rules={{ required: key === 'name' }}
+						// rules={{ required: key === 'name' }}
 						control={control}
 						render={({ field: { onChange, ..._field } }) => (
 							<Autocomplete
@@ -87,7 +87,7 @@ function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
 				) : (
 					<TextField
 						{...register(key, {
-							required: key === 'name' ? 'Это поле обязательное' : undefined,
+							// required: key === 'name' ? 'Это поле обязательное' : undefined,
 						})}
 						key={key}
 						autoComplete='off'

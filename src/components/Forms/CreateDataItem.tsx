@@ -1,3 +1,4 @@
+import { allInputFields } from './fields';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { Messages } from 'constant/messages';
@@ -12,9 +13,10 @@ import { isValueDefined } from 'guards/isValueDefined';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { useDateValidate } from 'hooks/useDateValidate';
 import { Fragment, useEffect } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { createDateISO } from 'utils/createDateISO';
-import { allInputFields } from './fields';
+import { useFilterAutocomplete } from './hooks/useAutocomplete';
+import { fieldEditParams } from './EditDataItem/EditInputs';
 
 import type { IDataItem, IDataItemWithDates } from 'types/dataItem';
 
@@ -28,6 +30,8 @@ import SizeSelect from 'components/SizeSelect';
 import ruLocale from 'date-fns/locale/ru';
 import ButtonContainer from 'styled/ButtonContainer';
 import FormContainer from 'styled/FormContainer';
+import { fieldVerificationParams } from './VerificateDataItem/VerificateInputs';
+import { Autocomplete } from '@mui/material';
 
 function CreateDataItem(): JSX.Element {
 	const today = new Date();
@@ -93,6 +97,8 @@ function CreateDataItem(): JSX.Element {
 		);
 	};
 
+	const parametrs = useFilterAutocomplete([...fieldEditParams, ...fieldVerificationParams]);
+
 	const createRenderedField = allInputFields.map(({ key, label }) => {
 		switch (key) {
 			case 'size':
@@ -125,19 +131,51 @@ function CreateDataItem(): JSX.Element {
 						</FormProvider>
 					</Fragment>
 				);
-
 			default:
-				return (
+				return key in parametrs ? (
+					<FormProvider {...methods}>
+						<Controller
+							key={key}
+							name={key}
+							// control={methods.control}
+							render={({ field: { onChange, ..._field } }) => (
+								<Autocomplete
+									freeSolo
+									options={parametrs[key]}
+									onChange={(event, value) => {
+										onChange(value);
+									}}
+									renderInput={par => {
+										return (
+											<TextField
+												{...par}
+												label={label}
+												onChange={onChange}
+												error={Boolean(errors[key])}
+												helperText={errors[key]?.message}
+												InputLabelProps={{ shrink: true }}
+												// InputProps={{ readOnly: isReader }}
+												required={key === 'name'}
+											/>
+										);
+									}}
+									{..._field}
+								/>
+							)}
+						/>
+					</FormProvider>
+				) : (
 					<TextField
 						{...register(key, {
 							required: key === 'name' ? 'Это поле обязательное' : undefined,
 						})}
 						key={key}
 						autoComplete='off'
-						label={label}
-						error={Boolean(errors[key])}
+						InputLabelProps={{ shrink: true }}
 						helperText={errors[key]?.message}
 						required={key === 'name'}
+						label={label}
+						error={Boolean(errors[key])}
 					/>
 				);
 		}
@@ -154,9 +192,11 @@ function CreateDataItem(): JSX.Element {
 				<Button
 					variant='contained'
 					fullWidth
-					type={maxRowsIsReached ? 'button' : 'submit'}
+					type={'submit'}
+					// type={maxRowsIsReached ? 'button' : 'submit'}
 					disabled={isLoading}
-					onClick={maxRowsIsReached ? handleShowPaymentDialog : undefined}
+					onClick={handleShowPaymentDialog}
+					// onClick={maxRowsIsReached ? handleShowPaymentDialog : undefined}
 				>
 					Сохранить
 				</Button>

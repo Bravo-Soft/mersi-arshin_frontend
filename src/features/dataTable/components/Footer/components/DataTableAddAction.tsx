@@ -41,13 +41,14 @@ function DataTableAddAction(props: IDataTableAddActionProps): JSX.Element | null
 	};
 
 	const handleOpenAddNewItemForm = () => {
-		if (maxCountRowTable === undefined) {
-			return handleShowDialog(Messages.MODULE_IS_NOT_PAID);
-		}
+		// if (maxCountRowTable === undefined) {
+		// 	return handleShowDialog(Messages.MODULE_IS_NOT_PAID);
+		// }
 
-		maxRowCountIsReached
-			? handleShowDialog(Messages.MAX_COUNT_OF_ITEMS_IS_REACHED)
-			: openSidebarWith('CreateDataItem');
+		// maxRowCountIsReached
+		// 	? handleShowDialog(Messages.MAX_COUNT_OF_ITEMS_IS_REACHED)
+		// 	: openSidebarWith('CreateDataItem');
+		openSidebarWith('CreateDataItem');
 	};
 
 	return (
