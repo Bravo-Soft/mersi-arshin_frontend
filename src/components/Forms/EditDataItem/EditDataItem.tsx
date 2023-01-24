@@ -15,7 +15,6 @@ import Button from '@mui/material/Button';
 import FormContainer from 'styled/FormContainer';
 import ButtonContainer from 'styled/ButtonContainer';
 import FetchingProgress from 'features/dataTable/components/FetchingProgress';
-import { useAutocomplete } from '../hooks/useAutocomplete';
 
 function EditDataItem(): JSX.Element {
 	const selectedDataItem = useAppSelector(selectSelectedDataItem);
@@ -41,9 +40,6 @@ function EditDataItem(): JSX.Element {
 
 		await sendUpdatedItem(prepearedDataItem).unwrap();
 	});
-
-	const x = useAutocomplete(['name', 'type']);
-	console.log('x', x);
 
 	return (
 		<FormContainer onSubmit={onSubmit} noValidate>

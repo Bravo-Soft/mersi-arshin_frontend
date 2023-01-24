@@ -16,14 +16,16 @@ export type AutocompleteKeysType = keyof Omit<
 
 const defaultValue = {} as Record<AutocompleteKeysType, string[]>;
 
-export const useAutocomplete = (keysArray: AutocompleteKeysType[]) => {
+export const useFilterAutocomplete = (keysArray: AutocompleteKeysType[]) => {
 	const { data: loadedData = [] } = useGetAllDataQuery();
 
-	return validateAutcompleteParams(
+	const def = validateAutcompleteParams(
 		keysArray
 			.map(key => loadedData.map(item => item[key]))
 			.reduce((acc, el, i) => {
 				return { ...acc, [keysArray[i]]: el };
 			}, defaultValue)
 	);
+
+	return { ...def };
 };

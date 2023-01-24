@@ -2,6 +2,7 @@ import { editFields } from '../fields';
 import { useAppSelector } from 'hooks/redux';
 import { useFormContext } from 'react-hook-form';
 import { useDateValidate } from 'hooks/useDateValidate';
+import { useFilterAutocomplete } from '../hooks/useAutocomplete';
 import { selectedVisibleColumns } from 'features/dataTable/dataTableSlice';
 
 import type { IDataItemWithDates } from 'types/dataItem';
@@ -30,6 +31,11 @@ function EditInputs({ isWriter }: IEditInputsProps): JSX.Element {
 	const { modifiedEditFields } = useAppSelector(selectedVisibleColumns);
 
 	const rendercol = modifiedEditFields ? modifiedEditFields : editFields;
+
+	const params = useFilterAutocomplete(['name', 'type']);
+	// const {} = params;
+	console.log('params', params);
+	console.log('rendercol[0].label', rendercol[0].key);
 
 	return (
 		<Stack direction='column' px={3} pb={3.5} rowGap={1} flexGrow={1}>
