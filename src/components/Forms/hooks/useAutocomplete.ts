@@ -19,7 +19,7 @@ const defaultValue = {} as Record<AutocompleteKeysType, string[]>;
 export const useFilterAutocomplete = (keysArray: AutocompleteKeysType[]) => {
 	const { data: loadedData = [] } = useGetAllDataQuery();
 
-	const def = validateAutcompleteParams(
+	const filteredAValue = validateAutcompleteParams(
 		keysArray
 			.map(key => loadedData.map(item => item[key]))
 			.reduce((acc, el, i) => {
@@ -27,5 +27,5 @@ export const useFilterAutocomplete = (keysArray: AutocompleteKeysType[]) => {
 			}, defaultValue)
 	);
 
-	return { ...def };
+	return { ...filteredAValue };
 };

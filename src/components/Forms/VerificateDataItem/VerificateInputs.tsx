@@ -64,14 +64,15 @@ function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
 							<Autocomplete
 								freeSolo
 								options={params[key]}
-								onChange={(e, data) => {
-									onChange(data);
+								onChange={(event, value) => {
+									onChange(value);
 								}}
 								renderInput={params => {
 									return (
 										<TextField
 											{...params}
 											label={label}
+											onChange={onChange}
 											error={Boolean(errors[key])}
 											helperText={errors[key]?.message}
 											InputLabelProps={{ shrink: true }}

@@ -5,11 +5,11 @@ import type { AutocompleteKeysType } from '../hooks/useAutocomplete';
 
 export const validateAutcompleteParams = (obj: Record<AutocompleteKeysType, string[]>) => {
 	return Object.fromEntries(
-		Object.entries(obj).map(([key, value]) => [key, validateAutcompleteParams2(value)])
+		Object.entries(obj).map(([key, value]) => [key, filtredInvalidValue(value)])
 	);
 };
 
-export const validateAutcompleteParams2 = (array: string[]) => {
+export const filtredInvalidValue = (array: string[]) => {
 	return getArrayWithoutDuplicates(
 		...array
 			.filter(e => isValueDefined(e))
