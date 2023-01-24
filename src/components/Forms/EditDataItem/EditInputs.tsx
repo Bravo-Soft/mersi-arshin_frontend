@@ -1,6 +1,5 @@
 import { editFields } from '../fields';
 import { useAppSelector } from 'hooks/redux';
-import { Autocomplete } from '@mui/material';
 import { useDateValidate } from 'hooks/useDateValidate';
 import { Controller, useFormContext } from 'react-hook-form';
 import { useFilterAutocomplete } from '../hooks/useAutocomplete';
@@ -13,6 +12,7 @@ import Stack from '@mui/material/Stack';
 import DateField from 'components/DateField';
 import SizeSelect from 'components/SizeSelect';
 import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
 
 interface IEditInputsProps {
 	isReader: boolean;

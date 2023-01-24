@@ -1,19 +1,19 @@
 import { useAppSelector } from 'hooks/redux';
-import { Controller, useFormContext } from 'react-hook-form';
 import { verificationFields } from '../fields';
 import { useDateValidate } from 'hooks/useDateValidate';
+import { Controller, useFormContext } from 'react-hook-form';
+import { useFilterAutocomplete } from '../hooks/useAutocomplete';
 import { selectedVisibleColumns } from 'features/dataTable/dataTableSlice';
 
 import type { IDataItemWithDates } from 'types/dataItem';
-
-import { Autocomplete } from '@mui/material';
-import { useFilterAutocomplete } from '../hooks/useAutocomplete';
 
 import type { AutocompleteKeysType } from '../hooks/useAutocomplete';
 
 import Stack from '@mui/material/Stack';
 import DateField from 'components/DateField';
 import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
+
 interface IVerificateFieldsProps {
 	isReader: boolean;
 }
@@ -27,7 +27,6 @@ export const fieldVerificationParams: AutocompleteKeysType[] = [
 
 function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
 	const {
-		register,
 		control,
 		watch,
 		formState: { errors },

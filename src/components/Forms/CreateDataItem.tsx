@@ -17,6 +17,7 @@ import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { createDateISO } from 'utils/createDateISO';
 import { useFilterAutocomplete } from './hooks/useAutocomplete';
 import { fieldEditParams } from './EditDataItem/EditInputs';
+import { fieldVerificationParams } from './VerificateDataItem/VerificateInputs';
 
 import type { IDataItem, IDataItemWithDates } from 'types/dataItem';
 
@@ -30,8 +31,7 @@ import SizeSelect from 'components/SizeSelect';
 import ruLocale from 'date-fns/locale/ru';
 import ButtonContainer from 'styled/ButtonContainer';
 import FormContainer from 'styled/FormContainer';
-import { fieldVerificationParams } from './VerificateDataItem/VerificateInputs';
-import { Autocomplete } from '@mui/material';
+import Autocomplete from '@mui/material/Autocomplete';
 
 function CreateDataItem(): JSX.Element {
 	const today = new Date();
