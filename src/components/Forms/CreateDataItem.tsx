@@ -133,36 +133,39 @@ function CreateDataItem(): JSX.Element {
 				);
 			default:
 				return key in parametrs ? (
-					<FormProvider {...methods}>
-						<Controller
-							key={key}
-							name={key}
-							render={({ field: { onChange, ..._field } }) => (
-								<Autocomplete
-									freeSolo
-									options={parametrs[key]}
-									onChange={(_event, value) => {
-										onChange(value);
-									}}
-									renderInput={par => {
-										return (
-											<TextField
-												{...par}
-												label={label}
-												onChange={onChange}
-												error={Boolean(errors[key])}
-												helperText={errors[key]?.message}
-												InputLabelProps={{ shrink: true }}
-												// InputProps={{ readOnly: isReader }}
-												required={key === 'name'}
-											/>
-										);
-									}}
-									{..._field}
-								/>
-							)}
-						/>
-					</FormProvider>
+					<Fragment key={key}>
+						<FormProvider {...methods}>
+							<Controller
+								key={key}
+								name={key}
+								defaultValue=''
+								render={({ field: { onChange, ..._field } }) => (
+									<Autocomplete
+										freeSolo
+										options={parametrs[key]}
+										onChange={(_event, value) => {
+											onChange(value);
+										}}
+										renderInput={par => {
+											return (
+												<TextField
+													{...par}
+													label={label}
+													onChange={onChange}
+													error={Boolean(errors[key])}
+													helperText={errors[key]?.message}
+													InputLabelProps={{ shrink: true }}
+													// InputProps={{ readOnly: isReader }}
+													required={key === 'name'}
+												/>
+											);
+										}}
+										{..._field}
+									/>
+								)}
+							/>
+						</FormProvider>
+					</Fragment>
 				) : (
 					<TextField
 						{...register(key, {
