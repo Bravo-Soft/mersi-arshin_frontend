@@ -1,3 +1,5 @@
+import type { GridRowId } from '@mui/x-data-grid-pro';
+
 const PREFIX = '/api';
 
 export const API = {
@@ -10,22 +12,26 @@ export const API = {
 		default: `${PREFIX}/user`,
 		templates: {
 			default: `${PREFIX}/user/templates`,
-			selected: `${PREFIX}/user/selected`,
+			selected: `${PREFIX}/user/templates/selected`,
+			resetSelected: `${PREFIX}/user/templates/selected/reset`,
+			templateById: (templateId: string) => `${PREFIX}/user/templates/${templateId}`,
 		},
-		profile: `${PREFIX}/user/profile`,
-		photo: `${PREFIX}/user/photo`,
-		notifications: `${PREFIX}/user/notification`,
-		favorites: `${PREFIX}/user/favorites/data`,
+		profile: {
+			default: `${PREFIX}/user/profile`,
+			photo: `${PREFIX}/user/profile/photo`,
+		},
+		notification: `${PREFIX}/user/notification`,
+		favoritesData: `${PREFIX}/user/favorites/data`,
 		printSettings: `${PREFIX}/user/print-settings`,
+		reviews: `${PREFIX}/user/reviews`,
 	},
 	data: {
 		default: `${PREFIX}/data`,
+		documents: {
+			documentsByItemId: (id: GridRowId) => `${PREFIX}/data/${id}/documents`,
+			byDocumentId: (id: GridRowId, documentId: string | number) =>
+				`${PREFIX}/data/${id}/documents/${documentId}`,
+		},
 		print: `${PREFIX}/print/data`,
-		documentsDataItem: (id: string | number) => `${PREFIX}/data/${id}/documents`,
-		documentItem: (id: string | number, dId: string | number) =>
-			`${PREFIX}/data/${id}/documents/${dId}`,
-	},
-	reviews: {
-		default: `${PREFIX}/reviews`,
 	},
 };
