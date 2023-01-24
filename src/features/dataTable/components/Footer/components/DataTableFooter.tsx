@@ -14,7 +14,7 @@ import DataTableAddAction from './DataTableAddAction';
 import StyledGridPagination from '../styled/StyledGridPagination';
 
 function DataTableFooter(): JSX.Element {
-	const { isWriter } = useAppSelector(selectUserRoles);
+	const { isWriter, isAdmin } = useAppSelector(selectUserRoles);
 
 	const apiRef = useGridApiContext();
 	const selectedRowCount = useGridSelector(apiRef, selectedGridRowsCountSelector);
@@ -25,12 +25,13 @@ function DataTableFooter(): JSX.Element {
 			<Box flexGrow={1} minWidth={115}>
 				{selectedRowCount ? <GridSelectedRowCount selectedRowCount={selectedRowCount} /> : null}
 			</Box>
-			<StyledGridPagination isWriter={isWriter} />
-			{isWriter && (
-				<DataTableAddAction
-					sx={{ position: 'absolute', right: spacing(3), bottom: spacing(3) }}
-				/>
-			)}
+			<StyledGridPagination isWriter={isWriter} isAdmin={isAdmin} />
+			{isWriter ||
+				(isAdmin && (
+					<DataTableAddAction
+						sx={{ position: 'absolute', right: spacing(3), bottom: spacing(3) }}
+					/>
+				))}
 		</GridFooterContainer>
 	);
 }

@@ -4,17 +4,20 @@ import { hideScrollbar } from 'utils/hideScrollbar';
 
 interface IStyledGridPaginationProps {
 	isWriter: boolean;
+	isAdmin: boolean;
 }
 
+const properties: PropertyKey[] = ['isWriter', 'isAdmin'];
+
 const StyledGridPagination = styled(GridPagination, {
-	shouldForwardProp: prop => prop !== 'isWriter',
-})<IStyledGridPaginationProps>(({ theme, isWriter }) => ({
+	shouldForwardProp: prop => !properties.includes(prop),
+})<IStyledGridPaginationProps>(({ theme, isWriter, isAdmin }) => ({
 	marginRight: theme.spacing(3),
 	overflowX: 'scroll',
 	scrollbarWidth: 'none',
 	...hideScrollbar(),
 
-	...(isWriter && { marginRight: theme.spacing(11) }),
+	...((isWriter || isAdmin) && { marginRight: theme.spacing(11) }),
 }));
 
 export default StyledGridPagination;
