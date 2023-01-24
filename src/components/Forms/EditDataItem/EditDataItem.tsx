@@ -18,7 +18,7 @@ import EditInputs from './EditInputs';
 
 function EditDataItem(): JSX.Element {
 	const selectedDataItem = useAppSelector(selectSelectedDataItem);
-	const { isWriter } = useAppSelector(selectUserRoles);
+	const { isReader, isWriter, isAdmin } = useAppSelector(selectUserRoles);
 
 	const [sendUpdatedItem, { isLoading: isUpdateLoading }] = useUpdateDataItemMutation();
 
@@ -29,9 +29,10 @@ function EditDataItem(): JSX.Element {
 	useUpdateInputValues(selectedDataItem, methods.setValue);
 
 	const onSubmit = methods.handleSubmit(async data => {
-		const { productionDate, verificationDate, dateOfTheNextVerification, ...othen } = data;
+		const { productionDate, verificationDate, dateOfTheNextVerification, userIds, ...othen } =
+			data;
 
-		const prepearedDataItem: IDataItem = {
+		const prepearedDataItem: Omit<IDataItem, 'userIds'> = {
 			...othen,
 			productionDate: createDateISO(productionDate),
 			verificationDate: createDateISO(verificationDate),
@@ -46,16 +47,17 @@ function EditDataItem(): JSX.Element {
 			<FetchingProgress isFetching={isUpdateLoading} />
 			{!isUpdateLoading && (
 				<FormProvider {...methods}>
-					<EditInputs isWriter={isWriter} />
+					<EditInputs isReader={isReader} />
 				</FormProvider>
 			)}
-			{isWriter && (
-				<ButtonContainer>
-					<Button variant='contained' fullWidth type='submit' disabled={isUpdateLoading}>
-						Сохранить
-					</Button>
-				</ButtonContainer>
-			)}
+			{isWriter ||
+				(isAdmin && (
+					<ButtonContainer>
+						<Button variant='contained' fullWidth type='submit' disabled={isUpdateLoading}>
+							Сохранить
+						</Button>
+					</ButtonContainer>
+				))}
 		</FormContainer>
 	);
 }

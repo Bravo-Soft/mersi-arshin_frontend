@@ -8,13 +8,13 @@ import { Roles } from 'constant/roles';
 interface IUserState {
 	id: string | null;
 	group: IGroup | null;
-	roles: Roles[];
+	role: Roles | null;
 }
 
 const initialState: IUserState = {
 	id: null,
 	group: null,
-	roles: [],
+	role: null,
 };
 
 const userSlice = createSlice({
@@ -29,8 +29,8 @@ const userSlice = createSlice({
 			state.group = action.payload;
 		},
 
-		setRoles: (state, action) => {
-			state.roles = action.payload;
+		setRole: (state, action: PayloadAction<Roles>) => {
+			state.role = action.payload;
 		},
 
 		resetUserState: () => initialState,
@@ -61,11 +61,11 @@ export const selectUserPermissions = ({ user }: RootState) => ({
 export const selectUserId = (state: RootState) => state.user.id;
 
 export const selectUserRoles = ({ user }: RootState) => ({
-	isReader: user.roles.includes(Roles.USER_READER),
-	isWriter: user.roles.includes(Roles.USER_WRITER),
-	isAdmin: user.roles.includes(Roles.ADMIN),
+	isReader: user.role === Roles.USER_READER,
+	isWriter: user.role === Roles.USER_WRITER,
+	isAdmin: user.role === Roles.ADMIN,
 });
 
 export const userPath = userSlice.name;
 export const userReducer = userSlice.reducer;
-export const { setUserId, setPermissions, setRoles, resetUserState } = userSlice.actions;
+export const { setUserId, setPermissions, setRole, resetUserState } = userSlice.actions;

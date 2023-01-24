@@ -12,10 +12,10 @@ import SizeSelect from 'components/SizeSelect';
 import TextField from '@mui/material/TextField';
 
 interface IEditInputsProps {
-	isWriter: boolean;
+	isReader: boolean;
 }
 
-function EditInputs({ isWriter }: IEditInputsProps): JSX.Element {
+function EditInputs({ isReader }: IEditInputsProps): JSX.Element {
 	const {
 		register,
 		watch,
@@ -39,14 +39,14 @@ function EditInputs({ isWriter }: IEditInputsProps): JSX.Element {
 						return (
 							<DateField
 								key={key}
-								readOnly={!isWriter}
+								readOnly={isReader}
 								nameOfKey={key}
 								label={label}
 								validation={validation[key]}
 							/>
 						);
 					case 'size':
-						return <SizeSelect key={key} readOnly={!isWriter} />;
+						return <SizeSelect key={key} readOnly={isReader} />;
 					default:
 						return (
 							<TextField
@@ -59,7 +59,7 @@ function EditInputs({ isWriter }: IEditInputsProps): JSX.Element {
 								error={Boolean(errors[key])}
 								helperText={errors[key]?.message}
 								InputLabelProps={{ shrink: true }}
-								InputProps={{ readOnly: !isWriter }}
+								InputProps={{ readOnly: isReader }}
 								required={key === 'name'}
 							/>
 						);

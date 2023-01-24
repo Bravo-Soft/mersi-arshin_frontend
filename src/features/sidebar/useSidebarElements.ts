@@ -21,7 +21,7 @@ import PrintSettings from 'components/Forms/PrintSettings';
  * @returns массив элементов сайдбара, которые привязаны каждый к своему селектору [см.здесь](./components/Sidebar.tsx)
  */
 export const useSidebarElements = (page: SidebarPages): ISidebarElement<SidebarSelectors>[] => {
-	const { isWriter } = useAppSelector(selectUserRoles);
+	const { isReader } = useAppSelector(selectUserRoles);
 	const { attachFiles, notifications, printingLabels } = useAppSelector(selectUserPermissions);
 
 	switch (page) {
@@ -35,7 +35,7 @@ export const useSidebarElements = (page: SidebarPages): ISidebarElement<SidebarS
 				{
 					Component: EditDataItem,
 					selector: 'EditDataItem',
-					headerTitle: isWriter ? SidebarTitles.EDIT_ITEM : SidebarTitles.ITEM_INFORMATION,
+					headerTitle: isReader ? SidebarTitles.ITEM_INFORMATION : SidebarTitles.EDIT_ITEM,
 				},
 				{
 					Component: VerificateDataItem,
