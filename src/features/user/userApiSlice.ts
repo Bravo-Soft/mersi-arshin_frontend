@@ -1,6 +1,6 @@
 import { API } from 'app/api';
 import { apiSlice } from 'app/apiSlice';
-import { setPermissions, setRoles, setUserId } from './userSlice';
+import { setPermissions, setRole, setUserId } from './userSlice';
 
 import type { IGroup } from 'types/group';
 import type { INotificationSettings } from 'types/notification';
@@ -11,7 +11,7 @@ import type { Roles } from 'constant/roles';
 
 export interface IUserDataResponse {
 	id: string;
-	roles: Roles[];
+	roles: Roles;
 	group: IGroup;
 }
 
@@ -27,7 +27,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
 
 				dispatch(setUserId(data.id));
 				dispatch(setPermissions(data.group));
-				dispatch(setRoles(data.roles));
+				dispatch(setRole(data.roles));
 			},
 		}),
 

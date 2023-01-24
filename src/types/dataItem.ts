@@ -77,6 +77,10 @@ export interface IDataItem {
 	 * Список документов
 	 */
 	documents: IDocument[];
+	/**
+	 * Массив id пользователей, у которых данных позиция записана в избранное
+	 */
+	userIds: string[];
 }
 
 export interface IDocument {
