@@ -34,7 +34,7 @@ function FormMenu({ page }: IFormMenuProps): JSX.Element | null {
 	const open = Boolean(anchorEl);
 
 	const dispatch = useAppDispatch();
-	const { isWriter } = useAppSelector(selectUserRoles);
+	const { isWriter, isAdmin } = useAppSelector(selectUserRoles);
 	const { attachFiles } = useAppSelector(selectUserPermissions);
 	const { selector } = useAppSelector(selectSidebarStateOfHomePage);
 
@@ -103,7 +103,7 @@ function FormMenu({ page }: IFormMenuProps): JSX.Element | null {
 						<EditIcon />
 					</ListItemIcon>
 					<ListItemText>
-						{isWriter ? SidebarTitles.EDIT_ITEM : SidebarTitles.ITEM_INFORMATION}
+						{isWriter || isAdmin ? SidebarTitles.EDIT_ITEM : SidebarTitles.ITEM_INFORMATION}
 					</ListItemText>
 				</MenuItem>
 				<MenuItem
@@ -119,19 +119,20 @@ function FormMenu({ page }: IFormMenuProps): JSX.Element | null {
 					moduleIsActive={attachFiles}
 					onClick={handleOpenFilesForm}
 					selected={selector === 'FilesDataItem'}
-					divider={isWriter}
+					divider={isWriter || isAdmin}
 				>
 					<ListItemIcon>{attachFiles ? <AttachFileIcon /> : <LockIcon />}</ListItemIcon>
 					<ListItemText>{SidebarTitles.ITEM_FILES}</ListItemText>
 				</StyledMenuItem>
-				{isWriter && (
-					<DeleteMenuItem onClick={handleOpenDeletingDialog}>
-						<ListItemIcon>
-							<DeleteIcon />
-						</ListItemIcon>
-						<ListItemText>Удалить</ListItemText>
-					</DeleteMenuItem>
-				)}
+				{isWriter ||
+					(isAdmin && (
+						<DeleteMenuItem onClick={handleOpenDeletingDialog}>
+							<ListItemIcon>
+								<DeleteIcon />
+							</ListItemIcon>
+							<ListItemText>Удалить</ListItemText>
+						</DeleteMenuItem>
+					))}
 			</Menu>
 		</>
 	);
