@@ -42,9 +42,8 @@ function EditDataItem(): JSX.Element {
 		await sendUpdatedItem(prepearedDataItem).unwrap();
 	});
 
-	const x = useAutocomplete();
-
-	console.log('setData', x);
+	const x = useAutocomplete(['name', 'type']);
+	console.log('x', x);
 
 	return (
 		<FormContainer onSubmit={onSubmit} noValidate>
