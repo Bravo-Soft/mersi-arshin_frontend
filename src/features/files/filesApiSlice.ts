@@ -7,6 +7,7 @@ import { format } from 'date-fns';
 import { showNotification } from 'features/notificator/notificatorSlice';
 import { saveAs } from 'utils/saveAs';
 
+import type { GridRowId } from '@mui/x-data-grid-pro';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
 import type { AppDispatch } from 'app/store';
 import type { IDataItem } from 'types/dataItem';
@@ -31,7 +32,7 @@ const filesApiSlice = apiSlice.injectEndpoints({
 		uploadFile: builder.mutation<null, IUploadFileArg>({
 			queryFn: async ({ itemId, data }, api, _, baseQuery) => {
 				const result = await baseQuery({
-					url: `${API.data.documentsDataItem(itemId)}`,
+					url: `${API.data.documents.documentsByItemId(itemId)}`,
 					method: 'POST',
 					body: data,
 					validateStatus: response => response.status === HttpCodes.CREATED,
@@ -51,13 +52,13 @@ const filesApiSlice = apiSlice.injectEndpoints({
 
 				return { data: null };
 			},
-			invalidatesTags: (result, error, { itemId }) => [{ type: 'Data', id: itemId }],
+			invalidatesTags: (_result, _error, { itemId }) => [{ type: 'Data', id: itemId }],
 		}),
 
 		deleteFile: builder.mutation<null, IDeleteFileArg>({
 			queryFn: async ({ documentId, itemId }, api, _, baseQuery) => {
 				const result = await baseQuery({
-					url: `${API.data.documentItem(itemId, documentId)}`,
+					url: `${API.data.documents.byDocumentId(itemId, documentId)}`,
 					method: 'DELETE',
 				});
 
@@ -68,13 +69,13 @@ const filesApiSlice = apiSlice.injectEndpoints({
 
 				return { data: null };
 			},
-			invalidatesTags: (result, error, { itemId }) => [{ type: 'Data', id: itemId }],
+			invalidatesTags: (_result, _error, { itemId }) => [{ type: 'Data', id: itemId }],
 		}),
 
 		downloadFile: builder.query<null, IDownloadFileArg>({
 			queryFn: async ({ itemId, documentId, name }, api, _, baseQuery) => {
 				const result = await baseQuery({
-					url: API.data.documentItem(itemId, documentId),
+					url: API.data.documents.byDocumentId(itemId, documentId),
 					cache: 'no-cache',
 
 					responseHandler: response =>
@@ -92,10 +93,10 @@ const filesApiSlice = apiSlice.injectEndpoints({
 			},
 		}),
 
-		downloadArchive: builder.query<null, string | number>({
+		downloadArchive: builder.query<null, GridRowId>({
 			queryFn: async (id, api, _, baseQuery) => {
 				const result = await baseQuery({
-					url: API.data.documentsDataItem(id),
+					url: API.data.documents.documentsByItemId(id),
 					cache: 'no-cache',
 					responseHandler: response =>
 						response.status === HttpCodes.OK ? response.blob() : response.json(),

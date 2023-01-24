@@ -8,7 +8,7 @@ export const favoritesApiSlice = apiSlice.injectEndpoints({
 	endpoints: builder => ({
 		createNewListFavoriteIds: builder.mutation<void, GridRowId[]>({
 			query: list => ({
-				url: API.user.favorites,
+				url: API.user.favoritesData,
 				method: 'POST',
 				body: list,
 			}),
@@ -17,7 +17,7 @@ export const favoritesApiSlice = apiSlice.injectEndpoints({
 
 		deleteFavoriteIds: builder.mutation<void, GridRowId[]>({
 			query: list => ({
-				url: API.user.favorites,
+				url: API.user.favoritesData,
 				method: 'DELETE',
 				body: list,
 			}),

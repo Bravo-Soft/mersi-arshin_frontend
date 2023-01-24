@@ -14,7 +14,7 @@ export const useTagActions = ({ tags }: IUseTagActionsProps) => {
 	const [activeTag, setActiveTag] = useState<ISortedTagItems | null>(null);
 	const [coordinates, setCoordinates] = useState<ICoordinates | null>(null);
 
-	const handleClick = (idx: number) => (event: React.MouseEvent<HTMLElement>) => {
+	const handleClick = (idx: string) => (event: React.MouseEvent<HTMLElement>) => {
 		event.preventDefault();
 		setCoordinates({ mouseX: event.clientX - 2, mouseY: event.clientY - 4 });
 		const findTags = tagsData.find(e => e.id === idx);
@@ -26,7 +26,7 @@ export const useTagActions = ({ tags }: IUseTagActionsProps) => {
 		setActiveTag(null);
 	};
 
-	const handleClickPrintingContextMenu = (idx: number, name: string) => {
+	const handleClickPrintingContextMenu = (idx: string, name: string) => {
 		const findObject: ISortedTagItems | undefined = tagsData.find(e => e.id === idx);
 		if (findObject) {
 			const updatesTagObject = {
