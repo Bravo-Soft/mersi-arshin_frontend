@@ -18,7 +18,7 @@ import VerificateInputs from './VerificateInputs';
 
 function VerificateDataItem(): JSX.Element {
 	const selectedDataItem = useAppSelector(selectSelectedDataItem);
-	const { isWriter } = useAppSelector(selectUserRoles);
+	const { isWriter, isAdmin, isReader } = useAppSelector(selectUserRoles);
 
 	const [sendUpdatedItem, { isLoading: isUpdateLoading }] = useUpdateDataItemMutation();
 	const methods = useForm<IDataItemWithDates>({
@@ -29,9 +29,10 @@ function VerificateDataItem(): JSX.Element {
 	useUpdateInputValues(selectedDataItem, methods.setValue);
 
 	const onSubmit = methods.handleSubmit(async data => {
-		const { productionDate, verificationDate, dateOfTheNextVerification, ...othen } = data;
+		const { productionDate, verificationDate, dateOfTheNextVerification, userIds, ...othen } =
+			data;
 
-		const prepearedDataItem: IDataItem = {
+		const prepearedDataItem: Omit<IDataItem, 'userIds'> = {
 			...othen,
 			productionDate: createDateISO(productionDate),
 			verificationDate: createDateISO(verificationDate),
@@ -46,10 +47,10 @@ function VerificateDataItem(): JSX.Element {
 			<FetchingProgress isFetching={isUpdateLoading} />
 			{!isUpdateLoading && (
 				<FormProvider {...methods}>
-					<VerificateInputs isWriter={isWriter} />
+					<VerificateInputs isReader={isReader} />
 				</FormProvider>
 			)}
-			{isWriter && (
+			{(isWriter || isAdmin) && (
 				<ButtonContainer>
 					<Button variant='contained' fullWidth type='submit' disabled={isUpdateLoading}>
 						Сохранить

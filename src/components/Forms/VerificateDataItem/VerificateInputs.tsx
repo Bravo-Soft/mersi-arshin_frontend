@@ -11,10 +11,10 @@ import TextField from '@mui/material/TextField';
 import DateField from 'components/DateField';
 
 interface IVerificateFieldsProps {
-	isWriter: boolean;
+	isReader: boolean;
 }
 
-function VerificateFields({ isWriter }: IVerificateFieldsProps): JSX.Element {
+function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
 	const {
 		register,
 		watch,
@@ -36,7 +36,7 @@ function VerificateFields({ isWriter }: IVerificateFieldsProps): JSX.Element {
 				key === 'verificationDate' || key === 'dateOfTheNextVerification' ? (
 					<DateField
 						key={key}
-						readOnly={!isWriter}
+						readOnly={isReader}
 						nameOfKey={key}
 						label={label}
 						validation={validation[key]}
@@ -50,7 +50,7 @@ function VerificateFields({ isWriter }: IVerificateFieldsProps): JSX.Element {
 						error={Boolean(errors[key])}
 						helperText={errors[key]?.message}
 						InputLabelProps={{ shrink: true }}
-						InputProps={{ readOnly: !isWriter }}
+						InputProps={{ readOnly: isReader }}
 					/>
 				)
 			)}
