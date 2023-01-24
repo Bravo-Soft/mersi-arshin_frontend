@@ -10,6 +10,6 @@ export interface ITagParameters {
 }
 
 export interface ITag extends Record<DataItemKeys, ITagParameters> {
-	id: number;
+	id: string;
 	size: Tag;
 }

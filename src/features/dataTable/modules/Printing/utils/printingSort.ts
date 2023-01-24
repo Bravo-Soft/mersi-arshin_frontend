@@ -3,7 +3,7 @@ import { format, isValid, parseISO } from 'date-fns';
 
 import type { ITag, ITagParameters } from 'types/tag';
 export interface ISortedTagItems {
-	id: number;
+	id: string;
 	size: string;
 	tagsPrint: ITagParameters[];
 }

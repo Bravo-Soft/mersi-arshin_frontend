@@ -20,7 +20,7 @@ interface ITagContextMenuProps {
 	activeTag: ISortedTagItems;
 	coordinates: ICoordinates | null;
 	handleClose: () => void;
-	handleClickPrintingContextMenu: (idx: number, name: string) => void;
+	handleClickPrintingContextMenu: (idx: string, name: string) => void;
 }
 
 function TagContextMenu({
@@ -43,7 +43,7 @@ function TagContextMenu({
 	};
 
 	const onClickMenuContext =
-		(idx: number, name: string) => (event: React.MouseEvent<HTMLElement>) => {
+		(idx: string, name: string) => (event: React.MouseEvent<HTMLElement>) => {
 			handleClickPrintingContextMenu(idx, name);
 			setRenderPrintingValue(prev =>
 				prev.map(e => (e.translatedKey === name ? { ...e, isVisible: !e.isVisible } : e))
