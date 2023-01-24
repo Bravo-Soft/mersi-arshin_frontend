@@ -29,7 +29,6 @@ export const fieldEditParams: AutocompleteKeysType[] = [
 
 function EditInputs({ isReader }: IEditInputsProps): JSX.Element {
 	const {
-		register,
 		control,
 		watch,
 		formState: { errors },
@@ -62,7 +61,7 @@ function EditInputs({ isReader }: IEditInputsProps): JSX.Element {
 					case 'size':
 						return <SizeSelect key={key} readOnly={isReader} />;
 					default:
-						return key in params ? (
+						return (
 							<Controller
 								key={key}
 								name={key}
@@ -71,7 +70,7 @@ function EditInputs({ isReader }: IEditInputsProps): JSX.Element {
 									<Autocomplete
 										freeSolo
 										options={params[key]}
-										onChange={(event, value) => {
+										onChange={(_event, value) => {
 											onChange(value);
 										}}
 										renderInput={params => {
@@ -91,20 +90,6 @@ function EditInputs({ isReader }: IEditInputsProps): JSX.Element {
 										{..._field}
 									/>
 								)}
-							/>
-						) : (
-							<TextField
-								{...register(key, {
-									required: key === 'name' ? 'Это поле обязательное' : undefined,
-								})}
-								key={key}
-								autoComplete='off'
-								label={label}
-								error={Boolean(errors[key])}
-								helperText={errors[key]?.message}
-								InputLabelProps={{ shrink: true }}
-								InputProps={{ readOnly: isReader }}
-								required={key === 'name'}
 							/>
 						);
 				}

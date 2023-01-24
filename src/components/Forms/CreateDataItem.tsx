@@ -137,12 +137,11 @@ function CreateDataItem(): JSX.Element {
 						<Controller
 							key={key}
 							name={key}
-							// control={methods.control}
 							render={({ field: { onChange, ..._field } }) => (
 								<Autocomplete
 									freeSolo
 									options={parametrs[key]}
-									onChange={(event, value) => {
+									onChange={(_event, value) => {
 										onChange(value);
 									}}
 									renderInput={par => {
@@ -192,11 +191,9 @@ function CreateDataItem(): JSX.Element {
 				<Button
 					variant='contained'
 					fullWidth
-					type={'submit'}
-					// type={maxRowsIsReached ? 'button' : 'submit'}
+					type={maxRowsIsReached ? 'button' : 'submit'}
 					disabled={isLoading}
-					onClick={handleShowPaymentDialog}
-					// onClick={maxRowsIsReached ? handleShowPaymentDialog : undefined}
+					onClick={maxRowsIsReached ? handleShowPaymentDialog : undefined}
 				>
 					Сохранить
 				</Button>

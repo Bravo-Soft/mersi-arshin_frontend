@@ -54,11 +54,10 @@ function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
 						label={label}
 						validation={validation[key]}
 					/>
-				) : Boolean(params[key]) ? (
+				) : (
 					<Controller
 						key={key}
 						name={key}
-						// rules={{ required: key === 'name' }}
 						control={control}
 						render={({ field: { onChange, ..._field } }) => (
 							<Autocomplete
@@ -83,19 +82,6 @@ function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
 								{..._field}
 							/>
 						)}
-					/>
-				) : (
-					<TextField
-						{...register(key, {
-							// required: key === 'name' ? 'Это поле обязательное' : undefined,
-						})}
-						key={key}
-						autoComplete='off'
-						label={label}
-						error={Boolean(errors[key])}
-						helperText={errors[key]?.message}
-						InputLabelProps={{ shrink: true }}
-						// InputProps={{ readOnly: isReader }}
 					/>
 				)
 			)}
