@@ -14,6 +14,8 @@ export type AutocompleteKeysType = keyof Omit<
 	| 'productionDate'
 >;
 
+const defaultValue = {} as Record<AutocompleteKeysType, string[]>;
+
 export const useAutocomplete = (keysArray: AutocompleteKeysType[]) => {
 	const { data: loadedData = [] } = useGetAllDataQuery();
 
@@ -22,6 +24,6 @@ export const useAutocomplete = (keysArray: AutocompleteKeysType[]) => {
 			.map(key => loadedData.map(item => item[key]))
 			.reduce((acc, el, i) => {
 				return { ...acc, [keysArray[i]]: el };
-			}, {}) as Record<AutocompleteKeysType, string[]>
+			}, defaultValue)
 	);
 };
