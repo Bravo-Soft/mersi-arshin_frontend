@@ -26,7 +26,7 @@ function FilesDataItem(): JSX.Element {
 	/* Селекторы */
 	const selectedDataItem = useAppSelector(selectSelectedDataItem);
 	const { maxSizeOfSpacePerPosition = 0 } = useAppSelector(selectUserPermissions);
-	const { isWriter } = useAppSelector(selectUserRoles);
+	const { isWriter, isAdmin } = useAppSelector(selectUserRoles);
 	const { open } = useAppSelector(selectSidebarStateOfHomePage);
 
 	useUpdateSelectedDataItem(selectedDataItem);
@@ -62,7 +62,7 @@ function FilesDataItem(): JSX.Element {
 	return (
 		<FormContainer>
 			<Box px={3.5} display='flex' flexDirection='column' flexGrow={1}>
-				{isWriter && (
+				{(isWriter || isAdmin) && (
 					<>
 						<Typography
 							variant='body2'
