@@ -1,22 +1,34 @@
 import { useAppSelector } from 'hooks/redux';
-import { useFormContext } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 import { verificationFields } from '../fields';
 import { useDateValidate } from 'hooks/useDateValidate';
 import { selectedVisibleColumns } from 'features/dataTable/dataTableSlice';
 
 import type { IDataItemWithDates } from 'types/dataItem';
 
-import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
-import DateField from 'components/DateField';
+import { Autocomplete } from '@mui/material';
+import { useFilterAutocomplete } from '../hooks/useAutocomplete';
 
+import type { AutocompleteKeysType } from '../hooks/useAutocomplete';
+
+import Stack from '@mui/material/Stack';
+import DateField from 'components/DateField';
+import TextField from '@mui/material/TextField';
 interface IVerificateFieldsProps {
 	isReader: boolean;
 }
 
+const fieldParams: AutocompleteKeysType[] = [
+	'typeOfWork',
+	'stateRegister',
+	'certificate',
+	'organization',
+];
+
 function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
 	const {
 		register,
+		control,
 		watch,
 		formState: { errors },
 	} = useFormContext<IDataItemWithDates>();
@@ -29,6 +41,7 @@ function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
 	const { modifiedVerificationFields } = useAppSelector(selectedVisibleColumns);
 
 	const rendercol = modifiedVerificationFields ? modifiedVerificationFields : verificationFields;
+	const params = useFilterAutocomplete(fieldParams);
 
 	return (
 		<Stack direction='column' px={3.5} pb={3.5} rowGap={1} flexGrow={1}>
@@ -41,16 +54,47 @@ function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
 						label={label}
 						validation={validation[key]}
 					/>
+				) : Boolean(params[key]) ? (
+					<Controller
+						key={key}
+						name={key}
+						rules={{ required: key === 'name' }}
+						control={control}
+						render={({ field: { onChange, ..._field } }) => (
+							<Autocomplete
+								freeSolo
+								options={params[key]}
+								onChange={(e, data) => {
+									onChange(data);
+								}}
+								renderInput={params => {
+									return (
+										<TextField
+											{...params}
+											label={label}
+											error={Boolean(errors[key])}
+											helperText={errors[key]?.message}
+											InputLabelProps={{ shrink: true }}
+											// InputProps={{ readOnly: isReader }}
+										/>
+									);
+								}}
+								{..._field}
+							/>
+						)}
+					/>
 				) : (
 					<TextField
-						{...register(key)}
+						{...register(key, {
+							required: key === 'name' ? 'Это поле обязательное' : undefined,
+						})}
 						key={key}
 						autoComplete='off'
 						label={label}
 						error={Boolean(errors[key])}
 						helperText={errors[key]?.message}
 						InputLabelProps={{ shrink: true }}
-						InputProps={{ readOnly: isReader }}
+						// InputProps={{ readOnly: isReader }}
 					/>
 				)
 			)}

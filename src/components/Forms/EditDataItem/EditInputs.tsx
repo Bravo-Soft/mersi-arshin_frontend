@@ -1,11 +1,13 @@
 import { editFields } from '../fields';
 import { useAppSelector } from 'hooks/redux';
-import { useFormContext } from 'react-hook-form';
+import { Autocomplete } from '@mui/material';
 import { useDateValidate } from 'hooks/useDateValidate';
+import { Controller, useFormContext } from 'react-hook-form';
 import { useFilterAutocomplete } from '../hooks/useAutocomplete';
 import { selectedVisibleColumns } from 'features/dataTable/dataTableSlice';
 
 import type { IDataItemWithDates } from 'types/dataItem';
+import type { AutocompleteKeysType } from '../hooks/useAutocomplete';
 
 import Stack from '@mui/material/Stack';
 import DateField from 'components/DateField';
@@ -16,9 +18,19 @@ interface IEditInputsProps {
 	isReader: boolean;
 }
 
+const fieldParams: AutocompleteKeysType[] = [
+	'name',
+	'type',
+	'notes',
+	'division',
+	'condition',
+	'accuracyClass',
+];
+
 function EditInputs({ isReader }: IEditInputsProps): JSX.Element {
 	const {
 		register,
+		control,
 		watch,
 		formState: { errors },
 	} = useFormContext<IDataItemWithDates>();
@@ -32,11 +44,7 @@ function EditInputs({ isReader }: IEditInputsProps): JSX.Element {
 
 	const rendercol = modifiedEditFields ? modifiedEditFields : editFields;
 
-	const params = useFilterAutocomplete(['name', 'type']);
-	// const {} = params;
-	console.log('params', params);
-	console.log('rendercol[0].label', rendercol[0].key);
-
+	const params = useFilterAutocomplete(fieldParams);
 	return (
 		<Stack direction='column' px={3} pb={3.5} rowGap={1} flexGrow={1}>
 			{rendercol.map(({ key, label }) => {
@@ -54,7 +62,37 @@ function EditInputs({ isReader }: IEditInputsProps): JSX.Element {
 					case 'size':
 						return <SizeSelect key={key} readOnly={isReader} />;
 					default:
-						return (
+						return key in params ? (
+							<Controller
+								key={key}
+								name={key}
+								control={control}
+								render={({ field: { onChange, ..._field } }) => (
+									<Autocomplete
+										freeSolo
+										options={params[key]}
+										onChange={(e, data) => {
+											onChange(data);
+										}}
+										renderInput={params => {
+											return (
+												<TextField
+													{...params}
+													label={label}
+													onChange={onChange(params.inputProps.value)}
+													error={Boolean(errors[key])}
+													helperText={errors[key]?.message}
+													InputLabelProps={{ shrink: true }}
+													// InputProps={{ readOnly: isReader }}
+													required={key === 'name'}
+												/>
+											);
+										}}
+										{..._field}
+									/>
+								)}
+							/>
+						) : (
 							<TextField
 								{...register(key, {
 									required: key === 'name' ? 'Это поле обязательное' : undefined,
