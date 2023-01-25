@@ -51,7 +51,8 @@
 		"inline-parameters.fontSize": "0.8em",
 		"inline-parameters.fontWeight": "600",
 		"inline-parameters.margin": "0.4em",
-		"inline-parameters.padding": "3px 3px"
+		"inline-parameters.padding": "3px 3px",
+		"thunder-client.saveToWorkspace": true
 	},
 	"launch": {
 		"version": "0.2.0",
