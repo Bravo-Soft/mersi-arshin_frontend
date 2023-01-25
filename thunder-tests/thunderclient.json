@@ -36,5 +36,19 @@
       "form": []
     },
     "tests": []
+  },
+  {
+    "_id": "5a4c8159-f781-475f-8443-f9294c990cb4",
+    "colId": "40854a3f-0bec-4024-97cc-b0713e41bdad",
+    "containerId": "",
+    "name": "Refresh-token",
+    "url": "{{REACT_APP_BASE_URL}}/api/auth/refresh-token",
+    "method": "POST",
+    "sortNum": 30000,
+    "created": "2023-01-25T12:48:59.784Z",
+    "modified": "2023-01-25T12:48:59.784Z",
+    "headers": [],
+    "params": [],
+    "tests": []
   }
 ]
