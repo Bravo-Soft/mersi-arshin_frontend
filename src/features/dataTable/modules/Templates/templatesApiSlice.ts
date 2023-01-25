@@ -65,6 +65,13 @@ export const templatesApiSlice = apiSlice.injectEndpoints({
 				{ type: 'Template', id: 'SELECTED_TEMPLATE' },
 			],
 		}),
+
+		resetTemplate: builder.mutation<ITemplateСonfig, void>({
+			query: () => ({
+				url: API.user.templates.resetSelected,
+				method: 'PUT',
+			}),
+		}),
 	}),
 });
 
@@ -78,5 +85,6 @@ export const {
 	useLazyGetTemplateByIdQuery,
 	useUpdateTemplateMutation,
 	useGetSelectedTemplateQuery,
+	useResetTemplateMutation,
 	usePrefetch,
 } = templatesApiSlice;
