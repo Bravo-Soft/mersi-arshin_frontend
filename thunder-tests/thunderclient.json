@@ -17,5 +17,24 @@
       "form": []
     },
     "tests": []
+  },
+  {
+    "_id": "e80390b0-d5a2-46c9-8c8c-c1ee3332f783",
+    "colId": "40854a3f-0bec-4024-97cc-b0713e41bdad",
+    "containerId": "",
+    "name": "Registration-trial",
+    "url": "{{REACT_APP_BASE_URL}}/api/auth/registration-trial",
+    "method": "POST",
+    "sortNum": 20000,
+    "created": "2023-01-25T12:40:44.610Z",
+    "modified": "2023-01-25T12:40:44.610Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"firstName\": \"Сергей\",\n  \"lastName\": \"Стрелков\",\n  \"patronymicName\": \"Иванович\",\n  \"organization\": \"ООО \\\"Моя оборона\\\"\",\n  \"position\": \"Главный специалист\",\n  \"division\": \"Продажи\",\n  \"phone\": \"2-555-555\",\n  \"email\": \"test2@mail.ru\"\n}",
+      "form": []
+    },
+    "tests": []
   }
 ]
