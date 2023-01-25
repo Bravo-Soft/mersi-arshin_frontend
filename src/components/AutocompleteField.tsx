@@ -11,13 +11,15 @@ interface IAutocompleteFieldsProps {
 	autocompleteParams: string[];
 	label: ColumnNames;
 	readOnly?: boolean;
+	required?: boolean;
 }
 
 function AutocompleteField({
 	key,
-	autocompleteParams,
 	label,
+	required = false,
 	readOnly = false,
+	autocompleteParams,
 }: IAutocompleteFieldsProps): JSX.Element {
 	const { control } = useFormContext<IDataItemWithDates>();
 	return (
@@ -42,7 +44,7 @@ function AutocompleteField({
 								helperText={error?.message}
 								InputLabelProps={{ shrink: true }}
 								InputProps={{ readOnly }}
-								required={key === 'name'}
+								required={required}
 							/>
 						);
 					}}
