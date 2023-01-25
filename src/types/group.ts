@@ -103,4 +103,8 @@ export interface IGroup {
 	 * Максимальный размер файлов на позицию в байтах
 	 */
 	maxSizeOfSpacePerPosition: number;
+	/**
+	 * Возможность копировать в буфер обмена
+	 */
+	hasClipboard: boolean;
 }

@@ -42,7 +42,7 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
 	// mutex позволяет предотвратить множетсвенное обращение на обновление токена
 	await mutex.waitForUnlock();
 	let result = await baseQuery(args, api, extraOptions);
-	if (result.error && result.error.status === HttpCodes.UNAUTHORZED) {
+	if (result.error && result.error.status === HttpCodes.UNAUTHORZED && api.endpoint !== 'login') {
 		if (!mutex.isLocked()) {
 			const release = await mutex.acquire();
 			try {

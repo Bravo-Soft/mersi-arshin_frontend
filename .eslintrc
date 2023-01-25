@@ -2,9 +2,9 @@
 	"extends": ["react-app", "react-app/jest", "prettier"],
 	"rules": {
 		"semi": "error",
-		"no-alert": "warn",
-		"no-debugger": "warn",
-		"no-console": "warn",
+		"no-alert": "error",
+		"no-debugger": "error",
+		"no-console": "error",
 		"quotes": [
 			"error",
 			"single",

@@ -14,7 +14,7 @@ const photoApiSlice = apiSlice.injectEndpoints({
 		getPhoto: builder.query<string, void>({
 			queryFn: async (_arg, _api, _extraOptions, baseQuery) => {
 				const response = await baseQuery({
-					url: API.user.photo,
+					url: API.user.profile.photo,
 				});
 
 				if (response.error && response.error.status !== HttpCodes.NOT_FOUND)
@@ -28,7 +28,7 @@ const photoApiSlice = apiSlice.injectEndpoints({
 		}),
 		updatePhoto: builder.mutation<void, FormData>({
 			query: data => ({
-				url: API.user.photo,
+				url: API.user.profile.photo,
 				method: 'POST',
 				body: data,
 			}),
@@ -54,7 +54,7 @@ const photoApiSlice = apiSlice.injectEndpoints({
 		}),
 		deletePhoto: builder.mutation<void, void>({
 			query: () => ({
-				url: API.user.photo,
+				url: API.user.profile.photo,
 				method: 'DELETE',
 			}),
 			onQueryStarted: async (_arg, { dispatch, queryFulfilled }) => {

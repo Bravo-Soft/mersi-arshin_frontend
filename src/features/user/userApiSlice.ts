@@ -1,6 +1,6 @@
 import { API } from 'app/api';
 import { apiSlice } from 'app/apiSlice';
-import { setPermissions, setRoles, setUserId } from './userSlice';
+import { setPermissions, setRole, setUserId } from './userSlice';
 
 import type { IGroup } from 'types/group';
 import type { INotificationSettings } from 'types/notification';
@@ -11,7 +11,7 @@ import type { Roles } from 'constant/roles';
 
 export interface IUserDataResponse {
 	id: string;
-	roles: Roles[];
+	roles: Roles;
 	group: IGroup;
 }
 
@@ -27,7 +27,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
 
 				dispatch(setUserId(data.id));
 				dispatch(setPermissions(data.group));
-				dispatch(setRoles(data.roles));
+				dispatch(setRole(data.roles));
 			},
 		}),
 
@@ -47,13 +47,13 @@ export const userApiSlice = apiSlice.injectEndpoints({
 		}),
 
 		getUserProfile: builder.query<IProfile, void>({
-			query: () => API.user.profile,
+			query: () => API.user.profile.default,
 			providesTags: ['Profile'],
 		}),
 
 		updateUserProfile: builder.mutation<IProfile, IProfile>({
 			query: ({ email, ...body }) => ({
-				url: API.user.profile,
+				url: API.user.profile.default,
 				method: 'PUT',
 				body,
 			}),
@@ -61,13 +61,13 @@ export const userApiSlice = apiSlice.injectEndpoints({
 		}),
 
 		getUserNotification: builder.query<INotificationSettings, void>({
-			query: () => API.user.notifications,
+			query: () => API.user.notification,
 			providesTags: ['Notification'],
 		}),
 
 		updateUserNotification: builder.mutation<INotificationSettings, INotificationSettings>({
 			query: body => ({
-				url: API.user.notifications,
+				url: API.user.notification,
 				method: 'PUT',
 				body,
 			}),

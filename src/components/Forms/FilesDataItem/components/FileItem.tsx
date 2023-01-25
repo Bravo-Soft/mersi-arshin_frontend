@@ -30,7 +30,7 @@ interface ILoadedFileProps extends Partial<Rename<Pick<IDataItem, 'id'>, 'id', '
 function FileItem({ document, itemId }: ILoadedFileProps): JSX.Element {
 	/* Состояние и селектор */
 	const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-	const { isWriter } = useAppSelector(selectUserRoles);
+	const { isWriter, isAdmin } = useAppSelector(selectUserRoles);
 
 	const open = Boolean(anchorEl);
 
@@ -78,11 +78,11 @@ function FileItem({ document, itemId }: ILoadedFileProps): JSX.Element {
 					edge='end'
 					aria-label='Удалить'
 					size='small'
-					onClick={isWriter ? handleOpenMenu : handleLoadFile}
+					onClick={isWriter || isAdmin ? handleOpenMenu : handleLoadFile}
 				>
-					{isWriter ? <MoreHorizIcon /> : <DownloadIcon />}
+					{isWriter || isAdmin ? <MoreHorizIcon /> : <DownloadIcon />}
 				</IconButton>
-				{isWriter && (
+				{(isWriter || isAdmin) && (
 					<Menu
 						open={open}
 						anchorEl={anchorEl}

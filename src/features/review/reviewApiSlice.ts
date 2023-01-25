@@ -13,7 +13,7 @@ const reviewApiSlice = apiSlice.injectEndpoints({
 	endpoints: builder => ({
 		postNewReview: builder.mutation<void, IPostReviewRequestArgs>({
 			query: review => ({
-				url: API.reviews.default,
+				url: API.user.reviews,
 				method: 'POST',
 				body: review,
 			}),

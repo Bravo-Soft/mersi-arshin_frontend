@@ -39,7 +39,7 @@ export const dataTableApiSlice = apiSlice.injectEndpoints({
 			providesTags: (_result, _error, id) => [{ type: 'Data', id }],
 		}),
 
-		createNewDataItem: builder.mutation<IDataItem, Omit<IDataItem, 'id'>>({
+		createNewDataItem: builder.mutation<IDataItem, Omit<IDataItem, 'id' | 'userIds'>>({
 			query: body => ({
 				url: API.data.default,
 				method: 'POST',
@@ -66,7 +66,7 @@ export const dataTableApiSlice = apiSlice.injectEndpoints({
 			},
 		}),
 
-		updateDataItem: builder.mutation<void, IDataItem>({
+		updateDataItem: builder.mutation<void, Omit<IDataItem, 'userIds'>>({
 			query: ({ id, documents, ...body }) => ({
 				url: `${API.data.default}/${id}`,
 				method: 'PUT',
