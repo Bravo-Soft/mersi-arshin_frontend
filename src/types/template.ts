@@ -2,7 +2,7 @@ export interface ITemplateСonfig {
 	/**
 	 * Идентификационный номер
 	 */
-	id: number;
+	id: string;
 	/**
 	 * Наименование шаблона
 	 */
