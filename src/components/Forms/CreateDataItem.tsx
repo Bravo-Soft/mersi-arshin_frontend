@@ -126,7 +126,12 @@ function CreateDataItem(): JSX.Element {
 			default:
 				return (
 					<FormProvider {...methods} key={key}>
-						<AutocompleteField name={key} label={label} autocompleteParams={parametrs[key]} />
+						<AutocompleteField
+							name={key}
+							label={label}
+							required={key === 'name'}
+							autocompleteParams={parametrs[key]}
+						/>
 					</FormProvider>
 				);
 		}
