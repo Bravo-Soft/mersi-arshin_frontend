@@ -27,24 +27,24 @@ function AutocompleteField({
 		<Controller
 			name={name}
 			control={control}
-			render={({ field: { onChange, ..._field } }) => (
-				// render={({ field: { onChange, ..._field }, fieldState }) => (
+			defaultValue=''
+			render={({ field: { onChange, ..._field }, fieldState: { error } }) => (
 				<Autocomplete
 					freeSolo
 					options={autocompleteParams}
 					onChange={(_event, value) => {
 						onChange(value);
 					}}
+					readOnly={readOnly}
 					renderInput={params => {
 						return (
 							<TextField
 								{...params}
 								label={label}
 								onChange={onChange}
-								// error={Boolean(fieldState?.error)}
-								// helperText={fieldState.error?.message}
+								error={Boolean(error)}
+								helperText={error?.message}
 								InputLabelProps={{ shrink: true }}
-								// InputProps={{ readOnly }}
 								required={required}
 							/>
 						);

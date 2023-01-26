@@ -3,7 +3,7 @@ import { ColumnNames } from 'features/dataTable/columns';
 import type { IDataItemWithDates } from 'types/dataItem';
 
 interface ICreateInputs {
-	key: keyof Omit<IDataItemWithDates, 'id'>;
+	key: keyof Omit<IDataItemWithDates, 'id' | 'userIds' | 'documents'>;
 	label: ColumnNames;
 }
 

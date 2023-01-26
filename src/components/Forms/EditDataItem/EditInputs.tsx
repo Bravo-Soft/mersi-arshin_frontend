@@ -47,16 +47,14 @@ function EditInputs({ isReader }: IEditInputsProps): JSX.Element {
 						return <SizeSelect key={key} readOnly={isReader} />;
 					default:
 						return (
-							params && (
-								<AutocompleteField
-									key={key}
-									name={key}
-									label={label}
-									required={key === 'name'}
-									autocompleteParams={params[key]}
-									readOnly={isReader}
-								/>
-							)
+							<AutocompleteField
+								key={key}
+								name={key}
+								label={label}
+								required={key === 'name'}
+								autocompleteParams={params[key]}
+								readOnly={isReader}
+							/>
 						);
 				}
 			})}

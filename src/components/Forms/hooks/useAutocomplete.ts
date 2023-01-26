@@ -38,8 +38,8 @@ export const useFilterAutocomplete = () => {
 	const filteredAValue = validateAutcompleteParams(
 		defaultkeys
 			.map(key => loadedData.map(item => item[key]))
-			.reduce((acc, el, i) => {
-				return { ...acc, [defaultkeys[i]]: el };
+			.reduce((acc, element, index) => {
+				return { ...acc, [defaultkeys[index]]: element };
 			}, defaultValue)
 	);
 

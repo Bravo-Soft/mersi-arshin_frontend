@@ -13,7 +13,7 @@ import { isValueDefined } from 'guards/isValueDefined';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { useDateValidate } from 'hooks/useDateValidate';
 import { Fragment, useEffect } from 'react';
-import { Controller, FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { createDateISO } from 'utils/createDateISO';
 import { useFilterAutocomplete } from './hooks/useAutocomplete';
 
@@ -23,13 +23,12 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
 import DateField from 'components/DateField';
 import SizeSelect from 'components/SizeSelect';
 import ruLocale from 'date-fns/locale/ru';
 import ButtonContainer from 'styled/ButtonContainer';
 import FormContainer from 'styled/FormContainer';
-import Autocomplete from '@mui/material/Autocomplete';
+import AutocompleteField from 'components/AutocompleteField';
 
 function CreateDataItem(): JSX.Element {
 	const today = new Date();
@@ -52,12 +51,7 @@ function CreateDataItem(): JSX.Element {
 		verificationDateValue: methods.watch('verificationDate'),
 		dateOfNextVerificationValue: methods.watch('dateOfTheNextVerification'),
 	});
-	const {
-		register,
-		handleSubmit,
-		reset,
-		formState: { errors },
-	} = methods;
+	const { handleSubmit, reset } = methods;
 
 	const rowCount = data?.length ?? 0;
 	const maxRowsIsReached = isValueDefined(maxCountRowTable) && rowCount >= maxCountRowTable;
@@ -130,53 +124,10 @@ function CreateDataItem(): JSX.Element {
 					</Fragment>
 				);
 			default:
-				return key in parametrs ? (
-					<Fragment key={key}>
-						<FormProvider {...methods}>
-							<Controller
-								key={key}
-								name={key}
-								defaultValue=''
-								render={({ field: { onChange, ..._field } }) => (
-									<Autocomplete
-										freeSolo
-										options={parametrs[key]}
-										onChange={(_event, value) => {
-											onChange(value);
-										}}
-										renderInput={par => {
-											return (
-												<TextField
-													{...par}
-													label={label}
-													onChange={onChange}
-													error={Boolean(errors[key])}
-													helperText={errors[key]?.message}
-													InputLabelProps={{ shrink: true }}
-													// InputProps={{ readOnly: isReader }}
-													required={key === 'name'}
-												/>
-											);
-										}}
-										{..._field}
-									/>
-								)}
-							/>
-						</FormProvider>
-					</Fragment>
-				) : (
-					<TextField
-						{...register(key, {
-							required: key === 'name' ? 'Это поле обязательное' : undefined,
-						})}
-						key={key}
-						autoComplete='off'
-						InputLabelProps={{ shrink: true }}
-						helperText={errors[key]?.message}
-						required={key === 'name'}
-						label={label}
-						error={Boolean(errors[key])}
-					/>
+				return (
+					<FormProvider {...methods} key={key}>
+						<AutocompleteField name={key} label={label} autocompleteParams={parametrs[key]} />
+					</FormProvider>
 				);
 		}
 	});

@@ -3,18 +3,20 @@ import { getArrayWithoutDuplicates } from 'utils/getArrayWithoutDuplicates';
 
 import type { AutocompleteKeysType } from '../hooks/useAutocomplete';
 
-export const validateAutcompleteParams = (obj: Record<AutocompleteKeysType, string[]>) => {
+export const validateAutcompleteParams = (
+	validateObject: Record<AutocompleteKeysType, string[]>
+) => {
 	return Object.fromEntries(
-		Object.entries(obj).map(([key, value]) => [key, filtredInvalidValue(value)])
+		Object.entries(validateObject).map(([key, value]) => [key, filtredInvalidValue(value)])
 	);
 };
 
-export const filtredInvalidValue = (array: string[]) => {
+export const filtredInvalidValue = (filteredArray: string[]) => {
 	return getArrayWithoutDuplicates(
-		...array
-			.filter(e => isValueDefined(e))
-			.filter(e => e)
-			.map(str => deleteSpaces(str))
+		...filteredArray
+			.filter(element => isValueDefined(element))
+			.filter(element => element)
+			.map(element => deleteSpaces(element))
 	);
 };
 

@@ -1,7 +1,7 @@
 import { useAppSelector } from 'hooks/redux';
 import { verificationFields } from '../fields';
 import { useDateValidate } from 'hooks/useDateValidate';
-import { Controller, useFormContext } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import { useFilterAutocomplete } from '../hooks/useAutocomplete';
 import { selectedVisibleColumns } from 'features/dataTable/dataTableSlice';
 
@@ -9,19 +9,14 @@ import type { IDataItemWithDates } from 'types/dataItem';
 
 import Stack from '@mui/material/Stack';
 import DateField from 'components/DateField';
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
+import AutocompleteField from 'components/AutocompleteField';
 
 interface IVerificateFieldsProps {
 	isReader: boolean;
 }
 
 function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
-	const {
-		control,
-		watch,
-		formState: { errors },
-	} = useFormContext<IDataItemWithDates>();
+	const { watch } = useFormContext<IDataItemWithDates>();
 	const validation = useDateValidate({
 		productionDateValue: watch('productionDate'),
 		verificationDateValue: watch('verificationDate'),
@@ -45,33 +40,12 @@ function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
 						validation={validation[key]}
 					/>
 				) : (
-					<Controller
+					<AutocompleteField
 						key={key}
 						name={key}
-						control={control}
-						render={({ field: { onChange, ..._field } }) => (
-							<Autocomplete
-								freeSolo
-								options={params[key]}
-								onChange={(event, value) => {
-									onChange(value);
-								}}
-								renderInput={params => {
-									return (
-										<TextField
-											{...params}
-											label={label}
-											onChange={onChange}
-											error={Boolean(errors[key])}
-											helperText={errors[key]?.message}
-											InputLabelProps={{ shrink: true }}
-											// InputProps={{ readOnly: isReader }}
-										/>
-									);
-								}}
-								{..._field}
-							/>
-						)}
+						label={label}
+						autocompleteParams={params[key]}
+						readOnly={isReader}
 					/>
 				)
 			)}
