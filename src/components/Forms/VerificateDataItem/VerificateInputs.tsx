@@ -7,8 +7,6 @@ import { selectedVisibleColumns } from 'features/dataTable/dataTableSlice';
 
 import type { IDataItemWithDates } from 'types/dataItem';
 
-import type { AutocompleteKeysType } from '../hooks/useAutocomplete';
-
 import Stack from '@mui/material/Stack';
 import DateField from 'components/DateField';
 import TextField from '@mui/material/TextField';
@@ -17,13 +15,6 @@ import Autocomplete from '@mui/material/Autocomplete';
 interface IVerificateFieldsProps {
 	isReader: boolean;
 }
-
-export const fieldVerificationParams: AutocompleteKeysType[] = [
-	'typeOfWork',
-	'stateRegister',
-	'certificate',
-	'organization',
-];
 
 function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
 	const {
@@ -40,7 +31,7 @@ function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
 	const { modifiedVerificationFields } = useAppSelector(selectedVisibleColumns);
 
 	const rendercol = modifiedVerificationFields ? modifiedVerificationFields : verificationFields;
-	const params = useFilterAutocomplete(fieldVerificationParams);
+	const params = useFilterAutocomplete();
 
 	return (
 		<Stack direction='column' px={3.5} pb={3.5} rowGap={1} flexGrow={1}>

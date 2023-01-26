@@ -14,16 +14,32 @@ export type AutocompleteKeysType = keyof Omit<
 	| 'productionDate'
 >;
 
+const defaultkeys: AutocompleteKeysType[] = [
+	'name',
+	'type',
+	'factoryNumber',
+	'inventoryNumber',
+	'division',
+	'typeOfWork',
+	'condition',
+	'stateRegister',
+	'certificate',
+	'organization',
+	'accuracyClass',
+	'measurementLimit',
+	'notes',
+];
+
 const defaultValue = {} as Record<AutocompleteKeysType, string[]>;
 
-export const useFilterAutocomplete = (keysArray: AutocompleteKeysType[]) => {
+export const useFilterAutocomplete = () => {
 	const { data: loadedData = [] } = useGetAllDataQuery();
 
 	const filteredAValue = validateAutcompleteParams(
-		keysArray
+		defaultkeys
 			.map(key => loadedData.map(item => item[key]))
 			.reduce((acc, el, i) => {
-				return { ...acc, [keysArray[i]]: el };
+				return { ...acc, [defaultkeys[i]]: el };
 			}, defaultValue)
 	);
 

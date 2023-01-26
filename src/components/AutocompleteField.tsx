@@ -7,27 +7,28 @@ import type { ColumnNames } from 'features/dataTable/columns';
 import type { AutocompleteKeysType } from 'components/Forms/hooks/useAutocomplete';
 
 interface IAutocompleteFieldsProps {
-	key: AutocompleteKeysType;
-	autocompleteParams: string[];
 	label: ColumnNames;
 	readOnly?: boolean;
 	required?: boolean;
+	name: AutocompleteKeysType;
+	autocompleteParams: string[];
 }
 
 function AutocompleteField({
-	key,
+	name,
 	label,
 	required = false,
 	readOnly = false,
 	autocompleteParams,
 }: IAutocompleteFieldsProps): JSX.Element {
 	const { control } = useFormContext<IDataItemWithDates>();
+
 	return (
 		<Controller
-			key={key}
-			name={key}
+			name={name}
 			control={control}
-			render={({ field: { onChange, ..._field }, fieldState: { error } }) => (
+			render={({ field: { onChange, ..._field } }) => (
+				// render={({ field: { onChange, ..._field }, fieldState }) => (
 				<Autocomplete
 					freeSolo
 					options={autocompleteParams}
@@ -40,10 +41,10 @@ function AutocompleteField({
 								{...params}
 								label={label}
 								onChange={onChange}
-								error={Boolean(error)}
-								helperText={error?.message}
+								// error={Boolean(fieldState?.error)}
+								// helperText={fieldState.error?.message}
 								InputLabelProps={{ shrink: true }}
-								InputProps={{ readOnly }}
+								// InputProps={{ readOnly }}
 								required={required}
 							/>
 						);

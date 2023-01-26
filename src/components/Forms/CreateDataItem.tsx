@@ -16,8 +16,6 @@ import { Fragment, useEffect } from 'react';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { createDateISO } from 'utils/createDateISO';
 import { useFilterAutocomplete } from './hooks/useAutocomplete';
-import { fieldEditParams } from './EditDataItem/EditInputs';
-import { fieldVerificationParams } from './VerificateDataItem/VerificateInputs';
 
 import type { IDataItem, IDataItemWithDates } from 'types/dataItem';
 
@@ -97,7 +95,7 @@ function CreateDataItem(): JSX.Element {
 		);
 	};
 
-	const parametrs = useFilterAutocomplete([...fieldEditParams, ...fieldVerificationParams]);
+	const parametrs = useFilterAutocomplete();
 
 	const createRenderedField = allInputFields.map(({ key, label }) => {
 		switch (key) {
