@@ -80,7 +80,6 @@ function TemplateForm(props: ITemplateFormProps): JSX.Element {
 					autoFocus
 					error={Boolean(errors.templateName)}
 					helperText={errors.templateName?.message}
-					autoComplete='off'
 				/>
 				<Stack direction='row' mt={1} justifyContent='space-between'>
 					<Button type='submit'>Сохранить</Button>

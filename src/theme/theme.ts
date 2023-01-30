@@ -96,6 +96,7 @@ export const theme = createTheme(
 			MuiTextField: {
 				defaultProps: {
 					variant: 'standard',
+					autoComplete: 'off',
 				},
 			},
 			MuiButton: {
