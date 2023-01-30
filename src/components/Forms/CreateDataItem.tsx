@@ -1,3 +1,4 @@
+import { allInputFields } from './fields';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { Messages } from 'constant/messages';
@@ -14,7 +15,7 @@ import { useDateValidate } from 'hooks/useDateValidate';
 import { Fragment, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { createDateISO } from 'utils/createDateISO';
-import { allInputFields } from './fields';
+import { useFilterAutocomplete } from './hooks/useAutocomplete';
 
 import type { IDataItem, IDataItemWithDates } from 'types/dataItem';
 
@@ -22,12 +23,12 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
 import DateField from 'components/DateField';
 import SizeSelect from 'components/SizeSelect';
 import ruLocale from 'date-fns/locale/ru';
 import ButtonContainer from 'styled/ButtonContainer';
 import FormContainer from 'styled/FormContainer';
+import AutocompleteField from 'components/AutocompleteField';
 
 function CreateDataItem(): JSX.Element {
 	const today = new Date();
@@ -50,12 +51,7 @@ function CreateDataItem(): JSX.Element {
 		verificationDateValue: methods.watch('verificationDate'),
 		dateOfNextVerificationValue: methods.watch('dateOfTheNextVerification'),
 	});
-	const {
-		register,
-		handleSubmit,
-		reset,
-		formState: { errors },
-	} = methods;
+	const { handleSubmit, reset } = methods;
 
 	const rowCount = data?.length ?? 0;
 	const maxRowsIsReached = isValueDefined(maxCountRowTable) && rowCount >= maxCountRowTable;
@@ -93,6 +89,8 @@ function CreateDataItem(): JSX.Element {
 		);
 	};
 
+	const parametrs = useFilterAutocomplete();
+
 	const createRenderedField = allInputFields.map(({ key, label }) => {
 		switch (key) {
 			case 'size':
@@ -125,20 +123,16 @@ function CreateDataItem(): JSX.Element {
 						</FormProvider>
 					</Fragment>
 				);
-
 			default:
 				return (
-					<TextField
-						{...register(key, {
-							required: key === 'name' ? 'Это поле обязательное' : undefined,
-						})}
-						key={key}
-						autoComplete='off'
-						label={label}
-						error={Boolean(errors[key])}
-						helperText={errors[key]?.message}
-						required={key === 'name'}
-					/>
+					<FormProvider {...methods} key={key}>
+						<AutocompleteField
+							name={key}
+							label={label}
+							required={key === 'name'}
+							autocompleteParams={parametrs[key]}
+						/>
+					</FormProvider>
 				);
 		}
 	});

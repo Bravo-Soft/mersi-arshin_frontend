@@ -1,20 +1,20 @@
-import { useUpdateDataItemMutation } from 'features/dataTable/dataTableApiSlice';
-import { selectSelectedDataItem } from 'features/dataTable/dataTableSlice';
-import { useUpdateInputValues } from 'features/dataTable/hooks/useUpdateInputValues';
-import { selectUserRoles } from 'features/user/userSlice';
 import { useAppSelector } from 'hooks/redux';
-import { FormProvider, useForm } from 'react-hook-form';
 import { createDateISO } from 'utils/createDateISO';
 import { setDefaultValue } from 'utils/setDefaultValue';
+import { FormProvider, useForm } from 'react-hook-form';
+import { selectUserRoles } from 'features/user/userSlice';
+import { selectSelectedDataItem } from 'features/dataTable/dataTableSlice';
 import { useUpdateSelectedDataItem } from 'hooks/useUpdateSelectedDataItem';
+import { useUpdateDataItemMutation } from 'features/dataTable/dataTableApiSlice';
+import { useUpdateInputValues } from 'features/dataTable/hooks/useUpdateInputValues';
 
 import type { IDataItem, IDataItemWithDates } from 'types/dataItem';
 
-import Button from '@mui/material/Button';
-import FetchingProgress from 'features/dataTable/components/FetchingProgress';
-import ButtonContainer from 'styled/ButtonContainer';
-import FormContainer from 'styled/FormContainer';
 import EditInputs from './EditInputs';
+import Button from '@mui/material/Button';
+import FormContainer from 'styled/FormContainer';
+import ButtonContainer from 'styled/ButtonContainer';
+import FetchingProgress from 'features/dataTable/components/FetchingProgress';
 
 function EditDataItem(): JSX.Element {
 	const selectedDataItem = useAppSelector(selectSelectedDataItem);

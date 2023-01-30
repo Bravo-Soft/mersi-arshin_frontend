@@ -2,6 +2,7 @@ import { editFields } from '../fields';
 import { useAppSelector } from 'hooks/redux';
 import { useFormContext } from 'react-hook-form';
 import { useDateValidate } from 'hooks/useDateValidate';
+import { useFilterAutocomplete } from '../hooks/useAutocomplete';
 import { selectedVisibleColumns } from 'features/dataTable/dataTableSlice';
 
 import type { IDataItemWithDates } from 'types/dataItem';
@@ -9,18 +10,14 @@ import type { IDataItemWithDates } from 'types/dataItem';
 import Stack from '@mui/material/Stack';
 import DateField from 'components/DateField';
 import SizeSelect from 'components/SizeSelect';
-import TextField from '@mui/material/TextField';
+import AutocompleteField from 'components/AutocompleteField';
 
 interface IEditInputsProps {
 	isReader: boolean;
 }
 
 function EditInputs({ isReader }: IEditInputsProps): JSX.Element {
-	const {
-		register,
-		watch,
-		formState: { errors },
-	} = useFormContext<IDataItemWithDates>();
+	const { watch } = useFormContext<IDataItemWithDates>();
 	const validation = useDateValidate({
 		productionDateValue: watch('productionDate'),
 		verificationDateValue: watch('verificationDate'),
@@ -31,6 +28,7 @@ function EditInputs({ isReader }: IEditInputsProps): JSX.Element {
 
 	const rendercol = modifiedEditFields ? modifiedEditFields : editFields;
 
+	const params = useFilterAutocomplete();
 	return (
 		<Stack direction='column' px={3} pb={3.5} rowGap={1} flexGrow={1}>
 			{rendercol.map(({ key, label }) => {
@@ -49,18 +47,13 @@ function EditInputs({ isReader }: IEditInputsProps): JSX.Element {
 						return <SizeSelect key={key} readOnly={isReader} />;
 					default:
 						return (
-							<TextField
-								{...register(key, {
-									required: key === 'name' ? 'Это поле обязательное' : undefined,
-								})}
+							<AutocompleteField
 								key={key}
-								autoComplete='off'
+								name={key}
 								label={label}
-								error={Boolean(errors[key])}
-								helperText={errors[key]?.message}
-								InputLabelProps={{ shrink: true }}
-								InputProps={{ readOnly: isReader }}
 								required={key === 'name'}
+								autocompleteParams={params[key]}
+								readOnly={isReader}
 							/>
 						);
 				}
