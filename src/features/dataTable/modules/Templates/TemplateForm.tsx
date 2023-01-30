@@ -1,18 +1,18 @@
-import { useForm } from 'react-hook-form';
-import { useAppDispatch } from 'hooks/redux';
-import { stringfyTemplate } from 'utils/templateUtils';
 import { useGridApiContext } from '@mui/x-data-grid-pro';
-import { useCreateTemplateMutation } from './templatesApiSlice';
+import { Messages } from 'constant/messages';
+import { showNotification } from 'features/notificator/notificatorSlice';
+import { useAppDispatch } from 'hooks/redux';
+import { useForm } from 'react-hook-form';
+import { useCreateNewTemplateMutation } from './templatesApiSlice';
 
-import type { ITemplateСonfig } from 'types/template';
 import type { PopoverProps } from '@mui/material/Popover';
+import type { ITemplateСonfig } from 'types/template';
 
 import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Popover from '@mui/material/Popover';
+import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-import useNotification from 'hooks/useNotification';
 
 interface ITemplateFormProps
 	extends Omit<
@@ -26,8 +26,6 @@ function TemplateForm(props: ITemplateFormProps): JSX.Element {
 	const { onClose, ...othen } = props;
 	const dispatch = useAppDispatch();
 
-	const showNotification = useNotification(dispatch);
-
 	const apiRef = useGridApiContext();
 	const {
 		register,
@@ -37,28 +35,28 @@ function TemplateForm(props: ITemplateFormProps): JSX.Element {
 		watch,
 	} = useForm<Pick<ITemplateСonfig, 'templateName'>>();
 
-	const [sendNewTemplate] = useCreateTemplateMutation();
+	const [createNewTemplate] = useCreateNewTemplateMutation();
 
 	const isEmpty = !Boolean(watch('templateName'));
 
-	const onSubmit = handleSubmit(async ({ templateName }) => {
+	const onSubmit = handleSubmit(async data => {
 		try {
-			/* Создание шаблона, его применение и отправка на сервер */
-			const template = apiRef.current.exportState();
-			const newTemplate: Omit<ITemplateСonfig, 'id'> = {
-				templateName,
-				isTemplateSelected: true,
-				template: stringfyTemplate(apiRef.current.exportState()),
-			};
-			await sendNewTemplate(newTemplate).unwrap();
-			apiRef.current.restoreState(template);
-
-			/* Сброс значения поля ввода и закрытие окна */
+			await createNewTemplate(data);
+			dispatch(
+				showNotification({
+					message: Messages.THE_TEMPLATE_WAS_CREATED_SUCCESSFULLY,
+					type: 'success',
+				})
+			);
 			reset();
 			onClose();
-			showNotification('THE_TEMPLATE_WAS_CREATED_SUCCESSFULLY', 'success');
 		} catch {
-			showNotification('FAILED_TO_SAVE_TEMPLATE', 'error');
+			dispatch(
+				showNotification({
+					message: Messages.FAILED_TO_SAVE_TEMPLATE,
+					type: 'error',
+				})
+			);
 		}
 	});
 
@@ -82,6 +80,7 @@ function TemplateForm(props: ITemplateFormProps): JSX.Element {
 					autoFocus
 					error={Boolean(errors.templateName)}
 					helperText={errors.templateName?.message}
+					autoComplete='off'
 				/>
 				<Stack direction='row' mt={1} justifyContent='space-between'>
 					<Button type='submit'>Сохранить</Button>

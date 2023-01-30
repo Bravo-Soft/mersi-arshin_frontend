@@ -1,82 +1,129 @@
-import { useEffect } from 'react';
+import { useGridApiContext } from '@mui/x-data-grid-pro';
+import { Messages } from 'constant/messages';
+import { showNotification } from 'features/notificator/notificatorSlice';
 import { useAppDispatch } from 'hooks/redux';
 import { parseTemplate } from 'utils/templateUtils';
-import { useGridApiContext } from '@mui/x-data-grid-pro';
-import { defaultTemplate } from 'constant/defaultTemplate';
 import {
-	useDeleteTemplateMutation,
-	useLazyGetTemplateByIdQuery,
-	useUpdateTemplateMutation,
+	useDeleteTemplateByIdMutation,
+	useFetchSelectedTemplateQuery,
+	useResetSelectedTemplateMutation,
+	useSelectTemplateByIdMutation,
 } from '../templatesApiSlice';
 
 import type { MouseEvent } from 'react';
 import type { ITemplateСonfig } from 'types/template';
 
-import Typography from '@mui/material/Typography';
-import useNotification from 'hooks/useNotification';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
+import Typography from '@mui/material/Typography';
 
-import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
 
 interface ITemplateItemProps {
 	item: Omit<ITemplateСonfig, 'template'>;
 }
 
 function TemplateItem({ item }: ITemplateItemProps): JSX.Element {
-	const { templateName, id, isTemplateSelected } = item;
-
 	const dispatch = useAppDispatch();
 	const apiRef = useGridApiContext();
 
-	const showNotification = useNotification(dispatch);
-
-	const [updateTemplate] = useUpdateTemplateMutation();
-	const [fetchTemplateById] = useLazyGetTemplateByIdQuery();
-	const [deleteTemplate, { isSuccess: isDeletingSuccess }] = useDeleteTemplateMutation();
+	const [selectTemplateById] = useSelectTemplateByIdMutation();
+	const [resetSelectedTemplate] = useResetSelectedTemplateMutation();
+	const [deleteTemplateById] = useDeleteTemplateByIdMutation();
+	const { data: selectedConfig } = useFetchSelectedTemplateQuery();
 
 	const handleSelectTemplate = async () => {
-		try {
-			/* Получаем выбранный шаблон с сервера и меняем его статус */
-			const response = await fetchTemplateById(id).unwrap();
-			await updateTemplate({ ...response, isTemplateSelected: true }).unwrap();
-
-			/* Парсим его и вставляем в текущее состояние таблицы */
-			const parsedTemplate = parseTemplate(response.template);
-			apiRef.current.restoreState(parsedTemplate);
-			showNotification('TEMPLATE_SUCCESSFULLY_APPLIED', 'info');
-		} catch {
-			showNotification('FAILED_TO_LOADING_TEMPLATE', 'error');
+		if (selectedConfig?.id !== item.id) {
+			try {
+				const selectResult = await selectTemplateById(item.id).unwrap();
+				const parsedTemplate = parseTemplate(selectResult.template);
+				apiRef.current.restoreState(parsedTemplate);
+				if (item.templateName === 'По умолчанию') {
+					dispatch(
+						showNotification({
+							message: Messages.APPLIED_DEFAULT_TEMPLATE,
+							type: 'info',
+						})
+					);
+				} else {
+					dispatch(
+						showNotification({
+							message: Messages.TEMPLATE_SUCCESSFULLY_APPLIED,
+							type: 'info',
+						})
+					);
+				}
+			} catch {
+				dispatch(
+					showNotification({
+						message: Messages.FAILED_TO_LOADING_TEMPLATE,
+						type: 'error',
+					})
+				);
+			}
+		} else {
+			try {
+				const resetResult = await resetSelectedTemplate().unwrap();
+				const parsedTemplate = parseTemplate(resetResult.template);
+				apiRef.current.restoreState(parsedTemplate);
+				if (item.templateName === 'По умолчанию') {
+					dispatch(
+						showNotification({
+							message: Messages.DEFAULT_TEMPLATE_RESTORED,
+							type: 'info',
+						})
+					);
+				} else {
+					dispatch(
+						showNotification({
+							message: Messages.TEMPLATE_RESTORED,
+							type: 'info',
+						})
+					);
+				}
+			} catch {
+				dispatch(
+					showNotification({
+						message: Messages.FAILED_TO_RESTORE_TEMPLATE,
+						type: 'error',
+					})
+				);
+			}
 		}
 	};
 
 	const handleDeleteTemplate = async (event: MouseEvent<HTMLButtonElement>) => {
+		event.stopPropagation();
 		try {
-			event.stopPropagation();
-			await deleteTemplate(id).unwrap();
-			showNotification('THE_TEMPLATE_WAS_SUCCESSFULLY_DELETED', 'success');
-		} catch {
-			showNotification('FAILED_DELETE_ITEM', 'error');
+			const deleteResult = await deleteTemplateById(item.id).unwrap();
+			apiRef.current.restoreState(parseTemplate(deleteResult.template.trim()));
+			dispatch(
+				showNotification({
+					message: Messages.THE_TEMPLATE_WAS_SUCCESSFULLY_DELETED,
+					type: 'success',
+				})
+			);
+		} catch (e) {
+			dispatch(
+				showNotification({
+					message: Messages.FAILED_TO_DELETE_TEMPLATE,
+					type: 'error',
+				})
+			);
 		}
 	};
 
-	useEffect(() => {
-		/* Если удаление прошло успешно, мы устанавливаем дефолтный шаблон */
-		if (isDeletingSuccess) {
-			apiRef.current.restoreState(defaultTemplate);
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isDeletingSuccess]);
-
 	return (
-		<ListItemButton onClick={handleSelectTemplate} selected={isTemplateSelected}>
-			<Typography noWrap>{templateName}</Typography>
-			<ListItemSecondaryAction>
-				<IconButton onClick={handleDeleteTemplate}>
-					<DeleteIcon />
-				</IconButton>
-			</ListItemSecondaryAction>
+		<ListItemButton onClick={handleSelectTemplate} selected={item.isTemplateSelected}>
+			<Typography noWrap>{item.templateName}</Typography>
+			{item.templateName !== 'По умолчанию' && (
+				<ListItemSecondaryAction>
+					<IconButton onClick={handleDeleteTemplate}>
+						<DeleteIcon />
+					</IconButton>
+				</ListItemSecondaryAction>
+			)}
 		</ListItemButton>
 	);
 }

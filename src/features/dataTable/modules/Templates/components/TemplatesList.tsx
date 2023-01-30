@@ -1,4 +1,4 @@
-import { useGetAllTemplatesQuery } from '../templatesApiSlice';
+import { useFetchAllTemplatesQuery } from '../templatesApiSlice';
 
 import type { PopoverOrigin, PopoverProps } from '@mui/material/Popover';
 
@@ -24,7 +24,7 @@ interface ITemplatesList
 function TemplatesList(props: ITemplatesList): JSX.Element {
 	const { onClose, ...othen } = props;
 
-	const { data: loadedTemplates } = useGetAllTemplatesQuery();
+	const { data: loadedTemplates } = useFetchAllTemplatesQuery();
 
 	return (
 		<>
