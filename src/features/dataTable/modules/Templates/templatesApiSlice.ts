@@ -3,47 +3,40 @@ import { apiSlice } from 'app/apiSlice';
 
 import type { ITemplateСonfig } from 'types/template';
 
+type TemplatesList = Omit<ITemplateСonfig, 'template'>[];
+
 export const templatesApiSlice = apiSlice.injectEndpoints({
+	overrideExisting: true,
 	endpoints: builder => ({
-		getAllTemplates: builder.query<Omit<ITemplateСonfig, 'template'>[], void>({
-			query: () => API.user.templates.default,
-			providesTags: result =>
-				result
-					? [
-							...result.map(({ id }) => ({ type: 'Template' as const, id })),
-							{ type: 'Template', id: 'LIST' },
-							{ type: 'Template', id: 'DELETE_TEMPLATE' },
-					  ]
-					: [
-							{ type: 'Template', id: 'LIST' },
-							{ type: 'Template', id: 'DELETE_TEMPLATE' },
-					  ],
-		}),
-
-		getTemplateById: builder.query<ITemplateСonfig, number>({
-			query: id => `${API.user.templates.default}/${id}`,
-			providesTags: (result, error, id) => [{ type: 'Template', id }],
-		}),
-
-		getSelectedTemplate: builder.query<ITemplateСonfig, void>({
+		fetchSelectedTemplate: builder.query<ITemplateСonfig, void>({
 			query: () => API.user.templates.selected,
-			providesTags: [{ type: 'Template', id: 'SELECTED_TEMPLATE' }],
-			// transformResponse: (response: ITemplateСonfig) => JSON.parse(response.template) as GridInitialStatePro,
+			providesTags: [{ type: 'Template', id: 'SELECTED' }],
 		}),
-
-		updateTemplate: builder.mutation<ITemplateСonfig, ITemplateСonfig>({
-			query: ({ id, ...body }) => ({
-				url: `${API.user.templates.default}/${id}`,
+		resetSelectedTemplate: builder.mutation<ITemplateСonfig, void>({
+			query: () => ({
+				url: API.user.templates.resetSelected,
 				method: 'PUT',
-				body,
 			}),
-			invalidatesTags: (result, error, { id }) => [
+			invalidatesTags: [{ type: 'Template', id: 'SELECTED' }],
+		}),
+		fetchTemplateById: builder.query<ITemplateСonfig, ITemplateСonfig['id']>({
+			query: id => API.user.templates.templateById(id),
+		}),
+		deleteTemplateById: builder.mutation<ITemplateСonfig, ITemplateСonfig['id']>({
+			query: id => ({
+				url: API.user.templates.templateById(id),
+				method: 'DELETE',
+			}),
+			invalidatesTags: [
 				{ type: 'Template', id: 'LIST' },
-				{ type: 'Template', id: 'SELECTED_TEMPLATE' },
+				{ type: 'Template', id: 'SELECTED' },
 			],
 		}),
-
-		createTemplate: builder.mutation<ITemplateСonfig, Omit<ITemplateСonfig, 'id'>>({
+		fetchAllTemplates: builder.query<TemplatesList, void>({
+			query: () => API.user.templates.default,
+			providesTags: [{ type: 'Template', id: 'LIST' }],
+		}),
+		createNewTemplate: builder.mutation<ITemplateСonfig, Pick<ITemplateСonfig, 'templateName'>>({
 			query: body => ({
 				url: API.user.templates.default,
 				method: 'POST',
@@ -51,40 +44,36 @@ export const templatesApiSlice = apiSlice.injectEndpoints({
 			}),
 			invalidatesTags: [
 				{ type: 'Template', id: 'LIST' },
-				{ type: 'Template', id: 'SELECTED_TEMPLATE' },
+				{ type: 'Template', id: 'SELECTED' },
 			],
 		}),
-
-		deleteTemplate: builder.mutation<void, number>({
-			query: id => ({
-				url: `${API.user.templates.default}/${id}`,
-				method: 'DELETE',
+		updateSelectedTemplate: builder.mutation<ITemplateСonfig, Pick<ITemplateСonfig, 'template'>>({
+			query: body => ({
+				url: API.user.templates.default,
+				method: 'PUT',
+				body,
 			}),
-			invalidatesTags: [
-				{ type: 'Template', id: 'DELETE_TEMPLATE' },
-				{ type: 'Template', id: 'SELECTED_TEMPLATE' },
-			],
+			invalidatesTags: [{ type: 'Template', id: 'SELECTED' }],
 		}),
-
-		resetTemplate: builder.mutation<ITemplateСonfig, void>({
-			query: () => ({
-				url: API.user.templates.resetSelected,
+		selectTemplateById: builder.mutation<ITemplateСonfig, ITemplateСonfig['id']>({
+			query: id => ({
+				url: API.user.templates.selectTemplateById(id),
 				method: 'PUT',
 			}),
+			invalidatesTags: [
+				{ type: 'Template', id: 'LIST' },
+				{ type: 'Template', id: 'SELECTED' },
+			],
 		}),
 	}),
 });
 
 export const {
-	useCreateTemplateMutation,
-	useDeleteTemplateMutation,
-	useGetAllTemplatesQuery,
-	useLazyGetSelectedTemplateQuery,
-	useGetTemplateByIdQuery,
-	useLazyGetAllTemplatesQuery,
-	useLazyGetTemplateByIdQuery,
-	useUpdateTemplateMutation,
-	useGetSelectedTemplateQuery,
-	useResetTemplateMutation,
-	usePrefetch,
+	useFetchSelectedTemplateQuery,
+	useResetSelectedTemplateMutation,
+	useSelectTemplateByIdMutation,
+	useDeleteTemplateByIdMutation,
+	useFetchAllTemplatesQuery,
+	useCreateNewTemplateMutation,
+	useUpdateSelectedTemplateMutation,
 } = templatesApiSlice;
