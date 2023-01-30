@@ -15,6 +15,8 @@ export const API = {
 			selected: `${PREFIX}/user/templates/selected`,
 			resetSelected: `${PREFIX}/user/templates/selected/reset`,
 			templateById: (templateId: string) => `${PREFIX}/user/templates/${templateId}`,
+			selectTemplateById: (templateId: string) =>
+				`${PREFIX}/user/templates/${templateId}/select`,
 		},
 		profile: {
 			default: `${PREFIX}/user/profile`,
