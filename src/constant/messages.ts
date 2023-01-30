@@ -14,7 +14,7 @@ export enum Messages {
 	// Уведомления – Информационные
 	TEMPLATE_SUCCESSFULLY_APPLIED = 'Применен выбранный шаблон',
 	APPLIED_DEFAULT_TEMPLATE = 'Применен шаблон по умолчанию',
-	DEFAULT_TEMPLATE_RESTORED = 'Шаблон по умолчанию восстановлен',
+	DEFAULT_TEMPLATE_RESTORED = 'Шаблон восстановлен',
 	DATA_ITEM_IS_UPDATED = 'Позиция обновлена',
 	PRESS_BUTTON_FOR_SAVING = 'Для сохранения всех данных, нажмите на кнопку ниже',
 	PHOTO_RESET = 'Фотография сброшена',
@@ -69,4 +69,5 @@ export enum Messages {
 	PHOTO_NOT_FOUND = 'Фото не найдено',
 	FAILED_TO_LARGE_FILE_SIZE = 'Превышен лимит файлов',
 	FAILED_TO_WRONG_FILE_TIPE = 'Неверный тип файлов',
+	FAILED_TO_DELETE_TEMPLATE = 'Не удалось удалить шаблон',
 }
