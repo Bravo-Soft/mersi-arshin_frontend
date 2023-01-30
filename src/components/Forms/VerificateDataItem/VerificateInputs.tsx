@@ -1,25 +1,22 @@
 import { useAppSelector } from 'hooks/redux';
-import { useFormContext } from 'react-hook-form';
 import { verificationFields } from '../fields';
 import { useDateValidate } from 'hooks/useDateValidate';
+import { useFormContext } from 'react-hook-form';
+import { useFilterAutocomplete } from '../hooks/useAutocomplete';
 import { selectedVisibleColumns } from 'features/dataTable/dataTableSlice';
 
 import type { IDataItemWithDates } from 'types/dataItem';
 
 import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
 import DateField from 'components/DateField';
+import AutocompleteField from 'components/AutocompleteField';
 
 interface IVerificateFieldsProps {
 	isReader: boolean;
 }
 
 function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
-	const {
-		register,
-		watch,
-		formState: { errors },
-	} = useFormContext<IDataItemWithDates>();
+	const { watch } = useFormContext<IDataItemWithDates>();
 	const validation = useDateValidate({
 		productionDateValue: watch('productionDate'),
 		verificationDateValue: watch('verificationDate'),
@@ -29,6 +26,7 @@ function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
 	const { modifiedVerificationFields } = useAppSelector(selectedVisibleColumns);
 
 	const rendercol = modifiedVerificationFields ? modifiedVerificationFields : verificationFields;
+	const params = useFilterAutocomplete();
 
 	return (
 		<Stack direction='column' px={3.5} pb={3.5} rowGap={1} flexGrow={1}>
@@ -42,15 +40,12 @@ function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
 						validation={validation[key]}
 					/>
 				) : (
-					<TextField
-						{...register(key)}
+					<AutocompleteField
 						key={key}
-						autoComplete='off'
+						name={key}
 						label={label}
-						error={Boolean(errors[key])}
-						helperText={errors[key]?.message}
-						InputLabelProps={{ shrink: true }}
-						InputProps={{ readOnly: isReader }}
+						autocompleteParams={params[key]}
+						readOnly={isReader}
 					/>
 				)
 			)}
