@@ -1,13 +1,14 @@
 import { Messages } from 'constant/messages';
 import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
 import { selectUserPermissions } from 'features/user/userSlice';
+import { isValueDefined } from 'guards/isValueDefined';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { useState } from 'react';
-import { useGetAllTemplatesQuery } from './templatesApiSlice';
+import { useFetchAllTemplatesQuery } from './templatesApiSlice';
 
 import type { MouseEvent } from 'react';
-import type { IModuleMenuItemProps } from '../moduleMenuItem';
 import type { ITemplateСonfig } from 'types/template';
+import type { IModuleMenuItemProps } from '../moduleMenuItem';
 
 import AddIcon from '@mui/icons-material/Add';
 import ExpandIcon from '@mui/icons-material/ExpandMore';
@@ -20,7 +21,6 @@ import ListItemText from '@mui/material/ListItemText';
 import MenuItem from '@mui/material/MenuItem';
 import StyledMenuList from 'features/dataTable/styled/StyledMenuList';
 import TemplatesList from './components/TemplatesList';
-import { isValueDefined } from 'guards/isValueDefined';
 
 interface ITemplatesMenuItemProps extends IModuleMenuItemProps {
 	onOpenTemplateForm: () => void;
@@ -48,7 +48,7 @@ function TemplatesMenuItem({
 	const dispatch = useAppDispatch();
 	const { maxCountTemplates } = useAppSelector(selectUserPermissions);
 
-	const { data: loadedTemplates } = useGetAllTemplatesQuery();
+	const { data: loadedTemplates } = useFetchAllTemplatesQuery();
 
 	const open = Boolean(anchorEl);
 	const isReached = isMaxCountTemplatesReached(loadedTemplates, maxCountTemplates);
