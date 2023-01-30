@@ -8,6 +8,7 @@ import { useApplySelectedTemplate } from '../hooks/useApplySelectedTemplate';
 import { useContextMenuActions } from '../hooks/useContextMenuActions';
 import { useDataTableActions } from '../hooks/useDataTableActions';
 import { useRowClasses } from '../hooks/useRowClasses';
+import { useUpdateTemplate } from '../hooks/useUpdateTemplate';
 import { columnsVisibility } from '../utils/columnsVisibility';
 import { ColumnMenu } from './ColumnMenu';
 import { ContextMenu } from './ContextMenu';
@@ -51,10 +52,15 @@ function DataTable(): JSX.Element {
 
 	/* Прочие хуки */
 	const generateClasses = useRowClasses(selectedId);
-	useApplySelectedTemplate(apiRef);
 
-	const handleColumnsSorting = () =>
+	/* Установка выбранного шаблона и его обновление */
+	useApplySelectedTemplate(apiRef);
+	const handleUpdateTemplate = useUpdateTemplate(apiRef);
+
+	const handleColumnsSorting = () => {
+		handleUpdateTemplate();
 		columnsVisibility(apiRef?.current?.getVisibleColumns(), dispatch);
+	};
 
 	return (
 		<DataTableBox sidebarIsOpen={sidebarIsOpen}>
@@ -64,16 +70,24 @@ function DataTable(): JSX.Element {
 				rows={filteredRows}
 				pinnedRows={{ top }}
 				loading={isFetchingData}
-				disableSelectionOnClick
 				pagination
 				checkboxSelection
+				disableSelectionOnClick
 				density='compact'
+				onSortModelChange={handleUpdateTemplate}
+				onFilterModelChange={handleUpdateTemplate}
+				onPageChange={handleUpdateTemplate}
+				onPageSizeChange={handleUpdateTemplate}
+				onColumnWidthChange={handleUpdateTemplate}
+				onPinnedColumnsChange={handleUpdateTemplate}
+				onPreferencePanelClose={handleUpdateTemplate}
+				onPreferencePanelOpen={handleUpdateTemplate}
 				onColumnOrderChange={handleColumnsSorting}
 				onColumnVisibilityModelChange={handleColumnsSorting}
-				selectionModel={selectionModel}
 				onSelectionModelChange={handleChangeSelectionModel}
-				getRowClassName={generateClasses}
 				onRowDoubleClick={handleDoubleClickOnRow}
+				selectionModel={selectionModel}
+				getRowClassName={generateClasses}
 				disableColumnPinning={!columnPinning}
 				disableMultipleColumnsFiltering={!multipleColumnsFiltering}
 				disableColumnReorder={!columnReorder}
