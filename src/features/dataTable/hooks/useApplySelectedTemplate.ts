@@ -1,22 +1,34 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { GridApiPro } from '@mui/x-data-grid-pro/models/gridApiPro';
+import type { MutableRefObject } from 'react';
 
-import { useEffect } from 'react';
+import { Messages } from 'constant/messages';
+import { showNotification } from 'features/notificator/notificatorSlice';
+import { useAppDispatch } from 'hooks/redux';
+import { useEffect, useRef } from 'react';
 import { parseTemplate } from 'utils/templateUtils';
-import { useGetSelectedTemplateQuery } from '../modules/Templates/templatesApiSlice';
+import { useFetchSelectedTemplateQuery } from '../modules/Templates/templatesApiSlice';
 
-/**
- * Хук восстанавливает выбранный шаблон, который берется с сервера через запрос
- * @param apiRef ref-ссылка таблицы
- */
-export const useApplySelectedTemplate = (apiRef: React.MutableRefObject<GridApiPro>) => {
-	const { data, isSuccess } = useGetSelectedTemplateQuery();
-
+export const useApplySelectedTemplate = (apiRef: MutableRefObject<GridApiPro>) => {
+	const isApplyed = useRef(false);
+	const dispatch = useAppDispatch();
+	const { data: selectedConfig, isSuccess } = useFetchSelectedTemplateQuery(undefined, {
+		skip: isApplyed.current,
+	});
 	useEffect(() => {
-		/* Если по эндпоинту с текущим выбранным шаблоном есть данные и isSuccess true
-			тогда мы парсим ответ и восстанавливаем сохраненное состояние */
-		if (isSuccess) {
-			apiRef.current.restoreState(parseTemplate(data.template));
+		if (!isApplyed.current && isSuccess) {
+			try {
+				const parsedTemplate = parseTemplate(selectedConfig.template);
+				apiRef.current.restoreState(parsedTemplate);
+				isApplyed.current = true;
+			} catch (e) {
+				dispatch(
+					showNotification({
+						message: Messages.FAILED_TO_LOADING_TEMPLATE,
+						type: 'error',
+					})
+				);
+			}
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [data]);
+	}, [apiRef, dispatch, isSuccess, selectedConfig]);
 };
