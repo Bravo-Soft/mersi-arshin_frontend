@@ -104,7 +104,7 @@ function TemplateItem({ item }: ITemplateItemProps): JSX.Element {
 					type: 'success',
 				})
 			);
-		} catch (e) {
+		} catch {
 			dispatch(
 				showNotification({
 					message: Messages.FAILED_TO_DELETE_TEMPLATE,
