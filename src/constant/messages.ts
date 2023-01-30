@@ -14,7 +14,8 @@ export enum Messages {
 	// Уведомления – Информационные
 	TEMPLATE_SUCCESSFULLY_APPLIED = 'Применен выбранный шаблон',
 	APPLIED_DEFAULT_TEMPLATE = 'Применен шаблон по умолчанию',
-	DEFAULT_TEMPLATE_RESTORED = 'Шаблон восстановлен',
+	DEFAULT_TEMPLATE_RESTORED = 'Шаблон по умолчанию восстановлен',
+	TEMPLATE_RESTORED = 'Шаблон восстановлен',
 	DATA_ITEM_IS_UPDATED = 'Позиция обновлена',
 	PRESS_BUTTON_FOR_SAVING = 'Для сохранения всех данных, нажмите на кнопку ниже',
 	PHOTO_RESET = 'Фотография сброшена',
@@ -46,6 +47,7 @@ export enum Messages {
 	FAILED_TO_SAVE_TEMPLATE = 'Не удалось сохранить шаблон',
 	FAILED_TO_LOADING_TEMPLATE = 'Не удалось загрузить шаблон',
 	FAILED_TO_UPDATE_DATA_ITEM = 'Не удалось обновить позицию',
+	FAILED_TO_RESTORE_TEMPLATE = 'Не удалось сбросить шаблон',
 	FAILED_TO_LOAD_PHOTO = 'Не удалось загрузить фотографию',
 	FAILED_TO_RESET_PHOTO = 'Не удалось сбросить фото',
 	FAILED_TO_UPDATE_PROFILE = 'Не удалось обновить профиль',
