@@ -2,8 +2,6 @@
 import type { GridApiPro } from '@mui/x-data-grid-pro/models/gridApiPro';
 import type { MutableRefObject } from 'react';
 
-import { Messages } from 'constant/messages';
-import { showNotification } from 'features/notificator/notificatorSlice';
 import { useAppDispatch } from 'hooks/redux';
 import { useEffect, useRef } from 'react';
 import { parseTemplate } from 'utils/templateUtils';
@@ -15,19 +13,15 @@ export const useApplySelectedTemplate = (apiRef: MutableRefObject<GridApiPro>) =
 	const { data: selectedConfig, isSuccess } = useFetchSelectedTemplateQuery(undefined, {
 		skip: isApplyed.current,
 	});
+
 	useEffect(() => {
 		if (!isApplyed.current && isSuccess) {
 			try {
 				const parsedTemplate = parseTemplate(selectedConfig.template);
 				apiRef.current.restoreState(parsedTemplate);
 				isApplyed.current = true;
-			} catch (e) {
-				dispatch(
-					showNotification({
-						message: Messages.FAILED_TO_LOADING_TEMPLATE,
-						type: 'error',
-					})
-				);
+			} catch {
+				return;
 			}
 		}
 	}, [apiRef, dispatch, isSuccess, selectedConfig]);

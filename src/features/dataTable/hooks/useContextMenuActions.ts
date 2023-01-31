@@ -34,6 +34,8 @@ export interface ICoordinates {
 	mouseY: number;
 }
 
+type CopyData = Omit<IDataItem, 'userIds' | 'documents'>;
+
 export type UseContextMenuActionsReturned = ReturnType<typeof useContextMenuActions>;
 
 /**
@@ -171,17 +173,19 @@ export const useContextMenuActions = (
 		if (navigator.clipboard) {
 			if (isValueDefined(selectedDataItem)) {
 				const dataWithConvertedDates = data
-					.map((item: IDataItem) => ({
-						...item,
-						productionDate: format(parseISO(item.productionDate), formatVariant),
-						verificationDate: format(parseISO(item.verificationDate), formatVariant),
-						dateOfTheNextVerification: format(
-							parseISO(item.dateOfTheNextVerification),
-							formatVariant
-						),
-					}))
-					.filter((item: IDataItem) =>
-						[...selectionModel, selectedDataItem].includes(item.id)
+					.map(
+						({ userIds, documents, ...item }: IDataItem): CopyData => ({
+							...item,
+							productionDate: format(parseISO(item.productionDate), formatVariant),
+							verificationDate: format(parseISO(item.verificationDate), formatVariant),
+							dateOfTheNextVerification: format(
+								parseISO(item.dateOfTheNextVerification),
+								formatVariant
+							),
+						})
+					)
+					.filter((item: CopyData) =>
+						[...selectionModel, selectedDataItem.id].includes(item.id)
 					);
 
 				const readableData = convertDataToReadableFormat(
@@ -237,7 +241,7 @@ export const useContextMenuActions = (
 };
 
 interface IVisibleField {
-	field: keyof IDataItem;
+	field: keyof CopyData;
 	headerName: ColumnNames;
 }
 
@@ -249,7 +253,7 @@ interface IVisibleField {
  */
 export const convertDataToReadableFormat = (
 	visibleColumns: GridStateColDef<any, any, any>[],
-	data: IDataItem[]
+	data: CopyData[]
 ) => {
 	const columnsWithoutCheckboxes = visibleColumns
 		.filter(item => item.field !== '__check__')
@@ -262,7 +266,7 @@ export const convertDataToReadableFormat = (
 		);
 
 	/* Здесь мы используем метод join для того, чтобы избавиться от вывода матрицы и сразу преобразовать результат в строку */
-	const convertRowToReadbleState = (item: IDataItem) =>
+	const convertRowToReadbleState = (item: CopyData) =>
 		columnsWithoutCheckboxes
 			.map(({ field, headerName }) =>
 				field in item ? `${headerName}: ${item[field] ?? 'Нет данных'}` : ''
