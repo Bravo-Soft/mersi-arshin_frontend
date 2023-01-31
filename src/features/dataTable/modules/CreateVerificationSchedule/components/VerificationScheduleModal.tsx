@@ -4,8 +4,11 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { operatorsFilters } from '../operatorsFilters';
 import { setColumns } from '../utils/setColums';
-import { useAppSelector } from 'hooks/redux';
-import { selectedIsOpenedVerificationScheduleModal } from 'features/dataTable/dataTableSlice';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import {
+	selectedIsOpenedVerificationScheduleModal,
+	setVerificationScheduleModal,
+} from 'features/dataTable/dataTableSlice';
 
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -32,6 +35,8 @@ function VerificationScheduleModal({ apiRef }: IPopupVerificationScheduleModalPr
 	const [dateRange, setDateRange] = useState<DateRange<Date>>([null, null]);
 	const [columnsFilters, setColumnsFilters] = useState<IColumnTable[]>([]);
 	const isOpenedModal = useAppSelector(selectedIsOpenedVerificationScheduleModal);
+
+	const dispatch = useAppDispatch();
 
 	const methods = useForm<IForm>();
 	const { control } = methods;
@@ -60,8 +65,12 @@ function VerificationScheduleModal({ apiRef }: IPopupVerificationScheduleModalPr
 		setDateRange(newValue);
 	};
 
+	const closeModal = () => {
+		dispatch(setVerificationScheduleModal(false));
+	};
+
 	return (
-		<Dialog open={isOpenedModal}>
+		<Dialog open={isOpenedModal} onClose={closeModal}>
 			<FormProvider {...methods}>
 				<DialogTitle>Создание графика поверки</DialogTitle>
 				<Box
