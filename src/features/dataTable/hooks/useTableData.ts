@@ -7,7 +7,6 @@ import type { IDataItem } from 'types/dataItem';
 
 const useTableData = (data: IDataItem[]) => {
 	const pinnedIds = useAppSelector(selectedPinnedRows);
-
 	const { pinnedRows, rows } = useMemo(() => {
 		const rowsData: GridRowModel<IDataItem>[] = [];
 		const pinnedRowsData: { top: GridRowModel<IDataItem>[] } = { top: [] };
@@ -25,6 +24,7 @@ const useTableData = (data: IDataItem[]) => {
 			pinnedRows: pinnedRowsData,
 		};
 	}, [pinnedIds, data]);
+
 	return { rows, pinnedRows, pinnedIds };
 };
 
