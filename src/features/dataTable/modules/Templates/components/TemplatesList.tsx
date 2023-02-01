@@ -1,10 +1,12 @@
+import { TransitionGroup } from 'react-transition-group';
 import { useFetchAllTemplatesQuery } from '../templatesApiSlice';
 
 import type { PopoverOrigin, PopoverProps } from '@mui/material/Popover';
 
 import List from '@mui/material/List';
-import Popover from '@mui/material/Popover';
 import TemplateItem from './TemplateItem';
+import Popover from '@mui/material/Popover';
+import Collapse from '@mui/material/Collapse';
 
 export const anchorOrigin: PopoverOrigin = {
 	vertical: 'top',
@@ -36,9 +38,13 @@ function TemplatesList(props: ITemplatesList): JSX.Element {
 				PaperProps={{ sx: { width: 300 } }}
 			>
 				<List disablePadding sx={{ py: 1 }}>
-					{loadedTemplates?.map(item => (
-						<TemplateItem key={item.id} item={item} />
-					))}
+					<TransitionGroup>
+						{loadedTemplates?.map(item => (
+							<Collapse key={item.id}>
+								<TemplateItem item={item} />
+							</Collapse>
+						))}
+					</TransitionGroup>
 				</List>
 			</Popover>
 		</>
