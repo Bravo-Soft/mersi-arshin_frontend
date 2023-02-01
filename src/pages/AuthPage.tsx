@@ -10,6 +10,9 @@ import { AppRoutes } from 'constant/appRoutes';
 import { useLoginMutation } from 'features/auth/authApiSlice';
 import { useErrorMessage } from 'features/auth/hooks/useErrorMessage';
 import { useNavigate } from 'react-router-dom';
+import LayoutFooter from 'components/Layout/LayoutFooter';
+
+// import LayoutFooter from './LayoutFooter';
 
 function AuthPage(): JSX.Element {
 	/* Метод авторизации */
@@ -30,20 +33,27 @@ function AuthPage(): JSX.Element {
 	};
 
 	return (
-		<Box height='100vh' position='relative'>
+		<Box
+			display='flex'
+			height='100vh'
+			minHeight='100vh'
+			position='relative'
+			flexDirection='column'
+		>
 			<Container
 				maxWidth='xs'
 				sx={{
 					height: 1,
+					rowGap: 2,
 					display: 'flex',
 					flexDirection: 'column',
 					justifyContent: 'center',
-					rowGap: 2,
 				}}
 			>
 				<AuthForm submitCallback={handleLogin} isLoading={isLoading} isError={isError} />
 				<ErrorTip isError={isError} message={errorMessage} onResetError={handleResetError} />
 			</Container>
+			<LayoutFooter />
 			<HelpDialog />
 		</Box>
 	);
