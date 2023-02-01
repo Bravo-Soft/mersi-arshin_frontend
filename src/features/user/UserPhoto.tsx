@@ -12,6 +12,7 @@ import Badge from '@mui/material/Badge';
 import IconButton from '@mui/material/IconButton';
 import Skeleton from '@mui/material/Skeleton';
 import useNotification from 'hooks/useNotification';
+import Tooltip from '@mui/material/Tooltip';
 
 interface IUserPhotoProps {
 	file: File | null;
@@ -36,15 +37,24 @@ const UserPhoto = forwardRef<HTMLInputElement, IUserPhotoProps>((props, ref): JS
 			return;
 		}
 
+		if (file.size >= 2097152) {
+			showNotification('FAILED_TO_CHANGE_PRINTING_OPTIONS', 'error');
+			return;
+		}
+
 		const url = URL.createObjectURL(file);
 		setPreview(url);
 
 		return () => {
 			URL.revokeObjectURL(url);
 		};
-	}, [file]);
+	}, [file, showNotification]);
 
 	const handleChangePhoto = (event: ChangeEvent<HTMLInputElement>) => {
+		if (event.currentTarget.files && event.currentTarget.files[0].size >= 2097152) {
+			showNotification('FAILED_TO_CHANGE_PRINTING_OPTIONS', 'error');
+			return;
+		}
 		if (event.currentTarget.files) {
 			const selectedFile = event.currentTarget.files[0];
 			setFile(selectedFile);
@@ -58,18 +68,20 @@ const UserPhoto = forwardRef<HTMLInputElement, IUserPhotoProps>((props, ref): JS
 			overlap='circular'
 			badgeContent={
 				<>
-					<IconButton
-						onClick={onClickLoadButton}
-						size='large'
-						sx={{
-							bgcolor: 'grey.100',
-							':is(:hover, :focus)': {
-								bgcolor: 'grey.200',
-							},
-						}}
-					>
-						<PhotoCameraIcon />
-					</IconButton>
+					<Tooltip title='Максимальный размер фото 2мб'>
+						<IconButton
+							onClick={onClickLoadButton}
+							size='large'
+							sx={{
+								bgcolor: 'grey.100',
+								':is(:hover, :focus)': {
+									bgcolor: 'grey.200',
+								},
+							}}
+						>
+							<PhotoCameraIcon />
+						</IconButton>
+					</Tooltip>
 					<input
 						ref={ref}
 						hidden
