@@ -18,10 +18,11 @@ interface IUserPhotoProps {
 	file: File | null;
 	setFile: React.Dispatch<React.SetStateAction<File | null>>;
 	onClickLoadButton: () => void;
+	onResetCallback: () => void;
 }
 
 const UserPhoto = forwardRef<HTMLInputElement, IUserPhotoProps>((props, ref): JSX.Element => {
-	const { file, setFile, onClickLoadButton } = props;
+	const { file, setFile, onClickLoadButton, onResetCallback } = props;
 	const dispatch = useAppDispatch();
 
 	const showNotification = useNotification(dispatch);
@@ -37,11 +38,6 @@ const UserPhoto = forwardRef<HTMLInputElement, IUserPhotoProps>((props, ref): JS
 			return;
 		}
 
-		if (file.size >= 2097152) {
-			showNotification('FAILED_TO_CHANGE_PRINTING_OPTIONS', 'error');
-			return;
-		}
-
 		const url = URL.createObjectURL(file);
 		setPreview(url);
 
@@ -52,7 +48,8 @@ const UserPhoto = forwardRef<HTMLInputElement, IUserPhotoProps>((props, ref): JS
 
 	const handleChangePhoto = (event: ChangeEvent<HTMLInputElement>) => {
 		if (event.currentTarget.files && event.currentTarget.files[0].size >= 2097152) {
-			showNotification('FAILED_TO_CHANGE_PRINTING_OPTIONS', 'error');
+			showNotification('FAILED_TO_UPLOAD_PHOTO_SIZE', 'error');
+			onResetCallback();
 			return;
 		}
 		if (event.currentTarget.files) {
