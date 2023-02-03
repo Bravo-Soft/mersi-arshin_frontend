@@ -7,11 +7,11 @@ import type { INotificationSettings } from 'types/notification';
 import type { IPrintSettingResponse, IPrintSettings } from 'types/printSettings';
 import type { IProfile } from 'types/profile';
 import type { ITemplateСonfig } from 'types/template';
-import type { Roles } from 'constant/roles';
+import type { Role } from 'constant/roles';
 
 export interface IUserDataResponse {
 	id: string;
-	roles: Roles;
+	roles: Role;
 	group: IGroup;
 }
 

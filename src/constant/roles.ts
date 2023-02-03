@@ -1,4 +1,4 @@
-export const enum Roles {
+export const enum Role {
 	SUPER_ADMIN = 'Супер администратор',
 	MANAGER = 'Менеджер',
 	ADMIN = 'Администратор',
