@@ -12,15 +12,17 @@ import Badge from '@mui/material/Badge';
 import IconButton from '@mui/material/IconButton';
 import Skeleton from '@mui/material/Skeleton';
 import useNotification from 'hooks/useNotification';
+import Tooltip from '@mui/material/Tooltip';
 
 interface IUserPhotoProps {
 	file: File | null;
 	setFile: React.Dispatch<React.SetStateAction<File | null>>;
 	onClickLoadButton: () => void;
+	onResetCallback: () => void;
 }
 
 const UserPhoto = forwardRef<HTMLInputElement, IUserPhotoProps>((props, ref): JSX.Element => {
-	const { file, setFile, onClickLoadButton } = props;
+	const { file, setFile, onClickLoadButton, onResetCallback } = props;
 	const dispatch = useAppDispatch();
 
 	const showNotification = useNotification(dispatch);
@@ -42,9 +44,14 @@ const UserPhoto = forwardRef<HTMLInputElement, IUserPhotoProps>((props, ref): JS
 		return () => {
 			URL.revokeObjectURL(url);
 		};
-	}, [file]);
+	}, [file, showNotification]);
 
 	const handleChangePhoto = (event: ChangeEvent<HTMLInputElement>) => {
+		if (event.currentTarget.files && event.currentTarget.files[0].size >= 2097152) {
+			showNotification('FAILED_TO_UPLOAD_PHOTO_SIZE', 'error');
+			onResetCallback();
+			return;
+		}
 		if (event.currentTarget.files) {
 			const selectedFile = event.currentTarget.files[0];
 			setFile(selectedFile);
@@ -58,18 +65,20 @@ const UserPhoto = forwardRef<HTMLInputElement, IUserPhotoProps>((props, ref): JS
 			overlap='circular'
 			badgeContent={
 				<>
-					<IconButton
-						onClick={onClickLoadButton}
-						size='large'
-						sx={{
-							bgcolor: 'grey.100',
-							':is(:hover, :focus)': {
-								bgcolor: 'grey.200',
-							},
-						}}
-					>
-						<PhotoCameraIcon />
-					</IconButton>
+					<Tooltip title='Максимальный размер фото 2мб'>
+						<IconButton
+							onClick={onClickLoadButton}
+							size='large'
+							sx={{
+								bgcolor: 'grey.100',
+								':is(:hover, :focus)': {
+									bgcolor: 'grey.200',
+								},
+							}}
+						>
+							<PhotoCameraIcon />
+						</IconButton>
+					</Tooltip>
 					<input
 						ref={ref}
 						hidden

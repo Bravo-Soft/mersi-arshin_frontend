@@ -72,4 +72,5 @@ export enum Messages {
 	FAILED_TO_LARGE_FILE_SIZE = 'Превышен лимит файлов',
 	FAILED_TO_WRONG_FILE_TIPE = 'Неверный тип файлов',
 	FAILED_TO_DELETE_TEMPLATE = 'Не удалось удалить шаблон',
+	FAILED_TO_UPLOAD_PHOTO_SIZE = 'Файл превышает максимальный размер',
 }

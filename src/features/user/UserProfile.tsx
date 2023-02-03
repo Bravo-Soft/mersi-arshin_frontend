@@ -55,6 +55,12 @@ function UserProfile(): JSX.Element {
 		uploadRef.current?.click();
 	};
 
+	const onResetCallback = () => {
+		if (uploadRef.current && uploadRef.current.value) {
+			uploadRef.current.value = '';
+		}
+	};
+
 	useEffect(() => {
 		if (userData) {
 			const keys = Object.keys(userData) as Array<keyof IProfile>;
@@ -86,6 +92,7 @@ function UserProfile(): JSX.Element {
 					file={file}
 					setFile={setFile}
 					onClickLoadButton={handleClickUploadButton}
+					onResetCallback={onResetCallback}
 				/>
 				<Stack width={1} rowGap={1}>
 					{inputs.map(({ key, label }) =>
