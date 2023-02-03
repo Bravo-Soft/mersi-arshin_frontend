@@ -15,18 +15,18 @@ const NotFoundPage = lazy(() => import('pages/NotFoundPage'));
 function Navigation(): JSX.Element {
 	return (
 		<Routes>
-			<Route
-				path={AppRoutes.AUTH}
-				element={
-					<PreventNavigateAuth>
-						<Suspense fallback={<Fallback />}>
-							<AuthPage />
-						</Suspense>
-					</PreventNavigateAuth>
-				}
-			/>
 			<Route path='/' element={<Layout />}>
 				<Route index element={<Navigate to={AppRoutes.HOME} replace />} />
+				<Route
+					path={AppRoutes.AUTH}
+					element={
+						<PreventNavigateAuth>
+							<Suspense fallback={<Fallback />}>
+								<AuthPage />
+							</Suspense>
+						</PreventNavigateAuth>
+					}
+				/>
 				<Route
 					path={AppRoutes.HOME}
 					element={
