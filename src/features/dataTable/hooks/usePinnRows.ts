@@ -1,14 +1,16 @@
-import { useAppSelector } from 'hooks/redux';
 import { isValueDefined } from 'guards/isValueDefined';
+import { useAppSelector } from 'hooks/redux';
 import { selectSelectedDataItem, selectSelectionModel } from '../dataTableSlice';
 
-import type { GridValidRowModel } from '@mui/x-data-grid-pro';
+import type { gridVisibleSortedRowEntriesSelector } from '@mui/x-data-grid-pro';
 
-const usePinnRows = (filterState: GridValidRowModel[]) => {
+type VisibilityDataGridRowType = ReturnType<typeof gridVisibleSortedRowEntriesSelector>;
+
+const usePinnRows = (filterState: VisibilityDataGridRowType) => {
 	const selectionModel = useAppSelector(selectSelectionModel);
 	const selectedDataItem = useAppSelector(selectSelectedDataItem);
 
-	const sortedFilter = filterState.map(({ _, model }) => model);
+	const visibilityModel = filterState.map(({ model }) => model);
 
 	const pinMenuIsActive =
 		(selectionModel.length &&
@@ -21,7 +23,7 @@ const usePinnRows = (filterState: GridValidRowModel[]) => {
 			? selectionModel.length
 			: selectionModel.length + 1;
 
-	const disabledPin = sortedFilter?.length === 1 || lengthArray === sortedFilter?.length;
+	const disabledPin = visibilityModel?.length === 1 || lengthArray === visibilityModel?.length;
 
 	return { pinMenuIsActive, disabledPin };
 };

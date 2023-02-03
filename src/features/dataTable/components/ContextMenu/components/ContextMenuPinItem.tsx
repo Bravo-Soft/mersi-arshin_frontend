@@ -18,7 +18,6 @@ import PushPinIcon from '@mui/icons-material/PushPin';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import usePinnRows from 'features/dataTable/hooks/usePinnRows';
 import { gridVisibleSortedRowEntriesSelector } from '@mui/x-data-grid-pro';
-
 interface IContextMenuPinItemProps {
 	handlePinningRow: () => void;
 	handlePinningManyRows: () => void;

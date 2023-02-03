@@ -26,12 +26,11 @@ function DataTableFooter(): JSX.Element {
 				{selectedRowCount ? <GridSelectedRowCount selectedRowCount={selectedRowCount} /> : null}
 			</Box>
 			<StyledGridPagination isWriter={isWriter} isAdmin={isAdmin} />
-			{isWriter ||
-				(isAdmin && (
-					<DataTableAddAction
-						sx={{ position: 'absolute', right: spacing(3), bottom: spacing(3) }}
-					/>
-				))}
+			{(isWriter || isAdmin) && (
+				<DataTableAddAction
+					sx={{ position: 'absolute', right: spacing(3), bottom: spacing(3) }}
+				/>
+			)}
 		</GridFooterContainer>
 	);
 }

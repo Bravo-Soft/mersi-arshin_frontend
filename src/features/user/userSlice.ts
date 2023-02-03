@@ -3,12 +3,12 @@ import type { RootState } from 'app/store';
 import type { IGroup } from 'types/group';
 
 import { createSlice } from '@reduxjs/toolkit';
-import { Roles } from 'constant/roles';
+import { Role } from 'constant/roles';
 
 interface IUserState {
 	id: string | null;
 	group: IGroup | null;
-	role: Roles | null;
+	role: Role | null;
 }
 
 const initialState: IUserState = {
@@ -29,7 +29,7 @@ const userSlice = createSlice({
 			state.group = action.payload;
 		},
 
-		setRole: (state, action: PayloadAction<Roles>) => {
+		setRole: (state, action: PayloadAction<Role>) => {
 			state.role = action.payload;
 		},
 
@@ -61,9 +61,9 @@ export const selectUserPermissions = ({ user }: RootState) => ({
 export const selectUserId = (state: RootState) => state.user.id;
 
 export const selectUserRoles = ({ user }: RootState) => ({
-	isReader: user.role === Roles.USER_READER,
-	isWriter: user.role === Roles.USER_WRITER,
-	isAdmin: user.role === Roles.ADMIN,
+	isReader: user.role === Role.USER_READER,
+	isWriter: user.role === Role.USER_WRITER,
+	isAdmin: user.role === Role.ADMIN,
 });
 
 export const userPath = userSlice.name;
