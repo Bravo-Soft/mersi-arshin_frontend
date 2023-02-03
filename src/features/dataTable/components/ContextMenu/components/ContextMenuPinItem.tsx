@@ -1,12 +1,10 @@
 import { Messages } from 'constant/messages';
-import { selectSelectedDataItem, selectSelectionModel } from 'features/dataTable/dataTableSlice';
 import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
 import { selectUserPermissions } from 'features/user/userSlice';
-import { isValueDefined } from 'guards/isValueDefined';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { useState } from 'react';
 
-import type { MenuItemProps } from '@mui/material/MenuItem';
+import type { GridApiPro } from '@mui/x-data-grid-pro/models/gridApiPro';
 
 import Collapse from '@mui/material/Collapse';
 import ListItemText from '@mui/material/ListItemText';
@@ -18,22 +16,21 @@ import ExpandIcon from '@mui/icons-material/ExpandMore';
 import LockIcon from '@mui/icons-material/Lock';
 import PushPinIcon from '@mui/icons-material/PushPin';
 import ListItemIcon from '@mui/material/ListItemIcon';
-
-interface IContextMenuPinItemProps extends Required<Pick<MenuItemProps, 'disabled'>> {
+import usePinnRows from 'features/dataTable/hooks/usePinnRows';
+import { gridVisibleSortedRowEntriesSelector } from '@mui/x-data-grid-pro';
+interface IContextMenuPinItemProps {
 	handlePinningRow: () => void;
 	handlePinningManyRows: () => void;
+	apiRef: React.MutableRefObject<GridApiPro>;
 }
 
 function ContextMenuPinItem({
 	handlePinningRow,
 	handlePinningManyRows,
-	disabled,
+	apiRef,
 }: IContextMenuPinItemProps) {
 	const dispatch = useAppDispatch();
 	const [isOpen, setIsOpen] = useState(false);
-	const selectionModel = useAppSelector(selectSelectionModel);
-	const selectedDataItem = useAppSelector(selectSelectedDataItem);
-
 	const { rowPinning } = useAppSelector(selectUserPermissions);
 
 	const handleToggleNastedMenu = () => {
@@ -48,23 +45,21 @@ function ContextMenuPinItem({
 			  );
 	};
 
-	const pinMenuIsActive =
-		(selectionModel.length &&
-			isValueDefined(selectedDataItem) &&
-			!selectionModel.includes(selectedDataItem.id)) ||
-		selectionModel.length > 1;
+	const { pinMenuIsActive, disabledPin } = usePinnRows(
+		gridVisibleSortedRowEntriesSelector(apiRef)
+	);
 
 	return (
 		<>
 			<StyledMenuItem
 				moduleIsActive={rowPinning}
 				onClick={handleToggleNastedMenu}
-				disabled={disabled}
+				disabled={disabledPin}
 			>
 				<ListItemIcon>{rowPinning ? <PushPinIcon /> : <LockIcon />}</ListItemIcon>
 				<ListItemText
 					primary='Закрепить'
-					secondary={disabled ? 'Невозможно закрепить' : undefined}
+					secondary={disabledPin ? 'Невозможно закрепить' : undefined}
 				/>
 				<ExpandIcon
 					color='action'

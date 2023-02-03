@@ -111,7 +111,7 @@ function DataTable(): JSX.Element {
 			<ContextMenu
 				contextMenu={contextMenu}
 				actionsOfContextMenu={actionsOfContextMenu}
-				disabledPin={filteredRows.length === 1}
+				apiRef={apiRef}
 			/>
 			<VerificationScheduleModal apiRef={apiRef} />
 		</DataTableBox>

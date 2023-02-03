@@ -13,6 +13,7 @@ import { useAppDispatch, useAppSelector } from 'hooks/redux';
 
 import type { SvgIconProps } from '@mui/material/SvgIcon';
 import type { UseContextMenuActionsReturned } from 'features/dataTable/hooks/useContextMenuActions';
+import type { GridApiPro } from '@mui/x-data-grid-pro/models/gridApiPro';
 
 import CheckIcon from '@mui/icons-material/Check';
 import ListItemText from '@mui/material/ListItemText';
@@ -39,13 +40,13 @@ interface IMenuItem {
 }
 
 interface IContextMenuProps extends UseContextMenuActionsReturned {
-	disabledPin: boolean;
+	apiRef: React.MutableRefObject<GridApiPro>;
 }
 
 function ContextMenu({
 	contextMenu,
 	actionsOfContextMenu,
-	disabledPin,
+	apiRef,
 }: IContextMenuProps): JSX.Element {
 	const dispatch = useAppDispatch();
 
@@ -177,9 +178,9 @@ function ContextMenu({
 			))}
 			{!isPinnedRow ? (
 				<ContextMenuPinItem
-					disabled={disabledPin}
 					handlePinningRow={handlePinningRow}
 					handlePinningManyRows={handlePinningManyRows}
+					apiRef={apiRef}
 				/>
 			) : (
 				<ContextMenuUnPinItem
