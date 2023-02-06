@@ -189,15 +189,14 @@ function ContextMenu({
 				/>
 			)}
 
-			{isWriter ||
-				(isAdmin && (
-					<DeleteMenuItem onClick={handleOpenDeleteDialog}>
-						<ListItemIcon>
-							<DeleteIcon />
-						</ListItemIcon>
-						<ListItemText>Удалить СИ</ListItemText>
-					</DeleteMenuItem>
-				))}
+			{(isWriter || isAdmin) && (
+				<DeleteMenuItem onClick={handleOpenDeleteDialog}>
+					<ListItemIcon>
+						<DeleteIcon />
+					</ListItemIcon>
+					<ListItemText>Удалить СИ</ListItemText>
+				</DeleteMenuItem>
+			)}
 		</Menu>
 	);
 }
