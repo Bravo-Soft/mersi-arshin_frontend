@@ -6,6 +6,7 @@ import { useFilterAutocomplete } from '../hooks/useAutocomplete';
 import { selectedVisibleColumns } from 'features/dataTable/dataTableSlice';
 
 import type { IDataItemWithDates } from 'types/dataItem';
+import type { IField, KeysOfVerificate } from '../fields';
 
 import Stack from '@mui/material/Stack';
 import DateField from 'components/DateField';
@@ -25,7 +26,9 @@ function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
 
 	const { modifiedVerificationFields } = useAppSelector(selectedVisibleColumns);
 
-	const rendercol = modifiedVerificationFields ? modifiedVerificationFields : verificationFields;
+	const rendercol: IField<KeysOfVerificate>[] = modifiedVerificationFields
+		? modifiedVerificationFields
+		: verificationFields;
 	const params = useFilterAutocomplete();
 
 	return (

@@ -5,6 +5,7 @@ import { useDateValidate } from 'hooks/useDateValidate';
 import { useFilterAutocomplete } from '../hooks/useAutocomplete';
 import { selectedVisibleColumns } from 'features/dataTable/dataTableSlice';
 
+import type { IField, KeysOfEdit } from '../fields';
 import type { IDataItemWithDates } from 'types/dataItem';
 
 import Stack from '@mui/material/Stack';
@@ -26,7 +27,7 @@ function EditInputs({ isReader }: IEditInputsProps): JSX.Element {
 
 	const { modifiedEditFields } = useAppSelector(selectedVisibleColumns);
 
-	const rendercol = modifiedEditFields ? modifiedEditFields : editFields;
+	const rendercol: IField<KeysOfEdit>[] = modifiedEditFields ? modifiedEditFields : editFields;
 
 	const params = useFilterAutocomplete();
 	return (

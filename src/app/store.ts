@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import storage from 'redux-persist/lib/storage';
 
 import type { AnyAction, Reducer } from '@reduxjs/toolkit';
@@ -20,7 +21,6 @@ import {
 	REHYDRATE,
 } from 'redux-persist';
 import { apiSlice } from './apiSlice';
-import { resetPath, resetReducer } from './resetSlise';
 
 import type { PersistConfig } from 'redux-persist';
 
@@ -33,7 +33,6 @@ const config: PersistConfig<RootState> = {
 
 const combineReducer = combineReducers({
 	[apiSlice.reducerPath]: apiSlice.reducer,
-	[resetPath]: resetReducer,
 	[authPath]: authReducer,
 	[notificationPath]: notificationReducer,
 	[sidebarPath]: sidebarReducer,
@@ -43,7 +42,7 @@ const combineReducer = combineReducers({
 });
 
 const rootReducer: Reducer = (state: RootState, action: AnyAction) => {
-	if (action.type === 'reset/clearStore') {
+	if (action.type === 'auth/resetCredentionals') {
 		state = {} as RootState;
 	}
 
