@@ -1,5 +1,6 @@
 import storage from 'redux-persist/lib/storage';
 
+import type { AnyAction, Reducer } from '@reduxjs/toolkit';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
 import { authPath, authReducer } from 'features/auth/authSlice';
@@ -29,7 +30,7 @@ const config: PersistConfig<RootState> = {
 	whitelist: [authPath],
 };
 
-const rootReducer = combineReducers({
+const combineReducer = combineReducers({
 	[apiSlice.reducerPath]: apiSlice.reducer,
 	[authPath]: authReducer,
 	[notificationPath]: notificationReducer,
@@ -38,6 +39,14 @@ const rootReducer = combineReducers({
 	[userPath]: userReducer,
 	[smartDialogPath]: smartDialogReducer,
 });
+
+const rootReducer: Reducer = (state: RootState, action: AnyAction) => {
+	if (action.type === 'auth/resetCredentionals') {
+		state = {} as RootState;
+	}
+
+	return combineReducer(state, action);
+};
 
 const persistedReducer = persistReducer(config, rootReducer);
 
@@ -56,5 +65,5 @@ setupListeners(store.dispatch);
 
 export const persistor = persistStore(store);
 
-export type RootState = ReturnType<typeof rootReducer>;
+export type RootState = ReturnType<typeof combineReducer>;
 export type AppDispatch = typeof store.dispatch;

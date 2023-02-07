@@ -14,7 +14,6 @@ import { useNavigate } from 'react-router-dom';
 function AuthPage(): JSX.Element {
 	/* Метод авторизации */
 	const [login, { error, isError, isLoading, reset }] = useLoginMutation();
-
 	/* Ошибка и метод для навигации */
 	const errorMessage = useErrorMessage(error);
 	const navigate = useNavigate();
