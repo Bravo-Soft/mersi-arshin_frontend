@@ -127,7 +127,7 @@ function ContextMenu({
 		{
 			title: 'Скопировать данные',
 			Icon: hasClipboard ? CopyAllIcon : LockIcon,
-			isActive: isValueDefined(hasClipboard),
+			isActive: hasClipboard ?? false,
 			action: handleCopySelectedValues,
 		},
 		{

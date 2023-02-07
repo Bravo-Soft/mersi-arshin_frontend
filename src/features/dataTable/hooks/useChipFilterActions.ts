@@ -22,7 +22,8 @@ export const useChipFilterActions = () => {
 	const selectedOptionIsMonth = typeof currentFilteringOption === 'number';
 	const currentBadgeContent = selectedOptionIsMonth && months[currentFilteringOption];
 
-	const { hasFavorites, hasChoiceMonth } = useAppSelector(selectUserPermissions);
+	const { hasFavorites, hasChoiceMonth, hasChooseExpiredValue } =
+		useAppSelector(selectUserPermissions);
 
 	const openPaymentDialog = () => {
 		dispatch(
@@ -39,7 +40,16 @@ export const useChipFilterActions = () => {
 	};
 
 	const currentChipIsPayd = (option: ChipFilterOptions) => {
-		return option === 'Избранное' ? hasFavorites : option === 'Месяц' ? hasChoiceMonth : true;
+		switch (option) {
+			case 'Избранное':
+				return hasFavorites;
+			case 'Месяц':
+				return hasChoiceMonth;
+			case 'Просроченные':
+				return hasChooseExpiredValue;
+			default:
+				return true;
+		}
 	};
 
 	const handleSelectChipFilterOption = (newOption: ChipFilterOptions) => () => {
