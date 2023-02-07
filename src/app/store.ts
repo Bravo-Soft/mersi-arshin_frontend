@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import storage from 'redux-persist/lib/storage';
 
 import type { AnyAction, Reducer } from '@reduxjs/toolkit';
@@ -66,5 +65,5 @@ setupListeners(store.dispatch);
 
 export const persistor = persistStore(store);
 
-export type RootState = ReturnType<typeof rootReducer>;
+export type RootState = ReturnType<typeof combineReducer>;
 export type AppDispatch = typeof store.dispatch;
