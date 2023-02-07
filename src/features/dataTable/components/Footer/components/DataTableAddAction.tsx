@@ -48,7 +48,6 @@ function DataTableAddAction(props: IDataTableAddActionProps): JSX.Element | null
 		maxRowCountIsReached
 			? handleShowDialog(Messages.MAX_COUNT_OF_ITEMS_IS_REACHED)
 			: openSidebarWith('CreateDataItem');
-		openSidebarWith('CreateDataItem');
 	};
 
 	return (
