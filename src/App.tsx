@@ -8,7 +8,7 @@ import Navigation from 'navigation';
 
 import { StyledSnackbarProvider } from 'features/notificator/StyledSnackbarProvider';
 import { useClosableSnackbar } from 'features/notificator/useClosableSnackbar';
-
+ 
 function App() {
 	const [ref, onClick] = useClosableSnackbar();
 	return (

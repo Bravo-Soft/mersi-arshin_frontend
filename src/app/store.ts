@@ -1,5 +1,6 @@
 import storage from 'redux-persist/lib/storage';
 
+import type { AnyAction, Reducer } from '@reduxjs/toolkit';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
 import { authPath, authReducer } from 'features/auth/authSlice';
@@ -19,6 +20,7 @@ import {
 	REHYDRATE,
 } from 'redux-persist';
 import { apiSlice } from './apiSlice';
+import { resetPath, resetReducer } from './resetSlise';
 
 import type { PersistConfig } from 'redux-persist';
 
@@ -29,8 +31,9 @@ const config: PersistConfig<RootState> = {
 	whitelist: [authPath],
 };
 
-const rootReducer = combineReducers({
+const combineReducer = combineReducers({
 	[apiSlice.reducerPath]: apiSlice.reducer,
+	[resetPath]: resetReducer,
 	[authPath]: authReducer,
 	[notificationPath]: notificationReducer,
 	[sidebarPath]: sidebarReducer,
@@ -38,6 +41,14 @@ const rootReducer = combineReducers({
 	[userPath]: userReducer,
 	[smartDialogPath]: smartDialogReducer,
 });
+
+const rootReducer: Reducer = (state: RootState, action: AnyAction) => {
+	if (action.type === 'reset/clearStore') {
+		state = {} as RootState;
+	}
+
+	return combineReducer(state, action);
+};
 
 const persistedReducer = persistReducer(config, rootReducer);
 

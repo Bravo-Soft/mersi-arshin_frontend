@@ -10,11 +10,15 @@ import { AppRoutes } from 'constant/appRoutes';
 import { useLoginMutation } from 'features/auth/authApiSlice';
 import { useErrorMessage } from 'features/auth/hooks/useErrorMessage';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useAppDispatch } from 'hooks/redux';
+import { clearStore } from 'app/resetSlise';
 
 function AuthPage(): JSX.Element {
+	const dispatch = useAppDispatch();
+
 	/* Метод авторизации */
 	const [login, { error, isError, isLoading, reset }] = useLoginMutation();
-
 	/* Ошибка и метод для навигации */
 	const errorMessage = useErrorMessage(error);
 	const navigate = useNavigate();
@@ -28,6 +32,10 @@ function AuthPage(): JSX.Element {
 	const handleResetError = () => {
 		reset();
 	};
+
+	useEffect(() => {
+		dispatch(clearStore());
+	}, [dispatch]);
 
 	return (
 		<Box height='100vh' position='relative'>
