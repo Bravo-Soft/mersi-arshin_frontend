@@ -14,7 +14,7 @@ import AttachFileIcon from '@mui/icons-material/AttachFile';
 import CheckIcon from '@mui/icons-material/Check';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ContentPasteGoIcon from '@mui/icons-material/ContentPasteGo';
 import LockIcon from '@mui/icons-material/Lock';
 
 import IconButton from '@mui/material/IconButton';
@@ -24,6 +24,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import DeleteMenuItem from 'styled/DeleteMenuItem';
 import StyledMenuItem from 'styled/StyledMenuItem';
+import Tooltip from '@mui/material/Tooltip';
 
 interface IFormMenuProps {
 	page: SidebarPages;
@@ -83,14 +84,11 @@ function FormMenu({ page }: IFormMenuProps): JSX.Element | null {
 
 	return (
 		<>
-			<IconButton onClick={handleOpenMenu}>
-				<ExpandMoreIcon
-					sx={{
-						transition: theme => theme.transitions.create('rotate'),
-						rotate: open ? '180deg' : '0deg',
-					}}
-				/>
-			</IconButton>
+			<Tooltip title='Операции с СИ'>
+				<IconButton onClick={handleOpenMenu}>
+					<ContentPasteGoIcon />
+				</IconButton>
+			</Tooltip>
 			<Menu
 				open={open}
 				onClose={handleCloseMenu}
