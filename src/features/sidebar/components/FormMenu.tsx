@@ -124,15 +124,14 @@ function FormMenu({ page }: IFormMenuProps): JSX.Element | null {
 					<ListItemIcon>{attachFiles ? <AttachFileIcon /> : <LockIcon />}</ListItemIcon>
 					<ListItemText>{SidebarTitles.ITEM_FILES}</ListItemText>
 				</StyledMenuItem>
-				{isWriter ||
-					(isAdmin && (
-						<DeleteMenuItem onClick={handleOpenDeletingDialog}>
-							<ListItemIcon>
-								<DeleteIcon />
-							</ListItemIcon>
-							<ListItemText>Удалить</ListItemText>
-						</DeleteMenuItem>
-					))}
+				{(isWriter || isAdmin) && (
+					<DeleteMenuItem onClick={handleOpenDeletingDialog}>
+						<ListItemIcon>
+							<DeleteIcon />
+						</ListItemIcon>
+						<ListItemText>Удалить</ListItemText>
+					</DeleteMenuItem>
+				)}
 			</Menu>
 		</>
 	);
