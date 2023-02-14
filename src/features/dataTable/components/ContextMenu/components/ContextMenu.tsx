@@ -2,7 +2,7 @@ import { yellow } from '@mui/material/colors';
 import { Messages } from 'constant/messages';
 import { SidebarTitles } from 'constant/sidebarTitles';
 import {
-	selectedPinnedRows,
+	// selectedPinnedRows,
 	selectSelectedDataItem,
 	selectSelectionModel,
 } from 'features/dataTable/dataTableSlice';
@@ -20,8 +20,8 @@ import ListItemText from '@mui/material/ListItemText';
 import Menu from '@mui/material/Menu';
 import DeleteMenuItem from 'styled/DeleteMenuItem';
 import StyledMenuItem from 'styled/StyledMenuItem';
-import ContextMenuPinItem from './ContextMenuPinItem';
-import ContextMenuUnPinItem from './ContextMenuUnPinItem';
+// import ContextMenuPinItem from './ContextMenuPinItem';
+// import ContextMenuUnPinItem from './ContextMenuUnPinItem';
 
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import CopyAllIcon from '@mui/icons-material/CopyAll';
@@ -53,15 +53,15 @@ function ContextMenu({
 	/* Селекторы */
 	const selectedDataItem = useAppSelector(selectSelectedDataItem);
 	const selectionModel = useAppSelector(selectSelectionModel);
-	const pinningRows = useAppSelector(selectedPinnedRows);
+	// const pinningRows = useAppSelector(selectedPinnedRows);
 	const { isWriter, isAdmin } = useAppSelector(selectUserRoles);
 	const userId = useAppSelector(selectUserId);
 	const { attachFiles, hasFavorites, hasClipboard } = useAppSelector(selectUserPermissions);
 
 	const isFavoriteRow =
 		isValueDefined(selectedDataItem) && userId && selectedDataItem.userIds.includes(userId);
-	const isPinnedRow =
-		isValueDefined(selectedDataItem) && pinningRows.includes(selectedDataItem.id);
+	// const isPinnedRow =
+	// 	isValueDefined(selectedDataItem) && pinningRows.includes(selectedDataItem.id);
 
 	const {
 		handleClose,
@@ -69,10 +69,10 @@ function ContextMenu({
 		handleOpenVerificateDataItem,
 		handleOpenDeleteDialog,
 		handleOpenFilesOfDataItem,
-		handlePinningRow,
-		handlePinningManyRows,
-		handleUnPinningRow,
-		handleUnPinningManyRows,
+		// handlePinningRow,
+		// handlePinningManyRows,
+		// handleUnPinningRow,
+		// handleUnPinningManyRows,
 		handleAddToFavorite,
 		handleRemoveFromFavorite,
 		handleCopySelectedValues,
@@ -176,7 +176,7 @@ function ContextMenu({
 					/>
 				</StyledMenuItem>
 			))}
-			{!isPinnedRow ? (
+			{/* {!isPinnedRow ? (
 				<ContextMenuPinItem
 					handlePinningRow={handlePinningRow}
 					handlePinningManyRows={handlePinningManyRows}
@@ -187,7 +187,7 @@ function ContextMenu({
 					handleUnPinningRow={handleUnPinningRow}
 					handleUnPinningManyRows={handleUnPinningManyRows}
 				/>
-			)}
+			)} */}
 
 			{(isWriter || isAdmin) && (
 				<DeleteMenuItem onClick={handleOpenDeleteDialog}>

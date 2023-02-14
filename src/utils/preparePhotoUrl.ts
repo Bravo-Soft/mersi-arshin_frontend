@@ -1,4 +1,4 @@
-import { getEnvValue } from './getEnvValue';
+import { BASE_URL } from 'constant/baseUrl';
 
 export const preparePhotoUrl = (src: string | undefined) => {
 	if (typeof src === 'undefined') return '';
@@ -13,5 +13,5 @@ export const preparePhotoUrl = (src: string | undefined) => {
 		return `/static${src}`;
 	}
 
-	return `${getEnvValue('BASE_URL')}/api/static/${src}`;
+	return `${BASE_URL}/api/static/${src}`;
 };
