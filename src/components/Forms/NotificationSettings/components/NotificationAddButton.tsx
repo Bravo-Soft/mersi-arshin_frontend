@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
 
-import Settings from '@mui/icons-material/Settings';
 import Badge from '@mui/material/Badge';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 
-import AddIcon from '@mui/icons-material/Add';
-
+import FilterListIcon from '@mui/icons-material/FilterList';
 interface INotificationAddButtonProps {
 	index: number;
 	watchEmailFilters: number;
@@ -29,10 +27,10 @@ function NotificationAddButton({
 			<IconButton aria-describedby='id' size='small' onClick={handleClickFilters(index)}>
 				{length ? (
 					<Badge color='primary' badgeContent={length}>
-						<Settings />
+						<FilterListIcon />
 					</Badge>
 				) : (
-					<AddIcon />
+					<FilterListIcon />
 				)}
 			</IconButton>
 		</Tooltip>
