@@ -6,6 +6,8 @@ import type { IPrintSettings } from 'types/printSettings';
 
 import StyledPrintingTag from 'styled/StyledPrintingTag';
 import PrintingTagParams from './PrintingTagParams';
+import { useRef } from 'react';
+import { Tooltip } from '@mui/material';
 
 interface IPrintingTagProps {
 	tag: ISortedTagItems;
@@ -20,25 +22,28 @@ function Tag({ tag, onOpenClick }: IPrintingTagProps) {
 			isFetchSizesPrinting: isFetching,
 		}),
 	});
+	const ref = useRef<HTMLElement | null>(null);
 
 	return (
 		<>
 			{!isFetchSizesPrinting && (
-				<StyledPrintingTag
-					sizes={filterSize(printSettigns, tag.size)}
-					onContextMenu={onOpenClick(tag.id)}
-					id='demo-positioned-menu'
-				>
-					{tag &&
-						tag.tagsPrint.map(({ isVisible, value, translatedKey }, index) => (
-							<PrintingTagParams
-								key={value + ' ' + index}
-								isVisible={isVisible}
-								value={value}
-								translatedKey={translatedKey}
-							/>
-						))}
-				</StyledPrintingTag>
+				<Tooltip title='Правая кнопка мыши - октрыть контекстное меню' ref={ref}>
+					<StyledPrintingTag
+						sizes={filterSize(printSettigns, tag.size)}
+						onContextMenu={onOpenClick(tag.id)}
+						id='demo-positioned-menu'
+					>
+						{tag &&
+							tag.tagsPrint.map(({ isVisible, value, translatedKey }, index) => (
+								<PrintingTagParams
+									key={value + ' ' + index}
+									isVisible={isVisible}
+									value={value}
+									translatedKey={translatedKey}
+								/>
+							))}
+					</StyledPrintingTag>
+				</Tooltip>
 			)}
 		</>
 	);

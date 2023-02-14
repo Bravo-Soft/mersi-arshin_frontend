@@ -12,7 +12,7 @@ const StyledTagList = styled(Box)(({ theme }) => ({
 	'@media print': {
 		display: 'block',
 		clear: 'both',
-		pageBreakAfter: 'avoid',
+		pageBreakAfter: 'auto',
 		width: '100%',
 		textAlign: 'left',
 		overflow: 'hidden',

@@ -15,6 +15,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import SearchOffIcon from '@mui/icons-material/SearchOff';
 import Typography from '@mui/material/Typography';
+import { ListItemButton, ListItemSecondaryAction } from '@mui/material';
 
 interface ITagContextMenuProps {
 	activeTag: ISortedTagItems;
@@ -74,23 +75,24 @@ function TagContextMenu({
 					onKeyDown={handleOnKeyDown}
 				/>
 			</Box>
+
 			{renderPrintingValue.length ? (
 				renderPrintingValue.map(e => (
 					<MenuItem
 						key={`${e.translatedKey}_${e.isVisible}`}
-						dense
 						onClick={onClickMenuContext(activeTag.id, e.translatedKey)}
+						dense
 					>
-						<ListItemIcon sx={customCheckbox(theme, theme.palette.primary.main)}>
-							<Switch
-								edge='start'
-								size='small'
-								checked={e.isVisible}
-								tabIndex={-1}
-								disableRipple
-								inputProps={{ 'aria-labelledby': e.translatedKey }}
-							/>
-						</ListItemIcon>
+						<Switch
+							edge='start'
+							size='small'
+							checked={e.isVisible}
+							tabIndex={-1}
+							disableRipple
+							inputProps={{
+								'aria-labelledby': 'switch-list-label-wifi',
+							}}
+						/>
 						<ListItemText id={e.translatedKey} primary={e.translatedKey} />
 					</MenuItem>
 				))
