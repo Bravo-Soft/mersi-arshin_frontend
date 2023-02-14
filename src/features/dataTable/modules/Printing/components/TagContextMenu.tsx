@@ -1,7 +1,5 @@
-import { theme } from 'theme';
 import { useState } from 'react';
 import { hideScrollbar } from 'utils/hideScrollbar';
-import { customCheckbox } from 'styled/customCheckbox';
 
 import type { ISortedTagItems } from '../utils/printingSort';
 import type { ICoordinates } from 'features/dataTable/hooks/useContextMenuActions';
@@ -11,11 +9,9 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Switch from '@mui/material/Switch';
 import TextField from '@mui/material/TextField';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import SearchOffIcon from '@mui/icons-material/SearchOff';
 import Typography from '@mui/material/Typography';
-import { ListItemButton, ListItemSecondaryAction } from '@mui/material';
 
 interface ITagContextMenuProps {
 	activeTag: ISortedTagItems;
