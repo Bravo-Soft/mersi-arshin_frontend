@@ -86,8 +86,6 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
 export const apiSlice = createApi({
 	reducerPath: 'api',
 	baseQuery: baseQueryWithReauth,
-	refetchOnFocus: process.env.NODE_ENV !== 'development',
-	refetchOnReconnect: process.env.NODE_ENV !== 'development',
 	tagTypes: [
 		'Data',
 		'User',
