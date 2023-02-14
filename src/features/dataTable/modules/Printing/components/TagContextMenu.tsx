@@ -9,7 +9,7 @@ import type { ICoordinates } from 'features/dataTable/hooks/useContextMenuAction
 import Box from '@mui/material/Box';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import Checkbox from '@mui/material/Checkbox';
+import Switch from '@mui/material/Switch';
 import TextField from '@mui/material/TextField';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
@@ -82,8 +82,9 @@ function TagContextMenu({
 						onClick={onClickMenuContext(activeTag.id, e.translatedKey)}
 					>
 						<ListItemIcon sx={customCheckbox(theme, theme.palette.primary.main)}>
-							<Checkbox
+							<Switch
 								edge='start'
+								size='small'
 								checked={e.isVisible}
 								tabIndex={-1}
 								disableRipple
