@@ -1,5 +1,5 @@
+import { ENABLE_PASSWORD_RULES } from 'constant/enablePasswordRules';
 import type { RegisterOptions } from 'react-hook-form';
-import { getEnvValue } from 'utils/getEnvValue';
 import type { IAuthFormRequest } from './authApiSlice';
 
 type AuthValidationRules = Record<keyof IAuthFormRequest, RegisterOptions>;
@@ -36,6 +36,6 @@ export const validationRules: AuthValidationRules = {
 			value: minLength,
 			message: `Минимальная длина пароля ${maxLength} символов`,
 		},
-		...(JSON.parse(getEnvValue('ENABLE_PASSWORD_RULES')) && getPasswordRules()),
+		...(ENABLE_PASSWORD_RULES && getPasswordRules()),
 	},
 };
