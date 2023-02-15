@@ -12,6 +12,7 @@ import TextField from '@mui/material/TextField';
 import ListItemText from '@mui/material/ListItemText';
 import SearchOffIcon from '@mui/icons-material/SearchOff';
 import Typography from '@mui/material/Typography';
+import { FormControlLabel, ListItem } from '@mui/material';
 
 interface ITagContextMenuProps {
 	activeTag: ISortedTagItems;
@@ -40,7 +41,7 @@ function TagContextMenu({
 	};
 
 	const onClickMenuContext =
-		(idx: string, name: string) => (event: React.MouseEvent<HTMLElement>) => {
+		(idx: string, name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
 			handleClickPrintingContextMenu(idx, name);
 			setRenderPrintingValue(prev =>
 				prev.map(e => (e.translatedKey === name ? { ...e, isVisible: !e.isVisible } : e))
@@ -74,22 +75,23 @@ function TagContextMenu({
 
 			{renderPrintingValue.length ? (
 				renderPrintingValue.map(e => (
-					<MenuItem
-						key={`${e.translatedKey}_${e.isVisible}`}
-						onClick={onClickMenuContext(activeTag.id, e.translatedKey)}
-						dense
-					>
-						<Switch
-							edge='start'
-							size='small'
-							checked={e.isVisible}
-							tabIndex={-1}
-							disableRipple
-							inputProps={{
-								'aria-labelledby': 'switch-list-label-wifi',
-							}}
+					<MenuItem>
+						<FormControlLabel
+							control={
+								<Switch
+									edge='start'
+									size='small'
+									checked={e.isVisible}
+									onChange={onClickMenuContext(activeTag.id, e.translatedKey)}
+									tabIndex={-1}
+									disableRipple
+									inputProps={{
+										'aria-labelledby': 'switch-list-label-wifi',
+									}}
+								/>
+							}
+							label={e.translatedKey}
 						/>
-						<ListItemText id={e.translatedKey} primary={e.translatedKey} />
 					</MenuItem>
 				))
 			) : (
