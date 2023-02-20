@@ -39,7 +39,7 @@ function TagContextMenu({
 		setFieldValue(event.target.value);
 	};
 
-	const OnKeyDownMenu = (e: React.KeyboardEvent<HTMLDivElement>) => e.stopPropagation();
+	const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => e.stopPropagation();
 
 	const handleClickContextMenu =
 		(idx: string, name: string) => (event: React.MouseEvent<HTMLElement>) => {
@@ -69,7 +69,7 @@ function TagContextMenu({
 					onChange={handleSearch}
 					size='small'
 					value={fieldValue}
-					onKeyDown={OnKeyDownMenu}
+					onKeyDown={handleKeyDown}
 				/>
 			</MenuItem>
 
