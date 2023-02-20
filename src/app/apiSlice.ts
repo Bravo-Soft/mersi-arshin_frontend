@@ -9,12 +9,12 @@ import { Messages } from 'constant/messages';
 import { resetCredentionals, setCredentionals } from 'features/auth/authSlice';
 import { showNotification } from 'features/notificator/notificatorSlice';
 import { API } from './api';
-import { getEnvValue } from 'utils/getEnvValue';
+import { BASE_URL } from 'constant/baseUrl';
 
 const exeptionEndpoints = ['updatePhoto', 'uploadFile'];
 
 const baseQuery = fetchBaseQuery({
-	baseUrl: getEnvValue('BASE_URL'),
+	baseUrl: BASE_URL,
 	mode: 'cors',
 	credentials: 'include',
 	prepareHeaders: (headers, { getState, endpoint }) => {
@@ -86,8 +86,6 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
 export const apiSlice = createApi({
 	reducerPath: 'api',
 	baseQuery: baseQueryWithReauth,
-	refetchOnFocus: process.env.NODE_ENV !== 'development',
-	refetchOnReconnect: process.env.NODE_ENV !== 'development',
 	tagTypes: [
 		'Data',
 		'User',

@@ -73,8 +73,8 @@ export const useUploadHandlers = ({
 		}
 
 		/* Создаем полное ФИО */
-		const userName = userData
-			? userData.firstName.concat(' ', userData.lastName, ' ', userData.patronymicName)
+		const userName = userData?.firstName
+			? userData.firstName.concat(' ', userData?.lastName, ' ', userData?.patronymicName)
 			: undefined;
 
 		/* Собираем конфиг из нужных опций */

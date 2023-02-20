@@ -50,14 +50,13 @@ function EditDataItem(): JSX.Element {
 					<EditInputs isReader={isReader} />
 				</FormProvider>
 			)}
-			{isWriter ||
-				(isAdmin && (
-					<ButtonContainer>
-						<Button variant='contained' fullWidth type='submit' disabled={isUpdateLoading}>
-							Сохранить
-						</Button>
-					</ButtonContainer>
-				))}
+			{(isWriter || isAdmin) && (
+				<ButtonContainer>
+					<Button variant='contained' fullWidth type='submit' disabled={isUpdateLoading}>
+						Сохранить
+					</Button>
+				</ButtonContainer>
+			)}
 		</FormContainer>
 	);
 }

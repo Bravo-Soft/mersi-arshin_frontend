@@ -8,7 +8,7 @@ function DataTableNoRowsOverlay(): JSX.Element {
 		<StyledGridOverlay>
 			<EmptyIcon />
 			<Box mt={1} color='text.secondary'>
-				Не добавленно ни одной позиции
+				Не добавлено ни одной позиции
 			</Box>
 		</StyledGridOverlay>
 	);
