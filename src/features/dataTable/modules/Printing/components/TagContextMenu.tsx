@@ -39,6 +39,8 @@ function TagContextMenu({
 		setFieldValue(event.target.value);
 	};
 
+	const OnKeyDownMenu = (e: React.KeyboardEvent<HTMLDivElement>) => e.stopPropagation();
+
 	const handleClickContextMenu =
 		(idx: string, name: string) => (event: React.MouseEvent<HTMLElement>) => {
 			handleClickPrintingContextMenu(idx, name);
@@ -46,7 +48,6 @@ function TagContextMenu({
 				prev.map(e => (e.translatedKey === name ? { ...e, isVisible: !e.isVisible } : e))
 			);
 		};
-	const OnKeyDownMenu = (e: React.KeyboardEvent<HTMLDivElement>) => e.stopPropagation();
 
 	return (
 		<Menu
