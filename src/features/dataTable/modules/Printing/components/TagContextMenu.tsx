@@ -31,22 +31,23 @@ function TagContextMenu({
 
 	const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
 		event.preventDefault();
-		setRenderPrintingValue(
-			activeTag.tagsPrint.filter(e =>
-				e.translatedKey.toLowerCase().trim().includes(event.target.value.toLowerCase().trim())
-			)
+		const searchValue = event.target.value.toLowerCase().trim();
+		const printingFilterParams = activeTag.tagsPrint.filter(e =>
+			e.translatedKey.toLowerCase().trim().includes(searchValue)
 		);
+		setRenderPrintingValue(printingFilterParams);
 		setFieldValue(event.target.value);
 	};
 
-	const onClickMenuContext =
+	const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => e.stopPropagation();
+
+	const handleClickContextMenu =
 		(idx: string, name: string) => (event: React.MouseEvent<HTMLElement>) => {
 			handleClickPrintingContextMenu(idx, name);
 			setRenderPrintingValue(prev =>
 				prev.map(e => (e.translatedKey === name ? { ...e, isVisible: !e.isVisible } : e))
 			);
 		};
-	const handleOnKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => () => e.stopPropagation();
 
 	return (
 		<Menu
@@ -61,22 +62,22 @@ function TagContextMenu({
 				sx: { display: 'flex', flexDirection: 'column', flexGrow: 1 },
 			}}
 		>
-			<Box px={1.5}>
+			<MenuItem dense>
 				<TextField
 					fullWidth
 					placeholder='Значение фильтра'
 					onChange={handleSearch}
 					size='small'
 					value={fieldValue}
-					onKeyDown={handleOnKeyDown}
+					onKeyDown={handleKeyDown}
 				/>
-			</Box>
+			</MenuItem>
 
 			{renderPrintingValue.length ? (
 				renderPrintingValue.map(e => (
 					<MenuItem
-						key={`${e.translatedKey}_${e.isVisible}`}
-						onClick={onClickMenuContext(activeTag.id, e.translatedKey)}
+						key={e.translatedKey}
+						onClick={handleClickContextMenu(activeTag.id, e.translatedKey)}
 						dense
 					>
 						<Switch
