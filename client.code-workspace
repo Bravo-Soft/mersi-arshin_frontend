@@ -52,7 +52,8 @@
 		"inline-parameters.fontWeight": "600",
 		"inline-parameters.margin": "0.4em",
 		"inline-parameters.padding": "3px 3px",
-		"thunder-client.saveToWorkspace": true
+		"thunder-client.saveToWorkspace": true,
+		"cSpell.words": ["Браво", "Софт"]
 	},
 	"launch": {
 		"version": "0.2.0",
