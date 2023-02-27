@@ -7,7 +7,7 @@ function LayoutFooter(): JSX.Element {
 	return (
 		<Toolbar variant='dense' sx={{ justifyContent: 'center' }}>
 			<Typography variant='caption' color='text.secondary'>
-				© ООО «Браво Софт», 2022 – {getYear(new Date())}
+				© ООО «Браво Софт», 2022—{getYear(new Date())}
 			</Typography>
 		</Toolbar>
 	);
