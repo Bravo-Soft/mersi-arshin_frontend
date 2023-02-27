@@ -2,16 +2,16 @@ import { Messages } from 'constant/messages';
 import { useGetAllDataQuery } from 'features/dataTable/dataTableApiSlice';
 import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
 import { selectUserPermissions } from 'features/user/userSlice';
+import { isValueDefined } from 'guards/isValueDefined';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { useSidebarAction } from 'hooks/useSidebarActions';
-import { isValueDefined } from 'guards/isValueDefined';
 
 import type { FabProps } from '@mui/material/Fab';
 
 import AddIcon from '@mui/icons-material/Add';
 
+import Fab from '@mui/material/Fab';
 import Tooltip from '@mui/material/Tooltip';
-import StyledFab from '../styled/StyledFab';
 
 interface IDataTableAddActionProps extends Omit<FabProps, 'onClick'> {}
 
@@ -52,9 +52,9 @@ function DataTableAddAction(props: IDataTableAddActionProps): JSX.Element | null
 
 	return (
 		<Tooltip title='Добавить СИ' placement='top'>
-			<StyledFab {...props} onClick={handleOpenAddNewItemForm}>
+			<Fab {...props} onClick={handleOpenAddNewItemForm}>
 				<AddIcon />
-			</StyledFab>
+			</Fab>
 		</Tooltip>
 	);
 }
