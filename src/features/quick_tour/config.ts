@@ -3,6 +3,7 @@ export type TConfig = {
 	title: string;
 	placement: string;
 	content: string;
+	styles: any;
 };
 
 export const quickConfig: any = [

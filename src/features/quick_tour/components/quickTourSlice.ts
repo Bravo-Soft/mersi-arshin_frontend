@@ -16,7 +16,7 @@ const quickTourSlice = createSlice({
 	initialState,
 	reducers: {
 		stepHandler: (state, action: PayloadAction<number>) => {
-			state.step = state.step + action.payload;
+			state.step = action.payload;
 		},
 	},
 });
