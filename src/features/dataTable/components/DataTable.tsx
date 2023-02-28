@@ -23,9 +23,6 @@ import useChipFilter from '../hooks/useChipFilter';
 import useTableData from '../hooks/useTableData';
 import VerificationScheduleModal from '../modules/CreateVerificationSchedule/components/VerificationScheduleModal';
 import DataTableBox from '../styled/DataTableBox';
-import { Button } from '@mui/material';
-
-import { stepHandler } from 'features/quick_tour/components/quickTourSlice';
 
 function DataTable(): JSX.Element {
 	const apiRef = useGridApiRef();
@@ -67,7 +64,6 @@ function DataTable(): JSX.Element {
 
 	return (
 		<DataTableBox sidebarIsOpen={sidebarIsOpen}>
-			{apiRef.current && <Button onClick={() => dispatch(stepHandler(1))}>qweqwe</Button>}
 			<DataGridPro
 				apiRef={apiRef}
 				columns={columns}
@@ -109,6 +105,9 @@ function DataTable(): JSX.Element {
 					row: {
 						onContextMenu: actionsOfContextMenu.handleOpenContextMenu,
 						style: { cursor: 'pointer' },
+					},
+					filterPanel: {
+						id: 'filter-panel',
 					},
 				}}
 			/>

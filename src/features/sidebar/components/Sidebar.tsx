@@ -19,7 +19,7 @@ export interface ISidebarProps extends Omit<DrawerProps, 'variant' | 'anchor'> {
 }
 
 export default function Sidebar(props: ISidebarProps): JSX.Element {
-	const { currentSelector, sidebarElements, ...othenProps } = props;
+const { currentSelector, sidebarElements, ...othenProps } = props;
 	const currentElement = sidebarElements.find(({ selector }) => selector === currentSelector);
 
 	return (

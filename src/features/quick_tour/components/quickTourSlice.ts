@@ -8,7 +8,7 @@ interface IQuickTourSlice {
 }
 
 const initialState: IQuickTourSlice = {
-	step: 1,
+	step: 0,
 };
 
 const quickTourSlice = createSlice({

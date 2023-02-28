@@ -44,6 +44,7 @@ function DataTableModulesButton(): JSX.Element {
 				<Button
 					ref={buttonRef}
 					onClick={handleOpenModulesMenu}
+					id='modules-btn'
 					startIcon={
 						<ExpandIcon
 							sx={{

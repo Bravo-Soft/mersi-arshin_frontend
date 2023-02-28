@@ -1,31 +1,63 @@
-import { useAppSelector } from 'hooks/redux';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { selectActualStep } from './quickTourSlice';
 
-// import { quickConfig } from '../confiig';
+// import { quickConfig } from '../config';
 
-import Joyride from 'react-joyride';
+import Joyride, { ACTIONS, EVENTS, STATUS } from 'react-joyride';
+import type { CallBackProps } from 'react-joyride';
+import { useState } from 'react';
+import { stepHandler } from './quickTourSlice';
+
+import { Button } from '@mui/material';
+import TooltipDialog from './ToolTipDialog';
+import { quickConfig } from '../config';
 
 interface IQuickTour {
 	children: JSX.Element;
 }
 
-function QuickTour({ children }: IQuickTour): JSX.Element {
+function QuickTour({ children }: IQuickTour) {
+	const dispatch = useAppDispatch();
 	const actualStep = useAppSelector(selectActualStep);
+	const [run, setRun] = useState(false);
+
+	const handleClickStart = (event: React.MouseEvent<HTMLElement>) => {
+		event.preventDefault();
+
+		setRun(true);
+	};
 
 	return (
 		<>
 			<Joyride
-				run={actualStep === 5}
-				steps={[
-					{
-						target: '#adding',
-						title: 'top',
-						placement: 'top',
-						content: 'This is my awesome feature!',
-					},
-				]}
+				tooltipComponent={TooltipDialog}
+				// callback={handleJoyrideCallback}
 				continuous
+				disableOverlayClose
+				hideBackButton
+				// stepIndex={actualStep}
+				run={run}
+				debug
+				styles={{
+					options: {
+						zIndex: 10000000,
+					},
+				}}
+				steps={quickConfig}
 			/>
+			<Button
+				onClick={handleClickStart}
+				sx={{
+					w: 200,
+					bgcolor: 'red',
+					height: 100,
+					position: 'absolute',
+					top: 0,
+					zIndex: 1000000,
+				}}
+			>
+				start
+			</Button>
 			{children}
 		</>
 	);

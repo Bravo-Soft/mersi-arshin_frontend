@@ -67,10 +67,13 @@ function DataTableToolbar(): JSX.Element {
 					</Box>
 					<Stack direction='row' gap={4}>
 						<DataTableColumnButton />
-						<Tooltip title='Настройка высоты строк в таблице' id={'adding'}>
+						<Tooltip title='Настройка высоты строк в таблице'>
 							<GridToolbarDensitySelector />
 						</Tooltip>
-						<GridToolbarFilterButton />
+						<div id='filter'>
+							<GridToolbarFilterButton />
+						</div>
+
 						<DataTableModulesButton />
 					</Stack>
 				</Toolbar>
