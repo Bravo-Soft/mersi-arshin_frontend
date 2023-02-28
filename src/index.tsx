@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 import { getEnvValue } from 'utils/getEnvValue';
+import QuickTour from 'features/quick_tour/components/QuickTour';
 
 LicenseInfo.setLicenseKey(getEnvValue('LICENSE_KEY'));
 
@@ -18,7 +19,9 @@ root.render(
 		<Provider store={store}>
 			<ThemeProvider theme={theme}>
 				<BrowserRouter>
-					<App />
+					<QuickTour>
+						<App />
+					</QuickTour>
 				</BrowserRouter>
 			</ThemeProvider>
 		</Provider>
