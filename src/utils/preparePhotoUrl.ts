@@ -1,11 +1,23 @@
 import { BASE_URL } from 'constant/baseUrl';
 
 export const preparePhotoUrl = (src: string | undefined) => {
-	if (typeof src === 'undefined') return '';
+	const mode = process.env.NODE_ENV;
 
-	if (!src.length) {
-		return src;
+	if (mode === 'development') {
+		if (typeof src === 'undefined') return '';
+
+		if (!src.length) {
+			return src;
+		}
+
+		return `${BASE_URL}/api/static/${src}`;
+	} else if (mode === 'production') {
+		if (typeof src === 'undefined') return '';
+
+		if (!src.length) {
+			return src;
+		}
+
+		return `/api/static/${src}`;
 	}
-
-	return `${BASE_URL}/api/static/${src}`;
 };
