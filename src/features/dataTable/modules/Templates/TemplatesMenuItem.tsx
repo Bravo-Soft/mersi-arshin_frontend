@@ -24,6 +24,7 @@ import TemplatesList from './components/TemplatesList';
 
 interface ITemplatesMenuItemProps extends IModuleMenuItemProps {
 	onOpenTemplateForm: () => void;
+	openTourMenuItems: boolean;
 }
 
 const isMaxCountTemplatesReached = (
@@ -40,9 +41,10 @@ const isMaxCountTemplatesReached = (
 function TemplatesMenuItem({
 	onOpenTemplateForm,
 	onCloseMenu,
+	openTourMenuItems = false,
 	...othen
 }: ITemplatesMenuItemProps): JSX.Element {
-	const [nestedMenuIsOpen, setNestedMenuIsOpen] = useState(false);
+	const [nestedMenuIsOpen, setNestedMenuIsOpen] = useState(openTourMenuItems);
 	const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
 	const dispatch = useAppDispatch();

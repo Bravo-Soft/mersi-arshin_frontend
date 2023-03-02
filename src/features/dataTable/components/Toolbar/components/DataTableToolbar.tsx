@@ -3,7 +3,7 @@ import {
 	GridToolbarDensitySelector,
 	GridToolbarFilterButton,
 } from '@mui/x-data-grid-pro';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { hideScrollbar } from 'utils/hideScrollbar';
 
 import type { SxProps, Theme } from '@mui/material/styles';
@@ -20,6 +20,8 @@ import DataTableColumnButton from './DataTableColumnButton';
 
 import ExpandIcon from '@mui/icons-material/ExpandMore';
 import DataTableToolbarFilter from './DataTableToolbarFilter';
+import { useAppSelector } from 'hooks/redux';
+import { selectActualStep } from 'features/quick_tour/components/quickTourSlice';
 
 export const scrollbarStyles: SxProps<Theme> = {
 	overflowX: 'scroll',
@@ -30,9 +32,23 @@ export const scrollbarStyles: SxProps<Theme> = {
 function DataTableToolbar(): JSX.Element {
 	const [expanded, setExpanded] = useState(false);
 
+	const actualStep = useAppSelector(selectActualStep);
+
 	const handleToggleFilterPanel = () => {
 		setExpanded(prev => !prev);
 	};
+
+	const densityRef = useRef<HTMLButtonElement | null>(null);
+
+	useEffect(() => {
+		if (actualStep === 8 && densityRef.current) {
+			densityRef.current.click();
+		} else if (actualStep === 11) {
+			setExpanded(true);
+		} else {
+			setExpanded(false);
+		}
+	}, [actualStep]);
 
 	return (
 		<>
@@ -66,10 +82,16 @@ function DataTableToolbar(): JSX.Element {
 						</Tooltip>
 					</Box>
 					<Stack direction='row' gap={4}>
-						<DataTableColumnButton />
-						<Tooltip title='Настройка высоты строк в таблице'>
-							<GridToolbarDensitySelector />
-						</Tooltip>
+						<div id='column'>
+							<DataTableColumnButton />
+						</div>
+
+						<div id='density'>
+							<Tooltip title='Настройка высоты строк в таблице'>
+								<GridToolbarDensitySelector ref={densityRef} />
+							</Tooltip>
+						</div>
+
 						<div id='filter'>
 							<GridToolbarFilterButton />
 						</div>

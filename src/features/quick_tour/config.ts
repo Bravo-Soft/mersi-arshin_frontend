@@ -12,6 +12,8 @@ export const quickConfig: any = [
 		title: 'Добавление нового СИ',
 		placement: 'top',
 		disableBeacon: true,
+		disableOverlayClose: true,
+		hideCloseButton: true,
 		content:
 			'При нажатии на «плюсик» в правом нижнем углу , у Вас откроется поле для создания новой карточки СИ.',
 	},
@@ -19,15 +21,68 @@ export const quickConfig: any = [
 		target: '.MuiDrawer-paper',
 		title: 'Заполнение карточки СИ',
 		placement: 'left',
-		disableBeacon: true,
 		content:
 			'Для заполнения и выбора полей в карточке, используете колесико «мышки». После заполнения всех необходимых полей, нажмите на кнопку "Сохранить" и карточка появится в общем списке',
 	},
 	{
 		target: '#filter',
-		title: 'top',
-		placement: 'top',
-		content: 'This is my awesome feature!',
-		disableBeacon: true,
+		title: 'Здесь мог быть ваш заголовок',
+		placement: 'bottom',
+		content: 'Здесь мог быть ваш контент',
+	},
+
+	{
+		target: '#filter-panel',
+		title: 'Здесь мог быть ваш заголовок',
+		placement: 'bottom',
+		content: 'Здесь мог быть ваш контент',
+	},
+	{
+		target: '#column',
+		title: 'Здесь мог быть ваш заголовок',
+		placement: 'bottom',
+		content: 'Здесь мог быть ваш контент',
+	},
+	{
+		target: '#column-panel',
+		title: 'Здесь мог быть ваш заголовок',
+		placement: 'right',
+		content: 'Здесь мог быть ваш контент',
+	},
+	{
+		target: '#context-menu',
+		title: 'Здесь мог быть ваш заголовок',
+		placement: 'bottom',
+		content: 'Здесь мог быть ваш контент',
+	},
+	{
+		target: '#density',
+		title: 'Здесь мог быть ваш заголовок',
+		placement: 'bottom',
+		content: 'Здесь мог быть ваш контент',
+	},
+	{
+		target: '.MuiList-root ',
+		title: 'Здесь мог быть ваш заголовок',
+		placement: 'bottom',
+		content: 'Здесь мог быть ваш контент',
+	},
+	{
+		target: '#modules-btn',
+		title: 'Здесь мог быть ваш заголовок',
+		placement: 'bottom',
+		content: 'Здесь мог быть ваш контент',
+	},
+	{
+		target: '.MuiList-root ',
+		title: 'Здесь мог быть ваш заголовок',
+		placement: 'bottom',
+		content: 'Здесь мог быть ваш контент',
+	},
+	{
+		target: '#toolbar',
+		title: 'Здесь мог быть ваш заголовок',
+		placement: 'bottom',
+		content: 'Здесь мог быть ваш контент',
 	},
 ];

@@ -1,6 +1,8 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { PrintMenuItem } from 'features/dataTable/modules/Printing';
 import { usePrefetch } from 'features/user/userApiSlice';
+import { useAppSelector } from 'hooks/redux';
+import { selectActualStep } from 'features/quick_tour/components/quickTourSlice';
 
 import type { MouseEvent } from 'react';
 
@@ -19,6 +21,7 @@ function DataTableModulesButton(): JSX.Element {
 	const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 	const buttonRef = useRef<HTMLButtonElement>(null);
 	const loadUserNotificationSettings = usePrefetch('getUserNotification');
+	const actualStep = useAppSelector(selectActualStep);
 
 	const open = Boolean(anchorEl);
 
@@ -37,6 +40,14 @@ function DataTableModulesButton(): JSX.Element {
 	const handlePrefetchUserNotificationSettings = () => {
 		loadUserNotificationSettings();
 	};
+
+	useEffect(() => {
+		if (actualStep === 10 && buttonRef.current) {
+			buttonRef.current.click();
+		} else {
+			setAnchorEl(null);
+		}
+	}, [actualStep]);
 
 	return (
 		<>
@@ -75,13 +86,20 @@ function DataTableModulesButton(): JSX.Element {
 				<TemplatesMenuItem
 					onOpenTemplateForm={handleToggleTemplateForm}
 					onCloseMenu={handleCloseModulesMenu}
+					openTourMenuItems={actualStep === 10}
 				/>
-				<PrintMenuItem onCloseMenu={handleCloseModulesMenu} />
+				<PrintMenuItem
+					onCloseMenu={handleCloseModulesMenu}
+					openTourMenuItems={actualStep === 10}
+				/>
 				<NotificationsMenuItem
 					onCloseMenu={handleCloseModulesMenu}
 					onMouseEnter={handlePrefetchUserNotificationSettings}
 				/>
-				<ExportMenuItem onCloseMenu={handleCloseModulesMenu} />
+				<ExportMenuItem
+					onCloseMenu={handleCloseModulesMenu}
+					openTourMenuItems={actualStep === 10}
+				/>
 			</Menu>
 			<TemplateForm open={templateFormIsOpen} onClose={handleToggleTemplateForm} />
 		</>

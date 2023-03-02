@@ -31,6 +31,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import ListItemIcon from '@mui/material/ListItemIcon';
+import { selectActualStep } from 'features/quick_tour/components/quickTourSlice';
 
 interface IMenuItem {
 	title: SidebarTitles | string;
@@ -77,6 +78,8 @@ function ContextMenu({
 		handleRemoveFromFavorite,
 		handleCopySelectedValues,
 	} = actionsOfContextMenu;
+
+	const actualStep = useAppSelector(selectActualStep);
 
 	const handleClick = (action: () => void, isActive: boolean) => () => {
 		handleClose();
@@ -138,14 +141,21 @@ function ContextMenu({
 		},
 	];
 
+	const openContextMenu = actualStep === 6 ? { mouseX: 227, mouseY: 251 } : contextMenu;
+
 	return (
 		<Menu
-			open={Boolean(contextMenu)}
+			open={Boolean(openContextMenu)}
 			onClose={handleClose}
 			anchorReference='anchorPosition'
 			anchorPosition={
-				contextMenu ? { top: contextMenu.mouseY, left: contextMenu.mouseX } : undefined
+				openContextMenu
+					? { top: openContextMenu.mouseY, left: openContextMenu.mouseX }
+					: undefined
 			}
+			PaperProps={{
+				id: 'context-menu',
+			}}
 			componentsProps={{
 				root: {
 					onContextMenu: e => {

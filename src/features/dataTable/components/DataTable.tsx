@@ -23,6 +23,7 @@ import useChipFilter from '../hooks/useChipFilter';
 import useTableData from '../hooks/useTableData';
 import VerificationScheduleModal from '../modules/CreateVerificationSchedule/components/VerificationScheduleModal';
 import DataTableBox from '../styled/DataTableBox';
+import { useQuickTourActions } from 'features/quick_tour/hooks/useQuickTourActions';
 
 function DataTable(): JSX.Element {
 	const apiRef = useGridApiRef();
@@ -61,6 +62,9 @@ function DataTable(): JSX.Element {
 		handleUpdateTemplate();
 		columnsVisibility(apiRef?.current?.getVisibleColumns(), dispatch);
 	};
+
+	//new
+	useQuickTourActions(apiRef);
 
 	return (
 		<DataTableBox sidebarIsOpen={sidebarIsOpen}>
@@ -109,6 +113,9 @@ function DataTable(): JSX.Element {
 					filterPanel: {
 						id: 'filter-panel',
 					},
+					columnsPanel: {
+						id: 'column-panel',
+					},
 				}}
 			/>
 			<ContextMenu
@@ -121,3 +128,4 @@ function DataTable(): JSX.Element {
 	);
 }
 export default DataTable;
+//GridToolbarDensitySelector

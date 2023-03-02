@@ -1,11 +1,8 @@
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { selectActualStep } from './quickTourSlice';
-
-// import { quickConfig } from '../config';
+import { selectActualStartTour, selectActualStep, startTourHandler } from './quickTourSlice';
 
 import Joyride, { ACTIONS, EVENTS, STATUS } from 'react-joyride';
 import type { CallBackProps } from 'react-joyride';
-import { useState } from 'react';
 import { stepHandler } from './quickTourSlice';
 
 import { Button } from '@mui/material';
@@ -22,70 +19,129 @@ function QuickTour({ children }: IQuickTour) {
 	const dispatch = useAppDispatch();
 	const actualStep = useAppSelector(selectActualStep);
 	const { open } = useAppSelector(selectSidebarStateOfHomePage);
-	const [run, setRun] = useState(true);
+	const run = useAppSelector(selectActualStartTour);
 
 	const { openSidebarWith, closeSidebar } = useSidebarAction('home');
 
-	// dispatch(stepHandler(index + (action === ACTIONS.PREV ? -1 : 1)));
-
-	// const handleJoyrideCallback = (data: CallBackProps) => {
-	// 	const { action, index, status, type } = data;
-
-	// 	if (([EVENTS.STEP_AFTER, EVENTS.TARGET_NOT_FOUND] as string[]).includes(type)) {
-	// 		dispatch(stepHandler(index + (action === ACTIONS.PREV ? -1 : 1)));
-	// 	} else if (([STATUS.FINISHED, STATUS.SKIPPED] as string[]).includes(status)) {
-	// 		setRun(false);
-	// 	}
-	// };
+	// setRun(false);
+	// dispatch(stepHandler(0));
+	// closeSidebar();
 
 	const handleJoyrideCallback = (data: CallBackProps) => {
 		const { action, index, status, type } = data;
-		console.log('index', index);
-		console.log('open', open);
 		if (([STATUS.FINISHED, STATUS.SKIPPED] as string[]).includes(status)) {
-			setRun(false);
+			dispatch(startTourHandler(false));
 			dispatch(stepHandler(0));
-			closeSidebar();
 		} else if (([EVENTS.STEP_AFTER, EVENTS.TARGET_NOT_FOUND] as string[]).includes(type)) {
 			const nextStepIndex = index + (action === ACTIONS.PREV ? -1 : 1);
+
 			if (open && index === 0) {
 				setTimeout(() => {
-					setRun(true);
-				}, 800);
-			} else if (index === 1 && action === ACTIONS.NEXT) {
-				setRun(false);
-				openSidebarWith('CreateDataItem');
-				console.log('next');
-				setTimeout(() => {
-					setRun(true);
-				}, 800);
-			} else if (open && action === ACTIONS.START) {
-				setRun(false);
+					dispatch(startTourHandler(true));
+				}, 200);
+			} else if (index === 0 && action === ACTIONS.NEXT) {
+				dispatch(startTourHandler(false));
 				dispatch(stepHandler(nextStepIndex));
-				console.log('1');
+				openSidebarWith('CreateDataItem');
+				setTimeout(() => {
+					dispatch(startTourHandler(true));
+				}, 600);
+			} else if (index === 1 && action === ACTIONS.NEXT) {
+				dispatch(startTourHandler(false));
+				dispatch(stepHandler(nextStepIndex));
+				closeSidebar();
+				setTimeout(() => {
+					dispatch(startTourHandler(true));
+				}, 600);
+			} else if (open && index === 1) {
+				dispatch(startTourHandler(false));
+				dispatch(stepHandler(nextStepIndex));
+				closeSidebar();
+				setTimeout(() => {
+					dispatch(startTourHandler(true));
+				}, 400);
+			} else if (index === 2 && action === ACTIONS.NEXT) {
+				dispatch(startTourHandler(false));
+				dispatch(stepHandler(nextStepIndex));
+				closeSidebar();
 
 				setTimeout(() => {
-					setRun(true);
-				}, 800);
-			} else if (index === 2 && action === ACTIONS.PREV) {
-				setRun(false);
-				closeSidebar();
+					dispatch(startTourHandler(true));
+				}, 400);
+			} else if (index === 3 && action === ACTIONS.NEXT) {
+				dispatch(startTourHandler(false));
 				dispatch(stepHandler(nextStepIndex));
-				console.log('prev');
+
 				setTimeout(() => {
-					setRun(true);
-				}, 800);
-			} else {
+					dispatch(startTourHandler(true));
+				}, 900);
+			} else if (index === 4 && action === ACTIONS.NEXT) {
+				dispatch(startTourHandler(false));
 				dispatch(stepHandler(nextStepIndex));
-				closeSidebar();
+
+				setTimeout(() => {
+					dispatch(startTourHandler(true));
+				}, 300);
+			} else if (index === 5 && action === ACTIONS.NEXT) {
+				dispatch(startTourHandler(false));
+				dispatch(stepHandler(nextStepIndex));
+
+				setTimeout(() => {
+					dispatch(startTourHandler(true));
+				}, 700);
+			} else if (index === 6) {
+				dispatch(startTourHandler(false));
+				dispatch(stepHandler(nextStepIndex));
+
+				setTimeout(() => {
+					dispatch(startTourHandler(true));
+				}, 500);
+			} else if (index === 7 && action === ACTIONS.NEXT) {
+				dispatch(startTourHandler(false));
+				dispatch(stepHandler(nextStepIndex));
+
+				setTimeout(() => {
+					dispatch(startTourHandler(true));
+				}, 500);
+			} else if (index === 8 && action === ACTIONS.NEXT) {
+				dispatch(startTourHandler(false));
+				dispatch(stepHandler(nextStepIndex));
+
+				setTimeout(() => {
+					dispatch(startTourHandler(true));
+				}, 500);
+			} else if (index === 9 && action === ACTIONS.NEXT) {
+				dispatch(startTourHandler(false));
+				dispatch(stepHandler(nextStepIndex));
+
+				setTimeout(() => {
+					dispatch(startTourHandler(true));
+				}, 600);
+			} else if (index === 10 && action === ACTIONS.NEXT) {
+				dispatch(startTourHandler(false));
+				dispatch(stepHandler(nextStepIndex));
+
+				setTimeout(() => {
+					dispatch(startTourHandler(true));
+				}, 600);
+			} else if (index === 11 && action === ACTIONS.NEXT) {
+				dispatch(startTourHandler(false));
+				dispatch(stepHandler(nextStepIndex));
+
+				setTimeout(() => {
+					dispatch(startTourHandler(true));
+				}, 600);
+			} else {
+				dispatch(startTourHandler(false));
+				dispatch(stepHandler(nextStepIndex));
 			}
 		}
 	};
 
 	const handleClickStart = (event: React.MouseEvent<HTMLElement>) => {
 		event.preventDefault();
-		dispatch(stepHandler(2));
-		setRun(true);
+		dispatch(stepHandler(actualStep === 0 ? 1 : actualStep));
+		dispatch(startTourHandler(true));
 	};
 
 	return (
@@ -93,6 +149,7 @@ function QuickTour({ children }: IQuickTour) {
 			<Joyride
 				tooltipComponent={TooltipDialog}
 				callback={handleJoyrideCallback}
+				scrollToFirstStep={true}
 				continuous
 				disableOverlayClose
 				hideBackButton
@@ -101,34 +158,10 @@ function QuickTour({ children }: IQuickTour) {
 				debug
 				styles={{
 					options: {
-						zIndex: 10000000,
+						zIndex: 10000000000,
 					},
 				}}
-				steps={[
-					{
-						target: '#adding',
-						title: 'Добавление нового СИ',
-						placement: 'top',
-						disableBeacon: true,
-						content:
-							'При нажатии на «плюсик» в правом нижнем углу , у Вас откроется поле для создания новой карточки СИ.',
-					},
-					{
-						target: '.MuiDrawer-paper',
-						title: 'Заполнение карточки СИ',
-						placement: 'left',
-						disableBeacon: true,
-						content:
-							'Для заполнения и выбора полей в карточке, используете колесико «мышки». После заполнения всех необходимых полей, нажмите на кнопку "Сохранить" и карточка появится в общем списке',
-					},
-					{
-						target: '#filter',
-						title: 'top',
-						placement: 'top',
-						content: 'This is my awesome feature!',
-						disableBeacon: true,
-					},
-				]}
+				steps={quickConfig}
 			/>
 			<Button
 				onClick={handleClickStart}

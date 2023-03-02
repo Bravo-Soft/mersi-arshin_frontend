@@ -18,6 +18,7 @@ import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
 import ReviewsIcon from '@mui/icons-material/Reviews';
+import SchoolIcon from '@mui/icons-material/School';
 
 import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
@@ -96,6 +97,11 @@ function LayoutAccountCircle({ setOpenModal }: ILayoutAccountCircleProps): JSX.E
 		{
 			title: 'Оставить отзыв',
 			Icon: ReviewsIcon,
+			onClick: handleOpenReview,
+		},
+		{
+			title: 'Быстрое обучение',
+			Icon: SchoolIcon,
 			onClick: handleOpenReview,
 		},
 	];
