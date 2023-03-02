@@ -29,6 +29,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Skeleton from '@mui/material/Skeleton';
 import Tooltip from '@mui/material/Tooltip';
+import QuickTourMenu from 'features/quick_tour/components/QuickTourMenu';
 
 interface ILayoutAccountCircleMenuItem {
 	title: string;
@@ -42,6 +43,7 @@ interface ILayoutAccountCircleProps {
 
 function LayoutAccountCircle({ setOpenModal }: ILayoutAccountCircleProps): JSX.Element {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+	const [anchorTourEl, setAnchorTourEl] = useState<null | HTMLElement>(null);
 	const { clearCookie } = useContext(CookieContext);
 	const navigate = useNavigate();
 	const { data, isLoading, isFetching } = useGetPhotoQuery();
@@ -82,7 +84,12 @@ function LayoutAccountCircle({ setOpenModal }: ILayoutAccountCircleProps): JSX.E
 	const handleOpenReview = () => {
 		setOpenModal(true);
 	};
-
+	const handleOpenTour = (event: MouseEvent<HTMLElement>) => {
+		setAnchorTourEl(event.currentTarget);
+	};
+	const handleCloseTour = () => {
+		setAnchorTourEl(null);
+	};
 	const menuItems: ILayoutAccountCircleMenuItem[] = [
 		{
 			title: 'Настройка профиля',
@@ -102,7 +109,7 @@ function LayoutAccountCircle({ setOpenModal }: ILayoutAccountCircleProps): JSX.E
 		{
 			title: 'Быстрое обучение',
 			Icon: SchoolIcon,
-			onClick: handleOpenReview,
+			onClick: handleOpenTour,
 		},
 	];
 
@@ -148,6 +155,7 @@ function LayoutAccountCircle({ setOpenModal }: ILayoutAccountCircleProps): JSX.E
 					<ListItemText>Выйти из системы</ListItemText>
 				</MenuItem>
 			</Menu>
+			<QuickTourMenu anchorTourEl={anchorTourEl} handleCloseTour={handleCloseTour} />
 		</>
 	);
 }
