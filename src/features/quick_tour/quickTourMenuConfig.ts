@@ -33,7 +33,7 @@ export const quickTourMenuConfig: IQuickMenuTourConfig[] = [
 		step: 1,
 	},
 	{
-		title: 'основные инструменты',
+		title: 'Основные инструменты',
 		step: 1,
 	},
 ];
