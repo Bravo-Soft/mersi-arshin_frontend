@@ -141,7 +141,7 @@ function ContextMenu({
 		},
 	];
 
-	const openContextMenu = actualStep === 6 ? { mouseX: 227, mouseY: 251 } : contextMenu;
+	const openContextMenu = actualStep === 2 ? { mouseX: 227, mouseY: 251 } : contextMenu;
 
 	return (
 		<Menu

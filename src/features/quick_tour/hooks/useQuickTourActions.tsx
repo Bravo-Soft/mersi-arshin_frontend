@@ -9,7 +9,7 @@ export const useQuickTourActions = (apiRef: MutableRefObject<GridApiPro>) => {
 	const actualStep = useAppSelector(selectActualStep);
 	if (apiRef) {
 		switch (actualStep) {
-			case 3:
+			case 9:
 				apiRef.current.showFilterPanel();
 				break;
 			case 5:

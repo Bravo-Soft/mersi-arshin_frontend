@@ -19,21 +19,20 @@ function TooltipDialog({
 	return (
 		<Box
 			{...tooltipProps}
-			sx={{ width: '390px', padding: '20px', backgroundColor: 'white', borderRadius: '15px' }}
+			sx={{ width: '410px', padding: '20px', backgroundColor: 'white', borderRadius: '15px' }}
 		>
 			{step.title && (
 				<Typography variant='body1' sx={{ fontWeight: 800, fontSize: '18px', mb: 1 }}>
 					{step.title}
 				</Typography>
 			)}
-			<Typography
+			{step.content && step.content}
+			{/* <Typography
 				variant='body1'
 				sx={{ fontWeight: 500, fontSize: '15px', mb: 3, lineHeight: 1.3 }}
-			>
-				{step.content}
-			</Typography>
+			></Typography> */}
 
-			<Stack direction='column' flexGrow={1} alignItems='flex-start'>
+			<Stack direction='column' flexGrow={1} alignItems='flex-start' mt={2}>
 				{/* {index > 0 && (
 					<Button {...backProps} sx={{ fontSize: '12px', p: 0 }}>
 						Закрыть подсказки

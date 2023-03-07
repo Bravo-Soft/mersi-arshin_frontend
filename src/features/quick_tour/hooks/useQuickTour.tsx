@@ -32,10 +32,6 @@ export const useQuickTour = () => {
 				setTimeout(() => {
 					dispatch(startTourHandler(true));
 				}, 600);
-			} else if (open && index === 1) {
-				setTimeout(() => {
-					dispatch(startTourHandler(true));
-				}, 400);
 			} else if (index === 1 && action === ACTIONS.NEXT) {
 				dispatch(startTourHandler(false));
 				dispatch(stepHandler(nextStepIndex));
@@ -54,70 +50,54 @@ export const useQuickTour = () => {
 				dispatch(startTourHandler(false));
 				dispatch(stepHandler(nextStepIndex));
 				closeSidebar();
-
 				setTimeout(() => {
 					dispatch(startTourHandler(true));
 				}, 400);
 			} else if (index === 3 && action === ACTIONS.NEXT) {
 				dispatch(startTourHandler(false));
 				dispatch(stepHandler(nextStepIndex));
-
 				setTimeout(() => {
 					dispatch(startTourHandler(true));
 				}, 900);
 			} else if (index === 4 && action === ACTIONS.NEXT) {
 				dispatch(startTourHandler(false));
 				dispatch(stepHandler(nextStepIndex));
-
 				setTimeout(() => {
 					dispatch(startTourHandler(true));
 				}, 300);
 			} else if (index === 5 && action === ACTIONS.NEXT) {
 				dispatch(startTourHandler(false));
 				dispatch(stepHandler(nextStepIndex));
-
 				setTimeout(() => {
 					dispatch(startTourHandler(true));
 				}, 700);
 			} else if (index === 6) {
 				dispatch(startTourHandler(false));
 				dispatch(stepHandler(nextStepIndex));
-
 				setTimeout(() => {
 					dispatch(startTourHandler(true));
 				}, 500);
 			} else if (index === 7 && action === ACTIONS.NEXT) {
 				dispatch(startTourHandler(false));
 				dispatch(stepHandler(nextStepIndex));
-
 				setTimeout(() => {
 					dispatch(startTourHandler(true));
 				}, 500);
 			} else if (index === 8 && action === ACTIONS.NEXT) {
 				dispatch(startTourHandler(false));
 				dispatch(stepHandler(nextStepIndex));
-
 				setTimeout(() => {
 					dispatch(startTourHandler(true));
 				}, 500);
 			} else if (index === 9 && action === ACTIONS.NEXT) {
 				dispatch(startTourHandler(false));
 				dispatch(stepHandler(nextStepIndex));
-
 				setTimeout(() => {
 					dispatch(startTourHandler(true));
 				}, 600);
 			} else if (index === 10 && action === ACTIONS.NEXT) {
 				dispatch(startTourHandler(false));
 				dispatch(stepHandler(nextStepIndex));
-
-				setTimeout(() => {
-					dispatch(startTourHandler(true));
-				}, 600);
-			} else if (index === 11 && action === ACTIONS.NEXT) {
-				dispatch(startTourHandler(false));
-				dispatch(stepHandler(nextStepIndex));
-
 				setTimeout(() => {
 					dispatch(startTourHandler(true));
 				}, 600);

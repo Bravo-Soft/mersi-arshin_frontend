@@ -41,9 +41,9 @@ function DataTableToolbar(): JSX.Element {
 	const densityRef = useRef<HTMLButtonElement | null>(null);
 
 	useEffect(() => {
-		if (actualStep === 8 && densityRef.current) {
+		if (actualStep === 7 && densityRef.current) {
 			densityRef.current.click();
-		} else if (actualStep === 11) {
+		} else if (actualStep === 3) {
 			setExpanded(true);
 		} else {
 			setExpanded(false);

@@ -42,7 +42,7 @@ function DataTableModulesButton(): JSX.Element {
 	};
 
 	useEffect(() => {
-		if (actualStep === 10 && buttonRef.current) {
+		if (actualStep === 11 && buttonRef.current) {
 			buttonRef.current.click();
 		} else {
 			setAnchorEl(null);
@@ -86,11 +86,11 @@ function DataTableModulesButton(): JSX.Element {
 				<TemplatesMenuItem
 					onOpenTemplateForm={handleToggleTemplateForm}
 					onCloseMenu={handleCloseModulesMenu}
-					openTourMenuItems={actualStep === 10}
+					openTourMenuItems={actualStep === 11}
 				/>
 				<PrintMenuItem
 					onCloseMenu={handleCloseModulesMenu}
-					openTourMenuItems={actualStep === 10}
+					openTourMenuItems={actualStep === 11}
 				/>
 				<NotificationsMenuItem
 					onCloseMenu={handleCloseModulesMenu}
@@ -98,7 +98,7 @@ function DataTableModulesButton(): JSX.Element {
 				/>
 				<ExportMenuItem
 					onCloseMenu={handleCloseModulesMenu}
-					openTourMenuItems={actualStep === 10}
+					openTourMenuItems={actualStep === 11}
 				/>
 			</Menu>
 			<TemplateForm open={templateFormIsOpen} onClose={handleToggleTemplateForm} />
