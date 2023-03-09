@@ -1,12 +1,12 @@
 FROM node:18-alpine as build
 WORKDIR /usr/src/app
-ADD *.json ./
+ADD *.json *.lock ./
 RUN yarn install
 ADD . .
 RUN yarn build
 
 FROM node:18-alpine
 WORKDIR /usr/src/app
-ADD package.json ./
+ADD package.json yarn.lock ./
 RUN yarn global add serve
 COPY --from=build /usr/src/app/build ./build

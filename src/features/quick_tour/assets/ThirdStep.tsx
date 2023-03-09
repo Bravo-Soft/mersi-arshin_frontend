@@ -3,23 +3,23 @@ import { Typography } from '@mui/material';
 function ThirdStep() {
 	return (
 		<>
-			<Typography sx={{ fontSize: 15, fontWeight: 500, my: 2 }}>
+			<Typography sx={{ fontSize: 15, fontWeight: 500, my: 1 }}>
 				При нажатии правой кнопки мыши, на выбранном СИ, открывается меню возможностей:
 			</Typography>
 
 			{stepContent.map(({ title, content }) => (
-				<Typography>
-					-
+				<Typography sx={{ mb: 1 }}>
 					<Typography component='span' sx={{ fontWeight: 600, fontSize: 14 }}>
 						"{title}"
 					</Typography>
+					<span>&#32;&#8212;&#32;</span>
 					{content && (
 						<Typography
 							variant='body1'
 							component='span'
 							sx={{ fontSize: 15, fontWeight: 500 }}
 						>
-							- {content}
+							{content}
 						</Typography>
 					)}
 				</Typography>

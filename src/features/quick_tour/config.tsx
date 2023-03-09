@@ -1,3 +1,4 @@
+import EighthStep from './assets/EighthStep';
 import FifthStep from './assets/FifthStep';
 import FirstStep from './assets/FirstStep';
 import FourthStep from './assets/FourthStep';
@@ -6,15 +7,9 @@ import SeventhStep from './assets/SeventhStep';
 import SixthStep from './assets/SixthStep';
 import ThirdStep from './assets/ThirdStep';
 
-export type TConfig = {
-	target: string;
-	title: string;
-	placement: string;
-	content: JSX.Element;
-	styles: any;
-};
+import type { Step } from 'react-joyride';
 
-export const quickConfig: any = [
+export const quickConfig: Step[] = [
 	{
 		target: '#adding',
 		title: 'Добавление нового СИ',
@@ -31,7 +26,7 @@ export const quickConfig: any = [
 	{
 		target: '.MuiDrawer-paper',
 		title: 'Заполнение карточки СИ',
-
+		disableBeacon: true,
 		placement: 'left',
 		content: (
 			<>
@@ -42,6 +37,7 @@ export const quickConfig: any = [
 	{
 		target: '#context-menu',
 		title: 'Работа с средством измерения',
+		disableBeacon: true,
 		placement: 'right',
 		content: (
 			<>
@@ -52,6 +48,7 @@ export const quickConfig: any = [
 	{
 		target: '#toolbar',
 		title: 'Быстрые подборки',
+		disableBeacon: true,
 		placement: 'bottom',
 		content: (
 			<>
@@ -62,12 +59,14 @@ export const quickConfig: any = [
 	{
 		target: '#column',
 		title: 'Здесь мог быть ваш заголовок',
+		disableBeacon: true,
 		placement: 'bottom',
 		content: 'Здесь мог быть ваш контент',
 	},
 	{
 		target: '#column-panel',
 		title: 'Здесь мог быть ваш заголовок',
+		disableBeacon: true,
 		placement: 'right',
 		content: (
 			<>
@@ -78,12 +77,14 @@ export const quickConfig: any = [
 	{
 		target: '#density',
 		title: 'Здесь мог быть ваш заголовок',
+		disableBeacon: true,
 		placement: 'bottom',
 		content: 'Здесь мог быть ваш контент',
 	},
 	{
 		target: '.MuiList-root ',
 		title: 'Настройка размера строки',
+		disableBeacon: true,
 		placement: 'bottom',
 		content: (
 			<>
@@ -94,6 +95,7 @@ export const quickConfig: any = [
 	{
 		target: '#filter',
 		title: 'Здесь мог быть ваш заголовок',
+		disableBeacon: true,
 		placement: 'bottom',
 		content: 'Здесь мог быть ваш контент',
 	},
@@ -101,6 +103,7 @@ export const quickConfig: any = [
 	{
 		target: '#filter-panel',
 		title: 'Использование фильтров ',
+		disableBeacon: true,
 		placement: 'bottom',
 		content: (
 			<>
@@ -112,13 +115,19 @@ export const quickConfig: any = [
 	{
 		target: '#modules-btn',
 		title: 'Здесь мог быть ваш заголовок',
+		disableBeacon: true,
 		placement: 'bottom',
 		content: 'Здесь мог быть ваш контент',
 	},
 	{
 		target: '.MuiList-root ',
 		title: 'Основные инструменты',
-		placement: 'left/*',
-		content: 'Здесь мог быть ваш контент',
+		disableBeacon: true,
+		placement: 'left',
+		content: (
+			<>
+				<EighthStep />
+			</>
+		),
 	},
 ];

@@ -12,9 +12,10 @@ interface IQuickTourMenuProps {
 function QuickTourMenu({ anchorTourEl, handleCloseTour }: IQuickTourMenuProps) {
 	const dispatch = useAppDispatch();
 
-	const handleStartTour = (index: number) => {
-		dispatch(stepHandler(index));
+	const handleStartTour = (step: number) => async (event: React.MouseEvent<HTMLElement>) => {
+		event.preventDefault();
 		dispatch(startTourHandler(true));
+		dispatch(stepHandler(step));
 		handleCloseTour();
 	};
 
@@ -31,10 +32,10 @@ function QuickTourMenu({ anchorTourEl, handleCloseTour }: IQuickTourMenuProps) {
 		>
 			<Typography variant='h6'>Вы можете выбрать подсказку в системе</Typography>
 			<Stack sx={{ my: 2 }}>
-				{quickTourMenuConfig.map(({ title }, index) => (
+				{quickTourMenuConfig.map(({ title, step }, index) => (
 					<Typography
 						key={index}
-						onClick={() => handleStartTour(index)}
+						onClick={handleStartTour(step)}
 						sx={{
 							fontSize: 14,
 							fontWeight: 500,

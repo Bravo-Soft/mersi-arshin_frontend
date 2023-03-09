@@ -6,7 +6,7 @@ interface IQuickMenuTourConfig {
 export const quickTourMenuConfig: IQuickMenuTourConfig[] = [
 	{
 		title: 'Добавление нового СИ',
-		step: 1,
+		step: 0,
 	},
 	{
 		title: 'Заполнение карточки СИ',
@@ -14,26 +14,26 @@ export const quickTourMenuConfig: IQuickMenuTourConfig[] = [
 	},
 	{
 		title: 'Работа с средством измерения',
-		step: 1,
+		step: 2,
 	},
 	{
 		title: 'Быстрые подборки',
-		step: 1,
+		step: 3,
 	},
 	{
 		title: 'Настройка столбцов',
-		step: 1,
+		step: 5,
 	},
 	{
 		title: 'Настройка размера строки',
-		step: 1,
+		step: 6,
 	},
 	{
 		title: 'Использование фильтров',
-		step: 1,
+		step: 8,
 	},
 	{
 		title: 'Основные инструменты',
-		step: 1,
+		step: 10,
 	},
 ];

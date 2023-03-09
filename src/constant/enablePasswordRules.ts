@@ -1,0 +1,3 @@
+export const ENABLE_PASSWORD_RULES = process.env.REACT_APP_ENABLE_PASSWORD_RULES
+	? JSON.parse(process.env.REACT_APP_ENABLE_PASSWORD_RULES)
+	: false;

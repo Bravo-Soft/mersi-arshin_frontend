@@ -160,6 +160,20 @@ export const theme = createTheme(
 					},
 				},
 			},
+			MuiFab: {
+				defaultProps: {
+					color: 'primary',
+				},
+				styleOverrides: {
+					primary: ({ theme }) => ({
+						borderRadius: `calc(${theme.shape.borderRadius}px * 3)`,
+						boxShadow: 'none',
+						':active': {
+							boxShadow: 'none',
+						},
+					}),
+				},
+			},
 		},
 	},
 	ruRU
