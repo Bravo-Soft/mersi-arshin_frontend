@@ -24,7 +24,10 @@ export const useQuickTour = () => {
 		const { action, index, status, type } = data;
 
 		const ifValue = ([STATUS.FINISHED, STATUS.SKIPPED] as string[]).includes(status);
-		console.log('actualStep@@', actualStep);
+
+		if (status === STATUS.SKIPPED) {
+			console.log('3');
+		}
 		if (ifValue) {
 			dispatch(startTourHandler(false));
 			dispatch(stepHandler(0));

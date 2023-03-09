@@ -53,7 +53,7 @@ function QuickTourMenu({ anchorTourEl, handleCloseTour }: IQuickTourMenuProps) {
 				<Button
 					sx={{ fontSize: '14px', p: 0, fontWeight: 500, textTransform: 'inherit' }}
 					size='small'
-					onClick={() => handleStartTour(0)}
+					onClick={handleStartTour(0)}
 				>
 					Просмотреть все подсказки
 				</Button>
