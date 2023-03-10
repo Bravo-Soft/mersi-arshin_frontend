@@ -8,6 +8,7 @@ import {
 	selectTestMenuActions,
 	startTourHandler,
 	stepHandler,
+	testMenuActionsHandler,
 } from '../components/quickTourSlice';
 import { ACTIONS, EVENTS, STATUS, LIFECYCLE } from 'react-joyride';
 
@@ -25,9 +26,34 @@ export const useQuickTour = () => {
 
 		const ifValue = ([STATUS.FINISHED, STATUS.SKIPPED] as string[]).includes(status);
 
-		if (status === STATUS.SKIPPED) {
-			console.log('3');
+		if (!open && index === 1) {
+			dispatch(startTourHandler(false));
+			openSidebarWith('CreateDataItem');
+			setTimeout(() => {
+				dispatch(startTourHandler(true));
+			}, 750);
 		}
+
+		if (!test && index === 2) {
+			dispatch(startTourHandler(false));
+			closeSidebar();
+			dispatch(testMenuActionsHandler(true));
+
+			setTimeout(() => {
+				dispatch(startTourHandler(true));
+			}, 900);
+		}
+
+		if (!test && index === 3) {
+			dispatch(startTourHandler(false));
+			closeSidebar();
+			dispatch(testMenuActionsHandler(true));
+
+			setTimeout(() => {
+				dispatch(startTourHandler(true));
+			}, 900);
+		}
+
 		if (ifValue) {
 			dispatch(startTourHandler(false));
 			dispatch(stepHandler(0));

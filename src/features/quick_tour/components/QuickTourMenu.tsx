@@ -1,8 +1,18 @@
-import { Button, Stack, Typography } from '@mui/material';
-import Popover from '@mui/material/Popover';
 import { quickTourMenuConfig } from '../quickTourMenuConfig';
 import { startTourHandler, stepHandler } from './quickTourSlice';
 import { useAppDispatch } from 'hooks/redux';
+
+import {
+	Avatar,
+	Dialog,
+	DialogTitle,
+	List,
+	ListItemButton,
+	ListItemAvatar,
+	ListItemText,
+	Stack,
+	Button,
+} from '@mui/material';
 
 interface IQuickTourMenuProps {
 	anchorTourEl: HTMLElement | null;
@@ -20,52 +30,46 @@ function QuickTourMenu({ anchorTourEl, handleCloseTour }: IQuickTourMenuProps) {
 	};
 
 	return (
-		<Popover
-			open={Boolean(anchorTourEl)}
-			anchorEl={anchorTourEl}
+		<Dialog
 			onClose={handleCloseTour}
-			anchorOrigin={{
-				vertical: 'bottom',
-				horizontal: 'left',
-			}}
-			PaperProps={{ sx: { p: 2, minWidth: 300, m: '0 auto' } }}
+			open={Boolean(anchorTourEl)}
+			PaperProps={{ sx: { width: '600px', py: 2 } }}
 		>
-			<Typography variant='h6'>Вы можете выбрать подсказку в системе</Typography>
-			<Stack sx={{ my: 2 }}>
+			<DialogTitle>Выберите пункт меню</DialogTitle>
+			<List>
 				{quickTourMenuConfig.map(({ title, step }, index) => (
-					<Typography
-						key={index}
-						onClick={handleStartTour(step)}
-						sx={{
-							fontSize: 14,
-							fontWeight: 500,
-							cursor: 'pointer',
-							':hover': {
-								opacity: '0.5',
-							},
-						}}
-					>
-						{index + 1}. {title}
-					</Typography>
+					<ListItemButton sx={{ px: 3 }} key={title} onClick={handleStartTour(step)}>
+						<ListItemAvatar sx={{ minWidth: 48 }}>
+							<Avatar
+								sx={{
+									width: 24,
+									height: 24,
+									fontSize: 14,
+									bgcolor: 'background.default',
+									color: 'text.secondary',
+								}}
+							>
+								{index + 1}
+							</Avatar>
+						</ListItemAvatar>
+						<ListItemText primary={title} />
+					</ListItemButton>
 				))}
-			</Stack>
-			<Stack direction='column' flexGrow={1} alignItems='flex-start'>
-				<Button
-					sx={{ fontSize: '14px', p: 0, fontWeight: 500, textTransform: 'inherit' }}
-					size='small'
-					onClick={handleStartTour(0)}
-				>
+			</List>
+			<Stack
+				direction='row'
+				flexGrow={1}
+				justifyContent='space-between'
+				sx={{ px: '27px', mt: 2 }}
+			>
+				<Button size='small' onClick={handleStartTour(0)}>
 					Просмотреть все подсказки
 				</Button>
-
-				<Button
-					onClick={() => handleCloseTour()}
-					sx={{ fontSize: '10px', p: 0, color: 'black', fontWeight: 500 }}
-				>
+				<Button onClick={() => handleCloseTour()} color='inherit'>
 					Закрыть подсказки
 				</Button>
 			</Stack>
-		</Popover>
+		</Dialog>
 	);
 }
 

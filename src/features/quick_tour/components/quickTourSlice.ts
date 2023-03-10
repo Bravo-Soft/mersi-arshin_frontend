@@ -12,7 +12,7 @@ interface IQuickTourSlice {
 const initialState: IQuickTourSlice = {
 	step: 0,
 	startTour: false,
-	testMenuActions: true,
+	testMenuActions: false,
 };
 
 const quickTourSlice = createSlice({
