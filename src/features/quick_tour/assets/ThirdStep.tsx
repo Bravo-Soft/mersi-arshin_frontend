@@ -1,53 +1,27 @@
-import { Typography } from '@mui/material';
+import { thirdStepContent } from '../configStepsDesc';
+
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import StyledTourDescription from '../styled/StyledTourDescription';
 
 function ThirdStep() {
 	return (
 		<>
-			<Typography sx={{ fontSize: 15, fontWeight: 500, my: 1 }}>
-				При нажатии правой кнопки мыши, на выбранном СИ, открывается меню возможностей:
-			</Typography>
+			<StyledTourDescription marginBottom={1}>
+				При нажатии правой кнопки мыши, на выбранном СИ открывается меню возможностей:
+			</StyledTourDescription>
 
-			{stepContent.map(({ title, content }) => (
-				<Typography sx={{ mb: 1 }}>
+			{thirdStepContent.map(({ title, content }) => (
+				<Box marginBottom={1}>
 					<Typography component='span' sx={{ fontWeight: 600, fontSize: 14 }}>
 						"{title}"
 					</Typography>
 					<span>&#32;&#8212;&#32;</span>
-					{content && (
-						<Typography
-							variant='body1'
-							component='span'
-							sx={{ fontSize: 15, fontWeight: 500 }}
-						>
-							{content}
-						</Typography>
-					)}
-				</Typography>
+					<StyledTourDescription>{content}</StyledTourDescription>
+				</Box>
 			))}
 		</>
 	);
 }
 
 export default ThirdStep;
-
-const stepContent = [
-	{
-		title: 'Редактировать СИ',
-		content: 'после нажатия на кнопку открывается карточка для редактирования ',
-	},
-	{
-		title: 'Поверка СИ',
-		content: 'позволяет сразу перейти к разделу “Поверка СИ" в карточке и внести изменения',
-	},
-	{
-		title: 'Файлы',
-		content: 'возможность открыть вложенные файлы или прикрепить новые',
-	},
-	{
-		title: 'Добавить в избранное',
-		content: 'позволяет формировать, выделять цветом и закреплять,избранные СИ',
-	},
-	{
-		title: 'Удалить СИ',
-	},
-];

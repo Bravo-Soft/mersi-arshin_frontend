@@ -4,7 +4,6 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { hideScrollbar } from 'utils/hideScrollbar';
 
 export interface IHelperDialogProps {
 	config: any;
@@ -28,9 +27,7 @@ function TooltipDialog({
 				</Typography>
 			)}
 
-			<Stack sx={{ maxHeight: 350, overflowY: 'scroll', ...hideScrollbar() }}>
-				{step.content && step.content}
-			</Stack>
+			<Stack sx={{ maxHeight: 350, overflowY: 'scroll' }}>{step.content && step.content}</Stack>
 			{/* <Typography
 				variant='body1'
 				sx={{ fontWeight: 500, fontSize: '15px', mb: 3, lineHeight: 1.3 }}

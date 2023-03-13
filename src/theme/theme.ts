@@ -2,6 +2,7 @@ import FontFace from 'utils/fontFace';
 import IBMPlexSansMediumPath from './fonts/IBMPlexSans-Medium.woff';
 import IBMPlexSansRegularPath from './fonts/IBMPlexSans-Regular.woff';
 import QuicksandBoldPath from './fonts/Quicksand-Bold.woff';
+import IBMPlexSansSemiBoldPath from './fonts/IBMPlexSans-SemiBold.woff';
 
 import type { IScrollbarParameters } from 'utils/generateScrollbarStyles';
 
@@ -42,8 +43,18 @@ const QuickSandBold = new FontFace(
 	'swap',
 	'U+041C, U+0415, U+0420, U+0421, U+0418'
 );
+const IBMPlexSansSemiBold = new FontFace(
+	'Quicksand',
+	'Quicksand-Bold',
+	IBMPlexSansSemiBoldPath,
+	'woff',
+	600,
+	'normal',
+	'swap',
+	ibmPlexSansUnicodeRange
+);
 
-const fontList = [IBMPlexSansRegular, IBMPlexSansMedium, QuickSandBold];
+const fontList = [IBMPlexSansRegular, IBMPlexSansMedium, QuickSandBold, IBMPlexSansSemiBold];
 
 const defaultStyles = `#root {
 	height: 100vh;

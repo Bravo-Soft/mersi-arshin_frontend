@@ -1,13 +1,13 @@
-import { Typography } from '@mui/material';
+import StyledTourDescription from '../styled/StyledTourDescription';
 
 function SecondStep() {
 	return (
 		<>
-			<Typography sx={{ fontSize: 15, fontWeight: 500, my: 1 }}>
+			<StyledTourDescription>
 				Для заполнения и выбора полей в карточке, используйте колесико «мышки». После заполнения
-				всех необходимых полей, нажмите на кнопку “Сохранить" и карточка появится в общем
+				всех необходимых полей, нажмите на кнопку “Сохранить” и карточка появится в общем
 				списке.
-			</Typography>
+			</StyledTourDescription>
 		</>
 	);
 }

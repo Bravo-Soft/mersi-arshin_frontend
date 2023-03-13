@@ -1,13 +1,18 @@
-import EighthStep from './assets/EighthStep';
-import FifthStep from './assets/FifthStep';
-import FirstStep from './assets/FirstStep';
-import FourthStep from './assets/FourthStep';
-import SecondStep from './assets/SecondStep';
-import SeventhStep from './assets/SeventhStep';
-import SixthStep from './assets/SixthStep';
-import ThirdStep from './assets/ThirdStep';
-
 import type { Step } from 'react-joyride';
+import {
+	EighthStep,
+	EighthStepBtn,
+	FifthStepBtn,
+	FirstStep,
+	FourthStep,
+	SecondStep,
+	SeventhStep,
+	SeventhStepBtn,
+	SixthStep,
+	SixthStepBtn,
+	ThirdStep,
+	FifthStep,
+} from './assets';
 
 export const quickConfig: Step[] = [
 	{
@@ -36,7 +41,7 @@ export const quickConfig: Step[] = [
 	},
 	{
 		target: '#context-menu',
-		title: 'Работа с средством измерения',
+		title: 'Работа со средством измерения',
 		disableBeacon: true,
 		placement: 'right',
 		content: (
@@ -58,14 +63,18 @@ export const quickConfig: Step[] = [
 	},
 	{
 		target: '#column',
-		title: 'Здесь мог быть ваш заголовок',
+		title: 'Настройка столбцов',
 		disableBeacon: true,
 		placement: 'bottom',
-		content: 'Здесь мог быть ваш контент',
+		content: (
+			<>
+				<FifthStepBtn />
+			</>
+		),
 	},
 	{
 		target: '#column-panel',
-		title: 'Здесь мог быть ваш заголовок',
+		title: 'Настройка столбцов',
 		disableBeacon: true,
 		placement: 'right',
 		content: (
@@ -76,10 +85,14 @@ export const quickConfig: Step[] = [
 	},
 	{
 		target: '#density',
-		title: 'Здесь мог быть ваш заголовок',
+		title: 'Настройка размера строки',
 		disableBeacon: true,
 		placement: 'bottom',
-		content: 'Здесь мог быть ваш контент',
+		content: (
+			<>
+				<SixthStepBtn />
+			</>
+		),
 	},
 	{
 		target: '.MuiList-root ',
@@ -94,15 +107,19 @@ export const quickConfig: Step[] = [
 	},
 	{
 		target: '#filter',
-		title: 'Здесь мог быть ваш заголовок',
+		title: 'Использование фильтров',
 		disableBeacon: true,
 		placement: 'bottom',
-		content: 'Здесь мог быть ваш контент',
+		content: (
+			<>
+				<SeventhStepBtn />
+			</>
+		),
 	},
 
 	{
 		target: '#filter-panel',
-		title: 'Использование фильтров ',
+		title: 'Использование фильтров',
 		disableBeacon: true,
 		placement: 'bottom',
 		content: (
@@ -114,10 +131,14 @@ export const quickConfig: Step[] = [
 
 	{
 		target: '#modules-btn',
-		title: 'Здесь мог быть ваш заголовок',
+		title: 'Основные инструменты',
 		disableBeacon: true,
 		placement: 'bottom',
-		content: 'Здесь мог быть ваш контент',
+		content: (
+			<>
+				<EighthStepBtn />
+			</>
+		),
 	},
 	{
 		target: '.MuiList-root ',

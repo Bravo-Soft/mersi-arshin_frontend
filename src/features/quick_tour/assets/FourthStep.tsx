@@ -1,50 +1,27 @@
-import { Typography } from '@mui/material';
+import { fourStepContent } from '../configStepsDesc';
+
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import StyledTourDescription from '../styled/StyledTourDescription';
 
 function FourthStep() {
 	return (
 		<>
-			<Typography sx={{ fontSize: 15, fontWeight: 500, my: 1 }}>
-				При нажатии на стрелку в левом верхнем углу, откроется меню “Быстрой подборки":
-			</Typography>
+			<StyledTourDescription marginBottom={1}>
+				При нажатии на стрелку в левом верхнем углу, откроется меню “Быстрой подборки”:
+			</StyledTourDescription>
 
-			{stepContent.map(({ title, content }) => (
-				<Typography>
+			{fourStepContent.map(({ title, content }) => (
+				<Box marginBottom={1}>
 					<Typography component='span' sx={{ fontWeight: 600, fontSize: 14 }}>
 						"{title}"
 					</Typography>
 					<span>&#32;&#8212;&#32;</span>
-					{content && (
-						<Typography
-							variant='body1'
-							component='span'
-							sx={{ fontSize: 15, fontWeight: 500 }}
-						>
-							{content}
-						</Typography>
-					)}
-				</Typography>
+					{content && <StyledTourDescription>{content}</StyledTourDescription>}
+				</Box>
 			))}
 		</>
 	);
 }
 
 export default FourthStep;
-
-const stepContent = [
-	{
-		title: 'Избранное',
-		content: 'доступ к избранным СИ ',
-	},
-	{
-		title: 'Просроченные',
-		content: 'подборка СИ которых просрочены даты выполнения работ',
-	},
-	{
-		title: 'Месяц',
-		content: 'подборка СИ по датам выполнения работ в выбранном месяце',
-	},
-	{
-		title: 'Поиск',
-		content: 'интеллектуальный поиск по всем полям',
-	},
-];

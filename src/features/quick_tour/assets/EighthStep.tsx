@@ -1,26 +1,19 @@
-import { Typography } from '@mui/material';
-import { Box } from '@mui/material';
+import { eighthStepContent } from '../configStepsDesc';
+
+import Box from '@mui/material/Box';
+import StyledTourTitle from '../styled/StyledTourTitle';
+import StyledTourDescription from '../styled/StyledTourDescription';
 
 function EighthStep() {
 	return (
 		<>
-			<Typography sx={{ fontSize: 15, fontWeight: 500, my: 1 }}>
-				Для решения повседневных задач в системе реализовано ряд инструментов:
-			</Typography>
-
-			{stepContent.map(({ title, content }) => (
-				<Box sx={{ mb: 3 }}>
-					<Typography component='span' sx={{ fontSize: 15, fontWeight: 500 }}>
-						Кнопка
-					</Typography>
+			{eighthStepContent.map(({ title, content }) => (
+				<Box marginBottom={1}>
+					<StyledTourDescription>Кнопка</StyledTourDescription>
 					<span>&#32;</span>
-					<Typography component='span' sx={{ fontWeight: 600, fontSize: 14 }}>
-						"{title}"
-					</Typography>
+					<StyledTourTitle>"{title}"</StyledTourTitle>
 					<span>&#32;&#8212;&#32;</span>
-					<Typography variant='body1' component='span' sx={{ fontSize: 15, fontWeight: 500 }}>
-						{content}
-					</Typography>
+					<StyledTourDescription>{content}</StyledTourDescription>
 				</Box>
 			))}
 		</>
@@ -28,30 +21,3 @@ function EighthStep() {
 }
 
 export default EighthStep;
-
-const stepContent = [
-	{
-		title: 'Создать график поверки',
-		content:
-			'при нажатии на эту кнопку выбираете диапазон нужных дат и фильтров графика и нажимаете “Выгрузить" в нужном формате.',
-	},
-	{
-		title: '“Шаблоны”',
-		content:
-			'После проведенной настройки таблицы основного экрана под какую либо задачу вы можете сохранить эти настройки в шаблоне, дать нужное название и в следующий раз достаточно просто открыть “Список шаблонов" и выбрать  необходимый.',
-	},
-	{
-		title: 'Печать бирок',
-		content:
-			'Достаточно выбрать в основной таблице нужные строки СИ,нажать на печать бирок после и отправить на печать . Если Вам нужно дополнительные настройки бирок вы можете это сделать в настройках или в окне перед печатью нажав на нужную бирку правой кнопкой мыши.',
-	},
-	{
-		title: '“Уведомления”',
-		content:
-			'В системе вы можете настроить уведомления о подходящих датах выполнения работ указать электронную почту на которую нужно чтобы приходили уведомления.',
-	},
-	{
-		title: 'Выгрузить',
-		content: 'при необходимости вы можете сделать быструю выгрузку всех данных в нужном формате',
-	},
-];

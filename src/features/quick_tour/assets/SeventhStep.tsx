@@ -1,18 +1,16 @@
-import { Typography } from '@mui/material';
+import StyledTourTitle from '../styled/StyledTourTitle';
+import StyledTourDescription from '../styled/StyledTourDescription';
 
 function SeventhStep() {
 	return (
 		<>
-			<Typography sx={{ fontSize: 15, fontWeight: 500, my: 1 }}>
-				вы можете подобрать по разным диапазонам значений нужные средства измерений.
-			</Typography>
-			<Typography sx={{ fontSize: 15, fontWeight: 500, my: 1 }}>
-				Если необходимо указать разные диапазоны подборок вы можете добавить еще поле фильтров
-				нажав на кнопку
-				<Typography component={'span'} sx={{ fontWeight: 600 }}>
+			<StyledTourDescription>
+				Здесь необходимо выбрать разные диапазоны для подборки нужных СИ, по необходимости Вы
+				можете добавить еще поле фильтров, нажав на кнопку
+				<StyledTourTitle>
 					<span>&#32;</span>“Добавить фильтры"
-				</Typography>
-			</Typography>
+				</StyledTourTitle>
+			</StyledTourDescription>
 		</>
 	);
 }

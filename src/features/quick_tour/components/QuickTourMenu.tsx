@@ -1,18 +1,16 @@
+import { useAppDispatch } from 'hooks/redux';
 import { quickTourMenuConfig } from '../quickTourMenuConfig';
 import { startTourHandler, stepHandler } from './quickTourSlice';
-import { useAppDispatch } from 'hooks/redux';
 
-import {
-	Avatar,
-	Dialog,
-	DialogTitle,
-	List,
-	ListItemButton,
-	ListItemAvatar,
-	ListItemText,
-	Stack,
-	Button,
-} from '@mui/material';
+import List from '@mui/material/List';
+import Stack from '@mui/material/Stack';
+import Avatar from '@mui/material/Avatar';
+import Dialog from '@mui/material/Dialog';
+import Button from '@mui/material/Button';
+import DialogTitle from '@mui/material/DialogTitle';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
 
 interface IQuickTourMenuProps {
 	anchorTourEl: HTMLElement | null;

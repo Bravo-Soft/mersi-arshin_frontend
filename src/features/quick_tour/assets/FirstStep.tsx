@@ -1,11 +1,17 @@
-import { Typography } from '@mui/material';
+import StyledTourDescription from '../styled/StyledTourDescription';
 
 function FirstStep() {
 	return (
-		<Typography sx={{ fontSize: 15, fontWeight: 500, my: 1 }}>
-			При нажатие на «плюсик» в правом нижнем углу, у Вас откроется поле для создания новой
-			карточки СИ.
-		</Typography>
+		<>
+			<StyledTourDescription marginBottom={1}>
+				Нажмите на кнопку для создания нового СИ в системе. После нажатия откроется карточка, в
+				которую Вы можете внести все данные о средстве измерения.
+			</StyledTourDescription>
+			<StyledTourDescription>
+				При нажатие на «плюс» в правом нижнем углу, у Вас откроется поле для создания новой
+				карточки СИ.
+			</StyledTourDescription>
+		</>
 	);
 }
 
