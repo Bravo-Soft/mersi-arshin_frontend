@@ -14,7 +14,7 @@ interface IQuickTour {
 function QuickTour({ children }: IQuickTour) {
 	const actualStep = useAppSelector(selectActualStep);
 	const run = useAppSelector(selectActualStartTour);
-	const { handleJoyrideCallback } = useQuickTour();
+	const handleJoyrideCallback = useQuickTour();
 
 	return (
 		<>

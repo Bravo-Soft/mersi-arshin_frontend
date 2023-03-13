@@ -22,7 +22,7 @@ export const quickTourMenuConfig: IQuickMenuTourConfig[] = [
 	},
 	{
 		title: 'Настройка столбцов',
-		step: 5,
+		step: 4,
 	},
 	{
 		title: 'Настройка размера строки',
