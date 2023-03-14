@@ -135,7 +135,7 @@ function LayoutAccountCircle({ setOpenModal }: ILayoutAccountCircleProps): JSX.E
 				transformOrigin={{ horizontal: 'right', vertical: 'top' }}
 				anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
 			>
-				{menuItems.map(({ Icon, title, onClick, disabled }, index) => (
+				{menuItems.map(({ Icon, title, onClick, disabled }) => (
 					<MenuItem
 						key={title}
 						onClick={onClick}
