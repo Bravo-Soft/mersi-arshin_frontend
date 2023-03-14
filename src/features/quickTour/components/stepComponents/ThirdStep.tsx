@@ -1,7 +1,7 @@
-import { thirdStepContent } from '../../configStepsDesc';
+import { thirdStepContent } from 'features/quickTour/configStepsDesc';
 
-import StyledTourDescription from '../../styled/StyledTourDescription';
-import StyledTourTitle from '../../styled/StyledTourTitle';
+import StyledTourDescription from 'features/quickTour/styled/StyledTourDescription';
+import StyledTourTitle from 'features/quickTour/styled/StyledTourTitle';
 
 function ThirdStep() {
 	return (
@@ -12,7 +12,7 @@ function ThirdStep() {
 
 			{thirdStepContent.map(({ title, content }) => {
 				return (
-					<StyledTourDescription marginBottom={1}>
+					<StyledTourDescription marginBottom={1} key={title}>
 						<StyledTourTitle>"{title}"</StyledTourTitle>
 						<span>&#32;&#8212;&#32;</span>
 						{content}

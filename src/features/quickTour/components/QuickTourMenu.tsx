@@ -17,6 +17,14 @@ interface IQuickTourMenuProps {
 	handleCloseTour: () => void;
 }
 
+/*
+Компонент меню с выбором шага тура 
+
+при клике на пункт меню передается индекс и переключается флаг запуска из меню  ,после таймаута запускается сам тур ( необходимо для появления компонентов (контекстное меню и тд))
+
+
+*/
+
 function QuickTourMenu({ anchorTourEl, handleCloseTour }: IQuickTourMenuProps) {
 	const dispatch = useAppDispatch();
 

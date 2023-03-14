@@ -14,6 +14,9 @@ import {
 	FifthStep,
 } from './components/stepComponents';
 
+/*
+Конфиг таргетов для каждого шага тура
+*/
 export const quickConfig: Step[] = [
 	{
 		target: '#adding',

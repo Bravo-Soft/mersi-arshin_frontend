@@ -3,6 +3,8 @@ interface IQuickMenuTourConfig {
 	step: number;
 }
 
+//конфиг компонентов меню
+
 export const quickTourMenuConfig: IQuickMenuTourConfig[] = [
 	{
 		title: 'Добавление нового СИ',

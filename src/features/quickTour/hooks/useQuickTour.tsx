@@ -5,6 +5,13 @@ import { ACTIONS, EVENTS, STATUS } from 'react-joyride';
 
 import type { CallBackProps } from 'react-joyride';
 
+/*
+
+Хук переключения шагов тура :
+	startTourHandler -  состояние старта тура
+	stepHandle - активный шаг тура
+	menuStartTour - старт тура из меню (ключ для контроля таймаутов)
+*/
 export const useQuickTour = () => {
 	const dispatch = useAppDispatch();
 	const { closeSidebar } = useSidebarAction('home');

@@ -1,8 +1,8 @@
-import { fourStepContent } from '../../configStepsDesc';
+import { fourStepContent } from 'features/quickTour/configStepsDesc';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import StyledTourDescription from '../../styled/StyledTourDescription';
+import StyledTourDescription from 'features/quickTour/styled/StyledTourDescription';
 
 function FourthStep() {
 	return (
@@ -12,7 +12,7 @@ function FourthStep() {
 			</StyledTourDescription>
 
 			{fourStepContent.map(({ title, content }) => (
-				<Box marginBottom={1}>
+				<Box marginBottom={1} key={title}>
 					<Typography component='span' sx={{ fontWeight: 600, fontSize: 14 }}>
 						"{title}"
 					</Typography>

@@ -6,6 +6,8 @@ import type { GridApiPro } from '@mui/x-data-grid-pro/models/gridApiPro';
 import { GridPreferencePanelsValue } from '@mui/x-data-grid-pro';
 import { useSidebarAction } from 'hooks/useSidebarActions';
 
+//Хук для активации sideEffects таблицы в зависимости от шага
+
 export const useQuickTourActions = (apiRef: MutableRefObject<GridApiPro>) => {
 	const actualStep = useAppSelector(selectActualStep);
 	const startIsMenu = useAppSelector(selectMenuStart);

@@ -3,6 +3,15 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { RootState } from 'app/store';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
+/*
+slice для хранения состояние тура
+
+	step: активный шаг
+	startTour: активность тура
+	startIsMenu: активен ли тур из меню
+	
+*/
+
 interface IQuickTourSlice {
 	step: number;
 	startTour: boolean;

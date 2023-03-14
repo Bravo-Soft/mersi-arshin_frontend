@@ -42,9 +42,11 @@ function DataTableToolbar(): JSX.Element {
 	const densityRef = useRef<HTMLButtonElement | null>(null);
 
 	useEffect(() => {
+		//если 7 шаг и запущенно из меню ( чтобы успел отработать анимация открытия )
 		if (actualStep === 7 && densityRef.current && startIsMenu) {
 			densityRef.current.click();
 		} else if (actualStep === 3 && startIsMenu) {
+			//трекер открытия toolbar
 			setExpanded(true);
 		} else {
 			setExpanded(false);

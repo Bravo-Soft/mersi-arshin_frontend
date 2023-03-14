@@ -1,14 +1,14 @@
-import { eighthStepContent } from '../../configStepsDesc';
+import { eighthStepContent } from 'features/quickTour/configStepsDesc';
 
 import Box from '@mui/material/Box';
-import StyledTourTitle from '../../styled/StyledTourTitle';
-import StyledTourDescription from '../../styled/StyledTourDescription';
+import StyledTourTitle from 'features/quickTour/styled/StyledTourTitle';
+import StyledTourDescription from 'features/quickTour/styled/StyledTourDescription';
 
 function EighthStep() {
 	return (
 		<>
 			{eighthStepContent.map(({ title, content }) => (
-				<Box marginBottom={1}>
+				<Box marginBottom={1} key={title}>
 					<StyledTourDescription>Кнопка</StyledTourDescription>
 					<span>&#32;</span>
 					<StyledTourTitle>"{title}"</StyledTourTitle>

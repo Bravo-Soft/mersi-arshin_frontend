@@ -4,6 +4,8 @@ import type { TypographyProps } from '@mui/material/Typography';
 
 import Typography from '@mui/material/Typography';
 
+//Стилизованный компонент текста в туре
+
 const StyledTourDescription = styled((props: TypographyProps) => (
 	<Typography {...props} component='span' />
 ))({

@@ -1,3 +1,5 @@
+//Конфиг списков  для тура
+
 export const eighthStepContent = [
 	{
 		title: 'Создать график поверки',

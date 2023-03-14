@@ -11,6 +11,8 @@ interface IQuickTour {
 	children: JSX.Element;
 }
 
+//компонент тура
+
 function QuickTour({ children }: IQuickTour) {
 	const actualStep = useAppSelector(selectActualStep);
 	const run = useAppSelector(selectActualStartTour);
