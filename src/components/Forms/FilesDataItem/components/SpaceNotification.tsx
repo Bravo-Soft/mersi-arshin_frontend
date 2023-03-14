@@ -1,6 +1,8 @@
 import { convertFileSize } from '../convertFileSize';
 
 import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
+import LinearProgress from '@mui/material/LinearProgress';
 import Typography from '@mui/material/Typography';
 
 interface ISpaceNotificationProps {
@@ -12,6 +14,9 @@ function SpaceNotification({
 	maxSizeOfSpacePerPosition,
 	occupiedSpace,
 }: ISpaceNotificationProps): JSX.Element {
+	const valueProgress = (occupiedSpace / maxSizeOfSpacePerPosition) * 100;
+	const colorProgress =
+		valueProgress <= 40 ? 'primary' : valueProgress <= 80 ? 'warning' : 'error';
 	return (
 		<Stack
 			direction='row'
@@ -23,12 +28,18 @@ function SpaceNotification({
 				},
 			}}
 		>
-			<Typography variant='body2' component='span' color='text.secondary'>
-				Свободно {convertFileSize(maxSizeOfSpacePerPosition - occupiedSpace, 2)} МБ
-			</Typography>
-			<Typography variant='body2' component='span' color='text.secondary'>
-				Из доступных {convertFileSize(maxSizeOfSpacePerPosition, 2)} МБ
-			</Typography>
+			<Box width={1}>
+				<Typography variant='body2' color='text.secondary'>
+					Использовано {convertFileSize(occupiedSpace, 2)} MB из{' '}
+					{convertFileSize(maxSizeOfSpacePerPosition, 2)} MB
+				</Typography>
+				<LinearProgress
+					sx={{ my: 1 }}
+					variant='determinate'
+					value={valueProgress}
+					color={colorProgress}
+				/>
+			</Box>
 		</Stack>
 	);
 }
