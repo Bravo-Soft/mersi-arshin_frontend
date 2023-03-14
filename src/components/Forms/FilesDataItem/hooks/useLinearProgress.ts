@@ -1,22 +1,16 @@
-import type { LinearProgressPropsColorOverrides } from '@mui/material';
+import type { LinearProgressProps } from '@mui/material';
 import type { ISpaceNotificationProps } from '../components/SpaceNotification';
-import type { OverridableStringUnion } from '@mui/types';
 
 interface IUseLinearProgressProps extends ISpaceNotificationProps {}
 
-type TProgressStatus =
-	| OverridableStringUnion<
-			'error' | 'primary' | 'warning' | 'inherit' | 'secondary' | 'info' | 'success',
-			LinearProgressPropsColorOverrides
-	  >
-	| undefined;
+type ProgressStatus = Extract<LinearProgressProps['color'], 'primary' | 'warning' | 'error'>;
 
 export const useLinearProgress = ({
 	maxSizeOfSpacePerPosition,
 	occupiedSpace,
 }: IUseLinearProgressProps) => {
 	const valueProgress = (occupiedSpace / maxSizeOfSpacePerPosition) * 100;
-	const progressStatus: TProgressStatus =
+	const progressStatus: ProgressStatus =
 		valueProgress <= 40 ? 'primary' : valueProgress <= 80 ? 'warning' : 'error';
 
 	return {
