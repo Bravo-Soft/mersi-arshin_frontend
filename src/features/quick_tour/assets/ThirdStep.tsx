@@ -11,15 +11,18 @@ function ThirdStep() {
 				При нажатии правой кнопки мыши, на выбранном СИ открывается меню возможностей:
 			</StyledTourDescription>
 
-			{thirdStepContent.map(({ title, content }) => (
-				<Box marginBottom={1}>
-					<Typography component='span' sx={{ fontWeight: 600, fontSize: 14 }}>
-						"{title}"
-					</Typography>
-					<span>&#32;&#8212;&#32;</span>
-					<StyledTourDescription>{content}</StyledTourDescription>
-				</Box>
-			))}
+			{thirdStepContent.map(({ title, content }) => {
+				return (
+					<Box marginBottom={1}>
+						<Typography component='span' sx={{ fontWeight: 600, fontSize: 14 }}>
+							"{title}"
+						</Typography>
+						<span>&#32;&#8212;&#32;</span>
+						{content}
+					</StyledTourDescription>
+					// </Box>
+				);
+			})}
 		</>
 	);
 }
