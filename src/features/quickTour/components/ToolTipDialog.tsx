@@ -23,7 +23,9 @@ function TooltipDialog({
 					{step.title}
 				</Typography>
 			)}
-			<Stack sx={{ maxHeight: 350, overflow: 'auto' }}>{step.content && step.content}</Stack>
+			<Stack sx={{ maxHeight: 350, overflow: 'auto', paddingRight: 1 }}>
+				{step.content && step.content}
+			</Stack>
 			<Stack direction='column' flexGrow={1} alignItems='flex-start' mt={2}>
 				{!isLastStep && (
 					<Button
