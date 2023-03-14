@@ -28,7 +28,6 @@ function QuickTour({ children }: IQuickTour) {
 				hideBackButton
 				stepIndex={actualStep}
 				run={run}
-				debug
 				styles={{
 					options: {
 						zIndex: 10000000000,
