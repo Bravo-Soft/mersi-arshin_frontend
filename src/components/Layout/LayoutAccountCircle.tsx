@@ -35,6 +35,7 @@ interface ILayoutAccountCircleMenuItem {
 	title: string;
 	Icon: SvgIconComponent;
 	onClick: MouseEventHandler<HTMLLIElement>;
+	disabled?: boolean;
 }
 
 interface ILayoutAccountCircleProps {
@@ -110,6 +111,7 @@ function LayoutAccountCircle({ setOpenModal }: ILayoutAccountCircleProps): JSX.E
 			title: 'Быстрое обучение',
 			Icon: SchoolIcon,
 			onClick: handleOpenTour,
+			disabled: page !== 'home',
 		},
 	];
 
@@ -133,13 +135,14 @@ function LayoutAccountCircle({ setOpenModal }: ILayoutAccountCircleProps): JSX.E
 				transformOrigin={{ horizontal: 'right', vertical: 'top' }}
 				anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
 			>
-				{menuItems.map(({ Icon, title, onClick }) => (
+				{menuItems.map(({ Icon, title, onClick, disabled }) => (
 					<MenuItem
 						key={title}
 						onClick={onClick}
 						onMouseEnter={
 							title === 'Настройка профиля' ? handlePrefetchUserProfile : undefined
 						}
+						disabled={disabled}
 					>
 						<ListItemIcon>
 							<Icon />
