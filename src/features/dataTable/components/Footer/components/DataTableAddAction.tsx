@@ -52,7 +52,7 @@ function DataTableAddAction(props: IDataTableAddActionProps): JSX.Element | null
 
 	return (
 		<Tooltip title='Добавить СИ' placement='top'>
-			<Fab {...props} onClick={handleOpenAddNewItemForm}>
+			<Fab {...props} onClick={handleOpenAddNewItemForm} id='adding'>
 				<AddIcon />
 			</Fab>
 		</Tooltip>

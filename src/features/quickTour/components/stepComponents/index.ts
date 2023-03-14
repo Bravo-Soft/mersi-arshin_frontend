@@ -1,0 +1,12 @@
+export { default as EighthStep } from './EighthStep';
+export { default as FirstStep } from './FirstStep';
+export { default as FourthStep } from './FourthStep';
+export { default as SecondStep } from './SecondStep';
+export { default as SeventhStep } from './SeventhStep';
+export { default as SixthStep } from './SixthStep';
+export { default as ThirdStep } from './ThirdStep';
+export { default as FifthStepBtn } from './FifthStepBtn';
+export { default as FifthStep } from './FifthStep';
+export { default as SixthStepBtn } from './SixthStepBtn';
+export { default as SeventhStepBtn } from './SeventhStepBtn';
+export { default as EighthStepBtn } from './EighthStepBtn';

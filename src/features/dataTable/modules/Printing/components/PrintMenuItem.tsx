@@ -10,7 +10,7 @@ import { useVisibleColumns } from '../hooks/useVisibleColumns';
 import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
 import { selectUserPermissions } from 'features/user/userSlice';
 
-import type { IModuleMenuItemProps } from 'features/dataTable/modules/moduleMenuItem';
+import type { IModuleMenuItemPropsAndOpenTourProps } from 'features/dataTable/modules/moduleMenuItem';
 
 import Collapse from '@mui/material/Collapse';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -25,8 +25,12 @@ import PrintIcon from '@mui/icons-material/Print';
 import ReplyIcon from '@mui/icons-material/Reply';
 import SettingsIcon from '@mui/icons-material/Settings';
 
-function PrintMenuItem({ onCloseMenu, ...othen }: IModuleMenuItemProps): JSX.Element {
-	const [open, setOpen] = useState(false);
+function PrintMenuItem({
+	onCloseMenu,
+	openTourMenuItems = false,
+	...othen
+}: IModuleMenuItemPropsAndOpenTourProps): JSX.Element {
+	const [open, setOpen] = useState(openTourMenuItems);
 	const dispatch = useAppDispatch();
 	const { printingLabels } = useAppSelector(selectUserPermissions);
 
