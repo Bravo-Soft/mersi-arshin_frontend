@@ -1,16 +1,16 @@
 import { useAppDispatch } from 'hooks/redux';
 import { quickTourMenuConfig } from '../quickTourMenuConfig';
-import { startTourHandler, stepHandler, menuStartTour } from './quickTourSlice';
+import { menuStartTour, startTourHandler, stepHandler } from './quickTourSlice';
 
-import List from '@mui/material/List';
-import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
-import Dialog from '@mui/material/Dialog';
 import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemButton from '@mui/material/ListItemButton';
+import List from '@mui/material/List';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
 
 interface IQuickTourMenuProps {
 	anchorTourEl: HTMLElement | null;
@@ -34,12 +34,17 @@ function QuickTourMenu({ anchorTourEl, handleCloseTour }: IQuickTourMenuProps) {
 		<Dialog
 			onClose={handleCloseTour}
 			open={Boolean(anchorTourEl)}
-			PaperProps={{ sx: { width: '600px', py: 2 } }}
+			PaperProps={{ sx: { width: '600px' } }}
 		>
 			<DialogTitle>Выберите пункт меню</DialogTitle>
-			<List>
+			<List dense>
 				{quickTourMenuConfig.map(({ title, step }, index) => (
-					<ListItemButton sx={{ px: 3 }} key={title} onClick={handleStartTour(step)}>
+					<ListItemButton
+						disableGutters
+						sx={{ pl: 3, minHeight: 40 }}
+						key={title}
+						onClick={handleStartTour(step)}
+					>
 						<ListItemAvatar sx={{ minWidth: 48 }}>
 							<Avatar
 								sx={{
@@ -53,23 +58,19 @@ function QuickTourMenu({ anchorTourEl, handleCloseTour }: IQuickTourMenuProps) {
 								{index + 1}
 							</Avatar>
 						</ListItemAvatar>
-						<ListItemText primary={title} />
+						<ListItemText
+							primary={title}
+							primaryTypographyProps={{ color: 'text.secondary', fontSize: 16 }}
+						/>
 					</ListItemButton>
 				))}
 			</List>
-			<Stack
-				direction='row'
-				flexGrow={1}
-				justifyContent='space-between'
-				sx={{ px: '27px', mt: 2 }}
-			>
+			<DialogActions>
 				<Button size='small' onClick={handleStartTour(0)}>
 					Просмотреть все подсказки
 				</Button>
-				<Button onClick={() => handleCloseTour()} color='inherit'>
-					Закрыть подсказки
-				</Button>
-			</Stack>
+				<Button onClick={handleCloseTour}>Закрыть подсказки</Button>
+			</DialogActions>
 		</Dialog>
 	);
 }
