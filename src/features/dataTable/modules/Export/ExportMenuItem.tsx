@@ -3,7 +3,7 @@ import { selectUserPermissions } from 'features/user/userSlice';
 import { useAppSelector } from 'hooks/redux';
 import { useState } from 'react';
 
-import type { IModuleMenuItemProps } from '../moduleMenuItem';
+import type { IModuleMenuItemPropsAndOpenTourProps } from '../moduleMenuItem';
 
 import ExpandIcon from '@mui/icons-material/ExpandMore';
 import FileIcon from '@mui/icons-material/InsertDriveFile';
@@ -17,8 +17,12 @@ import StyledMenuList from 'features/dataTable/styled/StyledMenuList';
 import StyledMenuItem from 'styled/StyledMenuItem';
 import ExcelIcon from './ExcelIcon';
 
-function ExportMenuItem({ onCloseMenu, ...othen }: IModuleMenuItemProps): JSX.Element {
-	const [open, setOpen] = useState(false);
+function ExportMenuItem({
+	onCloseMenu,
+	openTourMenuItems = false,
+	...othen
+}: IModuleMenuItemPropsAndOpenTourProps): JSX.Element {
+	const [open, setOpen] = useState(openTourMenuItems);
 	const { isCSVEnabled, isXLSXEnabled } = useAppSelector(selectUserPermissions);
 
 	const { handleUploadToCSV, handleUploadToXLSX } = useUploadHandlers({

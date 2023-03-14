@@ -26,11 +26,12 @@ function DataTableColumnButton(): JSX.Element | null {
 
 	return hidingColumns ? (
 		<Tooltip title='Настройки видимости столбцов'>
-			<GridToolbarColumnsButton />
+			<GridToolbarColumnsButton id='column-btn' />
 		</Tooltip>
 	) : (
 		<Button
 			size='small'
+			id='column-btn'
 			startIcon={<LockIcon />}
 			sx={{
 				color: 'text.secondary',

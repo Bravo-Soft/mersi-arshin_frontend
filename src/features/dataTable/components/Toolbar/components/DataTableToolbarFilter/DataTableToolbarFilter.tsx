@@ -30,6 +30,7 @@ function DataTableToolbarFilter() {
 		<MuiToolbar sx={{ overflowX: 'hidden', width: '100%' }} ref={viewportRef}>
 			<Box
 				ref={containerRef}
+				id='toolbar'
 				sx={{
 					display: 'flex',
 					position: 'relative',

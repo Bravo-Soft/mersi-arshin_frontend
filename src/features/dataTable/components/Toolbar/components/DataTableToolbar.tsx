@@ -3,7 +3,7 @@ import {
 	GridToolbarDensitySelector,
 	GridToolbarFilterButton,
 } from '@mui/x-data-grid-pro';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { hideScrollbar } from 'utils/hideScrollbar';
 
 import type { SxProps, Theme } from '@mui/material/styles';
@@ -20,6 +20,8 @@ import DataTableColumnButton from './DataTableColumnButton';
 
 import ExpandIcon from '@mui/icons-material/ExpandMore';
 import DataTableToolbarFilter from './DataTableToolbarFilter';
+import { useAppSelector } from 'hooks/redux';
+import { selectActualStep, selectMenuStart } from 'features/quickTour/components/quickTourSlice';
 
 export const scrollbarStyles: SxProps<Theme> = {
 	overflowX: 'scroll',
@@ -30,9 +32,26 @@ export const scrollbarStyles: SxProps<Theme> = {
 function DataTableToolbar(): JSX.Element {
 	const [expanded, setExpanded] = useState(false);
 
+	const actualStep = useAppSelector(selectActualStep);
+	const startIsMenu = useAppSelector(selectMenuStart);
+
 	const handleToggleFilterPanel = () => {
 		setExpanded(prev => !prev);
 	};
+
+	const densityRef = useRef<HTMLButtonElement | null>(null);
+
+	useEffect(() => {
+		//если 7 шаг и запущенно из меню ( чтобы успел отработать анимация открытия )
+		if (actualStep === 7 && densityRef.current && startIsMenu) {
+			densityRef.current.click();
+		} else if (actualStep === 3 && startIsMenu) {
+			//трекер открытия toolbar
+			setExpanded(true);
+		} else {
+			setExpanded(false);
+		}
+	}, [actualStep, startIsMenu]);
 
 	return (
 		<>
@@ -66,11 +85,20 @@ function DataTableToolbar(): JSX.Element {
 						</Tooltip>
 					</Box>
 					<Stack direction='row' gap={4}>
-						<DataTableColumnButton />
-						<Tooltip title='Настройка высоты строк в таблице'>
-							<GridToolbarDensitySelector />
-						</Tooltip>
-						<GridToolbarFilterButton />
+						<div id='column'>
+							<DataTableColumnButton />
+						</div>
+
+						<div id='density'>
+							<Tooltip title='Настройка высоты строк в таблице'>
+								<GridToolbarDensitySelector ref={densityRef} />
+							</Tooltip>
+						</div>
+
+						<div id='filter'>
+							<GridToolbarFilterButton />
+						</div>
+
 						<DataTableModulesButton />
 					</Stack>
 				</Toolbar>

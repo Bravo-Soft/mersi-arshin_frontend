@@ -6,6 +6,7 @@ import PrivateRoute from './PrivateRoute';
 import { AppRoutes } from 'constant/appRoutes';
 import { lazy, Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
+import QuickTour from 'features/quickTour/components/QuickTour';
 
 const AuthPage = lazy(() => import('pages/AuthPage'));
 const HomePage = lazy(() => import('pages/HomePage'));
@@ -32,7 +33,9 @@ function Navigation(): JSX.Element {
 					element={
 						<PrivateRoute>
 							<Suspense fallback={<Fallback />}>
-								<HomePage />
+								<QuickTour>
+									<HomePage />
+								</QuickTour>
 							</Suspense>
 						</PrivateRoute>
 					}
