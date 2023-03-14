@@ -1,8 +1,8 @@
-import { eighthStepContent } from '../configStepsDesc';
+import { eighthStepContent } from '../../configStepsDesc';
 
 import Box from '@mui/material/Box';
-import StyledTourTitle from '../styled/StyledTourTitle';
-import StyledTourDescription from '../styled/StyledTourDescription';
+import StyledTourTitle from '../../styled/StyledTourTitle';
+import StyledTourDescription from '../../styled/StyledTourDescription';
 
 function EighthStep() {
 	return (

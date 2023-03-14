@@ -21,10 +21,7 @@ import DataTableColumnButton from './DataTableColumnButton';
 import ExpandIcon from '@mui/icons-material/ExpandMore';
 import DataTableToolbarFilter from './DataTableToolbarFilter';
 import { useAppSelector } from 'hooks/redux';
-import {
-	selectActualStartTour,
-	selectActualStep,
-} from 'features/quick_tour/components/quickTourSlice';
+import { selectActualStep, selectMenuStart } from 'features/quickTour/components/quickTourSlice';
 
 export const scrollbarStyles: SxProps<Theme> = {
 	overflowX: 'scroll',
@@ -36,7 +33,7 @@ function DataTableToolbar(): JSX.Element {
 	const [expanded, setExpanded] = useState(false);
 
 	const actualStep = useAppSelector(selectActualStep);
-	const start = useAppSelector(selectActualStartTour);
+	const startIsMenu = useAppSelector(selectMenuStart);
 
 	const handleToggleFilterPanel = () => {
 		setExpanded(prev => !prev);
@@ -45,14 +42,14 @@ function DataTableToolbar(): JSX.Element {
 	const densityRef = useRef<HTMLButtonElement | null>(null);
 
 	useEffect(() => {
-		if (actualStep === 7 && densityRef.current && start) {
+		if (actualStep === 7 && densityRef.current && startIsMenu) {
 			densityRef.current.click();
-		} else if (actualStep === 3 && start) {
+		} else if (actualStep === 3 && startIsMenu) {
 			setExpanded(true);
 		} else {
 			setExpanded(false);
 		}
-	}, [actualStep, start]);
+	}, [actualStep, startIsMenu]);
 
 	return (
 		<>

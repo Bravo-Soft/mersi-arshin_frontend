@@ -5,16 +5,13 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-export interface IHelperDialogProps {
-	config: any;
-}
-
 function TooltipDialog({
 	step,
 	continuous,
 	closeProps,
 	primaryProps,
 	tooltipProps,
+	isLastStep,
 }: TooltipRenderProps) {
 	return (
 		<Box
@@ -26,20 +23,9 @@ function TooltipDialog({
 					{step.title}
 				</Typography>
 			)}
-
-			<Stack sx={{ maxHeight: 350, overflowY: 'scroll' }}>{step.content && step.content}</Stack>
-			{/* <Typography
-				variant='body1'
-				sx={{ fontWeight: 500, fontSize: '15px', mb: 3, lineHeight: 1.3 }}
-			></Typography> */}
+			<Stack sx={{ maxHeight: 350, overflow: 'auto' }}>{step.content && step.content}</Stack>
 			<Stack direction='column' flexGrow={1} alignItems='flex-start' mt={2}>
-				{/* {index > 0 && (
-					<Button {...backProps} sx={{ fontSize: '12px', p: 0 }}>
-						Закрыть подсказки
-					</Button>
-				)} */}
-
-				{continuous && (
+				{!isLastStep && (
 					<Button
 						id='next'
 						{...primaryProps}

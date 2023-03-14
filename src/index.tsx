@@ -8,7 +8,7 @@ import { persistor, store } from 'app/store';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
-import QuickTour from 'features/quick_tour/components/QuickTour';
+import QuickTour from 'features/quickTour/components/QuickTour';
 import { LICENSE_KEY } from 'constant/licenseKey';
 
 LicenseInfo.setLicenseKey(LICENSE_KEY);

@@ -12,7 +12,7 @@ import {
 	SixthStepBtn,
 	ThirdStep,
 	FifthStep,
-} from './assets';
+} from './components/stepComponents';
 
 export const quickConfig: Step[] = [
 	{

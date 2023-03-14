@@ -23,7 +23,7 @@ import useChipFilter from '../hooks/useChipFilter';
 import useTableData from '../hooks/useTableData';
 import VerificationScheduleModal from '../modules/CreateVerificationSchedule/components/VerificationScheduleModal';
 import DataTableBox from '../styled/DataTableBox';
-import { useQuickTourActions } from 'features/quick_tour/hooks/useQuickTourActions';
+import { useQuickTourActions } from 'features/quickTour/hooks/useQuickTourActions';
 
 function DataTable(): JSX.Element {
 	const apiRef = useGridApiRef();

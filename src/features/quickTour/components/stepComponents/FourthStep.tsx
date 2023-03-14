@@ -1,8 +1,8 @@
-import { fourStepContent } from '../configStepsDesc';
+import { fourStepContent } from '../../configStepsDesc';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import StyledTourDescription from '../styled/StyledTourDescription';
+import StyledTourDescription from '../../styled/StyledTourDescription';
 
 function FourthStep() {
 	return (

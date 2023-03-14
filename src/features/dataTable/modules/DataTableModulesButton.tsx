@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from 'react';
 import { PrintMenuItem } from 'features/dataTable/modules/Printing';
 import { usePrefetch } from 'features/user/userApiSlice';
 import { useAppSelector } from 'hooks/redux';
-import { selectActualStep } from 'features/quick_tour/components/quickTourSlice';
+import { selectActualStep } from 'features/quickTour/components/quickTourSlice';
 
 import type { MouseEvent } from 'react';
 

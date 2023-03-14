@@ -29,7 +29,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Skeleton from '@mui/material/Skeleton';
 import Tooltip from '@mui/material/Tooltip';
-import QuickTourMenu from 'features/quick_tour/components/QuickTourMenu';
+import QuickTourMenu from 'features/quickTour/components/QuickTourMenu';
 
 interface ILayoutAccountCircleMenuItem {
 	title: string;

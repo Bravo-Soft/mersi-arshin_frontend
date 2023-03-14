@@ -1,6 +1,6 @@
 import { useAppDispatch } from 'hooks/redux';
 import { quickTourMenuConfig } from '../quickTourMenuConfig';
-import { startTourHandler, stepHandler, testMenuActionsHandler } from './quickTourSlice';
+import { startTourHandler, stepHandler, menuStartTour } from './quickTourSlice';
 
 import List from '@mui/material/List';
 import Stack from '@mui/material/Stack';
@@ -23,11 +23,11 @@ function QuickTourMenu({ anchorTourEl, handleCloseTour }: IQuickTourMenuProps) {
 	const handleStartTour = (step: number) => async (event: React.MouseEvent<HTMLElement>) => {
 		event.preventDefault();
 		dispatch(stepHandler(step));
-		dispatch(testMenuActionsHandler(true));
+		dispatch(menuStartTour(true));
 		handleCloseTour();
 		setTimeout(() => {
 			dispatch(startTourHandler(true));
-		}, 400);
+		}, 600);
 	};
 
 	return (

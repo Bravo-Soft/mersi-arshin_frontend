@@ -31,7 +31,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import { selectActualStep } from 'features/quick_tour/components/quickTourSlice';
+import { selectActualStep, selectMenuStart } from 'features/quickTour/components/quickTourSlice';
 
 interface IMenuItem {
 	title: SidebarTitles | string;
@@ -57,6 +57,7 @@ function ContextMenu({
 	// const pinningRows = useAppSelector(selectedPinnedRows);
 	const { isWriter, isAdmin } = useAppSelector(selectUserRoles);
 	const userId = useAppSelector(selectUserId);
+	const tourStartedIsMenu = useAppSelector(selectMenuStart);
 	const { attachFiles, hasFavorites, hasClipboard } = useAppSelector(selectUserPermissions);
 
 	const isFavoriteRow =
@@ -141,7 +142,8 @@ function ContextMenu({
 		},
 	];
 
-	const openContextMenu = actualStep === 2 ? { mouseX: 227, mouseY: 251 } : contextMenu;
+	const openContextMenu =
+		actualStep === 2 && tourStartedIsMenu ? { mouseX: 227, mouseY: 251 } : contextMenu;
 
 	return (
 		<Menu

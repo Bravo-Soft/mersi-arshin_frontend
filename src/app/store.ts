@@ -22,7 +22,7 @@ import {
 import { apiSlice } from './apiSlice';
 
 import type { PersistConfig } from 'redux-persist';
-import { quickTourPath, quickTourReducer } from 'features/quick_tour/components/quickTourSlice';
+import { quickTourPath, quickTourReducer } from 'features/quickTour/components/quickTourSlice';
 
 const config: PersistConfig<RootState> = {
 	key: 'root',

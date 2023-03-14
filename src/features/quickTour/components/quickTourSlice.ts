@@ -6,13 +6,13 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 interface IQuickTourSlice {
 	step: number;
 	startTour: boolean;
-	testMenuActions: boolean;
+	startIsMenu: boolean;
 }
 
 const initialState: IQuickTourSlice = {
 	step: 0,
 	startTour: false,
-	testMenuActions: false,
+	startIsMenu: false,
 };
 
 const quickTourSlice = createSlice({
@@ -25,16 +25,16 @@ const quickTourSlice = createSlice({
 		startTourHandler: (state, action: PayloadAction<boolean>) => {
 			state.startTour = action.payload;
 		},
-		testMenuActionsHandler: (state, action: PayloadAction<boolean>) => {
-			state.testMenuActions = action.payload;
+		menuStartTour: (state, action: PayloadAction<boolean>) => {
+			state.startIsMenu = action.payload;
 		},
 	},
 });
 
 export const selectActualStep = (state: RootState) => state.quickTour.step;
 export const selectActualStartTour = (state: RootState) => state.quickTour.startTour;
-export const selectTestMenuActions = (state: RootState) => state.quickTour.testMenuActions;
+export const selectMenuStart = (state: RootState) => state.quickTour.startIsMenu;
 
 export const quickTourPath = quickTourSlice.name;
 export const quickTourReducer = quickTourSlice.reducer;
-export const { stepHandler, startTourHandler, testMenuActionsHandler } = quickTourSlice.actions;
+export const { stepHandler, startTourHandler, menuStartTour } = quickTourSlice.actions;

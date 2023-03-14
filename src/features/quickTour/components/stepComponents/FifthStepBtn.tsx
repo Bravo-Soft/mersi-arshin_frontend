@@ -1,6 +1,6 @@
-import StyledTourDescription from '../styled/StyledTourDescription';
+import StyledTourDescription from '../../styled/StyledTourDescription';
 
-function FifthStep() {
+function FifthStepBtn() {
 	return (
 		<>
 			<StyledTourDescription>
@@ -12,4 +12,4 @@ function FifthStep() {
 	);
 }
 
-export default FifthStep;
+export default FifthStepBtn;

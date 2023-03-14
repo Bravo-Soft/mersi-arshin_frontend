@@ -1,4 +1,4 @@
-import StyledTourDescription from '../styled/StyledTourDescription';
+import StyledTourDescription from '../../styled/StyledTourDescription';
 
 function SixthStepBtn() {
 	return (

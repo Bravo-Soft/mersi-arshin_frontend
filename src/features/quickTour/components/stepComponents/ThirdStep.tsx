@@ -1,8 +1,7 @@
-import { thirdStepContent } from '../configStepsDesc';
+import { thirdStepContent } from '../../configStepsDesc';
 
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import StyledTourDescription from '../styled/StyledTourDescription';
+import StyledTourDescription from '../../styled/StyledTourDescription';
+import StyledTourTitle from '../../styled/StyledTourTitle';
 
 function ThirdStep() {
 	return (
@@ -13,14 +12,11 @@ function ThirdStep() {
 
 			{thirdStepContent.map(({ title, content }) => {
 				return (
-					<Box marginBottom={1}>
-						<Typography component='span' sx={{ fontWeight: 600, fontSize: 14 }}>
-							"{title}"
-						</Typography>
+					<StyledTourDescription marginBottom={1}>
+						<StyledTourTitle>"{title}"</StyledTourTitle>
 						<span>&#32;&#8212;&#32;</span>
 						{content}
 					</StyledTourDescription>
-					// </Box>
 				);
 			})}
 		</>
