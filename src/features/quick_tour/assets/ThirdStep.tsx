@@ -19,8 +19,8 @@ function ThirdStep() {
 						</Typography>
 						<span>&#32;&#8212;&#32;</span>
 						{content}
-					</StyledTourDescription>
-					// </Box>
+						<StyledTourDescription>{content}</StyledTourDescription>
+					</Box>
 				);
 			})}
 		</>
