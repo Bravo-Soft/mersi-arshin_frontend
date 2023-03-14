@@ -41,7 +41,7 @@ function TooltipDialog({
 						{...closeProps}
 						sx={{ fontSize: '10px', p: 0, color: 'black', fontWeight: 500 }}
 					>
-						Закрыть подсказки
+						{isLastStep ? 'Закончить обучение' : 'Закрыть подсказки'}
 					</Button>
 				)}
 			</Stack>
