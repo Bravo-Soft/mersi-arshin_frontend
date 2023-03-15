@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 import { LICENSE_KEY } from 'constant/licenseKey';
+import { register as registerServiceWorker } from './serviceWorkerRegistration';
 
 LicenseInfo.setLicenseKey(LICENSE_KEY);
 
@@ -24,3 +25,5 @@ root.render(
 		</Provider>
 	</PersistGate>
 );
+
+registerServiceWorker();
