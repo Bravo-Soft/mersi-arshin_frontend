@@ -84,7 +84,12 @@ function DataTableToolbar(): JSX.Element {
 							</IconButton>
 						</Tooltip>
 					</Box>
-					<Stack direction='row' gap={4}>
+					<Stack
+						direction='row'
+						gap={4}
+						alignItems='center'
+						sx={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+					>
 						<div id='column'>
 							<DataTableColumnButton />
 						</div>
