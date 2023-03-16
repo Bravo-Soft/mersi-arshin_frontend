@@ -128,4 +128,3 @@ function DataTable(): JSX.Element {
 	);
 }
 export default DataTable;
-//GridToolbarDensitySelector

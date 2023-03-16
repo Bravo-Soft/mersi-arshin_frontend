@@ -27,6 +27,7 @@ interface IQuickTourMenuProps {
 
 function QuickTourMenu({ anchorTourEl, handleCloseTour }: IQuickTourMenuProps) {
 	const dispatch = useAppDispatch();
+	// const menuCoinfig = useStepMenuByRole(quickTourMenuConfig);
 
 	const handleStartTour = (step: number) => async (event: React.MouseEvent<HTMLElement>) => {
 		event.preventDefault();
@@ -35,7 +36,7 @@ function QuickTourMenu({ anchorTourEl, handleCloseTour }: IQuickTourMenuProps) {
 		handleCloseTour();
 		setTimeout(() => {
 			dispatch(startTourHandler(true));
-		}, 600);
+		}, 700);
 	};
 
 	return (
