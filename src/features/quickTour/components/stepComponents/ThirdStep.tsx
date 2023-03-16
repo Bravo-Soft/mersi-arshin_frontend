@@ -16,7 +16,6 @@ function ThirdStep() {
 						<StyledTourTitle>"{title}"</StyledTourTitle>
 						<span>&#32;&#8212;&#32;</span>
 						{content}
-						<StyledTourDescription>{content}</StyledTourDescription>
 					</StyledTourDescription>
 				);
 			})}
