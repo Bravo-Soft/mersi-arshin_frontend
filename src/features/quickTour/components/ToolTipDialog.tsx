@@ -4,6 +4,8 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { useAppSelector } from 'hooks/redux';
+import { selectUserRoles } from 'features/user/userSlice';
 
 //кастомный компонент диалога тура
 
@@ -13,8 +15,10 @@ function TooltipDialog({
 	closeProps,
 	primaryProps,
 	tooltipProps,
+	index,
 	isLastStep,
 }: TooltipRenderProps) {
+	const { isReader } = useAppSelector(selectUserRoles);
 	return (
 		<Box
 			{...tooltipProps}
@@ -28,6 +32,11 @@ function TooltipDialog({
 			<Stack sx={{ maxHeight: 350, overflow: 'auto', paddingRight: 1 }}>
 				{step.content && step.content}
 			</Stack>
+			{isReader && index < 3 && (
+				<Typography variant='body1' sx={{ color: '#9e9696', fontSize: '13px', my: 2 }}>
+					Ряд возможностей системы могут быть ограничены у Вашей учетной записи.
+				</Typography>
+			)}
 			<Stack direction='column' flexGrow={1} alignItems='flex-start' mt={2}>
 				{!isLastStep && (
 					<Button
@@ -39,6 +48,7 @@ function TooltipDialog({
 						К следующей подсказке
 					</Button>
 				)}
+
 				{continuous && (
 					<Button
 						id='close'

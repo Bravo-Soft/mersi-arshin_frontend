@@ -1,4 +1,4 @@
-interface IQuickMenuTourConfig {
+export interface IQuickMenuTourConfig {
 	title: string;
 	step: number;
 }
