@@ -4,14 +4,14 @@ import type { IAuthFormRequest } from './authApiSlice';
 
 type AuthValidationRules = Record<keyof IAuthFormRequest, RegisterOptions>;
 
-export const minLength = 8;
+export const minLength = 7;
 export const maxLength = 15;
 
 export const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/gi;
 const passwordPattern =
 	/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[,.;:!?\-_()])[a-zA-Z0-9,.;:!?\-_()]+$/g;
 
-const getPasswordRules = (): Pick<RegisterOptions, 'maxLength' | 'pattern'> => ({
+const getExtendedPasswordRules = (): Pick<RegisterOptions, 'maxLength' | 'pattern'> => ({
 	maxLength: {
 		value: maxLength,
 		message: `Максимальная длина пароля ${maxLength} символов`,
@@ -34,8 +34,8 @@ export const validationRules: AuthValidationRules = {
 		required: 'Введите пароль',
 		minLength: {
 			value: minLength,
-			message: `Минимальная длина пароля ${maxLength} символов`,
+			message: `Минимальная длина пароля ${minLength} символов`,
 		},
-		...(ENABLE_PASSWORD_RULES && getPasswordRules()),
+		...(ENABLE_PASSWORD_RULES && getExtendedPasswordRules()),
 	},
 };
