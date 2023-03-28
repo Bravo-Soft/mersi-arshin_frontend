@@ -1,7 +1,7 @@
 export const DEFAULT_SETTINGS = {
 	params: {
-		large: { font: 12, title: 'Большой', width: 65, height: 35 },
-		small: { font: 8, title: 'Маленький', width: 27, height: 10 },
-		medium: { font: 10, title: 'Средний', width: 43, height: 19 },
+		small: { font: 5, title: 'Маленький', width: 50, height: 50 },
+		medium: { font: 8, title: 'Средний', width: 80, height: 90 },
+		large: { font: 12, title: 'Большой', width: 100, height: 130 },
 	},
 };
