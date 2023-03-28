@@ -33,7 +33,7 @@ const StyledPrintingTag = styled(Paper, {
 		boxShadow: `0px 0px 1.5px 1.5px ${lighten(theme.palette.primary.main, 0.7)}`,
 	},
 	'@media print': {
-		height: 'auto',
+		// height: 'auto',
 		resize: 'none',
 		overflow: 'hidden',
 		boxShadow: 'initial',
