@@ -63,7 +63,7 @@ function PrintBlock({ data, nameControl }: IPrintBlockProps) {
 					InputLabelProps={{ shrink: true }}
 					InputProps={{
 						startAdornment: (
-							<InputAdornment position='start'>{el === 'font' ? 'пт' : 'см'}</InputAdornment>
+							<InputAdornment position='start'>{el === 'font' ? 'пт' : 'мм'}</InputAdornment>
 						),
 					}}
 				/>

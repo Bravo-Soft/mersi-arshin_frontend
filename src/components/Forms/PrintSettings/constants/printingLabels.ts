@@ -6,6 +6,6 @@ export interface IPrintingLabel {
 
 export const PRINTING_LABEL: IPrintingLabel = {
 	font: 'Шрифт (пт)',
-	height: 'Высота (см)',
-	width: 'Ширина (см)',
+	height: 'Высота (мм)',
+	width: 'Ширина (мм)',
 };
