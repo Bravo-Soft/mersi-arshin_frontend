@@ -147,7 +147,7 @@ P.S Для работы сервера необходимо предварите
 {
 	"id": "90a2c4bf-caba-4d44-b350-3c6757005468",
 	"nameGroup": "optimum",
-	"namePackage": "Оптитмум",
+	"namePackage": "Оптимум",
 	"backupFrequency": "Раз в сутки",
 	"maxSaveBackup": 180,
 	"maxCountAccount": 5,
