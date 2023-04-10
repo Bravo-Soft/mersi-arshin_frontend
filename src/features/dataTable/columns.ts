@@ -26,7 +26,7 @@ export enum ColumnNames {
 	ORGANIZATION = 'Организация',
 	ACCURACY_CLASS = 'Класс точности',
 	MEASUREMENT_LIMIT = 'Предел измерения',
-	SIZE = 'Размер',
+	SIZE = 'Размер бирки',
 	NOTES = 'Примечания',
 	VERIFICATION_INTERVAL = 'Межповерочный интервал',
 }
