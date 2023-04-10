@@ -29,7 +29,6 @@ export enum ColumnNames {
 	MEASUREMENT_LIMIT = 'Предел измерения',
 	SIZE = 'Размер бирки',
 	NOTES = 'Примечания',
-	VERIFICATION_INTERVAL = 'Межповерочный интервал',
 }
 
 const formatDateCallback = (params: GridValueFormatterParams<string>) =>

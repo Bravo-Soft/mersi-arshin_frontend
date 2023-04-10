@@ -10,19 +10,13 @@ import type { IDataItemWithDates } from 'types/dataItem';
 import Stack from '@mui/material/Stack';
 import DateField from 'components/DateField';
 import AutocompleteField from 'components/AutocompleteField';
-import { TextField } from '@mui/material';
-import { getExtendedIntervalRules } from 'utils/intervalValidate';
 
 interface IVerificateFieldsProps {
 	isReader: boolean;
 }
 
 function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
-	const {
-		watch,
-		formState: { errors },
-		register,
-	} = useFormContext<IDataItemWithDates>();
+	const { watch } = useFormContext<IDataItemWithDates>();
 	const validation = useDateValidate({
 		productionDateValue: watch('productionDate'),
 		verificationDateValue: watch('verificationDate'),
@@ -44,15 +38,6 @@ function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
 						nameOfKey={key}
 						label={label}
 						validation={validation[key]}
-					/>
-				) : key === 'interVerificationinterval' ? (
-					<TextField
-						{...register('interVerificationinterval', getExtendedIntervalRules())}
-						label={label}
-						error={Boolean(errors.interVerificationinterval)}
-						helperText={errors?.interVerificationinterval?.message}
-						InputLabelProps={{ shrink: true }}
-						type='number'
 					/>
 				) : (
 					<AutocompleteField
