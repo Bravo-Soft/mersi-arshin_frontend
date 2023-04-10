@@ -81,10 +81,6 @@ export interface IDataItem {
 	 * Массив id пользователей, у которых данных позиция записана в избранное
 	 */
 	userIds: string[];
-	/**
-	 * Межповерочный интервал
-	 */
-	interVerificationinterval: number;
 }
 
 export interface IDocument {

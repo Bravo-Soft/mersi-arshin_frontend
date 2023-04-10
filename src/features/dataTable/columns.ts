@@ -26,9 +26,8 @@ export enum ColumnNames {
 	ORGANIZATION = 'Организация',
 	ACCURACY_CLASS = 'Класс точности',
 	MEASUREMENT_LIMIT = 'Предел измерения',
-	SIZE = 'размер бирки',
+	SIZE = 'Размер',
 	NOTES = 'Примечания',
-	VERIFICATION_INTERVAL = 'Межповерочный интервал',
 }
 
 const formatDateCallback = (params: GridValueFormatterParams<string>) =>
@@ -89,13 +88,6 @@ export const columns: GridColDef<IDataItem>[] = [
 		headerAlign: 'center',
 		type: 'date',
 		valueFormatter: formatDateCallback,
-	},
-	{
-		field: 'interVerificationinterval',
-		headerName: ColumnNames.VERIFICATION_INTERVAL,
-		width: initialWidth,
-		headerAlign: 'center',
-		renderCell: RenderCellExpand,
 	},
 	{
 		field: 'dateOfTheNextVerification',
