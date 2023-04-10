@@ -7,6 +7,7 @@ import { compareAsc, /* differenceInDays */ format, formatISO, parseISO } from '
 import { RenderCellExpand } from './components/RenderCellExpand';
 
 import cn from 'classnames';
+import { quickFilterDateFormat } from './utils/quickFilterDateFormat';
 
 const initialWidth = 200;
 
@@ -89,6 +90,8 @@ export const columns: GridColDef<IDataItem>[] = [
 		headerAlign: 'center',
 		type: 'date',
 		valueFormatter: formatDateCallback,
+		valueGetter: ({ row }) => parseISO(row.productionDate),
+		getApplyQuickFilterFn: quickFilterDateFormat,
 	},
 	{
 		field: 'interVerificationinterval',
@@ -106,6 +109,8 @@ export const columns: GridColDef<IDataItem>[] = [
 		type: 'date',
 		valueFormatter: formatDateCallback,
 		cellClassName: getCellClasses,
+		valueGetter: ({ row }) => parseISO(row.productionDate),
+		getApplyQuickFilterFn: quickFilterDateFormat,
 	},
 	{
 		field: 'typeOfWork',
@@ -143,6 +148,8 @@ export const columns: GridColDef<IDataItem>[] = [
 		headerAlign: 'center',
 		type: 'date',
 		valueFormatter: formatDateCallback,
+		valueGetter: ({ row }) => parseISO(row.productionDate),
+		getApplyQuickFilterFn: quickFilterDateFormat,
 	},
 	{
 		field: 'organization',
