@@ -29,6 +29,8 @@ import ruLocale from 'date-fns/locale/ru';
 import ButtonContainer from 'styled/ButtonContainer';
 import FormContainer from 'styled/FormContainer';
 import AutocompleteField from 'components/AutocompleteField';
+import { TextField } from '@mui/material';
+import { getExtendedIntervalRules } from 'utils/intervalValidate';
 
 function CreateDataItem(): JSX.Element {
 	const today = new Date();
@@ -46,6 +48,7 @@ function CreateDataItem(): JSX.Element {
 			dateOfTheNextVerification: today,
 		},
 	});
+
 	const validation = useDateValidate({
 		productionDateValue: methods.watch('productionDate'),
 		verificationDateValue: methods.watch('verificationDate'),
@@ -123,6 +126,20 @@ function CreateDataItem(): JSX.Element {
 						</FormProvider>
 					</Fragment>
 				);
+
+			case 'interVerificationinterval':
+				return (
+					<TextField
+						{...methods.register('interVerificationinterval', getExtendedIntervalRules())}
+						label={label}
+						key={key}
+						error={Boolean(methods.formState.errors.interVerificationinterval)}
+						helperText={methods.formState.errors?.interVerificationinterval?.message}
+						InputLabelProps={{ shrink: true }}
+						type='number'
+					/>
+				);
+
 			default:
 				return (
 					<FormProvider {...methods} key={key}>

@@ -9,6 +9,7 @@ import { notificationPath, notificationReducer } from 'features/notificator/noti
 import { sidebarPath, sidebarReducer } from 'features/sidebar/sidebarSlice';
 import { smartDialogPath, smartDialogReducer } from 'features/smartDialog/smartDialogSlice';
 import { userPath, userReducer } from 'features/user/userSlice';
+
 import {
 	FLUSH,
 	PAUSE,

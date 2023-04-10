@@ -39,3 +39,5 @@ export const validationRules: AuthValidationRules = {
 		...(ENABLE_PASSWORD_RULES && getExtendedPasswordRules()),
 	},
 };
+
+

@@ -12,9 +12,10 @@ export type AutocompleteKeysType = keyof Omit<
 	| 'verificationDate'
 	| 'dateOfTheNextVerification'
 	| 'productionDate'
+	| 'interVerificationinterval'
 >;
 
-const defaultkeys: AutocompleteKeysType[] = [
+const defaultKeys: AutocompleteKeysType[] = [
 	'name',
 	'type',
 	'factoryNumber',
@@ -36,9 +37,9 @@ export const useFilterAutocomplete = () => {
 	const { data: loadedData = [] } = useGetAllDataQuery();
 
 	const filteredAValue = validateAutcompleteParams(
-		defaultkeys
+		defaultKeys
 			.map(key => loadedData.map(item => item[key]))
-			.reduce((acc, element, index) => ({ ...acc, [defaultkeys[index]]: element }), defaultValue)
+			.reduce((acc, element, index) => ({ ...acc, [defaultKeys[index]]: element }), defaultValue)
 	);
 
 	return { ...filteredAValue };
