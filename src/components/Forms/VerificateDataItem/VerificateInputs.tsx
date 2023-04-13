@@ -4,14 +4,14 @@ import { useDateValidate } from 'hooks/useDateValidate';
 import { useFormContext } from 'react-hook-form';
 import { useFilterAutocomplete } from '../hooks/useAutocomplete';
 import { selectedVisibleColumns } from 'features/dataTable/dataTableSlice';
+import { getExtendedIntervalRules } from 'utils/getExtendedIntervalRules';
 
 import type { IDataItemWithDates } from 'types/dataItem';
 
 import Stack from '@mui/material/Stack';
 import DateField from 'components/DateField';
 import AutocompleteField from 'components/AutocompleteField';
-import { TextField } from '@mui/material';
-import { getExtendedIntervalRules } from 'utils/getExtendedIntervalRules';
+import TextField from '@mui/material/TextField';
 
 interface IVerificateFieldsProps {
 	isReader: boolean;

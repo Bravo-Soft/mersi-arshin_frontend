@@ -28,8 +28,12 @@ function AutocompleteField({
 			name={name}
 			control={control}
 			defaultValue=''
+			rules={{
+				required: required && 'Поле обязательное',
+			}}
 			render={({ field: { onChange, ..._field }, fieldState: { error } }) => (
 				<Autocomplete
+					{..._field}
 					freeSolo
 					options={autocompleteParams}
 					onChange={(_event, value) => {
@@ -44,12 +48,10 @@ function AutocompleteField({
 								onChange={onChange}
 								error={Boolean(error)}
 								helperText={error?.message}
-								InputLabelProps={{ shrink: true }}
-								required={required}
+								InputLabelProps={{ shrink: true, required: required }}
 							/>
 						);
 					}}
-					{..._field}
 				/>
 			)}
 		/>
