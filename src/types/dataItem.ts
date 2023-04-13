@@ -84,7 +84,7 @@ export interface IDataItem {
 	/**
 	 * Межповерочный интервал
 	 */
-	interVerificationinterval: number;
+	interVerificationinterval: string;
 }
 
 export interface IDocument {

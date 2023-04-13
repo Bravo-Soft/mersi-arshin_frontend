@@ -90,7 +90,7 @@ export const columns: GridColDef<IDataItem>[] = [
 		headerAlign: 'center',
 		type: 'date',
 		valueFormatter: formatDateCallback,
-		valueGetter: ({ row }) => parseISO(row.productionDate),
+		valueGetter: ({ row }) => parseISO(row.verificationDate),
 		getApplyQuickFilterFn: quickFilterDateFormat,
 	},
 	{
@@ -109,7 +109,7 @@ export const columns: GridColDef<IDataItem>[] = [
 		type: 'date',
 		valueFormatter: formatDateCallback,
 		cellClassName: getCellClasses,
-		valueGetter: ({ row }) => parseISO(row.productionDate),
+		valueGetter: ({ row }) => parseISO(row.dateOfTheNextVerification),
 		getApplyQuickFilterFn: quickFilterDateFormat,
 	},
 	{
