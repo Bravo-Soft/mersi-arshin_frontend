@@ -7,6 +7,6 @@ export const getExtendedIntervalRules = (): Pick<RegisterOptions, 'min' | 'max'>
 	},
 	max: {
 		value: 1000,
-		message: 'Интервал поверки не может быть больше 100',
+		message: 'Интервал поверки не может быть больше 1000',
 	},
 });
