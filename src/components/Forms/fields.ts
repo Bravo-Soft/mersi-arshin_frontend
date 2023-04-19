@@ -26,6 +26,7 @@ export type KeysOfEdit =
 
 export type KeysOfVerificate =
 	| 'verificationDate'
+	| 'interVerificationinterval'
 	| 'dateOfTheNextVerification'
 	| 'typeOfWork'
 	| 'stateRegister'
@@ -83,6 +84,10 @@ export const verificationFields: IField<KeysOfVerificate>[] = [
 	{
 		key: 'verificationDate',
 		label: ColumnNames.VERIFICATION_DATE,
+	},
+	{
+		key: 'interVerificationinterval',
+		label: ColumnNames.VERIFICATION_INTERVAL,
 	},
 	{
 		key: 'dateOfTheNextVerification',

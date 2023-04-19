@@ -1,5 +1,7 @@
+/* eslint-disable no-console */
 import { alpha, useTheme } from '@mui/material/styles';
 import { memo, useEffect, useRef, useState } from 'react';
+import { z } from 'zod';
 
 import type { GridRenderCellParams } from '@mui/x-data-grid';
 
@@ -8,6 +10,25 @@ import Fade from '@mui/material/Fade';
 import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
 import Typography from '@mui/material/Typography';
+import Link from '@mui/icons-material/Link';
+import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
+import Stack from '@mui/material/Stack';
+
+const stringIsUrl = (value: string) => {
+	return z.string().url().safeParse(value).success;
+};
+
+const removeLink = (value: string) => {
+	return value
+		.split(' ')
+		.filter(substr => !stringIsUrl(substr))
+		.join(' ');
+};
+
+const extractLinks = (value: string) => {
+	return value.split(' ').filter(substr => stringIsUrl(substr));
+};
 
 const isOverflown = (element: Element) => {
 	return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
@@ -15,7 +36,7 @@ const isOverflown = (element: Element) => {
 
 const GridCellExpand = memo((props: GridCellExpandProps) => {
 	/* Пропсы */
-	const { width, value } = props;
+	const { width, value, links } = props;
 
 	/* Состояние */
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -74,8 +95,26 @@ const GridCellExpand = memo((props: GridCellExpandProps) => {
 			justifyContent='center'
 		>
 			<Box ref={cellDiv} height={1} width={width} display='block' position='absolute' top={0} />
-			<Box ref={cellValue} whiteSpace='nowrap' overflow='hidden' textOverflow='ellipsis'>
-				{value}
+			<Box
+				ref={cellValue}
+				whiteSpace='nowrap'
+				overflow='hidden'
+				textOverflow='ellipsis'
+				display='flex'
+				alignItems='center'
+			>
+				<Typography>{value}</Typography>
+				<Stack direction='row' spacing={1} ml={1}>
+					{links.length
+						? links.map((link, index) => (
+								<Tooltip title={link} key={link + index}>
+									<IconButton component='a' href={link} target='_blank'>
+										<Link />
+									</IconButton>
+								</Tooltip>
+						  ))
+						: null}
+				</Stack>
 			</Box>
 			{showPopper && (
 				<Popper
@@ -114,8 +153,15 @@ const GridCellExpand = memo((props: GridCellExpandProps) => {
 interface GridCellExpandProps {
 	value: string;
 	width: number;
+	links: string[];
 }
 
 export function RenderCellExpand(params: GridRenderCellParams<string>) {
-	return <GridCellExpand value={params.value || '–'} width={params.colDef.computedWidth} />;
+	return (
+		<GridCellExpand
+			value={params.value ? removeLink(params.value) : '–'}
+			width={params.colDef.computedWidth}
+			links={params.value ? extractLinks(params.value) : []}
+		/>
+	);
 }

@@ -7,6 +7,7 @@ import { compareAsc, /* differenceInDays */ format, formatISO, parseISO } from '
 import { RenderCellExpand } from './components/RenderCellExpand';
 
 import cn from 'classnames';
+import { quickFilterDateFormat } from './utils/quickFilterDateFormat';
 
 const initialWidth = 200;
 
@@ -26,8 +27,9 @@ export enum ColumnNames {
 	ORGANIZATION = 'Организация',
 	ACCURACY_CLASS = 'Класс точности',
 	MEASUREMENT_LIMIT = 'Предел измерения',
-	SIZE = 'Размер',
+	SIZE = 'Размер бирки',
 	NOTES = 'Примечания',
+	VERIFICATION_INTERVAL = 'Межповерочный интервал',
 }
 
 const formatDateCallback = (params: GridValueFormatterParams<string>) =>
@@ -88,6 +90,15 @@ export const columns: GridColDef<IDataItem>[] = [
 		headerAlign: 'center',
 		type: 'date',
 		valueFormatter: formatDateCallback,
+		valueGetter: ({ row }) => parseISO(row.verificationDate),
+		getApplyQuickFilterFn: quickFilterDateFormat,
+	},
+	{
+		field: 'interVerificationinterval',
+		headerName: ColumnNames.VERIFICATION_INTERVAL,
+		width: initialWidth,
+		headerAlign: 'center',
+		renderCell: RenderCellExpand,
 	},
 	{
 		field: 'dateOfTheNextVerification',
@@ -98,6 +109,8 @@ export const columns: GridColDef<IDataItem>[] = [
 		type: 'date',
 		valueFormatter: formatDateCallback,
 		cellClassName: getCellClasses,
+		valueGetter: ({ row }) => parseISO(row.dateOfTheNextVerification),
+		getApplyQuickFilterFn: quickFilterDateFormat,
 	},
 	{
 		field: 'typeOfWork',
@@ -135,6 +148,8 @@ export const columns: GridColDef<IDataItem>[] = [
 		headerAlign: 'center',
 		type: 'date',
 		valueFormatter: formatDateCallback,
+		valueGetter: ({ row }) => parseISO(row.productionDate),
+		getApplyQuickFilterFn: quickFilterDateFormat,
 	},
 	{
 		field: 'organization',
