@@ -14,6 +14,29 @@ interface IAutocompleteFieldsProps {
 	autocompleteParams: string[];
 }
 
+const shortKeys = [
+	'type',
+	'factoryNumber',
+	'inventoryNumber',
+	'division',
+	'typeOfWork',
+	'measurementLimit',
+];
+
+const getValueOfMaxLength = (name: AutocompleteKeysType) => {
+	if (shortKeys.includes(name)) {
+		return {
+			value: 128,
+			message: 'Максимальное значение в поле 128 символов',
+		};
+	} else {
+		return {
+			value: 256,
+			message: 'Максимальное значение в поле 256 символов',
+		};
+	}
+};
+
 function AutocompleteField({
 	name,
 	label,
@@ -27,31 +50,30 @@ function AutocompleteField({
 		<Controller
 			name={name}
 			control={control}
-			defaultValue=''
 			rules={{
 				required: required && 'Поле обязательное',
+				maxLength: getValueOfMaxLength(name),
 			}}
-			render={({ field: { onChange, ..._field }, fieldState: { error } }) => (
+			render={({ field: { onChange, ...rest }, fieldState: { error } }) => (
 				<Autocomplete
-					{..._field}
+					{...rest}
 					freeSolo
+					disableClearable
 					options={autocompleteParams}
 					onChange={(_event, value) => {
 						onChange(value);
 					}}
 					readOnly={readOnly}
-					renderInput={params => {
-						return (
-							<TextField
-								{...params}
-								label={label}
-								onChange={onChange}
-								error={Boolean(error)}
-								helperText={error?.message}
-								InputLabelProps={{ shrink: true, required: required }}
-							/>
-						);
-					}}
+					renderInput={params => (
+						<TextField
+							{...params}
+							label={label}
+							onChange={onChange}
+							error={Boolean(error)}
+							helperText={error?.message}
+							InputLabelProps={{ shrink: true, required: required }}
+						/>
+					)}
 				/>
 			)}
 		/>

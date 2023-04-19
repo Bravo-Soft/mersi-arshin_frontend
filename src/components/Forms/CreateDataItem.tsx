@@ -1,4 +1,3 @@
-import { allInputFields } from './fields';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { Messages } from 'constant/messages';
@@ -15,6 +14,8 @@ import { useDateValidate } from 'hooks/useDateValidate';
 import { Fragment, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { createDateISO } from 'utils/createDateISO';
+import { getExtendedIntervalRules } from 'utils/getExtendedIntervalRules';
+import { allInputFields } from './fields';
 import { useFilterAutocomplete } from './hooks/useAutocomplete';
 
 import type { IDataItem, IDataItemWithDates } from 'types/dataItem';
@@ -23,17 +24,38 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
+import AutocompleteField from 'components/AutocompleteField';
 import DateField from 'components/DateField';
 import SizeSelect from 'components/SizeSelect';
 import ruLocale from 'date-fns/locale/ru';
 import ButtonContainer from 'styled/ButtonContainer';
 import FormContainer from 'styled/FormContainer';
-import AutocompleteField from 'components/AutocompleteField';
-import { getExtendedIntervalRules } from 'utils/getExtendedIntervalRules';
-import { TextField } from '@mui/material';
+
+const today = new Date();
+
+const defaultValues = {
+	size: Tag.SMALL,
+	productionDate: today,
+	verificationDate: today,
+	dateOfTheNextVerification: today,
+	accuracyClass: '',
+	certificate: '',
+	condition: '',
+	division: '',
+	factoryNumber: '',
+	interVerificationinterval: '',
+	inventoryNumber: '',
+	measurementLimit: '',
+	name: '',
+	notes: '',
+	organization: '',
+	stateRegister: '',
+	type: '',
+	typeOfWork: '',
+};
 
 function CreateDataItem(): JSX.Element {
-	const today = new Date();
 	const dispatch = useAppDispatch();
 	const { maxCountRowTable } = useAppSelector(selectUserPermissions);
 
@@ -41,12 +63,7 @@ function CreateDataItem(): JSX.Element {
 	const [createNewItem, { isLoading, isSuccess }] = useCreateNewDataItemMutation();
 
 	const methods = useForm<Omit<IDataItemWithDates, 'id'>>({
-		defaultValues: {
-			size: Tag.SMALL,
-			productionDate: today,
-			verificationDate: today,
-			dateOfTheNextVerification: today,
-		},
+		defaultValues,
 	});
 	const validation = useDateValidate({
 		productionDateValue: methods.watch('productionDate'),
