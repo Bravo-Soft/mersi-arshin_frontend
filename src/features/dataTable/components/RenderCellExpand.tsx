@@ -103,7 +103,7 @@ const GridCellExpand = memo((props: GridCellExpandProps) => {
 				display='flex'
 				alignItems='center'
 			>
-				<Typography>{value}</Typography>
+				{value}
 				<Stack direction='row' spacing={1} ml={1}>
 					{links.length
 						? links.map((link, index) => (
