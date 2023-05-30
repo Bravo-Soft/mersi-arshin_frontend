@@ -6,7 +6,6 @@ import { selectUserRoles } from 'features/user/userSlice';
 import { selectSelectedDataItem } from 'features/dataTable/dataTableSlice';
 import { useUpdateSelectedDataItem } from 'hooks/useUpdateSelectedDataItem';
 import { useUpdateDataItemMutation } from 'features/dataTable/dataTableApiSlice';
-import { useUpdateInputValues } from 'features/dataTable/hooks/useUpdateInputValues';
 
 import type { IDataItem, IDataItemWithDates } from 'types/dataItem';
 
@@ -23,10 +22,10 @@ function EditDataItem(): JSX.Element {
 	const [sendUpdatedItem, { isLoading: isUpdateLoading }] = useUpdateDataItemMutation();
 
 	const methods = useForm<IDataItemWithDates>({
-		defaultValues: setDefaultValue(selectedDataItem),
+		values: setDefaultValue(selectedDataItem),
 	});
+
 	useUpdateSelectedDataItem(selectedDataItem);
-	useUpdateInputValues(selectedDataItem, methods.setValue);
 
 	const onSubmit = methods.handleSubmit(async data => {
 		const { productionDate, verificationDate, dateOfTheNextVerification, userIds, ...othen } =

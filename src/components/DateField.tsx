@@ -16,7 +16,10 @@ interface IDateFieldsProps {
 		'productionDate' | 'verificationDate' | 'dateOfTheNextVerification'
 	>;
 	readOnly?: boolean;
-	validation?: Validate<Date> | Record<string, Validate<Date>> | undefined;
+	validation?:
+		| Validate<Date, IDataItemWithDates>
+		| Record<string, Validate<Date, IDataItemWithDates>>
+		| undefined;
 }
 
 function DateField({ label, nameOfKey, readOnly, validation }: IDateFieldsProps): JSX.Element {

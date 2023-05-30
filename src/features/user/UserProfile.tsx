@@ -41,9 +41,8 @@ function UserProfile(): JSX.Element {
 	const {
 		handleSubmit,
 		register,
-		setValue,
 		formState: { isDirty },
-	} = useForm<IProfile>({ defaultValues: userData });
+	} = useForm<IProfile>({ values: userData });
 	const { submitAllForm, handleDeletePhoto, status } = useSubmitProfileActions(file, isDirty);
 
 	const onSubmit = handleSubmit(async data => {
@@ -60,13 +59,6 @@ function UserProfile(): JSX.Element {
 			uploadRef.current.value = '';
 		}
 	};
-
-	useEffect(() => {
-		if (userData) {
-			const keys = Object.keys(userData) as Array<keyof IProfile>;
-			keys.forEach(key => setValue(key, userData[key]));
-		}
-	}, [setValue, userData]);
 
 	// Так как компонент остается вмонтированным, мы должны сбрасывать фото при закрытии сайдбара
 	useEffect(() => {
