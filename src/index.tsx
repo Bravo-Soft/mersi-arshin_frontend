@@ -13,7 +13,7 @@ import { register as registerServiceWorker } from './serviceWorkerRegistration';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import ruLocale from 'date-fns/locale/ru';
-
+import { ruRU } from '@mui/x-date-pickers/locales';
 LicenseInfo.setLicenseKey(LICENSE_KEY);
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
@@ -21,7 +21,11 @@ root.render(
 	<PersistGate loading={null} persistor={persistor}>
 		<Provider store={store}>
 			<ThemeProvider theme={theme}>
-				<LocalizationProvider adapterLocale={ruLocale} dateAdapter={AdapterDateFns}>
+				<LocalizationProvider
+					adapterLocale={ruLocale}
+					localeText={ruRU.components.MuiLocalizationProvider.defaultProps.localeText}
+					dateAdapter={AdapterDateFns}
+				>
 					<BrowserRouter>
 						<App />
 					</BrowserRouter>
