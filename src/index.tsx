@@ -10,6 +10,9 @@ import { BrowserRouter } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 import { LICENSE_KEY } from 'constant/licenseKey';
 import { register as registerServiceWorker } from './serviceWorkerRegistration';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import ruLocale from 'date-fns/locale/ru';
 
 LicenseInfo.setLicenseKey(LICENSE_KEY);
 
@@ -18,9 +21,11 @@ root.render(
 	<PersistGate loading={null} persistor={persistor}>
 		<Provider store={store}>
 			<ThemeProvider theme={theme}>
-				<BrowserRouter>
-					<App />
-				</BrowserRouter>
+				<LocalizationProvider adapterLocale={ruLocale} dateAdapter={AdapterDateFns}>
+					<BrowserRouter>
+						<App />
+					</BrowserRouter>
+				</LocalizationProvider>
 			</ThemeProvider>
 		</Provider>
 	</PersistGate>

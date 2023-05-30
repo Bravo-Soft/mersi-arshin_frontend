@@ -8,6 +8,8 @@ import type { IScrollbarParameters } from 'utils/generateScrollbarStyles';
 
 import { createTheme } from '@mui/material/styles';
 import { ruRU } from '@mui/x-data-grid-pro';
+import { ruRU as dataGridruRU } from '@mui/x-data-grid';
+import { ruRU as coreruRU } from '@mui/material/locale';
 import { generateScrollbarStyles } from 'utils/generateScrollbarStyles';
 
 const ibmPlexSansUnicodeRange = 'U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116';
@@ -187,5 +189,7 @@ export const theme = createTheme(
 			},
 		},
 	},
-	ruRU
+	ruRU,
+	dataGridruRU,
+	coreruRU
 );

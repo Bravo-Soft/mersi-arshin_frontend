@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-import { DateRangePicker, LocalizationProvider } from '@mui/x-date-pickers-pro';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { DateRangePicker } from '@mui/x-date-pickers-pro';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { operatorsFilters } from '../operatorsFilters';
 import { setColumns } from '../utils/setColums';
@@ -12,12 +11,9 @@ import {
 
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
-import TextField from '@mui/material/TextField';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import ruLocale from 'date-fns/locale/ru';
-import Stack from '@mui/material/Stack';
 import BlockFilter from './BlockFilter';
 import Typography from '@mui/material/Typography';
 import ButtonGroup from './ButtonGroup';
@@ -35,7 +31,6 @@ function VerificationScheduleModal({ apiRef }: IPopupVerificationScheduleModalPr
 	const [dateRange, setDateRange] = useState<DateRange<Date>>([null, null]);
 	const [columnsFilters, setColumnsFilters] = useState<IColumnTable[]>([]);
 	const isOpenedModal = useAppSelector(selectedIsOpenedVerificationScheduleModal);
-
 	const dispatch = useAppDispatch();
 
 	const methods = useForm<IForm>();
@@ -82,37 +77,15 @@ function VerificationScheduleModal({ apiRef }: IPopupVerificationScheduleModalPr
 					justifyContent='space-between'
 				>
 					<Typography sx={{ fontWeight: 500 }}>Выберите даты</Typography>
-					<LocalizationProvider
-						adapterLocale={ruLocale}
-						dateAdapter={AdapterDateFns}
+					<DateRangePicker
+						value={dateRange}
+						onChange={newValue => setDate(newValue)}
+						slotProps={{
+							fieldSeparator: { hidden: true },
+							textField: { required: true },
+						}}
 						localeText={{ start: 'Начальная дата', end: 'Дата окончания' }}
-					>
-						<DateRangePicker
-							value={dateRange}
-							onChange={newValue => setDate(newValue)}
-							renderInput={(startProps, endProps) => (
-								<Stack display='flex' flexDirection='row' alignItems='flex-end'>
-									<TextField
-										required
-										{...startProps}
-										inputProps={{
-											...startProps.inputProps,
-											placeholder: 'дд.мм.гггг',
-										}}
-									/>
-									<Box sx={{ mx: 5 }}> </Box>
-									<TextField
-										required
-										{...endProps}
-										inputProps={{
-											...endProps.inputProps,
-											placeholder: 'дд.мм.гггг',
-										}}
-									/>
-								</Stack>
-							)}
-						/>
-					</LocalizationProvider>
+					/>
 				</Box>
 				{fields.map((item, index) => (
 					<BlockFilter
