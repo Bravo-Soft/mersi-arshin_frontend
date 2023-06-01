@@ -40,7 +40,6 @@ function DateField({ label, nameOfKey, readOnly, validation }: IDateFieldsProps)
 						textField: {
 							error: Boolean(error),
 							helperText: error?.message,
-							placeholder: 'дд.мм.гггг',
 						},
 					}}
 				/>
