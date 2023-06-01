@@ -1,5 +1,3 @@
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { Messages } from 'constant/messages';
 import { Tag } from 'constant/tag';
 import {
@@ -28,7 +26,6 @@ import TextField from '@mui/material/TextField';
 import AutocompleteField from 'components/AutocompleteField';
 import DateField from 'components/DateField';
 import SizeSelect from 'components/SizeSelect';
-import ruLocale from 'date-fns/locale/ru';
 import ButtonContainer from 'styled/ButtonContainer';
 import FormContainer from 'styled/FormContainer';
 
@@ -171,9 +168,7 @@ function CreateDataItem(): JSX.Element {
 	return (
 		<FormContainer onSubmit={onSubmit} noValidate>
 			<Stack px={3.5} rowGap={1}>
-				<LocalizationProvider adapterLocale={ruLocale} dateAdapter={AdapterDateFns}>
-					{createRenderedField}
-				</LocalizationProvider>
+				{createRenderedField}
 			</Stack>
 			<ButtonContainer sx={{ mt: 4 }}>
 				<Button

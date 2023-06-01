@@ -1,14 +1,12 @@
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { Controller, useFormContext } from 'react-hook-form';
 import { operatorsFilters } from '../operatorsFilters';
 import { useState } from 'react';
 import { useNotificationFormActions } from 'components/Forms/NotificationSettings/hooks/useNotificationFormActions';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers-pro';
-import { mask, maxDate, minDate } from 'constant/dateMasks';
+import { DatePicker } from '@mui/x-date-pickers-pro';
+import { maxDate, minDate } from 'constant/dateMasks';
 import { Tag } from 'constant/tag';
 
 import Box from '@mui/material/Box';
-import ruLocale from 'date-fns/locale/ru';
 import IconButton from '@mui/material/IconButton';
 import Grid from '@mui/material/Grid';
 import FormControl from '@mui/material/FormControl';
@@ -22,6 +20,7 @@ import type { FormFilterType, IForm, IColumnTable } from '../operatorsFilters';
 import type { ControllerRenderProps } from 'react-hook-form';
 
 import CloseIcon from '@mui/icons-material/Close';
+import { parseISO } from 'date-fns';
 
 interface IBlockFilterProps {
 	index: number;
@@ -167,28 +166,19 @@ function BlockFilter({ index, remove, columnsFilters }: IBlockFilterProps) {
 										}}
 									/>
 								) : operatorValue === 'dateFilters' ? (
-									<LocalizationProvider
-										adapterLocale={ruLocale}
-										dateAdapter={AdapterDateFns}
-									>
-										<DatePicker
-											{...field}
-											mask={mask}
-											label={'Дата Фильтрации'}
-											minDate={minDate}
-											maxDate={maxDate}
-											InputProps={{
+									<DatePicker
+										{...field}
+										label={'Дата Фильтрации'}
+										minDate={minDate}
+										maxDate={maxDate}
+										value={parseISO('2019-02-11T14:00:00')}
+										slotProps={{
+											textField: {
 												error: Boolean(error),
-											}}
-											renderInput={params => (
-												<TextField
-													{...params}
-													error={Boolean(error)}
-													helperText={error?.message}
-												/>
-											)}
-										/>
-									</LocalizationProvider>
+												helperText: error?.message,
+											},
+										}}
+									/>
 								) : (
 									<FormControl variant='standard' fullWidth>
 										<InputLabel shrink={true} id='select-operator-filter-label'>
