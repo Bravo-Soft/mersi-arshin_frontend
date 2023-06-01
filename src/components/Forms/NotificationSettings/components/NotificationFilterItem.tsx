@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { mask, maxDate, minDate } from 'constant/dateMasks';
+import { maxDate, minDate } from 'constant/dateMasks';
 import { Controller, useFormContext } from 'react-hook-form';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { DatePicker } from '@mui/x-date-pickers';
 import { columnsFilters, linkOperators, operatorsFilters } from '../data';
 import { useNotificationFormActions } from '../hooks/useNotificationFormActions';
 import { Tag } from 'constant/tag';
@@ -16,7 +15,6 @@ import type { INotificationSettings } from 'types/notification';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Select from '@mui/material/Select';
-import ruLocale from 'date-fns/locale/ru';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
@@ -202,28 +200,18 @@ function NotificationFilterItem({
 										}}
 									/>
 								) : operatorValueX === 'dateFilters' ? (
-									<LocalizationProvider
-										adapterLocale={ruLocale}
-										dateAdapter={AdapterDateFns}
-									>
-										<DatePicker
-											{...field}
-											mask={mask}
-											label={'Дата Фильтрации'}
-											minDate={minDate}
-											maxDate={maxDate}
-											InputProps={{
+									<DatePicker
+										{...field}
+										label={'Дата Фильтрации'}
+										minDate={minDate}
+										maxDate={maxDate}
+										slotProps={{
+											textField: {
 												error: Boolean(error),
-											}}
-											renderInput={params => (
-												<TextField
-													{...params}
-													error={Boolean(error)}
-													helperText={error?.message}
-												/>
-											)}
-										/>
-									</LocalizationProvider>
+												helperText: error?.message,
+											},
+										}}
+									/>
 								) : (
 									<FormControl variant='standard' fullWidth>
 										<InputLabel shrink={true} id='select-operator-filter-label'>
