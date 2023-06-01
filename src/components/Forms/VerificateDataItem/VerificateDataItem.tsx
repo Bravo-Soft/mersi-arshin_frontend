@@ -22,7 +22,7 @@ function VerificateDataItem(): JSX.Element {
 
 	const [sendUpdatedItem, { isLoading: isUpdateLoading }] = useUpdateDataItemMutation();
 	const methods = useForm<IDataItemWithDates>({
-		defaultValues: setDefaultValue(selectedDataItem),
+		values: setDefaultValue(selectedDataItem),
 	});
 
 	useUpdateSelectedDataItem(selectedDataItem);

@@ -1,5 +1,4 @@
 import { useGetUserNotificationQuery } from 'features/user/userApiSlice';
-import { useEffect } from 'react';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { useSubmitUserNotificationActions } from './hooks/useSubmitUserNotificationActions';
 
@@ -17,29 +16,20 @@ import FormContainer from 'styled/FormContainer';
 import EmailInputs from './EmailInputs';
 import SelectInputs from './SelectInputs';
 
-const fetchDataNotifications: INotificationSettings = {} as INotificationSettings;
-
 function NotificationSettings() {
 	const { settings, isGetDataFetching, isLoading } = useGetUserNotificationQuery(undefined, {
 		selectFromResult: ({ data, isFetching, isLoading }) => ({
-			settings: data ?? fetchDataNotifications,
+			settings: data,
 			isGetDataFetching: isFetching,
 			isLoading,
 		}),
 	});
 
 	const methods = useForm<INotificationSettings>({
-		defaultValues: settings,
+		values: settings,
 	});
 
-	const { getValues, handleSubmit, watch, control, setValue } = methods;
-	useEffect(() => {
-		const keys = Object.keys(settings) as Array<keyof INotificationSettings>;
-
-		keys.forEach(key => {
-			setValue(key, settings[key]);
-		});
-	}, [settings, setValue]);
+	const { getValues, handleSubmit, watch, control } = methods;
 
 	const { submitNotificationValue } = useSubmitUserNotificationActions(getValues());
 	const switchNotification = watch('isNotificationEnabled');

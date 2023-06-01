@@ -48,6 +48,7 @@ function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
 					/>
 				) : key === 'interVerificationinterval' ? (
 					<TextField
+						key={key}
 						{...register('interVerificationinterval', getExtendedIntervalRules())}
 						label={label}
 						error={Boolean(errors.interVerificationinterval)}
