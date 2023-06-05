@@ -5,6 +5,11 @@ import { useNotificationFormActions } from 'components/Forms/NotificationSetting
 import { DatePicker } from '@mui/x-date-pickers-pro';
 import { maxDate, minDate } from 'constant/dateMasks';
 import { Tag } from 'constant/tag';
+import { parseISO } from 'date-fns';
+
+import type { SelectChangeEvent } from '@mui/material';
+import type { FormFilterType, IForm, IColumnTable } from '../operatorsFilters';
+import type { ControllerRenderProps } from 'react-hook-form';
 
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -15,12 +20,7 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 
-import type { SelectChangeEvent } from '@mui/material';
-import type { FormFilterType, IForm, IColumnTable } from '../operatorsFilters';
-import type { ControllerRenderProps } from 'react-hook-form';
-
 import CloseIcon from '@mui/icons-material/Close';
-import { parseISO } from 'date-fns';
 
 interface IBlockFilterProps {
 	index: number;
@@ -71,12 +71,11 @@ function BlockFilter({ index, remove, columnsFilters }: IBlockFilterProps) {
 		<Box
 			display='flex'
 			flexDirection='row'
-			p={1}
-			pr={3.5}
+			py={1.5}
 			justifyContent='space-between'
-			alignItems='flex-end'
+			alignItems='center'
 		>
-			<IconButton onClick={removeFilter(index)}>
+			<IconButton onClick={removeFilter(index)} sx={{ mr: 1 }}>
 				<CloseIcon />
 			</IconButton>
 			<Grid container width='100%' spacing={0}>
