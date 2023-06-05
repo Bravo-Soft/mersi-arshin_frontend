@@ -1,6 +1,11 @@
 import type { DateRange } from '@mui/x-date-pickers-pro';
 import { format } from 'date-fns';
 
+/**
+ * @param Картеж дейтпикера
+ * @returns возвращает массив значений для фильтрации таблицы
+ */
+
 const operatorValueRange = ['onOrAfter', 'onOrBefore'];
 
 export const createDateRange = (fieldsDate: DateRange<Date>) => {

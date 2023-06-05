@@ -13,6 +13,15 @@ import type { GridApiPro } from '@mui/x-data-grid-pro/models/gridApiPro';
 import type { MutableRefObject } from 'react';
 import type { IForm } from '../../../operatorsFilters';
 
+/**
+ * @package хук для выгрузки данных
+ * @function setFilters => функция принимает в себя фильтры из дейтпикера и набора кастомных фильтров и вносит их в модель фильтрации таблицы
+ * @function downloadDataExcel => функция выгрузки в Excel
+ * @function downloadDataCSV => функция выгрузки в CSV
+ * @function closeModal => функция закрытия окна создания графика
+ * @returns возвращает [closeModal , downloadDataExcel , downloadDataCSV ]
+ */
+
 export const useDownloadVerification = (apiRef: MutableRefObject<GridApiPro>) => {
 	const { watch } = useFormContext<IForm>();
 	const filters = gridFilterModelSelector(apiRef);
