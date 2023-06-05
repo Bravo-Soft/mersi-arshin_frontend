@@ -27,7 +27,7 @@ interface IBlockFilterProps {
 	remove: (index: number) => void;
 	columnsFilters: IColumnTable[];
 }
-у
+
 function BlockFilter({ index, remove, columnsFilters }: IBlockFilterProps) {
 	const { watch, control, setValue } = useFormContext<IForm>();
 
