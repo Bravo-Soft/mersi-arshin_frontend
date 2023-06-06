@@ -1,3 +1,5 @@
+import type { DateRange } from '@mui/x-date-pickers-pro';
+
 export interface IOperatorFilterOption {
 	columnField: string;
 	operatorValue: string;
@@ -12,6 +14,7 @@ export interface IFilter {
 
 export interface IForm {
 	filters: IFilter[];
+	fieldsDate: DateRange<Date>;
 }
 
 export interface IOperatorFilter {
