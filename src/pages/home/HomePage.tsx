@@ -7,10 +7,12 @@ import PageBox from 'styled/PageBox';
 import Sidebar from 'features/sidebar/components/Sidebar';
 import SmartDialog from 'features/smartDialog/SmartDialog';
 import DataTable from 'features/dataTable/components/DataTable';
+import { useGetUserDataQuery } from 'features/user/userApiSlice';
 
 function HomePage(): JSX.Element {
 	/* Селектор */
 	const { open, selector } = useAppSelector(selectSidebarStateOfHomePage);
+	useGetUserDataQuery();
 
 	/* Хук для сброса выбранного id, см. ниже условие работы */
 	useResetSelectedId(selector, open);

@@ -4,10 +4,10 @@ import Grow from '@mui/material/Grow';
 import IconButton from '@mui/material/IconButton';
 import Notificator from 'features/notificator/Notificator';
 import WithCookie from 'hoc/WithCookie';
-import Navigation from 'navigation';
 
 import { StyledSnackbarProvider } from 'features/notificator/StyledSnackbarProvider';
 import { useClosableSnackbar } from 'features/notificator/useClosableSnackbar';
+import { AppRouter } from 'pages/router';
 
 function App() {
 	const [ref, onClick] = useClosableSnackbar();
@@ -29,7 +29,7 @@ function App() {
 			<WithCookie>
 				<CssBaseline />
 				<Notificator />
-				<Navigation />
+				<AppRouter />
 			</WithCookie>
 		</StyledSnackbarProvider>
 	);

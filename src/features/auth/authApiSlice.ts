@@ -48,7 +48,13 @@ export const authApiSlice = apiSlice.injectEndpoints({
 				}
 			},
 		}),
+		initSession: builder.query<IAuthResponse, void>({
+			query: () => ({
+				url: API.auth.refresh,
+				method: 'POST',
+			}),
+		}),
 	}),
 });
 
-export const { useLoginMutation, useLogoutMutation } = authApiSlice;
+export const { useLoginMutation, useLogoutMutation, useInitSessionQuery } = authApiSlice;

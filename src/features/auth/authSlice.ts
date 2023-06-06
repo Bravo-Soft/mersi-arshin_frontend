@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { authApiSlice } from './authApiSlice';
 
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from 'app/store';
@@ -20,6 +21,11 @@ const authSlice = createSlice({
 			state.token = action.payload.accessToken;
 		},
 		resetCredentionals: () => initialState,
+	},
+	extraReducers(builder) {
+		builder.addMatcher(authApiSlice.endpoints.initSession.matchFulfilled, (state, action) => {
+			state.token = action.payload.accessToken;
+		});
 	},
 });
 

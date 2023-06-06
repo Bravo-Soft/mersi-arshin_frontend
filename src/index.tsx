@@ -10,7 +10,6 @@ import { LicenseInfo } from '@mui/x-license-pro';
 import { store } from 'app/store';
 import { LICENSE_KEY } from 'constant/licenseKey';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
 import { theme } from 'theme';
 import { register as registerServiceWorker } from './serviceWorkerRegistration';
 
@@ -26,9 +25,7 @@ root.render(
 				localeText={ruRU.components.MuiLocalizationProvider.defaultProps.localeText}
 				dateAdapter={AdapterDateFns}
 			>
-				<BrowserRouter>
-					<App />
-				</BrowserRouter>
+				<App />
 			</LocalizationProvider>
 		</ThemeProvider>
 	</Provider>

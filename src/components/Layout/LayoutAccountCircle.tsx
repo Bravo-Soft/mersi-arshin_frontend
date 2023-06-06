@@ -30,6 +30,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Skeleton from '@mui/material/Skeleton';
 import Tooltip from '@mui/material/Tooltip';
 import QuickTourMenu from 'features/quickTour/components/QuickTourMenu';
+import { useAuth } from 'hooks/useAuth';
 
 interface ILayoutAccountCircleMenuItem {
 	title: string;
@@ -42,12 +43,13 @@ interface ILayoutAccountCircleProps {
 	setOpenModal: (arg: boolean) => void;
 }
 
-function LayoutAccountCircle({ setOpenModal }: ILayoutAccountCircleProps): JSX.Element {
+function LayoutAccountCircle({ setOpenModal }: ILayoutAccountCircleProps) {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const [anchorTourEl, setAnchorTourEl] = useState<null | HTMLElement>(null);
 	const { clearCookie } = useContext(CookieContext);
+	const isAuth = useAuth();
 	const navigate = useNavigate();
-	const { data, isLoading, isFetching } = useGetPhotoQuery();
+	const { data, isLoading, isFetching } = useGetPhotoQuery(undefined, { skip: !isAuth });
 
 	const page = usePage();
 	const { openSidebarWith } = useSidebarAction(page);
@@ -62,6 +64,10 @@ function LayoutAccountCircle({ setOpenModal }: ILayoutAccountCircleProps): JSX.E
 	const handleClick = (event: MouseEvent<HTMLElement>) => {
 		setAnchorEl(event.currentTarget);
 	};
+
+	if (!isAuth) {
+		return null;
+	}
 
 	const handleClose = () => {
 		setAnchorEl(null);
@@ -85,12 +91,15 @@ function LayoutAccountCircle({ setOpenModal }: ILayoutAccountCircleProps): JSX.E
 	const handleOpenReview = () => {
 		setOpenModal(true);
 	};
+
 	const handleOpenTour = (event: MouseEvent<HTMLElement>) => {
 		setAnchorTourEl(event.currentTarget);
 	};
+
 	const handleCloseTour = () => {
 		setAnchorTourEl(null);
 	};
+
 	const menuItems: ILayoutAccountCircleMenuItem[] = [
 		{
 			title: 'Настройка профиля',
