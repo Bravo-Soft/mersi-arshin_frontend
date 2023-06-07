@@ -17,6 +17,7 @@ const StyledTagList = styled(Box)(({ theme }) => ({
 		textAlign: 'left',
 		overflow: 'hidden',
 		boxSizing: 'border-box',
+		padding: 0,
 	},
 }));
 

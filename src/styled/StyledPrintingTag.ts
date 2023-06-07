@@ -1,10 +1,19 @@
 import { styled, lighten } from '@mui/material/styles';
+import {
+	/* isFirefox */ isChromium,
+	isYandex,
+	isChrome,
+	isEdge,
+	isFirefox,
+} from 'react-device-detect';
 
 import type { TagSizesType } from 'features/dataTable/modules/Printing/utils/sizesConvert';
 
 import Paper from '@mui/material/Paper';
 
 const properties: PropertyKey[] = ['sizes'];
+
+const isChromeFamily = isChromium || isYandex || isChrome || isEdge;
 
 const StyledPrintingTag = styled(Paper, {
 	shouldForwardProp: prop => !properties.includes(prop),
@@ -32,19 +41,37 @@ const StyledPrintingTag = styled(Paper, {
 		borderColor: lighten(theme.palette.primary.main, 0.5),
 		boxShadow: `0px 0px 1.5px 1.5px ${lighten(theme.palette.primary.main, 0.7)}`,
 	},
-	'@media print': {
-		resize: 'none',
-		overflow: 'hidden',
-		boxShadow: 'initial',
-		display: 'inline-flex',
-		margin: theme.spacing(1),
-		pageBreakAfter: 'avoid',
-		pageBreakBefore: 'avoid',
-		pageBreakInside: 'avoid',
-		backgroundColor: 'inherit',
-		// maxHeight: 'calc(100vh - 20px) ',
-		border: `2px solid ${theme.palette.common.black}`,
-	},
+	...(isChromeFamily && {
+		'@media print': {
+			boxSizing: 'border-box',
+			resize: 'none',
+			overflow: 'hidden',
+			boxShadow: 'initial',
+			display: 'flex',
+			float: 'left',
+			breakAfter: 'avoid',
+			breakBefore: 'avoid',
+			breakInside: 'avoid',
+			backgroundColor: 'inherit',
+			maxHeight: '100vh',
+			border: `1px solid ${theme.palette.common.black}`,
+		},
+	}),
+	...(isFirefox && {
+		'@media print': {
+			boxSizing: 'border-box',
+			resize: 'none',
+			overflow: 'hidden',
+			boxShadow: 'initial',
+			float: 'left',
+			backgroundColor: 'inherit',
+			breakAfter: 'avoid',
+			breakBefore: 'avoid',
+			breakInside: 'avoid',
+			// maxHeight: '100vh',
+			border: `1px solid ${theme.palette.common.black}`,
+		},
+	}),
 }));
 
 export default StyledPrintingTag;

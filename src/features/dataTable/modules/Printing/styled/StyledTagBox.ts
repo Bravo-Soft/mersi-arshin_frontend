@@ -10,6 +10,8 @@ const StyledTagBox = styled(Box)(({ theme }) => ({
 	'@media print': {
 		display: 'block',
 		width: '100%',
+		gap: 0,
+		padding: 0,
 	},
 }));
 
