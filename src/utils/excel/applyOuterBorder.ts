@@ -1,4 +1,5 @@
 import type { Border, BorderStyle, Worksheet } from 'exceljs';
+
 import type { IBorderPosition } from './types';
 
 /**

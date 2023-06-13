@@ -1,6 +1,5 @@
 import { API } from 'app/api';
 import { apiSlice } from 'app/apiSlice';
-
 import type { ITemplateConfig } from 'types/template';
 
 type TemplatesList = Omit<ITemplateConfig, 'template'>[];

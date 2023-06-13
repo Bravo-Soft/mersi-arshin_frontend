@@ -1,12 +1,11 @@
-import { formatVariant } from 'constant/dateFormat';
-import { Messages } from 'constant/messages';
+import type { GridStateColDef } from '@mui/x-data-grid-pro';
+import type { GridApiPro } from '@mui/x-data-grid-pro/models/gridApiPro';
 import { format, parseISO } from 'date-fns';
-import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
-import { isValueDefined } from 'guards/isValueDefined';
-import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { useSidebarAction } from 'hooks/useSidebarActions';
+import { enqueueSnackbar } from 'notistack';
 import { useState } from 'react';
-import { getArrayWithoutDuplicates } from 'utils/getArrayWithoutDuplicates';
+import type { MouseEvent } from 'react';
+
+import type { ColumnNames } from '../columns';
 import {
 	pinManyRows,
 	pinSelectedRow,
@@ -22,12 +21,14 @@ import {
 	useDeleteFavoriteIdsMutation,
 } from '../favoritesApiSlice';
 
-import type { GridApiPro } from '@mui/x-data-grid-pro/models/gridApiPro';
-import type { MouseEvent } from 'react';
+import { formatVariant } from 'constant/dateFormat';
+import { Messages } from 'constant/messages';
+import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
+import { isValueDefined } from 'guards/isValueDefined';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import { useSidebarAction } from 'hooks/useSidebarActions';
 import type { IDataItem } from 'types/dataItem';
-import type { ColumnNames } from '../columns';
-import type { GridStateColDef } from '@mui/x-data-grid-pro';
-import { enqueueSnackbar } from 'notistack';
+import { getArrayWithoutDuplicates } from 'utils/getArrayWithoutDuplicates';
 
 export interface ICoordinates {
 	mouseX: number;
@@ -164,6 +165,7 @@ export const useContextMenuActions = (
 			if (isValueDefined(selectedDataItem)) {
 				const dataWithConvertedDates = data
 					.map(
+						// eslint-disable-next-line @typescript-eslint/no-unused-vars
 						({ userIds, documents, ...item }: IDataItem): CopyData => ({
 							...item,
 							productionDate: format(parseISO(item.productionDate), formatVariant),
@@ -227,7 +229,7 @@ interface IVisibleField {
  * @return итоговая строка, со всеми данными
  */
 export const convertDataToReadableFormat = (
-	visibleColumns: GridStateColDef<any, any, any>[],
+	visibleColumns: GridStateColDef[],
 	data: CopyData[]
 ) => {
 	const columnsWithoutCheckboxes = visibleColumns

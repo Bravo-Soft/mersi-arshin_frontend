@@ -1,3 +1,4 @@
+import Paper from '@mui/material/Paper';
 import { styled, lighten } from '@mui/material/styles';
 import {
 	/* isFirefox */ isChromium,
@@ -9,7 +10,6 @@ import {
 
 import type { TagSizesType } from 'features/dataTable/modules/Printing/utils/sizesConvert';
 
-import Paper from '@mui/material/Paper';
 
 const properties: PropertyKey[] = ['sizes'];
 

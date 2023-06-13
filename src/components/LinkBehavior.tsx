@@ -1,7 +1,6 @@
-import type { LinkProps } from 'react-router-dom';
-
-import { Link } from 'react-router-dom';
 import { forwardRef } from 'react';
+import type { LinkProps } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const LinkBehavior = forwardRef<
 	HTMLAnchorElement,

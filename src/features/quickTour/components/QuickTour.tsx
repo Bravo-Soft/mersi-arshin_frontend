@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import Joyride from 'react-joyride';
+
 import { quickConfig } from '../config';
 import { useQuickTour } from '../hooks/useQuickTour';
-import { useAppSelector } from 'hooks/redux';
-import { selectActualStartTour, selectActualStep } from './quickTourSlice';
 
-import Joyride from 'react-joyride';
+import { selectActualStartTour, selectActualStep } from './quickTourSlice';
 import TooltipDialog from './ToolTipDialog';
+
+import { useAppSelector } from 'hooks/redux';
 
 interface IQuickTour {
 	children: JSX.Element;

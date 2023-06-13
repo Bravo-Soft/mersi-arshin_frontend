@@ -1,5 +1,6 @@
-import { formatVariant } from 'constant/dateFormat';
 import { compareAsc, format } from 'date-fns';
+
+import { formatVariant } from 'constant/dateFormat';
 
 /**
  * Для постоянного отслеживания данных из инпута дат, необходимо использовать метод `watch`

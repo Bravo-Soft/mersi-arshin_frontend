@@ -1,9 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { authApiSlice } from './authApiSlice';
-
 import type { PayloadAction } from '@reduxjs/toolkit';
-import type { RootState } from 'app/store';
+
+import { authApiSlice } from './authApiSlice';
 import type { IAuthResponse } from './authApiSlice';
+
+import type { RootState } from 'app/store';
+
 
 interface IAuthState {
 	token: string | null;

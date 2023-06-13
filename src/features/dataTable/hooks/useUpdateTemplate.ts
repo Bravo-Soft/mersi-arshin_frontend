@@ -1,13 +1,14 @@
 import type { GridApiPro } from '@mui/x-data-grid-pro/models/gridApiPro';
+import { enqueueSnackbar } from 'notistack';
 import type { MutableRefObject } from 'react';
 
-import { Messages } from 'constant/messages';
-import { useDebounce } from 'hooks/useDebounce';
-import { enqueueSnackbar } from 'notistack';
 import {
 	useFetchSelectedTemplateQuery,
 	useUpdateSelectedTemplateMutation,
 } from '../modules/Templates/templatesApiSlice';
+
+import { Messages } from 'constant/messages';
+import { useDebounce } from 'hooks/useDebounce';
 
 export const useUpdateTemplate = (apiRef: MutableRefObject<GridApiPro>) => {
 	const [updateSelectedConfig] = useUpdateSelectedTemplateMutation();

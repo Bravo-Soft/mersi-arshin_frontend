@@ -1,20 +1,20 @@
+import Button from '@mui/material/Button';
+import { FormProvider, useForm } from 'react-hook-form';
+
+import VerificateInputs from './VerificateInputs';
+
+import FetchingProgress from 'features/dataTable/components/FetchingProgress';
 import { useUpdateDataItemMutation } from 'features/dataTable/dataTableApiSlice';
 import { selectSelectedDataItem } from 'features/dataTable/dataTableSlice';
 import { useUpdateInputValues } from 'features/dataTable/hooks/useUpdateInputValues';
 import { selectUserRoles } from 'features/user/userSlice';
 import { useAppSelector } from 'hooks/redux';
-import { FormProvider, useForm } from 'react-hook-form';
-import { createDateISO } from 'utils/createDateISO';
-import { setDefaultValue } from 'utils/setDefaultValue';
 import { useUpdateSelectedDataItem } from 'hooks/useUpdateSelectedDataItem';
-
-import type { IDataItem, IDataItemWithDates } from 'types/dataItem';
-
-import Button from '@mui/material/Button';
-import FetchingProgress from 'features/dataTable/components/FetchingProgress';
 import ButtonContainer from 'styled/ButtonContainer';
 import FormContainer from 'styled/FormContainer';
-import VerificateInputs from './VerificateInputs';
+import type { IDataItem, IDataItemWithDates } from 'types/dataItem';
+import { createDateISO } from 'utils/createDateISO';
+import { setDefaultValue } from 'utils/setDefaultValue';
 
 function VerificateDataItem(): JSX.Element {
 	const selectedDataItem = useAppSelector(selectSelectedDataItem);
@@ -29,17 +29,18 @@ function VerificateDataItem(): JSX.Element {
 	useUpdateInputValues(selectedDataItem, methods.setValue);
 
 	const onSubmit = methods.handleSubmit(async data => {
-		const { productionDate, verificationDate, dateOfTheNextVerification, userIds, ...othen } =
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		const { productionDate, verificationDate, dateOfTheNextVerification, userIds, ...other } =
 			data;
 
-		const prepearedDataItem: Omit<IDataItem, 'userIds'> = {
-			...othen,
+		const preparedDataItem: Omit<IDataItem, 'userIds'> = {
+			...other,
 			productionDate: createDateISO(productionDate),
 			verificationDate: createDateISO(verificationDate),
 			dateOfTheNextVerification: createDateISO(dateOfTheNextVerification),
 		};
 
-		await sendUpdatedItem(prepearedDataItem).unwrap();
+		await sendUpdatedItem(preparedDataItem).unwrap();
 	});
 
 	return (

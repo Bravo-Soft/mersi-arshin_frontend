@@ -1,19 +1,18 @@
-import { AppRoutes } from 'constant/appRoutes';
-import { useAppSelector } from 'hooks/redux';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import { useRef } from 'react';
 import { useReactToPrint } from 'react-to-print';
 
+import LinkBehavior from 'components/LinkBehavior';
+import Loader from 'components/Loader';
+import { AppRoutes } from 'constant/appRoutes';
 import { PrintingToolbar, PrintWrapper, TagList } from 'features/dataTable/modules/Printing';
+import { useTags } from 'features/dataTable/modules/Printing/hooks/useTags';
+import Sidebar from 'features/sidebar/components/Sidebar';
 import { selectSidebarStateOfPrintPage } from 'features/sidebar/sidebarSlice';
 import { useSidebarElements } from 'features/sidebar/useSidebarElements';
 import { useGetUserPrintSettingsQuery } from 'features/user/userApiSlice';
-import { useTags } from 'features/dataTable/modules/Printing/hooks/useTags';
-
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import LinkBehavior from 'components/LinkBehavior';
-import Loader from 'components/Loader';
-import Sidebar from 'features/sidebar/components/Sidebar';
+import { useAppSelector } from 'hooks/redux';
 import PageBox from 'styled/PageBox';
 
 function PrintPage(): JSX.Element {

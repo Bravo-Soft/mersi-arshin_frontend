@@ -1,5 +1,4 @@
 import { checkboxClasses } from '@mui/material';
-
 import type { Theme } from '@mui/material/styles';
 
 export function customCheckbox(theme: Theme, color: string) {

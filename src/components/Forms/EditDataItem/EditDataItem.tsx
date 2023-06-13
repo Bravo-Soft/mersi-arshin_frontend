@@ -1,19 +1,19 @@
-import { useAppSelector } from 'hooks/redux';
-import { createDateISO } from 'utils/createDateISO';
-import { setDefaultValue } from 'utils/setDefaultValue';
+import Button from '@mui/material/Button';
 import { FormProvider, useForm } from 'react-hook-form';
-import { selectUserRoles } from 'features/user/userSlice';
-import { selectSelectedDataItem } from 'features/dataTable/dataTableSlice';
-import { useUpdateSelectedDataItem } from 'hooks/useUpdateSelectedDataItem';
-import { useUpdateDataItemMutation } from 'features/dataTable/dataTableApiSlice';
-
-import type { IDataItem, IDataItemWithDates } from 'types/dataItem';
 
 import EditInputs from './EditInputs';
-import Button from '@mui/material/Button';
-import FormContainer from 'styled/FormContainer';
-import ButtonContainer from 'styled/ButtonContainer';
+
 import FetchingProgress from 'features/dataTable/components/FetchingProgress';
+import { useUpdateDataItemMutation } from 'features/dataTable/dataTableApiSlice';
+import { selectSelectedDataItem } from 'features/dataTable/dataTableSlice';
+import { selectUserRoles } from 'features/user/userSlice';
+import { useAppSelector } from 'hooks/redux';
+import { useUpdateSelectedDataItem } from 'hooks/useUpdateSelectedDataItem';
+import ButtonContainer from 'styled/ButtonContainer';
+import FormContainer from 'styled/FormContainer';
+import type { IDataItem, IDataItemWithDates } from 'types/dataItem';
+import { createDateISO } from 'utils/createDateISO';
+import { setDefaultValue } from 'utils/setDefaultValue';
 
 function EditDataItem(): JSX.Element {
 	const selectedDataItem = useAppSelector(selectSelectedDataItem);
@@ -28,17 +28,18 @@ function EditDataItem(): JSX.Element {
 	useUpdateSelectedDataItem(selectedDataItem);
 
 	const onSubmit = methods.handleSubmit(async data => {
-		const { productionDate, verificationDate, dateOfTheNextVerification, userIds, ...othen } =
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		const { productionDate, verificationDate, dateOfTheNextVerification, userIds, ...other } =
 			data;
 
-		const prepearedDataItem: Omit<IDataItem, 'userIds'> = {
-			...othen,
+		const preparedDataItem: Omit<IDataItem, 'userIds'> = {
+			...other,
 			productionDate: createDateISO(productionDate),
 			verificationDate: createDateISO(verificationDate),
 			dateOfTheNextVerification: createDateISO(dateOfTheNextVerification),
 		};
 
-		await sendUpdatedItem(prepearedDataItem).unwrap();
+		await sendUpdatedItem(preparedDataItem).unwrap();
 	});
 
 	return (

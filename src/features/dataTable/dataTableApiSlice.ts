@@ -1,11 +1,11 @@
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
-import type { IDataItem } from 'types/dataItem';
+import { enqueueSnackbar } from 'notistack';
 
 import { API } from 'app/api';
 import { apiSlice } from 'app/apiSlice';
 import { HttpCodes } from 'constant/httpCodes';
 import { Messages } from 'constant/messages';
-import { enqueueSnackbar } from 'notistack';
+import type { IDataItem } from 'types/dataItem';
 
 export interface IGetAllDataResponse {
 	pagesCount: number;
@@ -57,6 +57,7 @@ export const dataTableApiSlice = apiSlice.injectEndpoints({
 		}),
 
 		updateDataItem: builder.mutation<void, Omit<IDataItem, 'userIds'>>({
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			query: ({ id, documents, ...body }) => ({
 				url: `${API.data.default}/${id}`,
 				method: 'PUT',

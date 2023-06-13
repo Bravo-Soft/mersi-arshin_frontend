@@ -1,7 +1,8 @@
+import { enqueueSnackbar } from 'notistack';
+
 import { API } from 'app/api';
 import { apiSlice } from 'app/apiSlice';
 import { Messages } from 'constant/messages';
-import { enqueueSnackbar } from 'notistack';
 
 interface IPostReviewRequestArgs {
 	rating: number;

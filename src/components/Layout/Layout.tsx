@@ -1,12 +1,14 @@
-import { Suspense, useState } from 'react';
-import { AppRoutes } from 'constant/appRoutes';
-import { Outlet, useLocation } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
+import { Suspense, useState } from 'react';
+import { Outlet, useLocation } from 'react-router-dom';
+
 import LayoutFooter from './LayoutFooter';
 import LayoutHeader from './LayoutHeader';
-import ReviewDialog from 'components/Forms/CreateReview/ReviewDialog';
+
 import Fallback from 'components/Fallback';
+import ReviewDialog from 'components/Forms/CreateReview/ReviewDialog';
+import { AppRoutes } from 'constant/appRoutes';
 
 function Layout(): JSX.Element {
 	const [isOpenedReviewModal, setOpenedReviewModal] = useState(false);

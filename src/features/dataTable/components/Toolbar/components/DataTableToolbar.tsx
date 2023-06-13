@@ -1,13 +1,4 @@
-import {
-	GridToolbarContainer,
-	GridToolbarDensitySelector,
-	GridToolbarFilterButton,
-} from '@mui/x-data-grid-pro';
-import { useEffect, useRef, useState } from 'react';
-import { hideScrollbar } from 'utils/hideScrollbar';
-
-import type { SxProps, Theme } from '@mui/material/styles';
-
+import ExpandIcon from '@mui/icons-material/ExpandMore';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
@@ -15,19 +6,20 @@ import Stack from '@mui/material/Stack';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import DataTableModulesButton from 'features/dataTable/modules/DataTableModulesButton';
+import {
+	GridToolbarContainer,
+	GridToolbarDensitySelector,
+	GridToolbarFilterButton,
+} from '@mui/x-data-grid-pro';
+import { useEffect, useRef, useState } from 'react';
+
 import DataTableColumnButton from './DataTableColumnButton';
-
-import ExpandIcon from '@mui/icons-material/ExpandMore';
 import DataTableToolbarFilter from './DataTableToolbarFilter';
-import { useAppSelector } from 'hooks/redux';
-import { selectActualStep, selectMenuStart } from 'features/quickTour/components/quickTourSlice';
+import { scrollbarStyles } from './scrollbarStyles';
 
-export const scrollbarStyles: SxProps<Theme> = {
-	overflowX: 'scroll',
-	scrollbarWidth: 'none',
-	...hideScrollbar(),
-};
+import DataTableModulesButton from 'features/dataTable/modules/DataTableModulesButton';
+import { selectActualStep, selectMenuStart } from 'features/quickTour/components/quickTourSlice';
+import { useAppSelector } from 'hooks/redux';
 
 function DataTableToolbar(): JSX.Element {
 	const [expanded, setExpanded] = useState(false);

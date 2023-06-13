@@ -1,17 +1,18 @@
-import { useAppSelector } from 'hooks/redux';
-import { verificationFields } from '../fields';
-import { useDateValidate } from 'hooks/useDateValidate';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
 import { useFormContext } from 'react-hook-form';
+
+import { verificationFields } from '../fields';
 import { useFilterAutocomplete } from '../hooks/useAutocomplete';
+
+import AutocompleteField from 'components/AutocompleteField';
+import DateField from 'components/DateField';
 import { selectedVisibleColumns } from 'features/dataTable/dataTableSlice';
+import { useAppSelector } from 'hooks/redux';
+import { useDateValidate } from 'hooks/useDateValidate';
+import type { IDataItemWithDates } from 'types/dataItem';
 import { getExtendedIntervalRules } from 'utils/getExtendedIntervalRules';
 
-import type { IDataItemWithDates } from 'types/dataItem';
-
-import Stack from '@mui/material/Stack';
-import DateField from 'components/DateField';
-import AutocompleteField from 'components/AutocompleteField';
-import TextField from '@mui/material/TextField';
 
 interface IVerificateFieldsProps {
 	isReader: boolean;

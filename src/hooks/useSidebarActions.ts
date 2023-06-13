@@ -1,7 +1,7 @@
-import { useAppDispatch } from 'hooks/redux';
 import { changeSidebarIsOpen, setSidebarSelector } from '../features/sidebar/sidebarSlice';
-
 import type { SidebarPages, SidebarSelectors } from '../features/sidebar/sidebarSlice';
+
+import { useAppDispatch } from 'hooks/redux';
 
 /**
  * @param page страница, на которой используется компонент сайдбара

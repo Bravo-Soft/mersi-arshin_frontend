@@ -1,6 +1,8 @@
-import { ENABLE_PASSWORD_RULES } from 'constant/enablePasswordRules';
 import type { RegisterOptions } from 'react-hook-form';
+
 import type { IAuthFormRequest } from './authApiSlice';
+
+import { ENABLE_PASSWORD_RULES } from 'constant/enablePasswordRules';
 
 type AuthValidationRules = Record<keyof IAuthFormRequest, RegisterOptions>;
 

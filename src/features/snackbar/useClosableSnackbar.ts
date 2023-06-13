@@ -1,6 +1,5 @@
 import type { SnackbarKey, SnackbarProvider } from 'notistack';
 import type { RefObject } from 'react';
-
 import { useRef } from 'react';
 
 type CloseCallback = (key: SnackbarKey) => () => void;

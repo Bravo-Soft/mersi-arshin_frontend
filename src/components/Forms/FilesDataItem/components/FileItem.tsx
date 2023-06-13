@@ -1,18 +1,8 @@
-import { useDeleteFileMutation, useLazyDownloadFileQuery } from 'features/files/filesApiSlice';
-import { selectUserRoles } from 'features/user/userSlice';
-import { isValueDefined } from 'guards/isValueDefined';
-import { useAppSelector } from 'hooks/redux';
-import { useState } from 'react';
-import { convertFileSize } from '../convertFileSize';
 
-import type { MouseEvent } from 'react';
-import type { IDataItem, IDocument } from 'types/dataItem';
-import type { Rename } from 'types/rename';
 
 import DownloadIcon from '@mui/icons-material/Download';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import ListItem from '@mui/material/ListItem';
@@ -21,7 +11,18 @@ import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
 import ListItemText from '@mui/material/ListItemText';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import type { MouseEvent } from 'react';
+import { useState } from 'react';
+
+import { convertFileSize } from '../convertFileSize';
+
+import { useDeleteFileMutation, useLazyDownloadFileQuery } from 'features/files/filesApiSlice';
+import { selectUserRoles } from 'features/user/userSlice';
+import { isValueDefined } from 'guards/isValueDefined';
+import { useAppSelector } from 'hooks/redux';
 import DeleteMenuItem from 'styled/DeleteMenuItem';
+import type { IDataItem, IDocument } from 'types/dataItem';
+import type { Rename } from 'types/rename';
 
 interface ILoadedFileProps extends Partial<Rename<Pick<IDataItem, 'id'>, 'id', 'itemId'>> {
 	document: IDocument;

@@ -1,12 +1,15 @@
 import { forwardRef } from 'react';
-import { useTagActions } from '../hooks/useTagActions';
 
-import type { ITag } from 'types/tag';
+import { useTagActions } from '../hooks/useTagActions';
+import StyledTagBox from '../styled/StyledTagBox';
+import StyledTagList from '../styled/StyledTagList';
 
 import Tag from './Tag';
 import TagContextMenu from './TagContextMenu';
-import StyledTagList from '../styled/StyledTagList';
-import StyledTagBox from '../styled/StyledTagBox';
+
+import type { ITag } from 'types/tag';
+
+
 
 interface IPrintingTagsProps {
 	tags: ITag[];

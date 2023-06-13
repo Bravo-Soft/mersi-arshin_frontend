@@ -1,4 +1,5 @@
 import type { Step } from 'react-joyride';
+
 import {
 	EighthStep,
 	EighthStepBtn,

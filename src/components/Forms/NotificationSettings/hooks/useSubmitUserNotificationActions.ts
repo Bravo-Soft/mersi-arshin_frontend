@@ -1,7 +1,7 @@
-import { Messages } from 'constant/messages';
-import { useUpdateUserNotificationMutation } from 'features/user/userApiSlice';
 import { enqueueSnackbar } from 'notistack';
 
+import { Messages } from 'constant/messages';
+import { useUpdateUserNotificationMutation } from 'features/user/userApiSlice';
 import type { INotificationSettings } from 'types/notification';
 
 export const useSubmitUserNotificationActions = (data: INotificationSettings) => {

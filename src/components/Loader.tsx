@@ -1,10 +1,8 @@
-import { circularProgressClasses } from '@mui/material/CircularProgress';
-import { alpha } from '@mui/material/styles';
-
-import type { CircularProgressProps } from '@mui/material/CircularProgress';
-
 import Box from '@mui/material/Box';
+import type { CircularProgressProps } from '@mui/material/CircularProgress';
+import { circularProgressClasses } from '@mui/material/CircularProgress';
 import CircularProgress from '@mui/material/CircularProgress';
+import { alpha } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
 interface ILoaderProps extends Pick<CircularProgressProps, 'size' | 'thickness'> {

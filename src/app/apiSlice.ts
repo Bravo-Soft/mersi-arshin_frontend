@@ -1,15 +1,16 @@
 import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
-import type { RootState } from './store';
-import type { IAuthResponse as IReauthResponse } from 'types/authResponse';
-
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { Mutex } from 'async-mutex';
+import { enqueueSnackbar } from 'notistack';
+
+import { API } from './api';
+import type { RootState } from './store';
+
+import { BASE_URL } from 'constant/baseUrl';
 import { HttpCodes } from 'constant/httpCodes';
 import { Messages } from 'constant/messages';
 import { resetCredentials, setCredentials } from 'features/auth/authSlice';
-import { API } from './api';
-import { BASE_URL } from 'constant/baseUrl';
-import { enqueueSnackbar } from 'notistack';
+import type { IAuthResponse as IReauthResponse } from 'types/authResponse';
 
 const exceptionEndpoints = ['updatePhoto', 'uploadFile'];
 
@@ -86,5 +87,5 @@ export const apiSlice = createApi({
 		'Favorites',
 		'PrintSettings',
 	],
-	endpoints: _ => ({}),
+	endpoints: () => ({}),
 });

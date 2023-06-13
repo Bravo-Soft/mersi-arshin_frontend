@@ -1,9 +1,11 @@
+import { enqueueSnackbar } from 'notistack';
+
+import { resetCredentials, setCredentials } from './authSlice';
+
 import { API } from 'app/api';
 import { apiSlice } from 'app/apiSlice';
 import { Messages } from 'constant/messages';
 
-import { resetCredentials, setCredentials } from './authSlice';
-import { enqueueSnackbar } from 'notistack';
 
 export interface IAuthResponse {
 	accessToken: string;

@@ -1,6 +1,6 @@
+import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 
-import Box from '@mui/material/Box';
 
 interface IScrollBtnProps {
 	positionBtn: 'before' | 'after';

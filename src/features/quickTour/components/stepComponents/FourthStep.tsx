@@ -1,7 +1,8 @@
-import { fourStepContent } from 'features/quickTour/configStepsDesc';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+
+import { fourStepContent } from 'features/quickTour/configStepsDesc';
 import StyledTourDescription from 'features/quickTour/styled/StyledTourDescription';
 
 function FourthStep() {

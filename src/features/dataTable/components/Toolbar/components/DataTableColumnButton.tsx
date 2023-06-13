@@ -1,14 +1,15 @@
+import LockIcon from '@mui/icons-material/Lock';
+import Button from '@mui/material/Button';
 import { alpha } from '@mui/material/styles';
+import Tooltip from '@mui/material/Tooltip';
 import { GridToolbarColumnsButton } from '@mui/x-data-grid/components';
+
 import { Messages } from 'constant/messages';
+import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
 import { selectUserPermissions } from 'features/user/userSlice';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
 
-import LockIcon from '@mui/icons-material/Lock';
 
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
 
 function DataTableColumnButton(): JSX.Element | null {
 	const dispatch = useAppDispatch();

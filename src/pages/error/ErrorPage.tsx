@@ -1,11 +1,10 @@
 import { ArrowBack } from '@mui/icons-material';
-import { useRouteError, isRouteErrorResponse, useNavigate } from 'react-router-dom';
-
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import { useRouteError, isRouteErrorResponse, useNavigate } from 'react-router-dom';
 
 export default function ErrorPage() {
 	const error = useRouteError();

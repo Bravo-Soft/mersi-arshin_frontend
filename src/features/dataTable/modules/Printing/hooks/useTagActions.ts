@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { printingManySort } from 'features/dataTable/modules/Printing/utils/printingSort';
 
-import type { ITag } from 'types/tag';
-import type { ISortedTagItems } from 'features/dataTable/modules/Printing/utils/printingSort';
 import type { ICoordinates } from 'features/dataTable/hooks/useContextMenuActions';
+import { printingManySort } from 'features/dataTable/modules/Printing/utils/printingSort';
+import type { ISortedTagItems } from 'features/dataTable/modules/Printing/utils/printingSort';
+import type { ITag } from 'types/tag';
 
 interface IUseTagActionsProps {
 	tags: ITag[];

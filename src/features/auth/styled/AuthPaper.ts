@@ -1,6 +1,6 @@
+import { red } from '@mui/material/colors';
 import { styled } from '@mui/material/styles';
 
-import { red } from '@mui/material/colors';
 import { generateBootstrapShadow } from 'utils/generateBootstapShadow';
 
 interface IAuthPaperProps {

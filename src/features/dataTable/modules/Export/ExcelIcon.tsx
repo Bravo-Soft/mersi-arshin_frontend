@@ -1,5 +1,4 @@
 import type { SvgIconProps } from '@mui/material/SvgIcon';
-
 import SvgIcon from '@mui/material/SvgIcon';
 
 function ExcelIcon(props: SvgIconProps): JSX.Element {

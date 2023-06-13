@@ -1,3 +1,8 @@
+import AddIcon from '@mui/icons-material/Add';
+import type { FabProps } from '@mui/material/Fab';
+import Fab from '@mui/material/Fab';
+import Tooltip from '@mui/material/Tooltip';
+
 import { Messages } from 'constant/messages';
 import { useGetAllDataQuery } from 'features/dataTable/dataTableApiSlice';
 import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
@@ -6,14 +11,9 @@ import { isValueDefined } from 'guards/isValueDefined';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { useSidebarAction } from 'hooks/useSidebarActions';
 
-import type { FabProps } from '@mui/material/Fab';
 
-import AddIcon from '@mui/icons-material/Add';
 
-import Fab from '@mui/material/Fab';
-import Tooltip from '@mui/material/Tooltip';
-
-interface IDataTableAddActionProps extends Omit<FabProps, 'onClick'> {}
+type IDataTableAddActionProps = Omit<FabProps, 'onClick'>
 
 function DataTableAddAction(props: IDataTableAddActionProps): JSX.Element | null {
 	const dispatch = useAppDispatch();

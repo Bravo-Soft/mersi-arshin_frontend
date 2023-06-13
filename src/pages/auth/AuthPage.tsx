@@ -1,15 +1,15 @@
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
+import { useNavigate } from 'react-router-dom';
+
+import { AppRoutes } from 'constant/appRoutes';
+import type { IAuthFormRequest } from 'features/auth/authApiSlice';
+import { useLoginMutation } from 'features/auth/authApiSlice';
 import AuthForm from 'features/auth/components/AuthForm';
 import ErrorTip from 'features/auth/components/ErrorTip';
 import HelpDialog from 'features/auth/components/HelpDialog';
-
-import type { IAuthFormRequest } from 'features/auth/authApiSlice';
-
-import { AppRoutes } from 'constant/appRoutes';
-import { useLoginMutation } from 'features/auth/authApiSlice';
 import { useErrorMessage } from 'features/auth/hooks/useErrorMessage';
-import { useNavigate } from 'react-router-dom';
+
 
 function AuthPage(): JSX.Element {
 	/* Метод авторизации */

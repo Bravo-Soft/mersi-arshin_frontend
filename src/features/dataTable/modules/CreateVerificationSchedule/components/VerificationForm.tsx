@@ -1,12 +1,14 @@
+import DialogTitle from '@mui/material/DialogTitle';
+import type { GridApiPro } from '@mui/x-data-grid-pro/models/gridApiPro';
+import type { MutableRefObject } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import VerificationDialogContent from './VerificationDialogContent';
+
 
 import type { IForm } from '../operatorsFilters';
-import type { MutableRefObject } from 'react';
-import type { GridApiPro } from '@mui/x-data-grid-pro/models/gridApiPro';
 
 import ButtonGroup from './ButtonGroup';
-import DialogTitle from '@mui/material/DialogTitle';
+import VerificationDialogContent from './VerificationDialogContent';
+
 
 interface VerificationFormProps {
 	apiRef: MutableRefObject<GridApiPro>;

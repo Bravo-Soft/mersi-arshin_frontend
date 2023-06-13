@@ -1,17 +1,19 @@
-import { usePage } from 'hooks/usePage';
-import { useSidebarAction } from 'hooks/useSidebarActions';
-import { isFormSelector } from 'guards/isFormSelector';
 
-import type { SidebarSelectors } from '../sidebarSlice';
 
 import CloseIcon from '@mui/icons-material/Close';
-
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
+
+import type { SidebarSelectors } from '../sidebarSlice';
+
 import FormMenu from './FormMenu';
+
+import { isFormSelector } from 'guards/isFormSelector';
+import { usePage } from 'hooks/usePage';
+import { useSidebarAction } from 'hooks/useSidebarActions';
 
 interface ISidebarHeaderProps {
 	title?: string;

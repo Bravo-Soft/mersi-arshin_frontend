@@ -1,19 +1,21 @@
-import { selectUserProfileIsOpen } from 'features/sidebar/sidebarSlice';
-import { useAppSelector } from 'hooks/redux';
-import { useEffect, useRef, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { useGetUserProfileQuery } from './userApiSlice';
-import { useSubmitProfileActions } from './useSubmitProfileActions';
 
-import type { IProfile } from 'types/profile';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Skeleton from '@mui/material/Skeleton';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-import FormContainer from 'styled/FormContainer';
+import { useEffect, useRef, useState } from 'react';
+import { useForm } from 'react-hook-form';
+
+import { useGetUserProfileQuery } from './userApiSlice';
 import UserPhoto from './UserPhoto';
+import { useSubmitProfileActions } from './useSubmitProfileActions';
+
+import { selectUserProfileIsOpen } from 'features/sidebar/sidebarSlice';
+import { useAppSelector } from 'hooks/redux';
+import FormContainer from 'styled/FormContainer';
+import type { IProfile } from 'types/profile';
 
 interface IProfileInput {
 	key: keyof Omit<IProfile, 'userId'>;
@@ -113,7 +115,7 @@ function UserProfile(): JSX.Element {
 					fullWidth
 					variant='contained'
 					type='submit'
-					disabled={!isDirty && !Boolean(file)}
+					disabled={!isDirty && !file}
 				>
 					Сохранить
 				</Button>

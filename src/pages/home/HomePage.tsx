@@ -1,13 +1,12 @@
+import DataTable from 'features/dataTable/components/DataTable';
+import Sidebar from 'features/sidebar/components/Sidebar';
+import { selectSidebarStateOfHomePage } from 'features/sidebar/sidebarSlice';
+import { useSidebarElements } from 'features/sidebar/useSidebarElements';
+import SmartDialog from 'features/smartDialog/SmartDialog';
+import { useGetUserDataQuery } from 'features/user/userApiSlice';
 import { useAppSelector } from 'hooks/redux';
 import { useResetSelectedId } from 'hooks/useResetSeleсtedDataItem';
-import { useSidebarElements } from 'features/sidebar/useSidebarElements';
-import { selectSidebarStateOfHomePage } from 'features/sidebar/sidebarSlice';
-
 import PageBox from 'styled/PageBox';
-import Sidebar from 'features/sidebar/components/Sidebar';
-import SmartDialog from 'features/smartDialog/SmartDialog';
-import DataTable from 'features/dataTable/components/DataTable';
-import { useGetUserDataQuery } from 'features/user/userApiSlice';
 
 function HomePage(): JSX.Element {
 	/* Селектор */

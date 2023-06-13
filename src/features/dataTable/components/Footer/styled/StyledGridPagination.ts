@@ -1,5 +1,6 @@
 import { styled } from '@mui/material/styles';
 import { GridPagination } from '@mui/x-data-grid-pro';
+
 import { hideScrollbar } from 'utils/hideScrollbar';
 
 interface IStyledGridPaginationProps {

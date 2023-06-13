@@ -1,22 +1,25 @@
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import { enqueueSnackbar } from 'notistack';
+import { FormProvider, useForm } from 'react-hook-form';
+
+import { DEFAULT_SETTINGS } from './constants/defaultSettings';
+import PrintBlock from './PrintBlock';
+import { transformDataSettings } from './utils/transformDataSettings';
+
+import { Messages } from 'constant/messages';
 import { selectSidebarStateOfHomePage } from 'features/sidebar/sidebarSlice';
 import {
 	useGetUserPrintSettingsQuery,
 	useUpdateUserPrintSettingsMutation,
 } from 'features/user/userApiSlice';
 import { useAppSelector } from 'hooks/redux';
-import { FormProvider, useForm } from 'react-hook-form';
-import { DEFAULT_SETTINGS } from './constants/defaultSettings';
-import { transformDataSettings } from './utils/transformDataSettings';
-
-import type { ISendData } from 'types/printSettings';
-
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import { Messages } from 'constant/messages';
-import { enqueueSnackbar } from 'notistack';
 import ButtonContainer from 'styled/ButtonContainer';
 import FormContainer from 'styled/FormContainer';
-import PrintBlock from './PrintBlock';
+import type { ISendData } from 'types/printSettings';
+
+
+
 
 function PrintSettings() {
 	const { open, selector } = useAppSelector(selectSidebarStateOfHomePage);

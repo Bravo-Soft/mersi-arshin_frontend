@@ -1,10 +1,12 @@
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
+import Slide from '@mui/material/Slide';
 import { SnackbarProvider as LibSnackbarProvider } from 'notistack';
 import type { PropsWithChildren } from 'react';
-import { useClosableSnackbar } from './useClosableSnackbar';
-import Slide from '@mui/material/Slide';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
+
 import { StyledSnackbarProvider } from './StyledSnackbarProvider';
+import { useClosableSnackbar } from './useClosableSnackbar';
+
 
 export default function SnackbarProvider({ children }: PropsWithChildren) {
 	const [ref, onClick] = useClosableSnackbar();

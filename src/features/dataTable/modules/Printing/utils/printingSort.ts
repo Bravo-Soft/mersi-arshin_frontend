@@ -1,7 +1,8 @@
-import { formatVariant } from 'constant/dateFormat';
 import { format, isValid, parseISO } from 'date-fns';
 
+import { formatVariant } from 'constant/dateFormat';
 import type { ITag, ITagParameters } from 'types/tag';
+
 export interface ISortedTagItems {
 	id: string;
 	size: string;

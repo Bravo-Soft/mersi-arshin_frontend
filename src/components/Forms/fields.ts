@@ -1,5 +1,4 @@
 import { ColumnNames } from 'features/dataTable/columns';
-
 import type { IDataItemWithDates } from 'types/dataItem';
 
 interface ICreateInputs {

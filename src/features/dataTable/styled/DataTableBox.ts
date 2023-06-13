@@ -1,12 +1,13 @@
+import Box from '@mui/material/Box';
 import { buttonBaseClasses } from '@mui/material/ButtonBase';
 import { checkboxClasses } from '@mui/material/Checkbox';
 import { orange, red, yellow } from '@mui/material/colors';
 import { alpha, styled } from '@mui/material/styles';
 import { gridClasses } from '@mui/x-data-grid-pro';
+
 import { sidebarWidth } from 'constant/sidebarWidth';
 import { customCheckbox } from 'styled/customCheckbox';
 
-import Box from '@mui/material/Box';
 
 interface IDataTableBoxProps {
 	sidebarIsOpen: boolean;

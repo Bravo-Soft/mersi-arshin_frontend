@@ -1,9 +1,10 @@
-import { useAppSelector } from 'hooks/redux';
+import { GridPreferencePanelsValue } from '@mui/x-data-grid-pro';
+import type { GridApiPro } from '@mui/x-data-grid-pro/models/gridApiPro';
+import type { MutableRefObject } from 'react';
+
 import { selectActualStep, selectMenuStart } from '../components/quickTourSlice';
 
-import type { MutableRefObject } from 'react';
-import type { GridApiPro } from '@mui/x-data-grid-pro/models/gridApiPro';
-import { GridPreferencePanelsValue } from '@mui/x-data-grid-pro';
+import { useAppSelector } from 'hooks/redux';
 import { useSidebarAction } from 'hooks/useSidebarActions';
 
 //Хук для активации sideEffects таблицы в зависимости от шага

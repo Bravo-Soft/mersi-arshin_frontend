@@ -1,6 +1,12 @@
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
+import Typography from '@mui/material/Typography';
 import { useGridApiContext } from '@mui/x-data-grid-pro';
-import { Messages } from 'constant/messages';
-import { parseTemplate } from 'utils/templateUtils';
+import { enqueueSnackbar } from 'notistack';
+import type { MouseEvent } from 'react';
+
 import {
 	useDeleteTemplateByIdMutation,
 	useFetchSelectedTemplateQuery,
@@ -8,16 +14,12 @@ import {
 	useSelectTemplateByIdMutation,
 } from '../templatesApiSlice';
 
-import type { MouseEvent } from 'react';
+import { Messages } from 'constant/messages';
 import type { ITemplateConfig } from 'types/template';
+import { parseTemplate } from 'utils/templateUtils';
 
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
-import Typography from '@mui/material/Typography';
 
-import DeleteIcon from '@mui/icons-material/Delete';
-import IconButton from '@mui/material/IconButton';
-import { enqueueSnackbar } from 'notistack';
+
 
 interface ITemplateItemProps {
 	item: Omit<ITemplateConfig, 'template'>;

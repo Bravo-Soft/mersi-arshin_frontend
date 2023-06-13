@@ -1,10 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
-
 import type { GridRowId, GridSelectionModel } from '@mui/x-data-grid-pro';
+import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
+
+import type { ChipFilterOptions } from './components/Toolbar/components/DataTableToolbarFilter/toolBarFilters';
+
 import type { RootState } from 'app/store';
 import type { IField, KeysOfEdit, KeysOfVerificate } from 'components/Forms/fields';
-import type { ChipFilterOptions } from './components/Toolbar/components/DataTableToolbarFilter/toolBarFilters';
 import type { IDataItem } from 'types/dataItem';
 
 export type AllFormsVisibleColumnsType = {

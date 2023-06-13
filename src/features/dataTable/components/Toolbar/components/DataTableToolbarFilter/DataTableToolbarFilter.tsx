@@ -1,12 +1,14 @@
-import { useRef } from 'react';
-import { scrollbarStyles } from '../DataTableToolbar';
-
 import Box from '@mui/material/Box';
-import ChipFilter from './ChipFilter';
 import MuiToolbar from '@mui/material/Toolbar';
+import { useRef } from 'react';
+
+import { scrollbarStyles } from '../scrollbarStyles';
+
+import ChipFilter from './ChipFilter';
 import ScrollButtonGroup from './ScrollButtonGroup';
-import StyledGridToolbarQuickFilter from 'features/dataTable/styled/StyledQuickFilter';
+
 import useScrollButtonGroupProps from 'features/dataTable/hooks/useScrollButtonGroupProps';
+import StyledGridToolbarQuickFilter from 'features/dataTable/styled/StyledQuickFilter';
 
 function DataTableToolbarFilter() {
 	const allButtonRef = useRef<HTMLDivElement>(null);

@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from 'react';
-
 import type { RefObject } from 'react';
 
 const useElementOnScreen = <T extends HTMLElement>(

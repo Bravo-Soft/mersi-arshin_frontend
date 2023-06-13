@@ -1,10 +1,9 @@
-import { red } from '@mui/material/colors';
 
 import CloseIcon from '@mui/icons-material/Close';
-
 import Alert from '@mui/material/Alert';
-import IconButton from '@mui/material/IconButton';
+import { red } from '@mui/material/colors';
 import Grow from '@mui/material/Grow';
+import IconButton from '@mui/material/IconButton';
 
 interface IErrorTipProps {
 	isError: boolean;

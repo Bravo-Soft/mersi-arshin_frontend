@@ -1,17 +1,18 @@
-import { useFormContext } from 'react-hook-form';
-import { format } from 'date-fns';
 import { GridLinkOperator, gridFilterModelSelector } from '@mui/x-data-grid-pro';
+import type { GridApiPro } from '@mui/x-data-grid-pro/models/gridApiPro';
+import { format } from 'date-fns';
+import type { MutableRefObject } from 'react';
+import { useFormContext } from 'react-hook-form';
+
+import type { IForm } from '../../../operatorsFilters';
 import { updateData } from '../../../utils/updateData';
+import { createDateRange } from '../helpers';
+
+import { formatVariant } from 'constant/dateFormat';
+import { setVerificationScheduleModal } from 'features/dataTable/dataTableSlice';
+import { useAppDispatch } from 'hooks/redux';
 import { createWorkbook } from 'utils/excel';
 import { saveAs } from 'utils/saveAs';
-import { formatVariant } from 'constant/dateFormat';
-import { createDateRange } from '../helpers';
-import { useAppDispatch } from 'hooks/redux';
-import { setVerificationScheduleModal } from 'features/dataTable/dataTableSlice';
-
-import type { GridApiPro } from '@mui/x-data-grid-pro/models/gridApiPro';
-import type { MutableRefObject } from 'react';
-import type { IForm } from '../../../operatorsFilters';
 
 /**
  * @package хук для выгрузки данных
@@ -46,6 +47,7 @@ export const useDownloadVerification = (apiRef: MutableRefObject<GridApiPro>) =>
 			const columns = apiRef.current
 				.getVisibleColumns()
 				.filter(el => el.field !== '__check__')
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				.map(el => ({ key: el.field, header: el.headerName! }));
 
 			setFilters();
@@ -64,8 +66,6 @@ export const useDownloadVerification = (apiRef: MutableRefObject<GridApiPro>) =>
 
 			const filename = `Книга от ${format(new Date(), formatVariant)}.xlsx`;
 			saveAs(blob, filename);
-		} catch (error) {
-			throw error;
 		} finally {
 			closeModal();
 		}

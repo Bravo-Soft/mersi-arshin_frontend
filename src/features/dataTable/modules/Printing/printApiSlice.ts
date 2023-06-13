@@ -1,8 +1,9 @@
 import type { GridSelectionModel } from '@mui/x-data-grid-pro';
+
+import { API } from 'app/api';
+import { apiSlice } from 'app/apiSlice';
 import type { ITag } from 'types/tag';
 
-import { apiSlice } from 'app/apiSlice';
-import { API } from 'app/api';
 
 type Params = Record<string, boolean>;
 

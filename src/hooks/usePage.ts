@@ -1,6 +1,7 @@
+import { useLocation } from 'react-router-dom';
+
 import type { SidebarPages } from 'features/sidebar/sidebarSlice';
 
-import { useLocation } from 'react-router-dom';
 
 /**
  * Хук определяющий на какой странице на данный момент находится пользователь,

@@ -1,10 +1,11 @@
-import { months } from './toolBarFilters';
-
-import type { ChipFilterOptions } from './toolBarFilters';
-
+import Divider from '@mui/material/Divider';
 import Fade from '@mui/material/Fade';
 import Stack from '@mui/material/Stack';
-import Divider from '@mui/material/Divider';
+
+import { months } from './toolBarFilters';
+import type { ChipFilterOptions } from './toolBarFilters';
+
+
 import StyledChip from 'features/dataTable/styled/StyledChip';
 
 export interface IMonthsChipsProps {

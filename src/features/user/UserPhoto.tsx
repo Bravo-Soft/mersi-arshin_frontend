@@ -1,18 +1,18 @@
-import { useGetPhotoQuery } from 'features/photo/photoApiSlice';
-import { forwardRef, useEffect, useState } from 'react';
-import { preparePhotoUrl } from 'utils/preparePhotoUrl';
 
-import type { ChangeEvent } from 'react';
 
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
-
 import Avatar from '@mui/material/Avatar';
 import Badge from '@mui/material/Badge';
 import IconButton from '@mui/material/IconButton';
 import Skeleton from '@mui/material/Skeleton';
 import Tooltip from '@mui/material/Tooltip';
-import { Messages } from 'constant/messages';
 import { enqueueSnackbar } from 'notistack';
+import type { ChangeEvent } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
+
+import { Messages } from 'constant/messages';
+import { useGetPhotoQuery } from 'features/photo/photoApiSlice';
+import { preparePhotoUrl } from 'utils/preparePhotoUrl';
 
 interface IUserPhotoProps {
 	file: File | null;

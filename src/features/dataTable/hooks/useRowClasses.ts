@@ -1,11 +1,13 @@
 import type { GridRowClassNameParams } from '@mui/x-data-grid-pro';
-import type { IDataItem } from 'types/dataItem';
+import cn from 'classnames';
+
 import type { IDataTableState } from '../dataTableSlice';
+
 
 import { selectUserId } from 'features/user/userSlice';
 import { useAppSelector } from 'hooks/redux';
+import type { IDataItem } from 'types/dataItem';
 
-import cn from 'classnames';
 
 /**
  * Хук поеределяет классы для строк, в зависимости от условия

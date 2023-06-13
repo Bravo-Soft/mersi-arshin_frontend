@@ -1,3 +1,17 @@
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
+import { Fragment, useEffect } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
+
+import { allInputFields } from './fields';
+import { useFilterAutocomplete } from './hooks/useAutocomplete';
+
+import AutocompleteField from 'components/AutocompleteField';
+import DateField from 'components/DateField';
+import SizeSelect from 'components/SizeSelect';
 import { Messages } from 'constant/messages';
 import { Tag } from 'constant/tag';
 import {
@@ -9,25 +23,14 @@ import { selectUserPermissions } from 'features/user/userSlice';
 import { isValueDefined } from 'guards/isValueDefined';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { useDateValidate } from 'hooks/useDateValidate';
-import { Fragment, useEffect } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
-import { createDateISO } from 'utils/createDateISO';
-import { getExtendedIntervalRules } from 'utils/getExtendedIntervalRules';
-import { allInputFields } from './fields';
-import { useFilterAutocomplete } from './hooks/useAutocomplete';
-
-import type { IDataItem, IDataItemWithDates } from 'types/dataItem';
-
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
-import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
-import AutocompleteField from 'components/AutocompleteField';
-import DateField from 'components/DateField';
-import SizeSelect from 'components/SizeSelect';
 import ButtonContainer from 'styled/ButtonContainer';
 import FormContainer from 'styled/FormContainer';
+import type { IDataItem, IDataItemWithDates } from 'types/dataItem';
+import { createDateISO } from 'utils/createDateISO';
+import { getExtendedIntervalRules } from 'utils/getExtendedIntervalRules';
+
+
+
 
 const today = new Date();
 

@@ -1,29 +1,28 @@
-import { AppRoutes } from 'constant/appRoutes';
-import { Messages } from 'constant/messages';
-import { usePrefetch } from 'features/user/userApiSlice';
-import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { useSidebarAction } from 'hooks/useSidebarActions';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useVisibleColumns } from '../hooks/useVisibleColumns';
-
-import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
-import { selectUserPermissions } from 'features/user/userSlice';
-
-import type { IModuleMenuItemPropsAndOpenTourProps } from 'features/dataTable/modules/moduleMenuItem';
-
-import Collapse from '@mui/material/Collapse';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import MenuItem from '@mui/material/MenuItem';
-import StyledMenuList from 'features/dataTable/styled/StyledMenuList';
-import StyledMenuItem from 'styled/StyledMenuItem';
-
 import ExpandIcon from '@mui/icons-material/ExpandMore';
 import LockIcon from '@mui/icons-material/Lock';
 import PrintIcon from '@mui/icons-material/Print';
 import ReplyIcon from '@mui/icons-material/Reply';
 import SettingsIcon from '@mui/icons-material/Settings';
+import Collapse from '@mui/material/Collapse';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import MenuItem from '@mui/material/MenuItem';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+
+import { useVisibleColumns } from '../hooks/useVisibleColumns';
+
+import { AppRoutes } from 'constant/appRoutes';
+import { Messages } from 'constant/messages';
+import type { IModuleMenuItemPropsAndOpenTourProps } from 'features/dataTable/modules/moduleMenuItem';
+import StyledMenuList from 'features/dataTable/styled/StyledMenuList';
+import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
+import { usePrefetch } from 'features/user/userApiSlice';
+import { selectUserPermissions } from 'features/user/userSlice';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import { useSidebarAction } from 'hooks/useSidebarActions';
+import StyledMenuItem from 'styled/StyledMenuItem';
+
 
 function PrintMenuItem({
 	onCloseMenu,

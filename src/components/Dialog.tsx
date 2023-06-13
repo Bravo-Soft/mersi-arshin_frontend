@@ -1,5 +1,4 @@
 import type { DialogProps as MuiDialogProps } from '@mui/material/Dialog';
-
 import MuiDialog from '@mui/material/Dialog';
 import MuiDialogActions from '@mui/material/DialogActions';
 import MuiDialogContent from '@mui/material/DialogContent';

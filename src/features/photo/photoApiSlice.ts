@@ -1,8 +1,9 @@
+import { enqueueSnackbar } from 'notistack';
+
 import { API } from 'app/api';
 import { apiSlice } from 'app/apiSlice';
 import { HttpCodes } from 'constant/httpCodes';
 import { Messages } from 'constant/messages';
-import { enqueueSnackbar } from 'notistack';
 
 interface IPhotoResponse {
 	url: string;

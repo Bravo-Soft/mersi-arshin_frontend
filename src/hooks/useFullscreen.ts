@@ -1,5 +1,6 @@
-import { Messages } from 'constant/messages';
 import { enqueueSnackbar } from 'notistack';
+
+import { Messages } from 'constant/messages';
 
 type UseFullscreenHookReturned = [boolean, () => void];
 

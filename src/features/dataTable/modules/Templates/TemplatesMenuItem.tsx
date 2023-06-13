@@ -1,26 +1,29 @@
-import { Messages } from 'constant/messages';
-import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
-import { selectUserPermissions } from 'features/user/userSlice';
-import { isValueDefined } from 'guards/isValueDefined';
-import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { useState } from 'react';
-import { useFetchAllTemplatesQuery } from './templatesApiSlice';
 
-import type { MouseEvent } from 'react';
-import type { ITemplateConfig } from 'types/template';
-import type { IModuleMenuItemProps } from '../moduleMenuItem';
 
 import AddIcon from '@mui/icons-material/Add';
 import ExpandIcon from '@mui/icons-material/ExpandMore';
 import ListIcon from '@mui/icons-material/List';
 import TableViewIcon from '@mui/icons-material/TableView';
-
 import Collapse from '@mui/material/Collapse';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import MenuItem from '@mui/material/MenuItem';
-import StyledMenuList from 'features/dataTable/styled/StyledMenuList';
+import type { MouseEvent } from 'react';
+import { useState } from 'react';
+
+import type { IModuleMenuItemProps } from '../moduleMenuItem';
+
+
 import TemplatesList from './components/TemplatesList';
+import { useFetchAllTemplatesQuery } from './templatesApiSlice';
+
+import { Messages } from 'constant/messages';
+import StyledMenuList from 'features/dataTable/styled/StyledMenuList';
+import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
+import { selectUserPermissions } from 'features/user/userSlice';
+import { isValueDefined } from 'guards/isValueDefined';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import type { ITemplateConfig } from 'types/template';
 
 interface ITemplatesMenuItemProps extends IModuleMenuItemProps {
 	onOpenTemplateForm: () => void;

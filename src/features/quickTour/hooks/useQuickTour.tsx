@@ -1,9 +1,10 @@
+import { ACTIONS, EVENTS, STATUS } from 'react-joyride';
+import type { CallBackProps } from 'react-joyride';
+
+import { menuStartTour, startTourHandler, stepHandler } from '../components/quickTourSlice';
+
 import { useAppDispatch } from 'hooks/redux';
 import { useSidebarAction } from 'hooks/useSidebarActions';
-import { menuStartTour, startTourHandler, stepHandler } from '../components/quickTourSlice';
-import { ACTIONS, EVENTS, STATUS } from 'react-joyride';
-
-import type { CallBackProps } from 'react-joyride';
 
 /*
 

@@ -1,13 +1,15 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
+
+import { apiSlice } from './apiSlice';
+
 import { authPath, authReducer } from 'features/auth/authSlice';
 import { dataTablePath, dataTableReducer } from 'features/dataTable/dataTableSlice';
+import { quickTourPath, quickTourReducer } from 'features/quickTour/components/quickTourSlice';
 import { sidebarPath, sidebarReducer } from 'features/sidebar/sidebarSlice';
 import { smartDialogPath, smartDialogReducer } from 'features/smartDialog/smartDialogSlice';
 import { userPath, userReducer } from 'features/user/userSlice';
-import { apiSlice } from './apiSlice';
 
-import { quickTourPath, quickTourReducer } from 'features/quickTour/components/quickTourSlice';
 
 const rootReducer = combineReducers({
 	[apiSlice.reducerPath]: apiSlice.reducer,

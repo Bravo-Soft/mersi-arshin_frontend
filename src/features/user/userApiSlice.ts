@@ -1,13 +1,13 @@
-import { API } from 'app/api';
-import { apiSlice } from 'app/apiSlice';
 import { setPermissions, setRole, setUserId } from './userSlice';
 
+import { API } from 'app/api';
+import { apiSlice } from 'app/apiSlice';
+import type { Role } from 'constant/roles';
 import type { IGroup } from 'types/group';
 import type { INotificationSettings } from 'types/notification';
 import type { IPrintSettingResponse, IPrintSettings } from 'types/printSettings';
 import type { IProfile } from 'types/profile';
 import type { ITemplateConfig } from 'types/template';
-import type { Role } from 'constant/roles';
 
 export interface IUserDataResponse {
 	id: string;
@@ -15,7 +15,7 @@ export interface IUserDataResponse {
 	group: IGroup;
 }
 
-export interface ICreateNewTemplateRequest extends Omit<ITemplateConfig, 'id'> {}
+export type ICreateNewTemplateRequest = Omit<ITemplateConfig, 'id'>;
 
 export const userApiSlice = apiSlice.injectEndpoints({
 	endpoints: builder => ({
@@ -52,7 +52,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
 		}),
 
 		updateUserProfile: builder.mutation<IProfile, IProfile>({
-			query: ({ email, ...body }) => ({
+			query: body => ({
 				url: API.user.profile.default,
 				method: 'PUT',
 				body,

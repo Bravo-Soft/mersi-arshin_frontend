@@ -1,15 +1,16 @@
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import Dialog from 'components/Dialog';
 
+import { changeSmartDialogState, selectDeletingVariant } from './smartDialogSlice';
+
+import Dialog from 'components/Dialog';
 import { useDeleteDataItemMutation } from 'features/dataTable/dataTableApiSlice';
 import { selectSelectedDataItem } from 'features/dataTable/dataTableSlice';
 import { selectSidebarStateOfHomePage } from 'features/sidebar/sidebarSlice';
+import { isFormSelector } from 'guards/isFormSelector';
 import { isValueDefined } from 'guards/isValueDefined';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { useSidebarAction } from 'hooks/useSidebarActions';
-import { isFormSelector } from 'guards/isFormSelector';
-import { changeSmartDialogState, selectDeletingVariant } from './smartDialogSlice';
 
 function DeletingDialog(): JSX.Element {
 	const dispatch = useAppDispatch();

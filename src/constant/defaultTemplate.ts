@@ -1,5 +1,4 @@
 import { GridLinkOperator } from '@mui/x-data-grid-pro';
-
 import type { GridInitialStatePro } from '@mui/x-data-grid-pro/models/gridStatePro';
 
 export const defaultTemplate: GridInitialStatePro = {

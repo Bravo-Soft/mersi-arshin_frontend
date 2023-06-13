@@ -1,14 +1,15 @@
-import { useEffect } from 'react';
-import { useFormContext } from 'react-hook-form';
-import { PRINTING_LABEL } from './constants/printingLabels';
 
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import { useEffect } from 'react';
+import { useFormContext } from 'react-hook-form';
 
+import { PRINTING_LABEL } from './constants/printingLabels';
 import type { IPrintingLabel } from './constants/printingLabels';
+
 import type { IPrintSetting, ISendData } from 'types/printSettings';
 
 interface IPrintBlockProps {

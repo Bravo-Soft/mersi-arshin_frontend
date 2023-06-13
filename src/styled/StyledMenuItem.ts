@@ -1,8 +1,7 @@
-import { alpha, styled } from '@mui/material/styles';
 
 import type { MenuItemProps } from '@mui/material/MenuItem';
-
 import MenuItem from '@mui/material/MenuItem';
+import { alpha, styled } from '@mui/material/styles';
 
 interface StyledMenuItemProps extends MenuItemProps {
 	moduleIsActive?: boolean;

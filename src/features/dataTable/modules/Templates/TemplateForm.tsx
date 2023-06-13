@@ -1,17 +1,19 @@
-import { useGridApiContext } from '@mui/x-data-grid-pro';
-import { Messages } from 'constant/messages';
-import { useForm } from 'react-hook-form';
-import { useCreateNewTemplateMutation } from './templatesApiSlice';
 
-import type { PopoverProps } from '@mui/material/Popover';
-import type { ITemplateConfig } from 'types/template';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import type { PopoverProps } from '@mui/material/Popover';
 import Popover from '@mui/material/Popover';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
+import { useGridApiContext } from '@mui/x-data-grid-pro';
 import { enqueueSnackbar } from 'notistack';
+import { useForm } from 'react-hook-form';
+
+import { useCreateNewTemplateMutation } from './templatesApiSlice';
+
+import { Messages } from 'constant/messages';
+import type { ITemplateConfig } from 'types/template';
 
 interface ITemplateFormProps
 	extends Omit<
@@ -35,7 +37,7 @@ function TemplateForm(props: ITemplateFormProps): JSX.Element {
 
 	const [createNewTemplate] = useCreateNewTemplateMutation();
 
-	const isEmpty = !Boolean(watch('templateName'));
+	const isEmpty = !watch('templateName');
 
 	const onSubmit = handleSubmit(async data => {
 		try {

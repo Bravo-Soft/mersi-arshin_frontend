@@ -1,12 +1,13 @@
+import { enqueueSnackbar } from 'notistack';
+
+import { useUpdateUserProfileMutation } from './userApiSlice';
+
 import { Messages } from 'constant/messages';
 import {
 	useDeletePhotoMutation,
 	useGetPhotoQuery,
 	useUpdatePhotoMutation,
 } from 'features/photo/photoApiSlice';
-import { useUpdateUserProfileMutation } from './userApiSlice';
-
-import { enqueueSnackbar } from 'notistack';
 import type { IProfile } from 'types/profile';
 
 export const useSubmitProfileActions = (file: File | null, isDirty: boolean) => {

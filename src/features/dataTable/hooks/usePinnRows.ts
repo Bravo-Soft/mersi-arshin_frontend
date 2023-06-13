@@ -1,8 +1,10 @@
-import { isValueDefined } from 'guards/isValueDefined';
-import { useAppSelector } from 'hooks/redux';
+import type { gridVisibleSortedRowEntriesSelector } from '@mui/x-data-grid-pro';
+
 import { selectSelectedDataItem, selectSelectionModel } from '../dataTableSlice';
 
-import type { gridVisibleSortedRowEntriesSelector } from '@mui/x-data-grid-pro';
+import { isValueDefined } from 'guards/isValueDefined';
+import { useAppSelector } from 'hooks/redux';
+
 
 type VisibilityDataGridRowType = ReturnType<typeof gridVisibleSortedRowEntriesSelector>;
 

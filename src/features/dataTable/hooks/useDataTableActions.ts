@@ -1,9 +1,10 @@
+import type { GridRowParams, GridSelectionModel } from '@mui/x-data-grid-pro';
+
+import { applyNewSelectionModel, setSelectedDataItem } from '../dataTableSlice';
+
 import { selectSidebarStateOfHomePage } from 'features/sidebar/sidebarSlice';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { useSidebarAction } from 'hooks/useSidebarActions';
-import { applyNewSelectionModel, setSelectedDataItem } from '../dataTableSlice';
-
-import type { GridRowParams, GridSelectionModel } from '@mui/x-data-grid-pro';
 import type { IDataItem } from 'types/dataItem';
 
 export const useDataTableActions = (selectedDataItem: IDataItem | null) => {

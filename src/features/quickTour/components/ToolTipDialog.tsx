@@ -1,11 +1,12 @@
-import type { TooltipRenderProps } from 'react-joyride';
 
 import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import { useAppSelector } from 'hooks/redux';
+import type { TooltipRenderProps } from 'react-joyride';
+
 import { selectUserRoles } from 'features/user/userSlice';
+import { useAppSelector } from 'hooks/redux';
 
 //кастомный компонент диалога тура
 

@@ -1,7 +1,7 @@
 import { gridVisibleColumnDefinitionsSelector, useGridSelector } from '@mui/x-data-grid-pro';
-
 import type { GridStateColDef } from '@mui/x-data-grid-pro';
 import type { GridApiPro } from '@mui/x-data-grid-pro/models/gridApiPro';
+
 import type { IColumn } from 'utils/excel';
 
 /**
@@ -13,13 +13,14 @@ export const useConvertColumns = (apiRef: React.MutableRefObject<GridApiPro>) =>
 	const columns = useGridSelector(apiRef, gridVisibleColumnDefinitionsSelector);
 
 	/* Убираем из массива видимых колонок чекбоксы */
-	const columnsWithoutCheckox = columns.filter(
+	const columnsWithoutCheckbox = columns.filter(
 		(column: GridStateColDef) => column.field !== '__check__'
 	);
 
-	return columnsWithoutCheckox.map(
+	return columnsWithoutCheckbox.map(
 		(column: GridStateColDef): IColumn => ({
 			key: column.field,
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			header: column.headerName!,
 		})
 	);
