@@ -1,5 +1,3 @@
-
-
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import Avatar from '@mui/material/Avatar';
 import Badge from '@mui/material/Badge';
@@ -52,7 +50,7 @@ const UserPhoto = forwardRef<HTMLInputElement, IUserPhotoProps>((props, ref): JS
 		if (event.currentTarget.files) {
 			const selectedFile = event.currentTarget.files[0];
 			setFile(selectedFile);
-			enqueueSnackbar(Messages.PRESS_BUTTON_FOR_SAVING, { variant: 'error' });
+			enqueueSnackbar(Messages.PRESS_BUTTON_FOR_SAVING, { variant: 'info' });
 		}
 	};
 

@@ -22,8 +22,6 @@ import { NoResultsOverlay } from './NoResultsOverlay';
 import { NoRowsOverlay } from './NoRowsOverlay';
 import { Toolbar } from './Toolbar';
 
-
-
 import { useQuickTourActions } from 'features/quickTour/hooks/useQuickTourActions';
 import { selectSidebarStateOfHomePage } from 'features/sidebar/sidebarSlice';
 import { selectUserPermissions } from 'features/user/userSlice';
