@@ -6,6 +6,7 @@ import { DatePicker } from '@mui/x-date-pickers-pro';
 import { maxDate, minDate } from 'constant/dateMasks';
 import { Tag } from 'constant/tag';
 import { parseISO } from 'date-fns';
+import { getCurrentColumns } from './utils/helpers';
 
 import type { SelectChangeEvent } from '@mui/material';
 import type { FormFilterType, IForm, IColumnTable } from '../operatorsFilters';
@@ -101,7 +102,7 @@ function BlockFilter({ index, remove, columnsFilters }: IBlockFilterProps) {
 										},
 									}}
 								>
-									{columnsFilters.map(({ field, headerName }) => (
+									{getCurrentColumns(columnsFilters).map(({ field, headerName }) => (
 										<MenuItem key={`${field}_${headerName}`} value={field}>
 											{headerName}
 										</MenuItem>
