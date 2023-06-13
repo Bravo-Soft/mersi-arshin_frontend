@@ -4,12 +4,11 @@ import { formatVariant } from 'constant/dateFormat';
 import { HttpCodes } from 'constant/httpCodes';
 import { Messages } from 'constant/messages';
 import { format } from 'date-fns';
-import { showNotification } from 'features/notificator/notificatorSlice';
 import { saveAs } from 'utils/saveAs';
 
 import type { GridRowId } from '@mui/x-data-grid-pro';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
-import type { AppDispatch } from 'app/store';
+import { enqueueSnackbar } from 'notistack';
 import type { IDataItem } from 'types/dataItem';
 import type { Rename } from 'types/rename';
 
@@ -39,16 +38,11 @@ const filesApiSlice = apiSlice.injectEndpoints({
 				});
 
 				if (result.error) {
-					showErrorMessage(result.error, api.dispatch);
+					showErrorMessage(result.error);
 					return { error: result.error };
 				}
 
-				api.dispatch(
-					showNotification({
-						message: Messages.FILES_SUCCESSFULLY_UPLOADED,
-						type: 'success',
-					})
-				);
+				enqueueSnackbar(Messages.FILES_SUCCESSFULLY_UPLOADED, { variant: 'success' });
 
 				return { data: null };
 			},
@@ -56,14 +50,14 @@ const filesApiSlice = apiSlice.injectEndpoints({
 		}),
 
 		deleteFile: builder.mutation<null, IDeleteFileArg>({
-			queryFn: async ({ documentId, itemId }, api, _, baseQuery) => {
+			queryFn: async ({ documentId, itemId }, _api, _, baseQuery) => {
 				const result = await baseQuery({
 					url: `${API.data.documents.byDocumentId(itemId, documentId)}`,
 					method: 'DELETE',
 				});
 
 				if (result.error) {
-					showErrorMessage(result.error, api.dispatch);
+					showErrorMessage(result.error);
 					return { error: result.error };
 				}
 
@@ -73,7 +67,7 @@ const filesApiSlice = apiSlice.injectEndpoints({
 		}),
 
 		downloadFile: builder.query<null, IDownloadFileArg>({
-			queryFn: async ({ itemId, documentId, name }, api, _, baseQuery) => {
+			queryFn: async ({ itemId, documentId, name }, _api, _, baseQuery) => {
 				const result = await baseQuery({
 					url: API.data.documents.byDocumentId(itemId, documentId),
 					cache: 'no-cache',
@@ -83,7 +77,7 @@ const filesApiSlice = apiSlice.injectEndpoints({
 				});
 
 				if (result.error) {
-					showErrorMessage(result.error, api.dispatch);
+					showErrorMessage(result.error);
 					return { error: result.error };
 				}
 
@@ -94,7 +88,7 @@ const filesApiSlice = apiSlice.injectEndpoints({
 		}),
 
 		downloadArchive: builder.query<null, GridRowId>({
-			queryFn: async (id, api, _, baseQuery) => {
+			queryFn: async (id, _api, _, baseQuery) => {
 				const result = await baseQuery({
 					url: API.data.documents.documentsByItemId(id),
 					cache: 'no-cache',
@@ -103,7 +97,7 @@ const filesApiSlice = apiSlice.injectEndpoints({
 				});
 
 				if (result.error) {
-					showErrorMessage(result.error, api.dispatch);
+					showErrorMessage(result.error);
 					return { error: result.error };
 				}
 
@@ -116,47 +110,26 @@ const filesApiSlice = apiSlice.injectEndpoints({
 	}),
 });
 
-const showErrorMessage = (error: FetchBaseQueryError, dispatch: AppDispatch) => {
+const showErrorMessage = (error: FetchBaseQueryError) => {
 	switch (error.status) {
 		case HttpCodes.BAD_REQUEST:
-			dispatch(
-				showNotification({
-					message: Messages.PERMISSIONS_ERROR,
-					type: 'error',
-				})
-			);
+			enqueueSnackbar(Messages.PERMISSIONS_ERROR, { variant: 'error' });
 			break;
+
 		case HttpCodes.NOT_FOUND:
-			dispatch(
-				showNotification({
-					message: Messages.FILE_NOT_FOUND,
-					type: 'error',
-				})
-			);
+			enqueueSnackbar(Messages.FILE_NOT_FOUND, { variant: 'error' });
 			break;
+
 		case HttpCodes.FORBIDDEN:
-			dispatch(
-				showNotification({
-					message: Messages.FORBIDDEN,
-					type: 'error',
-				})
-			);
+			enqueueSnackbar(Messages.FORBIDDEN, { variant: 'error' });
 			break;
+
 		case HttpCodes.TO_LARGE:
-			dispatch(
-				showNotification({
-					message: Messages.FILES_IS_LARGE,
-					type: 'error',
-				})
-			);
+			enqueueSnackbar(Messages.FILES_IS_LARGE, { variant: 'error' });
 			break;
+
 		default:
-			dispatch(
-				showNotification({
-					message: Messages.SOMETHING_WRONG_ELSE,
-					type: 'error',
-				})
-			);
+			enqueueSnackbar(Messages.SOMETHING_WRONG_ELSE, { variant: 'error' });
 			break;
 	}
 };

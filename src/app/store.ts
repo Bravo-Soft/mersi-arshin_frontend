@@ -2,7 +2,6 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
 import { authPath, authReducer } from 'features/auth/authSlice';
 import { dataTablePath, dataTableReducer } from 'features/dataTable/dataTableSlice';
-import { notificationPath, notificationReducer } from 'features/notificator/notificatorSlice';
 import { sidebarPath, sidebarReducer } from 'features/sidebar/sidebarSlice';
 import { smartDialogPath, smartDialogReducer } from 'features/smartDialog/smartDialogSlice';
 import { userPath, userReducer } from 'features/user/userSlice';
@@ -13,7 +12,6 @@ import { quickTourPath, quickTourReducer } from 'features/quickTour/components/q
 const rootReducer = combineReducers({
 	[apiSlice.reducerPath]: apiSlice.reducer,
 	[authPath]: authReducer,
-	[notificationPath]: notificationReducer,
 	[sidebarPath]: sidebarReducer,
 	[dataTablePath]: dataTableReducer,
 	[userPath]: userReducer,

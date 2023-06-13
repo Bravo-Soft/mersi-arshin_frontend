@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { useFetchAllTemplatesQuery } from './templatesApiSlice';
 
 import type { MouseEvent } from 'react';
-import type { ITemplateСonfig } from 'types/template';
+import type { ITemplateConfig } from 'types/template';
 import type { IModuleMenuItemProps } from '../moduleMenuItem';
 
 import AddIcon from '@mui/icons-material/Add';
@@ -28,7 +28,7 @@ interface ITemplatesMenuItemProps extends IModuleMenuItemProps {
 }
 
 const isMaxCountTemplatesReached = (
-	templates: Omit<ITemplateСonfig, 'template'>[] | undefined,
+	templates: Omit<ITemplateConfig, 'template'>[] | undefined,
 	maxCount: number | undefined
 ) => {
 	if (templates && isValueDefined(maxCount)) {

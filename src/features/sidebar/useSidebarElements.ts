@@ -14,7 +14,7 @@ import NotificationSettings from 'components/Forms/NotificationSettings';
 import PrintSettings from 'components/Forms/PrintSettings';
 
 /**
- *	Простой хук, который возвращает разные массивы элементов садбара, в зависимости от страницы на которой
+ *	Простой хук, который возвращает разные массивы элементов сайдбара, в зависимости от страницы на которой
  * находится пользователь
  *
  * @param page текущая страница, они же ключи состояния сайдбара [см.здесь](./sidebarSlice.ts)
@@ -40,7 +40,7 @@ export const useSidebarElements = (page: SidebarPages): ISidebarElement<SidebarS
 				{
 					Component: VerificateDataItem,
 					selector: 'VerificateDataItem',
-					headerTitle: SidebarTitles.VERIFICATE_ITEM,
+					headerTitle: SidebarTitles.VERIFICATION_ITEM,
 				},
 				{
 					Component: UserProfile,

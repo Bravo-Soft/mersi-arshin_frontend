@@ -2,7 +2,7 @@ import { API } from 'app/api';
 import { apiSlice } from 'app/apiSlice';
 import { HttpCodes } from 'constant/httpCodes';
 import { Messages } from 'constant/messages';
-import { showNotification } from 'features/notificator/notificatorSlice';
+import { enqueueSnackbar } from 'notistack';
 
 interface IPhotoResponse {
 	url: string;
@@ -33,22 +33,12 @@ const photoApiSlice = apiSlice.injectEndpoints({
 				body: data,
 			}),
 			invalidatesTags: ['Photo'],
-			onQueryStarted: async (_arg, { queryFulfilled, dispatch }) => {
+			onQueryStarted: async (_arg, { queryFulfilled }) => {
 				try {
 					await queryFulfilled;
-					dispatch(
-						showNotification({
-							message: Messages.PHOTO_SUCCESSFULY_UPDATED,
-							type: 'success',
-						})
-					);
+					enqueueSnackbar(Messages.PHOTO_SUCCESSFULLY_UPDATED, { variant: 'success' });
 				} catch {
-					dispatch(
-						showNotification({
-							message: Messages.FAILED_TO_LOAD_PHOTO,
-							type: 'error',
-						})
-					);
+					enqueueSnackbar(Messages.FAILED_TO_LOAD_PHOTO, { variant: 'error' });
 				}
 			},
 		}),
@@ -57,22 +47,12 @@ const photoApiSlice = apiSlice.injectEndpoints({
 				url: API.user.profile.photo,
 				method: 'DELETE',
 			}),
-			onQueryStarted: async (_arg, { dispatch, queryFulfilled }) => {
+			onQueryStarted: async (_arg, { queryFulfilled }) => {
 				try {
 					await queryFulfilled;
-					dispatch(
-						showNotification({
-							message: Messages.PHOTO_RESET,
-							type: 'info',
-						})
-					);
+					enqueueSnackbar(Messages.PHOTO_RESET, { variant: 'info' });
 				} catch {
-					dispatch(
-						showNotification({
-							message: Messages.FAILED_TO_RESET_PHOTO,
-							type: 'error',
-						})
-					);
+					enqueueSnackbar(Messages.FAILED_TO_RESET_PHOTO, { variant: 'error' });
 				}
 			},
 			invalidatesTags: ['Photo'],

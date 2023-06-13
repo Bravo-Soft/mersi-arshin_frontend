@@ -1,7 +1,5 @@
 import { Messages } from 'constant/messages';
-import { showNotification } from 'features/notificator/notificatorSlice';
 import { isValueDefined } from 'guards/isValueDefined';
-import { useAppDispatch } from 'hooks/redux';
 import { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { acceptedFiles as accept } from '../acceptedFiles';
@@ -10,6 +8,7 @@ import { useLazyDownloadArchiveQuery, useUploadFileMutation } from 'features/fil
 
 import type { MouseEvent } from 'react';
 import type { IDocument } from 'types/dataItem';
+import { enqueueSnackbar } from 'notistack';
 
 export interface IUseValidateFileFormProps {
 	id?: string | undefined;
@@ -26,8 +25,6 @@ const useValidateFileForm = ({
 	setFiles,
 	documents,
 }: IUseValidateFileFormProps) => {
-	const dispatch = useAppDispatch();
-
 	/* Расчет уже занятого пространства и свободного места */
 	const requiredSpace = useSummarySize(files);
 	const occupiedSpace = useSummarySize(documents);
@@ -40,17 +37,9 @@ const useValidateFileForm = ({
 	const [downloadArchive] = useLazyDownloadArchiveQuery();
 
 	/* Метод вызова диалогового окна ошибки */
-	const showFailureMessage = useCallback(
-		(errorMEssage: keyof typeof Messages) => {
-			dispatch(
-				showNotification({
-					message: Messages[errorMEssage],
-					type: 'error',
-				})
-			);
-		},
-		[dispatch]
-	);
+	const showFailureMessage = useCallback((errorMessage: keyof typeof Messages) => {
+		enqueueSnackbar(Messages[errorMessage], { variant: 'error' });
+	}, []);
 
 	/* Метод сохранения файлов в стейт */
 	const onDrop = useCallback(
@@ -98,7 +87,7 @@ const useValidateFileForm = ({
 	/* Отправка новых файлов */
 	const handleSendNewFiles = async () => {
 		if (isValueDefined(id)) {
-			/* Создаем инстанс FormData и заполняем данными из состония */
+			/* Создаем экземпляр FormData и заполняем данными из состояния */
 			const data = new FormData();
 			files.forEach((file: File) => data.append('files', file));
 

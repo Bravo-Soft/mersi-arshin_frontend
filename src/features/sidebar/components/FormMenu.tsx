@@ -111,7 +111,7 @@ function FormMenu({ page }: IFormMenuProps): JSX.Element | null {
 					<ListItemIcon>
 						<CheckIcon />
 					</ListItemIcon>
-					<ListItemText>{SidebarTitles.VERIFICATE_ITEM}</ListItemText>
+					<ListItemText>{SidebarTitles.VERIFICATION_ITEM}</ListItemText>
 				</MenuItem>
 				<StyledMenuItem
 					moduleIsActive={attachFiles}

@@ -9,10 +9,10 @@ import type { IExcelConfig } from 'utils/excel';
 
 import { formatVariant } from 'constant/dateFormat';
 import { format } from 'date-fns';
-import { showNotification } from 'features/notificator/notificatorSlice';
 import { useGetUserProfileQuery } from 'features/user/userApiSlice';
 import { useConvertColumns } from './useConvertColumns';
 import { useFiltredSortedData } from './useFiltredSortedData';
+import { enqueueSnackbar } from 'notistack';
 
 interface IUseUploadHandlers {
 	onCloseMenu: () => void;
@@ -45,12 +45,7 @@ export const useUploadHandlers = ({
 	};
 
 	const showHiddenMessage = () => {
-		dispatch(
-			showNotification({
-				message: Messages.ALL_COLUMNS_IS_HIDDEN,
-				type: 'warning',
-			})
-		);
+		enqueueSnackbar(Messages.ALL_COLUMNS_IS_HIDDEN, { variant: 'warning' });
 	};
 
 	const exportDataAsCSV = () => {
@@ -96,12 +91,7 @@ export const useUploadHandlers = ({
 			const filename = `Книга от ${format(new Date(), formatVariant)}.xlsx`;
 			saveAs(blob, filename);
 		} catch {
-			dispatch(
-				showNotification({
-					message: Messages.FAILED_TO_SAVE_WORKBOOK,
-					type: 'error',
-				})
-			);
+			enqueueSnackbar(Messages.FAILED_TO_SAVE_WORKBOOK, { variant: 'error' });
 		}
 	};
 

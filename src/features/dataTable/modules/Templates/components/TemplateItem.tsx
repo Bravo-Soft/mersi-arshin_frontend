@@ -1,7 +1,5 @@
 import { useGridApiContext } from '@mui/x-data-grid-pro';
 import { Messages } from 'constant/messages';
-import { showNotification } from 'features/notificator/notificatorSlice';
-import { useAppDispatch } from 'hooks/redux';
 import { parseTemplate } from 'utils/templateUtils';
 import {
 	useDeleteTemplateByIdMutation,
@@ -11,7 +9,7 @@ import {
 } from '../templatesApiSlice';
 
 import type { MouseEvent } from 'react';
-import type { ITemplateСonfig } from 'types/template';
+import type { ITemplateConfig } from 'types/template';
 
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
@@ -19,13 +17,13 @@ import Typography from '@mui/material/Typography';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
+import { enqueueSnackbar } from 'notistack';
 
 interface ITemplateItemProps {
-	item: Omit<ITemplateСonfig, 'template'>;
+	item: Omit<ITemplateConfig, 'template'>;
 }
 
 function TemplateItem({ item }: ITemplateItemProps): JSX.Element {
-	const dispatch = useAppDispatch();
 	const apiRef = useGridApiContext();
 
 	const [selectTemplateById] = useSelectTemplateByIdMutation();
@@ -39,56 +37,28 @@ function TemplateItem({ item }: ITemplateItemProps): JSX.Element {
 				const selectResult = await selectTemplateById(item.id).unwrap();
 				const parsedTemplate = parseTemplate(selectResult.template);
 				apiRef.current.restoreState(parsedTemplate);
+
 				if (item.templateName === 'По умолчанию') {
-					dispatch(
-						showNotification({
-							message: Messages.APPLIED_DEFAULT_TEMPLATE,
-							type: 'info',
-						})
-					);
+					enqueueSnackbar(Messages.APPLIED_DEFAULT_TEMPLATE, { variant: 'info' });
 				} else {
-					dispatch(
-						showNotification({
-							message: Messages.TEMPLATE_SUCCESSFULLY_APPLIED,
-							type: 'info',
-						})
-					);
+					enqueueSnackbar(Messages.TEMPLATE_SUCCESSFULLY_APPLIED, { variant: 'info' });
 				}
 			} catch {
-				dispatch(
-					showNotification({
-						message: Messages.FAILED_TO_LOADING_TEMPLATE,
-						type: 'error',
-					})
-				);
+				enqueueSnackbar(Messages.FAILED_TO_LOADING_TEMPLATE, { variant: 'error' });
 			}
 		} else {
 			try {
 				const resetResult = await resetSelectedTemplate().unwrap();
 				const parsedTemplate = parseTemplate(resetResult.template);
 				apiRef.current.restoreState(parsedTemplate);
+
 				if (item.templateName === 'По умолчанию') {
-					dispatch(
-						showNotification({
-							message: Messages.DEFAULT_TEMPLATE_RESTORED,
-							type: 'info',
-						})
-					);
+					enqueueSnackbar(Messages.DEFAULT_TEMPLATE_RESTORED, { variant: 'info' });
 				} else {
-					dispatch(
-						showNotification({
-							message: Messages.TEMPLATE_RESTORED,
-							type: 'info',
-						})
-					);
+					enqueueSnackbar(Messages.TEMPLATE_RESTORED, { variant: 'info' });
 				}
 			} catch {
-				dispatch(
-					showNotification({
-						message: Messages.FAILED_TO_RESTORE_TEMPLATE,
-						type: 'error',
-					})
-				);
+				enqueueSnackbar(Messages.FAILED_TO_RESTORE_TEMPLATE, { variant: 'error' });
 			}
 		}
 	};
@@ -98,19 +68,9 @@ function TemplateItem({ item }: ITemplateItemProps): JSX.Element {
 		try {
 			const deleteResult = await deleteTemplateById(item.id).unwrap();
 			apiRef.current.restoreState(parseTemplate(deleteResult.template.trim()));
-			dispatch(
-				showNotification({
-					message: Messages.THE_TEMPLATE_WAS_SUCCESSFULLY_DELETED,
-					type: 'success',
-				})
-			);
+			enqueueSnackbar(Messages.THE_TEMPLATE_WAS_SUCCESSFULLY_DELETED, { variant: 'success' });
 		} catch {
-			dispatch(
-				showNotification({
-					message: Messages.FAILED_TO_DELETE_TEMPLATE,
-					type: 'error',
-				})
-			);
+			enqueueSnackbar(Messages.FAILED_TO_DELETE_TEMPLATE, { variant: 'error' });
 		}
 	};
 

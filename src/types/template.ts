@@ -1,4 +1,4 @@
-export interface ITemplateСonfig {
+export interface ITemplateConfig {
 	/**
 	 * Идентификационный номер
 	 */

@@ -1,7 +1,6 @@
 import { formatVariant } from 'constant/dateFormat';
 import { Messages } from 'constant/messages';
 import { format, parseISO } from 'date-fns';
-import { showNotification } from 'features/notificator/notificatorSlice';
 import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
 import { isValueDefined } from 'guards/isValueDefined';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
@@ -28,6 +27,7 @@ import type { MouseEvent } from 'react';
 import type { IDataItem } from 'types/dataItem';
 import type { ColumnNames } from '../columns';
 import type { GridStateColDef } from '@mui/x-data-grid-pro';
+import { enqueueSnackbar } from 'notistack';
 
 export interface ICoordinates {
 	mouseX: number;
@@ -63,9 +63,9 @@ export const useContextMenuActions = (
 		event.preventDefault();
 		const currentId = event.currentTarget.getAttribute('data-id');
 		if (currentId !== null) {
-			const findedDataItem = data.find(({ id }) => id === currentId);
-			if (isValueDefined(findedDataItem)) {
-				dispatch(setSelectedDataItem(findedDataItem));
+			const fondedDataItem = data.find(({ id }) => id === currentId);
+			if (isValueDefined(fondedDataItem)) {
+				dispatch(setSelectedDataItem(fondedDataItem));
 				setContextMenu(
 					contextMenu === null
 						? { mouseX: event.clientX - 2, mouseY: event.clientY - 4 }
@@ -84,7 +84,7 @@ export const useContextMenuActions = (
 		handleClose();
 	};
 
-	const handleOpenVerificateDataItem = () => {
+	const handleOpenVerificationDataItem = () => {
 		openSidebarWith('VerificateDataItem');
 		handleClose();
 	};
@@ -138,12 +138,7 @@ export const useContextMenuActions = (
 					getArrayWithoutDuplicates(...selectionModel, selectedDataItem.id)
 				);
 			} catch {
-				dispatch(
-					showNotification({
-						message: Messages.FAILED_ADDED_TO_FAVORITE,
-						type: 'error',
-					})
-				);
+				enqueueSnackbar(Messages.FAILED_ADDED_TO_FAVORITE, { variant: 'error' });
 			} finally {
 				dispatch(resetSelectedModel());
 			}
@@ -157,12 +152,7 @@ export const useContextMenuActions = (
 					getArrayWithoutDuplicates(...selectionModel, selectedDataItem.id)
 				);
 			} catch {
-				dispatch(
-					showNotification({
-						message: Messages.FAILED_TO_DELETE_FROM_FAVORITE,
-						type: 'error',
-					})
-				);
+				enqueueSnackbar(Messages.FAILED_TO_DELETE_FROM_FAVORITE, { variant: 'error' });
 			} finally {
 				dispatch(resetSelectedModel());
 			}
@@ -195,28 +185,13 @@ export const useContextMenuActions = (
 
 				try {
 					await navigator.clipboard.writeText(readableData);
-					dispatch(
-						showNotification({
-							message: Messages.DATA_COPY_TO_CLIPBOARD,
-							type: 'info',
-						})
-					);
+					enqueueSnackbar(Messages.DATA_COPY_TO_CLIPBOARD, { variant: 'info' });
 				} catch {
-					dispatch(
-						showNotification({
-							message: Messages.FAILED_COPY_DATA_TO_CLIPBOARD,
-							type: 'error',
-						})
-					);
+					enqueueSnackbar(Messages.FAILED_COPY_DATA_TO_CLIPBOARD, { variant: 'error' });
 				}
 			}
 		} else {
-			dispatch(
-				showNotification({
-					message: Messages.YOUR_BROWSER_DONT_SUPPLY_THIS_FUNCTION,
-					type: 'warning',
-				})
-			);
+			enqueueSnackbar(Messages.YOUR_BROWSER_DONT_SUPPLY_THIS_FUNCTION, { variant: 'warning' });
 		}
 	};
 
@@ -226,7 +201,7 @@ export const useContextMenuActions = (
 			handleClose,
 			handleOpenContextMenu,
 			handleOpenEditDataItem,
-			handleOpenVerificateDataItem,
+			handleOpenVerificationDataItem,
 			handleOpenFilesOfDataItem,
 			handleOpenDeleteDialog,
 			handlePinningRow,
@@ -246,7 +221,7 @@ interface IVisibleField {
 }
 
 /**
- *	Метод преобразующий массив объектов в одну строку, в человекочитаемом формате
+ *	Метод преобразующий массив объектов в одну строку, в человеко-читаемом формате
  * @param visibleColumns колонки, получаемые из метода `apiRef.current.getVisibleColumns`
  * @param data массив данных, которые необходимо скопировать
  * @return итоговая строка, со всеми данными
@@ -266,12 +241,12 @@ export const convertDataToReadableFormat = (
 		);
 
 	/* Здесь мы используем метод join для того, чтобы избавиться от вывода матрицы и сразу преобразовать результат в строку */
-	const convertRowToReadbleState = (item: CopyData) =>
+	const convertRowToReadableState = (item: CopyData) =>
 		columnsWithoutCheckboxes
 			.map(({ field, headerName }) =>
 				field in item ? `${headerName}: ${item[field] ?? 'Нет данных'}` : ''
 			)
 			.join('\r\n');
 
-	return data.map(convertRowToReadbleState).join('\r\n\n'); // делаем отступ от каждой скопированной позиции
+	return data.map(convertRowToReadableState).join('\r\n\n'); // делаем отступ от каждой скопированной позиции
 };

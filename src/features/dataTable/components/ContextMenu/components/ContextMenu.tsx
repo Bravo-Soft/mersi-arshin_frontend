@@ -1,11 +1,7 @@
 import { yellow } from '@mui/material/colors';
 import { Messages } from 'constant/messages';
 import { SidebarTitles } from 'constant/sidebarTitles';
-import {
-	// selectedPinnedRows,
-	selectSelectedDataItem,
-	selectSelectionModel,
-} from 'features/dataTable/dataTableSlice';
+import { selectSelectedDataItem, selectSelectionModel } from 'features/dataTable/dataTableSlice';
 import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
 import { selectUserId, selectUserPermissions, selectUserRoles } from 'features/user/userSlice';
 import { isValueDefined } from 'guards/isValueDefined';
@@ -20,8 +16,6 @@ import ListItemText from '@mui/material/ListItemText';
 import Menu from '@mui/material/Menu';
 import DeleteMenuItem from 'styled/DeleteMenuItem';
 import StyledMenuItem from 'styled/StyledMenuItem';
-// import ContextMenuPinItem from './ContextMenuPinItem';
-// import ContextMenuUnPinItem from './ContextMenuUnPinItem';
 
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import CopyAllIcon from '@mui/icons-material/CopyAll';
@@ -54,7 +48,6 @@ function ContextMenu({
 	/* Селекторы */
 	const selectedDataItem = useAppSelector(selectSelectedDataItem);
 	const selectionModel = useAppSelector(selectSelectionModel);
-	// const pinningRows = useAppSelector(selectedPinnedRows);
 	const { isWriter, isAdmin } = useAppSelector(selectUserRoles);
 	const userId = useAppSelector(selectUserId);
 	const tourStartedIsMenu = useAppSelector(selectMenuStart);
@@ -62,19 +55,13 @@ function ContextMenu({
 
 	const isFavoriteRow =
 		isValueDefined(selectedDataItem) && userId && selectedDataItem.userIds.includes(userId);
-	// const isPinnedRow =
-	// 	isValueDefined(selectedDataItem) && pinningRows.includes(selectedDataItem.id);
 
 	const {
 		handleClose,
 		handleOpenEditDataItem,
-		handleOpenVerificateDataItem,
+		handleOpenVerificationDataItem,
 		handleOpenDeleteDialog,
 		handleOpenFilesOfDataItem,
-		// handlePinningRow,
-		// handlePinningManyRows,
-		// handleUnPinningRow,
-		// handleUnPinningManyRows,
 		handleAddToFavorite,
 		handleRemoveFromFavorite,
 		handleCopySelectedValues,
@@ -117,10 +104,10 @@ function ContextMenu({
 			action: handleOpenEditDataItem,
 		},
 		{
-			title: SidebarTitles.VERIFICATE_ITEM,
+			title: SidebarTitles.VERIFICATION_ITEM,
 			Icon: CheckIcon,
 			isActive: true,
-			action: handleOpenVerificateDataItem,
+			action: handleOpenVerificationDataItem,
 		},
 		{
 			title: SidebarTitles.ITEM_FILES,
@@ -188,19 +175,6 @@ function ContextMenu({
 					/>
 				</StyledMenuItem>
 			))}
-			{/* {!isPinnedRow ? (
-				<ContextMenuPinItem
-					handlePinningRow={handlePinningRow}
-					handlePinningManyRows={handlePinningManyRows}
-					apiRef={apiRef}
-				/>
-			) : (
-				<ContextMenuUnPinItem
-					handleUnPinningRow={handleUnPinningRow}
-					handleUnPinningManyRows={handleUnPinningManyRows}
-				/>
-			)} */}
-
 			{(isWriter || isAdmin) && (
 				<DeleteMenuItem onClick={handleOpenDeleteDialog}>
 					<ListItemIcon>

@@ -1,27 +1,25 @@
-import { FormProvider, useForm } from 'react-hook-form';
 import { selectSidebarStateOfHomePage } from 'features/sidebar/sidebarSlice';
 import {
 	useGetUserPrintSettingsQuery,
 	useUpdateUserPrintSettingsMutation,
 } from 'features/user/userApiSlice';
-import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import { useAppSelector } from 'hooks/redux';
+import { FormProvider, useForm } from 'react-hook-form';
 import { DEFAULT_SETTINGS } from './constants/defaultSettings';
 import { transformDataSettings } from './utils/transformDataSettings';
 
 import type { ISendData } from 'types/printSettings';
 
 import Box from '@mui/material/Box';
-import PrintBlock from './PrintBlock';
 import Button from '@mui/material/Button';
-import FormContainer from 'styled/FormContainer';
+import { Messages } from 'constant/messages';
+import { enqueueSnackbar } from 'notistack';
 import ButtonContainer from 'styled/ButtonContainer';
-import useNotification from 'hooks/useNotification';
+import FormContainer from 'styled/FormContainer';
+import PrintBlock from './PrintBlock';
 
 function PrintSettings() {
 	const { open, selector } = useAppSelector(selectSidebarStateOfHomePage);
-
-	const dispatch = useAppDispatch();
-	const showNotification = useNotification(dispatch);
 
 	const { data } = useGetUserPrintSettingsQuery(undefined, {
 		skip: !open || selector !== 'PrintSettings',
@@ -39,18 +37,18 @@ function PrintSettings() {
 		try {
 			const settings = transformDataSettings(sendData);
 			await sendUpdatedPrintSettings(settings).unwrap();
-			showNotification('SETTINGS_SUCCESSFULY_UPDATED', 'success');
+			enqueueSnackbar(Messages.SETTINGS_SUCCESSFULLY_UPDATED, { variant: 'success' });
 		} catch {
-			showNotification('FAILED_TO_CHANGE_PRINTING_OPTIONS', 'error');
+			enqueueSnackbar(Messages.FAILED_TO_CHANGE_PRINTING_OPTIONS, { variant: 'error' });
 		}
 	});
 
 	const handleResetPrintSettings = async () => {
 		try {
 			await sendUpdatedPrintSettings(DEFAULT_SETTINGS).unwrap();
-			showNotification('SETTINGS_SUCCESSFULY_RESETED', 'success');
+			enqueueSnackbar(Messages.SETTINGS_SUCCESSFULLY_RESET, { variant: 'success' });
 		} catch {
-			showNotification('FAILED_TO_CHANGE_PRINTING_OPTIONS', 'error');
+			enqueueSnackbar(Messages.FAILED_TO_CHANGE_PRINTING_OPTIONS, { variant: 'error' });
 		}
 	};
 
