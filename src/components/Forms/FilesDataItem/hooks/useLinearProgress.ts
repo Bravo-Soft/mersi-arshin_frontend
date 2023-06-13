@@ -1,7 +1,8 @@
 import type { LinearProgressProps } from '@mui/material';
+
 import type { ISpaceNotificationProps } from '../components/SpaceNotification';
 
-interface IUseLinearProgressProps extends ISpaceNotificationProps {}
+type IUseLinearProgressProps = ISpaceNotificationProps
 
 type ProgressStatus = Extract<LinearProgressProps['color'], 'primary' | 'warning' | 'error'>;
 

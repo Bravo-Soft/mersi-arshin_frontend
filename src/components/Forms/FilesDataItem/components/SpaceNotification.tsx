@@ -1,10 +1,11 @@
-import { convertFileSize } from '../convertFileSize';
-import { useLinearProgress } from '../hooks/useLinearProgress';
 
-import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
+import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+
+import { convertFileSize } from '../convertFileSize';
+import { useLinearProgress } from '../hooks/useLinearProgress';
 
 export interface ISpaceNotificationProps {
 	maxSizeOfSpacePerPosition: number;

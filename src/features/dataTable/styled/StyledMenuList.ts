@@ -1,6 +1,6 @@
+import MenuList from '@mui/material/MenuList';
 import { styled } from '@mui/material/styles';
 
-import MenuList from '@mui/material/MenuList';
 
 const StyledMenuList = styled(MenuList)(({ theme }) => ({
 	'& .MuiMenuItem-root': { paddingLeft: theme.spacing(4) },

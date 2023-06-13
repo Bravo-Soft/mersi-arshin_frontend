@@ -1,25 +1,10 @@
 import type { SvgIconComponent } from '@mui/icons-material';
-import type { MouseEvent, MouseEventHandler } from 'react';
-
-import { AppRoutes } from 'constant/appRoutes';
-import { useLogoutMutation } from 'features/auth/authApiSlice';
-import { usePrefetch } from 'features/user/userApiSlice';
-import { CookieContext } from 'hoc/WithCookie';
-import { useFullscreen } from 'hooks/useFullscreen';
-import { usePage } from 'hooks/usePage';
-import { useSidebarAction } from 'hooks/useSidebarActions';
-import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { preparePhotoUrl } from 'utils/preparePhotoUrl';
-import { useGetPhotoQuery } from 'features/photo/photoApiSlice';
-
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
 import ReviewsIcon from '@mui/icons-material/Reviews';
 import SchoolIcon from '@mui/icons-material/School';
-
 import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
@@ -29,8 +14,21 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Skeleton from '@mui/material/Skeleton';
 import Tooltip from '@mui/material/Tooltip';
+import { useContext, useState } from 'react';
+import type { MouseEvent, MouseEventHandler } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { AppRoutes } from 'constant/appRoutes';
+import { useLogoutMutation } from 'features/auth/authApiSlice';
+import { useGetPhotoQuery } from 'features/photo/photoApiSlice';
 import QuickTourMenu from 'features/quickTour/components/QuickTourMenu';
+import { usePrefetch } from 'features/user/userApiSlice';
+import { CookieContext } from 'hoc/WithCookie';
 import { useAuth } from 'hooks/useAuth';
+import { useFullscreen } from 'hooks/useFullscreen';
+import { usePage } from 'hooks/usePage';
+import { useSidebarAction } from 'hooks/useSidebarActions';
+import { preparePhotoUrl } from 'utils/preparePhotoUrl';
 
 interface ILayoutAccountCircleMenuItem {
 	title: string;

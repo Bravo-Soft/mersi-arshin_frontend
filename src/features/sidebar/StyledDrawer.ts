@@ -1,7 +1,8 @@
+import Drawer from '@mui/material/Drawer';
 import { styled } from '@mui/material/styles';
+
 import { sidebarWidth } from 'constant/sidebarWidth';
 
-import Drawer from '@mui/material/Drawer';
 
 const StyledDrawer = styled(Drawer)(({ theme }) => ({
 	'& .MuiDrawer-paper': {

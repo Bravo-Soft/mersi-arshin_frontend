@@ -1,11 +1,12 @@
 import { compareAsc, getMonth, parseISO } from 'date-fns';
-import { useAppSelector } from 'hooks/redux';
 import { useMemo } from 'react';
-import { createDateISO } from 'utils/createDateISO';
+
 import { selectCurrentChipFilterVariant } from '../dataTableSlice';
 
-import type { IDataItem } from 'types/dataItem';
 import { selectUserId } from 'features/user/userSlice';
+import { useAppSelector } from 'hooks/redux';
+import type { IDataItem } from 'types/dataItem';
+import { createDateISO } from 'utils/createDateISO';
 
 const useChipFilter = (data: IDataItem[] = []) => {
 	const currentChipFilterOption = useAppSelector(selectCurrentChipFilterVariant);

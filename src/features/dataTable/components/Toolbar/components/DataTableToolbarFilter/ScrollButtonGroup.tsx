@@ -1,11 +1,13 @@
-import type { SxProps, Theme } from '@mui/material/styles';
-
-import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
-import StyledScrollButtonBox from 'features/dataTable/styled/StyledScrollButtonBox';
-
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import type { SxProps, Theme } from '@mui/material/styles';
+
+
+import StyledScrollButtonBox from 'features/dataTable/styled/StyledScrollButtonBox';
+
+
 interface IScrollButtonGroupProps {
 	firstElementIsVisible: boolean;
 	lastElementIsVisible: boolean;

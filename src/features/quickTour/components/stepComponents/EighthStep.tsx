@@ -1,8 +1,8 @@
-import { eighthStepContent } from 'features/quickTour/configStepsDesc';
-
 import Box from '@mui/material/Box';
-import StyledTourTitle from 'features/quickTour/styled/StyledTourTitle';
+
+import { eighthStepContent } from 'features/quickTour/configStepsDesc';
 import StyledTourDescription from 'features/quickTour/styled/StyledTourDescription';
+import StyledTourTitle from 'features/quickTour/styled/StyledTourTitle';
 
 function EighthStep() {
 	return (

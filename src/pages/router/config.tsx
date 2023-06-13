@@ -1,15 +1,15 @@
 import type { RouteObject } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
+
+import { PrivateRoute } from './PrivateRoute';
 
 import Layout from 'components/Layout';
-import ErrorPage from 'pages/error/ErrorPage';
-
-import { createBrowserRouter } from 'react-router-dom';
 import { AppRoutes } from 'constant/appRoutes';
 import { AuthPage } from 'pages/auth';
+import ErrorPage from 'pages/error/ErrorPage';
 import { HomePage } from 'pages/home';
-import { PrintPage } from 'pages/print';
 import { InitPage } from 'pages/init';
-import { PrivateRoute } from './PrivateRoute';
+import { PrintPage } from 'pages/print';
 
 const config: RouteObject[] = [
 	{

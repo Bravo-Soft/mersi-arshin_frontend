@@ -1,7 +1,5 @@
 import Box from '@mui/material/Box';
-
 import type { BoxProps } from '@mui/material/Box';
-
 import { styled } from '@mui/material/styles';
 
 const PageBox = styled(Box)<BoxProps>(({ theme }) => ({

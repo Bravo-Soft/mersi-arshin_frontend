@@ -1,8 +1,4 @@
-import { useGetUserNotificationQuery } from 'features/user/userApiSlice';
-import { Controller, FormProvider, useForm } from 'react-hook-form';
-import { useSubmitUserNotificationActions } from './hooks/useSubmitUserNotificationActions';
 
-import type { INotificationSettings } from 'types/notification';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -10,11 +6,17 @@ import Fade from '@mui/material/Fade';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Stack from '@mui/material/Stack';
 import Switch from '@mui/material/Switch';
+import { Controller, FormProvider, useForm } from 'react-hook-form';
+
+import EmailInputs from './EmailInputs';
+import { useSubmitUserNotificationActions } from './hooks/useSubmitUserNotificationActions';
+import SelectInputs from './SelectInputs';
+
 import FetchingProgress from 'features/dataTable/components/FetchingProgress';
+import { useGetUserNotificationQuery } from 'features/user/userApiSlice';
 import ButtonContainer from 'styled/ButtonContainer';
 import FormContainer from 'styled/FormContainer';
-import EmailInputs from './EmailInputs';
-import SelectInputs from './SelectInputs';
+import type { INotificationSettings } from 'types/notification';
 
 function NotificationSettings() {
 	const { settings, isGetDataFetching, isLoading } = useGetUserNotificationQuery(undefined, {

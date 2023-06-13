@@ -1,18 +1,18 @@
-import { forwardRef } from 'react';
-import { useChipFilterActions } from 'features/dataTable/hooks/useChipFilterActions';
-import { chipDefaultOptions } from './toolBarFilters';
-
-import type { ChipFilterOptions } from './toolBarFilters';
-
-import Stack from '@mui/material/Stack';
-import Badge from '@mui/material/Badge';
-import Tooltip from '@mui/material/Tooltip';
-import MonthsChips from './MonthsChips';
-import StyledChip from 'features/dataTable/styled/StyledChip';
-
+import CalendarMonth from '@mui/icons-material/CalendarMonth';
 import LockIcon from '@mui/icons-material/Lock';
 import StarIcon from '@mui/icons-material/Star';
-import CalendarMonth from '@mui/icons-material/CalendarMonth';
+import Badge from '@mui/material/Badge';
+import Stack from '@mui/material/Stack';
+import Tooltip from '@mui/material/Tooltip';
+import { forwardRef } from 'react';
+
+import MonthsChips from './MonthsChips';
+import { chipDefaultOptions } from './toolBarFilters';
+import type { ChipFilterOptions } from './toolBarFilters';
+
+import { useChipFilterActions } from 'features/dataTable/hooks/useChipFilterActions';
+import StyledChip from 'features/dataTable/styled/StyledChip';
+
 
 const ChipFilter = forwardRef<HTMLDivElement>((_, ref) => {
 	const {

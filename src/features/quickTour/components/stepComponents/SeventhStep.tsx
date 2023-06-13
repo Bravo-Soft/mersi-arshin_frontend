@@ -1,5 +1,5 @@
-import StyledTourTitle from 'features/quickTour/styled/StyledTourTitle';
 import StyledTourDescription from 'features/quickTour/styled/StyledTourDescription';
+import StyledTourTitle from 'features/quickTour/styled/StyledTourTitle';
 
 function SeventhStep() {
 	return (

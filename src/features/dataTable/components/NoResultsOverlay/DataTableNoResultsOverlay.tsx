@@ -1,5 +1,6 @@
 import SearchOffIcon from '@mui/icons-material/SearchOff';
 import Box from '@mui/material/Box';
+
 import StyledGridOverlay from './StyledGridOverlay';
 
 function DataTableNoResultsOverlay(): JSX.Element {

@@ -1,8 +1,9 @@
-import { alpha, styled, darken } from '@mui/material/styles';
+import Chip from '@mui/material/Chip';
 import { yellow, red } from '@mui/material/colors';
+import { alpha, styled, darken } from '@mui/material/styles';
+
 import { generateBootstrapShadow } from 'utils/generateBootstapShadow';
 
-import Chip from '@mui/material/Chip';
 
 const properties: PropertyKey[] = [
 	'isPaydChip',

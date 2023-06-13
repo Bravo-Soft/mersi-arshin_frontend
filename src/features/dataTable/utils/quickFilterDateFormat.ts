@@ -1,6 +1,7 @@
 import type { GridCellParams, GridFilterItem } from '@mui/x-data-grid-pro';
-import { formatVariant } from 'constant/dateFormat';
 import { format } from 'date-fns';
+
+import { formatVariant } from 'constant/dateFormat';
 
 export const quickFilterDateFormat = (filterItem: GridFilterItem) => (params: GridCellParams) =>
 	params.value

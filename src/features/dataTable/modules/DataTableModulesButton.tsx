@@ -1,20 +1,23 @@
+import ExpandIcon from '@mui/icons-material/ExpandMore';
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import Tooltip from '@mui/material/Tooltip';
 import { useRef, useState, useEffect } from 'react';
-import { PrintMenuItem } from 'features/dataTable/modules/Printing';
-import { usePrefetch } from 'features/user/userApiSlice';
-import { useAppSelector } from 'hooks/redux';
-import { selectActualStep } from 'features/quickTour/components/quickTourSlice';
-
 import type { MouseEvent } from 'react';
 
-import Menu from '@mui/material/Menu';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import TemplateForm from './Templates/TemplateForm';
-import ExportMenuItem from './Export/ExportMenuItem';
-import ExpandIcon from '@mui/icons-material/ExpandMore';
-import TemplatesMenuItem from './Templates/TemplatesMenuItem';
-import NotificationsMenuItem from './Notifications/NotificationsMenuItem';
 import CreateVerificationScheduleMenuItem from './CreateVerificationSchedule/CreateVerificationScheduleMenuItem';
+import ExportMenuItem from './Export/ExportMenuItem';
+import NotificationsMenuItem from './Notifications/NotificationsMenuItem';
+import TemplateForm from './Templates/TemplateForm';
+import TemplatesMenuItem from './Templates/TemplatesMenuItem';
+
+import { PrintMenuItem } from 'features/dataTable/modules/Printing';
+import { selectActualStep } from 'features/quickTour/components/quickTourSlice';
+import { usePrefetch } from 'features/user/userApiSlice';
+import { useAppSelector } from 'hooks/redux';
+
+
+
 
 function DataTableModulesButton(): JSX.Element {
 	const [templateFormIsOpen, setTemplateFormIsOpen] = useState(false);

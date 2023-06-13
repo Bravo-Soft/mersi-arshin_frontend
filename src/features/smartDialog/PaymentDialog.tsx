@@ -1,8 +1,9 @@
 import Button from '@mui/material/Button';
-import Dialog from 'components/Dialog';
 
-import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { changeSmartDialogState, selectPaymentVariant } from './smartDialogSlice';
+
+import Dialog from 'components/Dialog';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
 
 function PaymentDialog(): JSX.Element {
 	const dispatch = useAppDispatch();

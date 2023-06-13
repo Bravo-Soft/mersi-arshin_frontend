@@ -1,37 +1,29 @@
-import { yellow } from '@mui/material/colors';
-import { Messages } from 'constant/messages';
-import { SidebarTitles } from 'constant/sidebarTitles';
-import {
-	// selectedPinnedRows,
-	selectSelectedDataItem,
-	selectSelectionModel,
-} from 'features/dataTable/dataTableSlice';
-import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
-import { selectUserId, selectUserPermissions, selectUserRoles } from 'features/user/userSlice';
-import { isValueDefined } from 'guards/isValueDefined';
-import { useAppDispatch, useAppSelector } from 'hooks/redux';
-
-import type { SvgIconProps } from '@mui/material/SvgIcon';
-import type { UseContextMenuActionsReturned } from 'features/dataTable/hooks/useContextMenuActions';
-import type { GridApiPro } from '@mui/x-data-grid-pro/models/gridApiPro';
-
-import CheckIcon from '@mui/icons-material/Check';
-import ListItemText from '@mui/material/ListItemText';
-import Menu from '@mui/material/Menu';
-import DeleteMenuItem from 'styled/DeleteMenuItem';
-import StyledMenuItem from 'styled/StyledMenuItem';
-// import ContextMenuPinItem from './ContextMenuPinItem';
-// import ContextMenuUnPinItem from './ContextMenuUnPinItem';
-
 import AttachFileIcon from '@mui/icons-material/AttachFile';
+import CheckIcon from '@mui/icons-material/Check';
 import CopyAllIcon from '@mui/icons-material/CopyAll';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import LockIcon from '@mui/icons-material/Lock';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
+import { yellow } from '@mui/material/colors';
 import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Menu from '@mui/material/Menu';
+import type { SvgIconProps } from '@mui/material/SvgIcon';
+import type { GridApiPro } from '@mui/x-data-grid-pro/models/gridApiPro';
+
+import { Messages } from 'constant/messages';
+import { SidebarTitles } from 'constant/sidebarTitles';
+import { selectSelectedDataItem, selectSelectionModel } from 'features/dataTable/dataTableSlice';
+import type { UseContextMenuActionsReturned } from 'features/dataTable/hooks/useContextMenuActions';
 import { selectActualStep, selectMenuStart } from 'features/quickTour/components/quickTourSlice';
+import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
+import { selectUserId, selectUserPermissions, selectUserRoles } from 'features/user/userSlice';
+import { isValueDefined } from 'guards/isValueDefined';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import DeleteMenuItem from 'styled/DeleteMenuItem';
+import StyledMenuItem from 'styled/StyledMenuItem';
 
 interface IMenuItem {
 	title: SidebarTitles | string;
@@ -44,17 +36,12 @@ interface IContextMenuProps extends UseContextMenuActionsReturned {
 	apiRef: React.MutableRefObject<GridApiPro>;
 }
 
-function ContextMenu({
-	contextMenu,
-	actionsOfContextMenu,
-	apiRef,
-}: IContextMenuProps): JSX.Element {
+function ContextMenu({ contextMenu, actionsOfContextMenu }: IContextMenuProps): JSX.Element {
 	const dispatch = useAppDispatch();
 
 	/* Селекторы */
 	const selectedDataItem = useAppSelector(selectSelectedDataItem);
 	const selectionModel = useAppSelector(selectSelectionModel);
-	// const pinningRows = useAppSelector(selectedPinnedRows);
 	const { isWriter, isAdmin } = useAppSelector(selectUserRoles);
 	const userId = useAppSelector(selectUserId);
 	const tourStartedIsMenu = useAppSelector(selectMenuStart);
@@ -62,19 +49,13 @@ function ContextMenu({
 
 	const isFavoriteRow =
 		isValueDefined(selectedDataItem) && userId && selectedDataItem.userIds.includes(userId);
-	// const isPinnedRow =
-	// 	isValueDefined(selectedDataItem) && pinningRows.includes(selectedDataItem.id);
 
 	const {
 		handleClose,
 		handleOpenEditDataItem,
-		handleOpenVerificateDataItem,
+		handleOpenVerificationDataItem,
 		handleOpenDeleteDialog,
 		handleOpenFilesOfDataItem,
-		// handlePinningRow,
-		// handlePinningManyRows,
-		// handleUnPinningRow,
-		// handleUnPinningManyRows,
 		handleAddToFavorite,
 		handleRemoveFromFavorite,
 		handleCopySelectedValues,
@@ -117,10 +98,10 @@ function ContextMenu({
 			action: handleOpenEditDataItem,
 		},
 		{
-			title: SidebarTitles.VERIFICATE_ITEM,
+			title: SidebarTitles.VERIFICATION_ITEM,
 			Icon: CheckIcon,
 			isActive: true,
-			action: handleOpenVerificateDataItem,
+			action: handleOpenVerificationDataItem,
 		},
 		{
 			title: SidebarTitles.ITEM_FILES,
@@ -188,19 +169,6 @@ function ContextMenu({
 					/>
 				</StyledMenuItem>
 			))}
-			{/* {!isPinnedRow ? (
-				<ContextMenuPinItem
-					handlePinningRow={handlePinningRow}
-					handlePinningManyRows={handlePinningManyRows}
-					apiRef={apiRef}
-				/>
-			) : (
-				<ContextMenuUnPinItem
-					handleUnPinningRow={handleUnPinningRow}
-					handleUnPinningManyRows={handleUnPinningManyRows}
-				/>
-			)} */}
-
 			{(isWriter || isAdmin) && (
 				<DeleteMenuItem onClick={handleOpenDeleteDialog}>
 					<ListItemIcon>

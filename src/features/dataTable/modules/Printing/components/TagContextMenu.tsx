@@ -1,17 +1,17 @@
-import { useState } from 'react';
-import { hideScrollbar } from 'utils/hideScrollbar';
-
-import type { ISortedTagItems } from '../utils/printingSort';
-import type { ICoordinates } from 'features/dataTable/hooks/useContextMenuActions';
-
+import SearchOffIcon from '@mui/icons-material/SearchOff';
 import Box from '@mui/material/Box';
+import ListItemText from '@mui/material/ListItemText';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Switch from '@mui/material/Switch';
 import TextField from '@mui/material/TextField';
-import ListItemText from '@mui/material/ListItemText';
-import SearchOffIcon from '@mui/icons-material/SearchOff';
 import Typography from '@mui/material/Typography';
+import { useState } from 'react';
+
+import type { ISortedTagItems } from '../utils/printingSort';
+
+import type { ICoordinates } from 'features/dataTable/hooks/useContextMenuActions';
+import { hideScrollbar } from 'utils/hideScrollbar';
 
 interface ITagContextMenuProps {
 	activeTag: ISortedTagItems;
@@ -41,13 +41,12 @@ function TagContextMenu({
 
 	const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => e.stopPropagation();
 
-	const handleClickContextMenu =
-		(idx: string, name: string) => (event: React.MouseEvent<HTMLElement>) => {
-			handleClickPrintingContextMenu(idx, name);
-			setRenderPrintingValue(prev =>
-				prev.map(e => (e.translatedKey === name ? { ...e, isVisible: !e.isVisible } : e))
-			);
-		};
+	const handleClickContextMenu = (idx: string, name: string) => () => {
+		handleClickPrintingContextMenu(idx, name);
+		setRenderPrintingValue(prev =>
+			prev.map(e => (e.translatedKey === name ? { ...e, isVisible: !e.isVisible } : e))
+		);
+	};
 
 	return (
 		<Menu

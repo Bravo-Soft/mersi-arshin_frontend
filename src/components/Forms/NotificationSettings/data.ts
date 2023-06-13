@@ -1,6 +1,7 @@
+import type { IColumnsFilters, IOperatorsFIlters } from './types';
+
 import { ColumnNames } from 'features/dataTable/columns';
 
-import type { IColumnsFilters, IOperatorsFIlters } from './types';
 
 export const operatorsFilters: IOperatorsFIlters = {
 	sizesFilters: [

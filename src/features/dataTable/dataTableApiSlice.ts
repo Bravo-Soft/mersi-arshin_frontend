@@ -1,11 +1,11 @@
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
-import type { IDataItem } from 'types/dataItem';
+import { enqueueSnackbar } from 'notistack';
 
 import { API } from 'app/api';
 import { apiSlice } from 'app/apiSlice';
 import { HttpCodes } from 'constant/httpCodes';
 import { Messages } from 'constant/messages';
-import { showNotification } from 'features/notificator/notificatorSlice';
+import type { IDataItem } from 'types/dataItem';
 
 export interface IGetAllDataResponse {
 	pagesCount: number;
@@ -46,84 +46,49 @@ export const dataTableApiSlice = apiSlice.injectEndpoints({
 				body,
 			}),
 			invalidatesTags: [{ type: 'Data', id: 'LIST' }],
-			onQueryStarted: async (_arg, { dispatch, queryFulfilled }) => {
+			onQueryStarted: async (_arg, { queryFulfilled }) => {
 				try {
 					await queryFulfilled;
-					dispatch(
-						showNotification({
-							message: Messages.ITEM_SUCCESSFULY_CREATED,
-							type: 'success',
-						})
-					);
+					enqueueSnackbar(Messages.ITEM_SUCCESSFULLY_CREATED, { variant: 'success' });
 				} catch {
-					dispatch(
-						showNotification({
-							message: Messages.FAILED_TO_SAVE_ITEM,
-							type: 'error',
-						})
-					);
+					enqueueSnackbar(Messages.FAILED_TO_SAVE_ITEM, { variant: 'error' });
 				}
 			},
 		}),
 
 		updateDataItem: builder.mutation<void, Omit<IDataItem, 'userIds'>>({
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			query: ({ id, documents, ...body }) => ({
 				url: `${API.data.default}/${id}`,
 				method: 'PUT',
 				body,
 			}),
 			invalidatesTags: (_result, _error, { id }) => [{ type: 'Data', id }],
-			onQueryStarted: async (_arg, { dispatch, queryFulfilled }) => {
+			onQueryStarted: async (_arg, { queryFulfilled }) => {
 				try {
 					await queryFulfilled;
-					dispatch(
-						showNotification({
-							message: Messages.DATA_ITEM_IS_UPDATED,
-							type: 'success',
-						})
-					);
+					enqueueSnackbar(Messages.DATA_ITEM_IS_UPDATED, { variant: 'success' });
 				} catch (error) {
 					const fetchError = error as FetchBaseQueryError;
 					switch (fetchError.status) {
 						case 'FETCH_ERROR':
-							dispatch(
-								showNotification({
-									message: Messages.ERROR_CONNECTION,
-									type: 'error',
-								})
-							);
+							enqueueSnackbar(Messages.ERROR_CONNECTION, { variant: 'error' });
 							break;
+
 						case HttpCodes.BAD_REQUEST:
-							dispatch(
-								showNotification({
-									message: Messages.INVALID_REQUEST_BODY,
-									type: 'error',
-								})
-							);
+							enqueueSnackbar(Messages.INVALID_REQUEST_BODY, { variant: 'error' });
 							break;
+
 						case HttpCodes.FORBIDDEN:
-							dispatch(
-								showNotification({
-									message: Messages.PERMISSIONS_ERROR,
-									type: 'error',
-								})
-							);
+							enqueueSnackbar(Messages.PERMISSIONS_ERROR, { variant: 'error' });
 							break;
+
 						case HttpCodes.NOT_FOUND:
-							dispatch(
-								showNotification({
-									message: Messages.ITEM_NOT_FOUND,
-									type: 'error',
-								})
-							);
+							enqueueSnackbar(Messages.ITEM_NOT_FOUND, { variant: 'error' });
 							break;
+
 						default:
-							dispatch(
-								showNotification({
-									message: Messages.SOMETHING_WRONG_ELSE,
-									type: 'error',
-								})
-							);
+							enqueueSnackbar(Messages.SOMETHING_WRONG_ELSE, { variant: 'error' });
 							break;
 					}
 				}
@@ -136,22 +101,12 @@ export const dataTableApiSlice = apiSlice.injectEndpoints({
 				method: 'DELETE',
 			}),
 			invalidatesTags: [{ type: 'Data', id: 'DELETE_ITEM' }],
-			onQueryStarted: async (_arg, { dispatch, queryFulfilled }) => {
+			onQueryStarted: async (_arg, { queryFulfilled }) => {
 				try {
 					await queryFulfilled;
-					dispatch(
-						showNotification({
-							message: Messages.ITEM_SUCCESSFULY_DELETED,
-							type: 'success',
-						})
-					);
+					enqueueSnackbar(Messages.ITEM_SUCCESSFULLY_DELETED, { variant: 'success' });
 				} catch {
-					dispatch(
-						showNotification({
-							message: Messages.FAILED_DELETE_ITEM,
-							type: 'error',
-						})
-					);
+					enqueueSnackbar(Messages.FAILED_DELETE_ITEM, { variant: 'error' });
 				}
 			},
 		}),

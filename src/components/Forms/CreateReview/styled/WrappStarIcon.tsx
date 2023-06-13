@@ -1,6 +1,6 @@
+import StarIcon from '@mui/icons-material/Star';
 import { styled } from '@mui/material/styles';
 
-import StarIcon from '@mui/icons-material/Star';
 
 const WrappStarIcon = styled(StarIcon)(({ theme }) => ({
 	fontSize: 40,

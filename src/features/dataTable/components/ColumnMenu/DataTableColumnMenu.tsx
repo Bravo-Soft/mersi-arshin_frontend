@@ -1,3 +1,7 @@
+import LockIcon from '@mui/icons-material/Lock';
+import Divider from '@mui/material/Divider';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
 import {
 	GridColumnMenuContainer,
 	GridColumnPinningMenuItems,
@@ -5,24 +9,18 @@ import {
 	HideGridColMenuItem,
 	SortGridMenuItems,
 } from '@mui/x-data-grid-pro';
+import type { GridColumnMenuProps } from '@mui/x-data-grid-pro';
+
 import { Messages } from 'constant/messages';
 import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
 import { selectUserPermissions } from 'features/user/userSlice';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
-
-import type { GridColumnMenuProps } from '@mui/x-data-grid-pro';
-
-import LockIcon from '@mui/icons-material/Lock';
-
-import Divider from '@mui/material/Divider';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import StyledMenuItem from 'styled/StyledMenuItem';
 
 function DataTableColumnMenu({
 	hideMenu,
 	currentColumn,
-	...othen
+	...other
 }: GridColumnMenuProps): JSX.Element {
 	const dispatch = useAppDispatch();
 	const { hidingColumns, columnPinning } = useAppSelector(selectUserPermissions);
@@ -39,11 +37,11 @@ function DataTableColumnMenu({
 
 	return (
 		<>
-			<GridColumnMenuContainer {...othen} hideMenu={hideMenu} currentColumn={currentColumn}>
-				<SortGridMenuItems onClick={hideMenu} column={currentColumn!} />
-				<GridFilterMenuItem onClick={hideMenu} column={currentColumn!} />
+			<GridColumnMenuContainer {...other} hideMenu={hideMenu} currentColumn={currentColumn}>
+				<SortGridMenuItems onClick={hideMenu} column={currentColumn} />
+				<GridFilterMenuItem onClick={hideMenu} column={currentColumn} />
 				{hidingColumns ? (
-					<HideGridColMenuItem onClick={hideMenu} column={currentColumn!} />
+					<HideGridColMenuItem onClick={hideMenu} column={currentColumn} />
 				) : (
 					<StyledMenuItem moduleIsActive={hidingColumns} onClick={handleOpenPaymentDialog}>
 						<ListItemIcon>
@@ -54,7 +52,7 @@ function DataTableColumnMenu({
 				)}
 				<Divider />
 				{columnPinning ? (
-					<GridColumnPinningMenuItems onClick={hideMenu} column={currentColumn!} />
+					<GridColumnPinningMenuItems onClick={hideMenu} column={currentColumn} />
 				) : (
 					['Закрепить слева', 'Закрепить справа'].map(title => (
 						<StyledMenuItem

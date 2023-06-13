@@ -1,30 +1,29 @@
+import AttachFileIcon from '@mui/icons-material/AttachFile';
+import CheckIcon from '@mui/icons-material/Check';
+import ContentPasteGoIcon from '@mui/icons-material/ContentPasteGo';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import LockIcon from '@mui/icons-material/Lock';
+import IconButton from '@mui/material/IconButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Tooltip from '@mui/material/Tooltip';
+import type { MouseEvent } from 'react';
+import { useState } from 'react';
+
+import type { SidebarPages } from '../sidebarSlice';
+import { selectSidebarStateOfHomePage } from '../sidebarSlice';
+
 import { Messages } from 'constant/messages';
 import { SidebarTitles } from 'constant/sidebarTitles';
 import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
 import { selectUserPermissions, selectUserRoles } from 'features/user/userSlice';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { useSidebarAction } from 'hooks/useSidebarActions';
-import { useState } from 'react';
-import { selectSidebarStateOfHomePage } from '../sidebarSlice';
-
-import type { MouseEvent } from 'react';
-import type { SidebarPages } from '../sidebarSlice';
-
-import AttachFileIcon from '@mui/icons-material/AttachFile';
-import CheckIcon from '@mui/icons-material/Check';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import ContentPasteGoIcon from '@mui/icons-material/ContentPasteGo';
-import LockIcon from '@mui/icons-material/Lock';
-
-import IconButton from '@mui/material/IconButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 import DeleteMenuItem from 'styled/DeleteMenuItem';
 import StyledMenuItem from 'styled/StyledMenuItem';
-import Tooltip from '@mui/material/Tooltip';
 
 interface IFormMenuProps {
 	page: SidebarPages;
@@ -111,7 +110,7 @@ function FormMenu({ page }: IFormMenuProps): JSX.Element | null {
 					<ListItemIcon>
 						<CheckIcon />
 					</ListItemIcon>
-					<ListItemText>{SidebarTitles.VERIFICATE_ITEM}</ListItemText>
+					<ListItemText>{SidebarTitles.VERIFICATION_ITEM}</ListItemText>
 				</MenuItem>
 				<StyledMenuItem
 					moduleIsActive={attachFiles}

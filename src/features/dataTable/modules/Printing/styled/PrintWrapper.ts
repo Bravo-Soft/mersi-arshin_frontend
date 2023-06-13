@@ -1,4 +1,5 @@
 import { styled } from '@mui/material/styles';
+
 import { sidebarWidth } from 'constant/sidebarWidth';
 
 interface IPrintWrapperProps {

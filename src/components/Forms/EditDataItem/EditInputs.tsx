@@ -1,16 +1,16 @@
-import { editFields } from '../fields';
-import { useAppSelector } from 'hooks/redux';
-import { useFormContext } from 'react-hook-form';
-import { useDateValidate } from 'hooks/useDateValidate';
-import { useFilterAutocomplete } from '../hooks/useAutocomplete';
-import { selectedVisibleColumns } from 'features/dataTable/dataTableSlice';
-
-import type { IDataItemWithDates } from 'types/dataItem';
-
 import Stack from '@mui/material/Stack';
+import { useFormContext } from 'react-hook-form';
+
+import { editFields } from '../fields';
+import { useFilterAutocomplete } from '../hooks/useAutocomplete';
+
+import AutocompleteField from 'components/AutocompleteField';
 import DateField from 'components/DateField';
 import SizeSelect from 'components/SizeSelect';
-import AutocompleteField from 'components/AutocompleteField';
+import { selectedVisibleColumns } from 'features/dataTable/dataTableSlice';
+import { useAppSelector } from 'hooks/redux';
+import { useDateValidate } from 'hooks/useDateValidate';
+import type { IDataItemWithDates } from 'types/dataItem';
 
 interface IEditInputsProps {
 	isReader: boolean;

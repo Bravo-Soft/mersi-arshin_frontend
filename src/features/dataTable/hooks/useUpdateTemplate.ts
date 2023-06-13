@@ -1,18 +1,16 @@
 import type { GridApiPro } from '@mui/x-data-grid-pro/models/gridApiPro';
+import { enqueueSnackbar } from 'notistack';
 import type { MutableRefObject } from 'react';
 
-import { useAppDispatch } from 'hooks/redux';
-import { useDebounce } from 'hooks/useDebounce';
 import {
 	useFetchSelectedTemplateQuery,
 	useUpdateSelectedTemplateMutation,
 } from '../modules/Templates/templatesApiSlice';
-import { showNotification } from 'features/notificator/notificatorSlice';
+
 import { Messages } from 'constant/messages';
+import { useDebounce } from 'hooks/useDebounce';
 
 export const useUpdateTemplate = (apiRef: MutableRefObject<GridApiPro>) => {
-	const dispatch = useAppDispatch();
-
 	const [updateSelectedConfig] = useUpdateSelectedTemplateMutation();
 	const { data: currentConfig } = useFetchSelectedTemplateQuery();
 
@@ -24,12 +22,7 @@ export const useUpdateTemplate = (apiRef: MutableRefObject<GridApiPro>) => {
 				try {
 					await updateSelectedConfig({ template: newTemplate });
 				} catch {
-					dispatch(
-						showNotification({
-							message: Messages.FAILED_TO_SAVE_TEMPLATE,
-							type: 'error',
-						})
-					);
+					enqueueSnackbar(Messages.FAILED_TO_SAVE_TEMPLATE, { variant: 'error' });
 				}
 			}
 		}

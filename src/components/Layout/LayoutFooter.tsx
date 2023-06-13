@@ -1,6 +1,5 @@
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-
 import { getYear } from 'date-fns';
 
 function LayoutFooter(): JSX.Element {

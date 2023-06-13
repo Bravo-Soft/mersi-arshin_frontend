@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type { GridApiPro } from '@mui/x-data-grid-pro/models/gridApiPro';
 import type { MutableRefObject } from 'react';
+import { useEffect, useRef } from 'react';
+
+import { useFetchSelectedTemplateQuery } from '../modules/Templates/templatesApiSlice';
 
 import { useAppDispatch } from 'hooks/redux';
-import { useEffect, useRef } from 'react';
 import { parseTemplate } from 'utils/templateUtils';
-import { useFetchSelectedTemplateQuery } from '../modules/Templates/templatesApiSlice';
+
 
 export const useApplySelectedTemplate = (apiRef: MutableRefObject<GridApiPro>) => {
 	const isApplyed = useRef(false);

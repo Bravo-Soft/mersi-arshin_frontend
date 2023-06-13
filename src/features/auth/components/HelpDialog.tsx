@@ -1,13 +1,14 @@
-import { useState } from 'react';
-import { useTheme } from '@mui/material/styles';
 
 import HelpIcon from '@mui/icons-material/Help';
-
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
-import Dialog from 'components/Dialog';
 import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import { useTheme } from '@mui/material/styles';
+import Tooltip from '@mui/material/Tooltip';
+import { useState } from 'react';
+
 import HelpInfo from './HelpInfo';
+
+import Dialog from 'components/Dialog';
 
 function HelpDialog(): JSX.Element {
 	const [open, setOpen] = useState(false);

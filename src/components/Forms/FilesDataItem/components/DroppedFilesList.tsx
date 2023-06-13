@@ -1,10 +1,7 @@
-import type { MouseEvent } from 'react';
 
-import { convertFileSize } from '../convertFileSize';
 
 import CloudIcon from '@mui/icons-material/Cloud';
 import DeleteIcon from '@mui/icons-material/Delete';
-
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -14,6 +11,9 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
+import type { MouseEvent } from 'react';
+
+import { convertFileSize } from '../convertFileSize';
 
 interface IDroppedFilesListProps {
 	files: File[];

@@ -1,9 +1,11 @@
 import type { DrawerProps } from '@mui/material/Drawer';
-import type { SidebarTitles } from 'constant/sidebarTitles';
-import type { SidebarSelectors } from '../sidebarSlice';
 
+import type { SidebarSelectors } from '../sidebarSlice';
 import StyledDrawer from '../StyledDrawer';
+
 import SidebarHeader from './SidebarHeader';
+
+import type { SidebarTitles } from 'constant/sidebarTitles';
 
 type Component = () => JSX.Element;
 

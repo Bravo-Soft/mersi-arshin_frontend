@@ -1,9 +1,10 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+
 import type { RootState } from 'app/store';
+import { Role } from 'constant/roles';
 import type { IGroup } from 'types/group';
 
-import { createSlice } from '@reduxjs/toolkit';
-import { Role } from 'constant/roles';
 
 interface IUserState {
 	id: string | null;

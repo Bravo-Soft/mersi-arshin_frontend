@@ -1,19 +1,16 @@
-/* eslint-disable no-console */
-import { alpha, useTheme } from '@mui/material/styles';
-import { memo, useEffect, useRef, useState } from 'react';
-import { z } from 'zod';
-
-import type { GridRenderCellParams } from '@mui/x-data-grid';
-
+import Link from '@mui/icons-material/Link';
 import Box from '@mui/material/Box';
 import Fade from '@mui/material/Fade';
+import IconButton from '@mui/material/IconButton';
 import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
-import Typography from '@mui/material/Typography';
-import Link from '@mui/icons-material/Link';
-import Tooltip from '@mui/material/Tooltip';
-import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
+import { alpha, useTheme } from '@mui/material/styles';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import type { GridRenderCellParams } from '@mui/x-data-grid';
+import { memo, useEffect, useRef, useState } from 'react';
+import { z } from 'zod';
 
 const stringIsUrl = (value: string) => {
 	return z.string().url().safeParse(value).success;
@@ -30,7 +27,10 @@ const extractLinks = (value: string) => {
 	return value.split(' ').filter(substr => stringIsUrl(substr));
 };
 
-const isOverflown = (element: Element) => {
+const isOverflown = (element: Element | null) => {
+	if (!element) {
+		return false;
+	}
 	return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
 };
 
@@ -53,7 +53,7 @@ const GridCellExpand = memo((props: GridCellExpandProps) => {
 
 	/* Обработчики */
 	const handleMouseEnter = () => {
-		const isCurrentlyOverflown = isOverflown(cellValue.current!);
+		const isCurrentlyOverflown = isOverflown(cellValue.current);
 		setShowPopper(isCurrentlyOverflown);
 		setAnchorEl(cellDiv.current);
 		setShowFullCell(true);

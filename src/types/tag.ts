@@ -1,5 +1,6 @@
-import type { Tag } from 'constant/tag';
 import type { IDataItem } from './dataItem';
+
+import type { Tag } from 'constant/tag';
 
 export type DataItemKeys = keyof Omit<IDataItem, 'id' | 'size' | 'documents' | 'notes'>;
 

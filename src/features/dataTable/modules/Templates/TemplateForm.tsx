@@ -1,18 +1,19 @@
-import { useGridApiContext } from '@mui/x-data-grid-pro';
-import { Messages } from 'constant/messages';
-import { showNotification } from 'features/notificator/notificatorSlice';
-import { useAppDispatch } from 'hooks/redux';
-import { useForm } from 'react-hook-form';
-import { useCreateNewTemplateMutation } from './templatesApiSlice';
 
-import type { PopoverProps } from '@mui/material/Popover';
-import type { ITemplateСonfig } from 'types/template';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import type { PopoverProps } from '@mui/material/Popover';
 import Popover from '@mui/material/Popover';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
+import { useGridApiContext } from '@mui/x-data-grid-pro';
+import { enqueueSnackbar } from 'notistack';
+import { useForm } from 'react-hook-form';
+
+import { useCreateNewTemplateMutation } from './templatesApiSlice';
+
+import { Messages } from 'constant/messages';
+import type { ITemplateConfig } from 'types/template';
 
 interface ITemplateFormProps
 	extends Omit<
@@ -23,8 +24,7 @@ interface ITemplateFormProps
 }
 
 function TemplateForm(props: ITemplateFormProps): JSX.Element {
-	const { onClose, ...othen } = props;
-	const dispatch = useAppDispatch();
+	const { onClose, ...other } = props;
 
 	const apiRef = useGridApiContext();
 	const {
@@ -33,30 +33,20 @@ function TemplateForm(props: ITemplateFormProps): JSX.Element {
 		reset,
 		formState: { errors },
 		watch,
-	} = useForm<Pick<ITemplateСonfig, 'templateName'>>();
+	} = useForm<Pick<ITemplateConfig, 'templateName'>>();
 
 	const [createNewTemplate] = useCreateNewTemplateMutation();
 
-	const isEmpty = !Boolean(watch('templateName'));
+	const isEmpty = !watch('templateName');
 
 	const onSubmit = handleSubmit(async data => {
 		try {
-			await createNewTemplate(data);
-			dispatch(
-				showNotification({
-					message: Messages.THE_TEMPLATE_WAS_CREATED_SUCCESSFULLY,
-					type: 'success',
-				})
-			);
+			await createNewTemplate(data).unwrap();
+			enqueueSnackbar(Messages.THE_TEMPLATE_WAS_CREATED_SUCCESSFULLY, { variant: 'success' });
 			reset();
 			onClose();
 		} catch {
-			dispatch(
-				showNotification({
-					message: Messages.FAILED_TO_SAVE_TEMPLATE,
-					type: 'error',
-				})
-			);
+			enqueueSnackbar(Messages.FAILED_TO_SAVE_TEMPLATE, { variant: 'error' });
 		}
 	});
 
@@ -66,7 +56,7 @@ function TemplateForm(props: ITemplateFormProps): JSX.Element {
 
 	return (
 		<Popover
-			{...othen}
+			{...other}
 			onClose={onClose}
 			anchorEl={apiRef.current.windowRef?.current}
 			PaperProps={{ sx: { p: 1, minWidth: 300, m: '0 auto' } }}

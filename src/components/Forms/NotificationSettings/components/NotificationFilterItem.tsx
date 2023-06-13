@@ -1,27 +1,28 @@
-import { useState } from 'react';
-import { maxDate, minDate } from 'constant/dateMasks';
-import { Controller, useFormContext } from 'react-hook-form';
-import { DatePicker } from '@mui/x-date-pickers';
-import { columnsFilters, linkOperators, operatorsFilters } from '../data';
-import { useNotificationFormActions } from '../hooks/useNotificationFormActions';
-import { Tag } from 'constant/tag';
-
-import type { Control } from 'react-hook-form';
-import type { FormFiltersTypes } from '../types';
-import type { ControllerRenderProps } from 'react-hook-form';
-import type { SelectChangeEvent } from '@mui/material/Select';
-import type { INotificationSettings } from 'types/notification';
-
+import CloseIcon from '@mui/icons-material/Close';
+import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
+import MenuItem from '@mui/material/MenuItem';
+import type { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
+import { DatePicker } from '@mui/x-date-pickers';
+import { useState } from 'react';
+import { Controller, useFormContext } from 'react-hook-form';
+import type { Control } from 'react-hook-form';
+import type { ControllerRenderProps } from 'react-hook-form';
 
-import CloseIcon from '@mui/icons-material/Close';
+import { columnsFilters, linkOperators, operatorsFilters } from '../data';
+import { useNotificationFormActions } from '../hooks/useNotificationFormActions';
+import type { FormFiltersTypes } from '../types';
+
+
+import { maxDate, minDate } from 'constant/dateMasks';
+import { Tag } from 'constant/tag';
+import type { INotificationSettings } from 'types/notification';
+
 
 interface INotificationFilterItemProps {
 	index: number;

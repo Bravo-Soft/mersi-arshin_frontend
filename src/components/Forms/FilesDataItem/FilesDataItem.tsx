@@ -1,23 +1,25 @@
-import { selectSelectedDataItem } from 'features/dataTable/dataTableSlice';
-import { selectSidebarStateOfHomePage } from 'features/sidebar/sidebarSlice';
-import { selectUserPermissions, selectUserRoles } from 'features/user/userSlice';
-import { useAppSelector } from 'hooks/redux';
-import { useEffect, useState } from 'react';
-import { convertFileSize } from './convertFileSize';
-import { useUpdateSelectedDataItem } from 'hooks/useUpdateSelectedDataItem';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import ButtonContainer from 'styled/ButtonContainer';
-import FormContainer from 'styled/FormContainer';
+import { useEffect, useState } from 'react';
+
 import ActionButtons from './components/ActionButtons';
 import DroppedFilesList from './components/DroppedFilesList';
 import FilesList from './components/FilesList';
 import HelperDialog from './components/HelperDialog';
 import SpaceNotification from './components/SpaceNotification';
+import { convertFileSize } from './convertFileSize';
 import useValidateFileForm from './hooks/useDropZoneActions';
 import DropZone from './styled/DropZone';
+
+import { selectSelectedDataItem } from 'features/dataTable/dataTableSlice';
+import { selectSidebarStateOfHomePage } from 'features/sidebar/sidebarSlice';
+import { selectUserPermissions, selectUserRoles } from 'features/user/userSlice';
+import { useAppSelector } from 'hooks/redux';
+import { useUpdateSelectedDataItem } from 'hooks/useUpdateSelectedDataItem';
+import ButtonContainer from 'styled/ButtonContainer';
+import FormContainer from 'styled/FormContainer';
 
 function FilesDataItem(): JSX.Element {
 	/* Состояние файлов */

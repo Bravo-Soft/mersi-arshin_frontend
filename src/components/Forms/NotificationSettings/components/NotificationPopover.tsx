@@ -1,14 +1,15 @@
-import { columnsFilters, operatorsFilters } from '../data';
+import AddIcon from '@mui/icons-material/Add';
+import Alert from '@mui/material/Alert';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import { useFieldArray, useFormContext } from 'react-hook-form';
+
+import { columnsFilters, operatorsFilters } from '../data';
+
+import NotificationFilterItem from './NotificationFilterItem';
 
 import type { INotificationSettings } from 'types/notification';
 
-import Box from '@mui/material/Box';
-import Alert from '@mui/material/Alert';
-import Button from '@mui/material/Button';
-import NotificationFilterItem from './NotificationFilterItem';
-
-import AddIcon from '@mui/icons-material/Add';
 
 interface INotificationPopover {
 	index: number;

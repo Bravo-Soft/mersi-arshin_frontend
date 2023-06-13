@@ -1,17 +1,18 @@
 import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
-import type { RootState } from './store';
-import type { IAuthResponse as IReauthResponse } from 'types/authResponse';
-
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { Mutex } from 'async-mutex';
+import { enqueueSnackbar } from 'notistack';
+
+import { API } from './api';
+import type { RootState } from './store';
+
+import { BASE_URL } from 'constant/baseUrl';
 import { HttpCodes } from 'constant/httpCodes';
 import { Messages } from 'constant/messages';
-import { resetCredentionals, setCredentionals } from 'features/auth/authSlice';
-import { showNotification } from 'features/notificator/notificatorSlice';
-import { API } from './api';
-import { BASE_URL } from 'constant/baseUrl';
+import { resetCredentials, setCredentials } from 'features/auth/authSlice';
+import type { IAuthResponse as IReauthResponse } from 'types/authResponse';
 
-const exeptionEndpoints = ['updatePhoto', 'uploadFile'];
+const exceptionEndpoints = ['updatePhoto', 'uploadFile'];
 
 const baseQuery = fetchBaseQuery({
 	baseUrl: BASE_URL,
@@ -23,7 +24,7 @@ const baseQuery = fetchBaseQuery({
 			headers.set('authorization', `Bearer ${token}`);
 		}
 
-		if (exeptionEndpoints.includes(endpoint)) {
+		if (exceptionEndpoints.includes(endpoint)) {
 			return headers;
 		}
 
@@ -52,25 +53,15 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
 					extraOptions
 				);
 				if (refreshResult.data) {
-					api.dispatch(setCredentionals(refreshResult.data as IReauthResponse));
+					api.dispatch(setCredentials(refreshResult.data as IReauthResponse));
 					result = await baseQuery(args, api, extraOptions);
 				} else {
 					if (refreshResult.error?.status === HttpCodes.UNAUTHORZED) {
-						api.dispatch(
-							showNotification({
-								message: Messages.AUTHORIZATION_TIMEOUT,
-								type: 'error',
-							})
-						);
+						enqueueSnackbar(Messages.AUTHORIZATION_TIMEOUT, { variant: 'error' });
 					} else if (refreshResult.error?.status === 'FETCH_ERROR') {
-						api.dispatch(
-							showNotification({
-								message: Messages.ERROR_CONNECTION,
-								type: 'error',
-							})
-						);
+						enqueueSnackbar(Messages.ERROR_CONNECTION, { variant: 'error' });
 					}
-					api.dispatch(resetCredentionals());
+					api.dispatch(resetCredentials());
 				}
 			} finally {
 				release();
@@ -96,5 +87,5 @@ export const apiSlice = createApi({
 		'Favorites',
 		'PrintSettings',
 	],
-	endpoints: _ => ({}),
+	endpoints: () => ({}),
 });

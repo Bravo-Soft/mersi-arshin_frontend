@@ -1,9 +1,9 @@
+import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
+
 import { hideScrollbar } from 'utils/hideScrollbar';
 
-import Box from '@mui/material/Box';
-
-const StyledTagList = styled(Box)(({ theme }) => ({
+const StyledTagList = styled(Box)({
 	overflow: 'auto',
 	height: '100%',
 	padding: '10px 0',
@@ -19,6 +19,6 @@ const StyledTagList = styled(Box)(({ theme }) => ({
 		boxSizing: 'border-box',
 		padding: 0,
 	},
-}));
+});
 
 export default StyledTagList;

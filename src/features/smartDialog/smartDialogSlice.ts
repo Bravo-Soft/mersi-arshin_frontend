@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Messages } from 'constant/messages';
-
 import type { PayloadAction } from '@reduxjs/toolkit';
+
 import type { RootState } from 'app/store';
+import { Messages } from 'constant/messages';
 
 export type SmartDialogVariants = 'payment' | 'deleting';
 
@@ -11,7 +11,7 @@ interface ISmartDialogOptions {
 	content: Messages;
 }
 
-interface ISmartDialogState extends Record<SmartDialogVariants, ISmartDialogOptions> {}
+type ISmartDialogState = Record<SmartDialogVariants, ISmartDialogOptions>
 
 interface IChangeSmartDialogAction extends Omit<ISmartDialogOptions, 'content'> {
 	content?: Messages;

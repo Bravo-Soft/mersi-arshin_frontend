@@ -1,9 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { authApiSlice } from './authApiSlice';
-
 import type { PayloadAction } from '@reduxjs/toolkit';
-import type { RootState } from 'app/store';
+
+import { authApiSlice } from './authApiSlice';
 import type { IAuthResponse } from './authApiSlice';
+
+import type { RootState } from 'app/store';
+
 
 interface IAuthState {
 	token: string | null;
@@ -17,10 +19,10 @@ const authSlice = createSlice({
 	name: 'auth',
 	initialState,
 	reducers: {
-		setCredentionals: (state, action: PayloadAction<IAuthResponse>) => {
+		setCredentials: (state, action: PayloadAction<IAuthResponse>) => {
 			state.token = action.payload.accessToken;
 		},
-		resetCredentionals: () => initialState,
+		resetCredentials: () => initialState,
 	},
 	extraReducers(builder) {
 		builder.addMatcher(authApiSlice.endpoints.initSession.matchFulfilled, (state, action) => {
@@ -31,6 +33,6 @@ const authSlice = createSlice({
 
 export const selectToken = (state: RootState) => state.auth.token;
 
-export const { setCredentionals, resetCredentionals } = authSlice.actions;
+export const { setCredentials, resetCredentials } = authSlice.actions;
 export const authReducer = authSlice.reducer;
 export const authPath = authSlice.name;

@@ -1,5 +1,6 @@
 import { styled } from '@mui/material/styles';
 import { GridToolbarQuickFilter } from '@mui/x-data-grid-pro';
+
 import { generateBootstrapShadow } from 'utils/generateBootstapShadow';
 
 const StyledGridToolbarQuickFilter = styled(GridToolbarQuickFilter)(({ theme }) => ({

@@ -1,8 +1,9 @@
-import { useGetAllDataQuery } from 'features/dataTable/dataTableApiSlice';
-import { setSelectedDataItem } from 'features/dataTable/dataTableSlice';
 import { useEffect, useMemo } from 'react';
+
 import { useAppDispatch } from './redux';
 
+import { useGetAllDataQuery } from 'features/dataTable/dataTableApiSlice';
+import { setSelectedDataItem } from 'features/dataTable/dataTableSlice';
 import type { IDataItem } from 'types/dataItem';
 
 export const useUpdateSelectedDataItem = (selectedDataItem: IDataItem | null) => {

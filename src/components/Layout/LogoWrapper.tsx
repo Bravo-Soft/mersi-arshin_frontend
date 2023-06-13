@@ -1,9 +1,8 @@
 import Box from '@mui/material/Box';
-import { AppRoutes } from 'constant/appRoutes';
-
 import type { PropsWithChildren } from 'react';
-
 import { useNavigate } from 'react-router-dom';
+
+import { AppRoutes } from 'constant/appRoutes';
 
 function LogoWrapper({ children }: PropsWithChildren): JSX.Element {
 	const navigate = useNavigate();

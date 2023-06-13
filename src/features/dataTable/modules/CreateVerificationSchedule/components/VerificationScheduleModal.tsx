@@ -1,14 +1,17 @@
-import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import Dialog from '@mui/material/Dialog';
+import type { GridApiPro } from '@mui/x-data-grid-pro/models/gridApiPro';
+import type { MutableRefObject } from 'react';
+
+import VerificationForm from './VerificationForm';
+
 import {
 	selectedIsOpenedVerificationScheduleModal,
 	setVerificationScheduleModal,
 } from 'features/dataTable/dataTableSlice';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
 
-import type { MutableRefObject } from 'react';
-import type { GridApiPro } from '@mui/x-data-grid-pro/models/gridApiPro';
 
-import VerificationForm from './VerificationForm';
-import Dialog from '@mui/material/Dialog';
+
 
 interface IPopupVerificationScheduleModalProps {
 	apiRef: MutableRefObject<GridApiPro>;

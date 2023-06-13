@@ -1,4 +1,5 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
+
 import type { AppDispatch } from 'app/store';
 
 type ArrayOfActions<T> = Array<() => PayloadAction<T>>;

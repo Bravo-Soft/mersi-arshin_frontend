@@ -1,14 +1,17 @@
+
+
+import Box from '@mui/material/Box';
+import Collapse from '@mui/material/Collapse';
+import List from '@mui/material/List';
+import Typography from '@mui/material/Typography';
 import { TransitionGroup } from 'react-transition-group';
 
-import type { Rename } from 'types/rename';
-import type { IDataItem, IDocument } from 'types/dataItem';
+import FilesListStyledWrapper from '../styled/FilesListStyledWrapper';
 
 import FileItem from './FileItem';
-import Box from '@mui/material/Box';
-import List from '@mui/material/List';
-import Collapse from '@mui/material/Collapse';
-import Typography from '@mui/material/Typography';
-import FilesListStyledWrapper from '../styled/FilesListStyledWrapper';
+
+import type { IDataItem, IDocument } from 'types/dataItem';
+import type { Rename } from 'types/rename';
 
 interface IFilesListProps extends Partial<Rename<Pick<IDataItem, 'id'>, 'id', 'itemId'>> {
 	documents: IDocument[];

@@ -1,10 +1,10 @@
+import { Autocomplete, TextField } from '@mui/material';
 import { Controller } from 'react-hook-form';
 import { useFormContext } from 'react-hook-form';
-import { Autocomplete, TextField } from '@mui/material';
 
-import type { IDataItemWithDates } from 'types/dataItem';
-import type { ColumnNames } from 'features/dataTable/columns';
 import type { AutocompleteKeysType } from 'components/Forms/hooks/useAutocomplete';
+import type { ColumnNames } from 'features/dataTable/columns';
+import type { IDataItemWithDates } from 'types/dataItem';
 
 interface IAutocompleteFieldsProps {
 	label: ColumnNames;

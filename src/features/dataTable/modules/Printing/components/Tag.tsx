@@ -1,13 +1,15 @@
+import Tooltip from '@mui/material/Tooltip';
 import { useRef } from 'react';
-import { filterSize } from '../utils/sizesConvert';
-import { useGetUserPrintSettingsQuery } from 'features/user/userApiSlice';
 
 import type { ISortedTagItems } from '../utils/printingSort';
+import { filterSize } from '../utils/sizesConvert';
+
+import PrintingTagParams from './PrintingTagParams';
+
+import { useGetUserPrintSettingsQuery } from 'features/user/userApiSlice';
+import StyledPrintingTag from 'styled/StyledPrintingTag';
 import type { IPrintSettings } from 'types/printSettings';
 
-import Tooltip from '@mui/material/Tooltip';
-import StyledPrintingTag from 'styled/StyledPrintingTag';
-import PrintingTagParams from './PrintingTagParams';
 
 interface IPrintingTagProps {
 	tag: ISortedTagItems;

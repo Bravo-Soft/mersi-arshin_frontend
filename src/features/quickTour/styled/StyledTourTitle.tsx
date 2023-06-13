@@ -1,7 +1,5 @@
 import { styled } from '@mui/material/styles';
-
 import type { TypographyProps } from '@mui/material/Typography';
-
 import Typography from '@mui/material/Typography';
 
 //Стилизованный компонент заголовка  в туре

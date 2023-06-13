@@ -1,8 +1,8 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
-import type { RootState } from 'app/store';
-
 import { createSelector } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
+
+import type { RootState } from 'app/store';
 
 export type SidebarSelectors =
 	| 'CreateDataItem'
@@ -21,7 +21,7 @@ export interface ISidebarOptions {
 	selector: SidebarSelectors;
 }
 
-export interface ISidebarState extends Record<SidebarPages, ISidebarOptions> {}
+export type ISidebarState = Record<SidebarPages, ISidebarOptions>
 
 const initialState: ISidebarState = {
 	home: {

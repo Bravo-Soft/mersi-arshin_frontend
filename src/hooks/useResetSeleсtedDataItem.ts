@@ -1,9 +1,10 @@
-import { resetSelectedDataItem } from 'features/dataTable/dataTableSlice';
-import { isFormSelector } from 'guards/isFormSelector';
 import { useEffect } from 'react';
+
 import { useAppDispatch } from './redux';
 
+import { resetSelectedDataItem } from 'features/dataTable/dataTableSlice';
 import type { SidebarSelectors } from 'features/sidebar/sidebarSlice';
+import { isFormSelector } from 'guards/isFormSelector';
 
 /**
  * Простой хук, который следит за состоянием сайдбара и сбрасывает выбранную строку, если состояние удовлетворяет некоторым требованиям

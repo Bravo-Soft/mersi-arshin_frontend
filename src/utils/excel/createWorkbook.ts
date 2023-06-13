@@ -1,12 +1,12 @@
 import { Workbook } from 'exceljs';
+
 import { applyAlignTitles } from './applyAlignTitles';
 import { applyAutoWidthColumns } from './applyAutoWidthColumns';
-import { applyFillColumnHeader } from './applyFillColumnHeader';
 import { applyBoldFontForTitles } from './applyBoldFontForColumnTitles';
 import { applyBorderBottomFormColumnHeader } from './applyBorderBottomFormColumnHeader';
+import { applyFillColumnHeader } from './applyFillColumnHeader';
 import { applyOuterBorder } from './applyOuterBorder';
 import { applyPinFirstColumnsRow } from './applyPinFirstRow';
-
 import type { IColumn, IExcelConfig } from './types';
 
 /**

@@ -1,5 +1,4 @@
 import type { Palette, Theme } from '@mui/material/styles';
-
 import { alpha } from '@mui/material/styles';
 
 type SelectedPaletteKeys = keyof Pick<

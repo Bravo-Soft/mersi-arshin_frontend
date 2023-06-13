@@ -1,17 +1,17 @@
-import { Messages } from 'constant/messages';
-import { selectUserPermissions } from 'features/user/userSlice';
-import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
-import { setVerificationScheduleModal } from 'features/dataTable/dataTableSlice';
+import AddchartIcon from '@mui/icons-material/Addchart';
+import LockIcon from '@mui/icons-material/Lock';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
 
 import type { IModuleMenuItemProps } from '../moduleMenuItem';
 
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
+import { Messages } from 'constant/messages';
+import { setVerificationScheduleModal } from 'features/dataTable/dataTableSlice';
+import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
+import { selectUserPermissions } from 'features/user/userSlice';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import StyledMenuItem from 'styled/StyledMenuItem';
 
-import AddchartIcon from '@mui/icons-material/Addchart';
-import LockIcon from '@mui/icons-material/Lock';
 
 function CreateVerificationScheduleMenuItem({
 	onCloseMenu,

@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
-
+import FilterListIcon from '@mui/icons-material/FilterList';
 import Badge from '@mui/material/Badge';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
+import { useEffect, useState } from 'react';
 
-import FilterListIcon from '@mui/icons-material/FilterList';
 interface INotificationAddButtonProps {
 	index: number;
 	watchEmailFilters: number;

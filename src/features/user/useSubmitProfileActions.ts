@@ -1,18 +1,16 @@
+import { enqueueSnackbar } from 'notistack';
+
+import { useUpdateUserProfileMutation } from './userApiSlice';
+
 import { Messages } from 'constant/messages';
-import { showNotification } from 'features/notificator/notificatorSlice';
 import {
 	useDeletePhotoMutation,
 	useGetPhotoQuery,
 	useUpdatePhotoMutation,
 } from 'features/photo/photoApiSlice';
-import { useAppDispatch } from 'hooks/redux';
-import { useUpdateUserProfileMutation } from './userApiSlice';
-
 import type { IProfile } from 'types/profile';
 
 export const useSubmitProfileActions = (file: File | null, isDirty: boolean) => {
-	const dispatch = useAppDispatch();
-
 	const [updateUserProfile, { isLoading: isUserProfileLoading }] = useUpdateUserProfileMutation();
 	const [updatePhoto] = useUpdatePhotoMutation();
 	const [resetPhoto] = useDeletePhotoMutation();
@@ -28,19 +26,9 @@ export const useSubmitProfileActions = (file: File | null, isDirty: boolean) => 
 	const submitProfile = async (data: IProfile) => {
 		try {
 			await updateUserProfile(data).unwrap();
-			dispatch(
-				showNotification({
-					message: Messages.USER_PROFILE_SUCCESSFULY_UPDATED,
-					type: 'success',
-				})
-			);
+			enqueueSnackbar(Messages.USER_PROFILE_SUCCESSFULLY_UPDATED, { variant: 'success' });
 		} catch {
-			dispatch(
-				showNotification({
-					message: Messages.FAILED_TO_UPDATE_PROFILE,
-					type: 'error',
-				})
-			);
+			enqueueSnackbar(Messages.FAILED_TO_UPDATE_PROFILE, { variant: 'error' });
 		}
 	};
 

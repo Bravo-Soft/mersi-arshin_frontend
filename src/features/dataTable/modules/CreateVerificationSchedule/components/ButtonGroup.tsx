@@ -1,15 +1,16 @@
-import { useAnchor, useDownloadVerification } from './utils/hooks';
-import { useFormContext } from 'react-hook-form';
-import { checkIsDisabledBtn } from './utils/helpers';
-
-import type { GridApiPro } from '@mui/x-data-grid-pro/models/gridApiPro';
-import type { MutableRefObject } from 'react';
-import type { IForm } from '../operatorsFilters';
-
 import Button from '@mui/material/Button';
+import DialogActions from '@mui/material/DialogActions';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import DialogActions from '@mui/material/DialogActions';
+import type { GridApiPro } from '@mui/x-data-grid-pro/models/gridApiPro';
+import type { MutableRefObject } from 'react';
+import { useFormContext } from 'react-hook-form';
+
+import type { IForm } from '../operatorsFilters';
+
+import { checkIsDisabledBtn } from './utils/helpers';
+import { useAnchor, useDownloadVerification } from './utils/hooks';
+
 interface IButtonGroupProps {
 	apiRef: MutableRefObject<GridApiPro>;
 }

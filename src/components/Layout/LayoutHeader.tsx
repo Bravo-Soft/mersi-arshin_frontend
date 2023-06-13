@@ -1,11 +1,12 @@
 import AppBar from '@mui/material/AppBar';
+import { useTheme } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+
 import LayoutAccountCircle from './LayoutAccountCircle';
 import LayoutLogo from './LayoutLogo';
 import LogoWrapper from './LogoWrapper';
 
-import { useTheme } from '@mui/material/styles';
 
 interface ILayoutHeaderProps {
 	setOpenModal: (arg: boolean) => void;

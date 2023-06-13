@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
-
 import { styled } from '@mui/material/styles';
+
 import { hideScrollbar } from 'utils/hideScrollbar';
 
 const FilesListStyledWrapper = styled(Box)(({ theme }) => ({

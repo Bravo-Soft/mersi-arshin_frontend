@@ -1,3 +1,4 @@
+import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 import {
 	GridFooterContainer,
@@ -6,13 +7,17 @@ import {
 	useGridApiContext,
 	useGridSelector,
 } from '@mui/x-data-grid-pro';
+
+import StyledGridPagination from '../styled/StyledGridPagination';
+
+import DataTableAddAction from './DataTableAddAction';
+
+import { selectActualStartTour } from 'features/quickTour/components/quickTourSlice';
 import { selectUserRoles } from 'features/user/userSlice';
 import { useAppSelector } from 'hooks/redux';
 
-import Box from '@mui/material/Box';
-import DataTableAddAction from './DataTableAddAction';
-import StyledGridPagination from '../styled/StyledGridPagination';
-import { selectActualStartTour } from 'features/quickTour/components/quickTourSlice';
+
+
 
 function DataTableFooter(): JSX.Element {
 	const { isWriter, isAdmin } = useAppSelector(selectUserRoles);

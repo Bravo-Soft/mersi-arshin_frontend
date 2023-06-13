@@ -1,17 +1,21 @@
 import { useState } from 'react';
-import { selectUserPermissions } from 'features/user/userSlice';
-import { useAppDispatch, useAppSelector } from 'hooks/redux';
+
+import { months } from '../components/Toolbar/components/DataTableToolbarFilter/toolBarFilters';
+import type { ChipFilterOptions } from '../components/Toolbar/components/DataTableToolbarFilter/toolBarFilters';
 import {
 	changeChipFilterOption,
 	resetDataTableState,
 	selectCurrentChipFilterVariant,
 	unpinManyRows,
 } from '../dataTableSlice';
-import { Messages } from 'constant/messages';
-import { months } from '../components/Toolbar/components/DataTableToolbarFilter/toolBarFilters';
-import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
 
-import type { ChipFilterOptions } from '../components/Toolbar/components/DataTableToolbarFilter/toolBarFilters';
+import { Messages } from 'constant/messages';
+import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
+import { selectUserPermissions } from 'features/user/userSlice';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
+
+
+
 
 export const useChipFilterActions = () => {
 	const dispatch = useAppDispatch();

@@ -1,7 +1,8 @@
+import { enqueueSnackbar } from 'notistack';
+
 import { API } from 'app/api';
 import { apiSlice } from 'app/apiSlice';
 import { Messages } from 'constant/messages';
-import { showNotification } from 'features/notificator/notificatorSlice';
 
 interface IPostReviewRequestArgs {
 	rating: number;
@@ -17,22 +18,12 @@ const reviewApiSlice = apiSlice.injectEndpoints({
 				method: 'POST',
 				body: review,
 			}),
-			onQueryStarted: async (_arg, { dispatch, queryFulfilled }) => {
+			onQueryStarted: async (_arg, { queryFulfilled }) => {
 				try {
 					await queryFulfilled;
-					dispatch(
-						showNotification({
-							message: Messages.REVIEW_SUCCESSFULY_SENDED,
-							type: 'success',
-						})
-					);
+					enqueueSnackbar(Messages.REVIEW_SUCCESSFULLY_SENDED, { variant: 'success' });
 				} catch {
-					dispatch(
-						showNotification({
-							message: Messages.FAILED_TO_SEND_REVIEW,
-							type: 'error',
-						})
-					);
+					enqueueSnackbar(Messages.FAILED_TO_SEND_REVIEW, { variant: 'error' });
 				}
 			},
 		}),

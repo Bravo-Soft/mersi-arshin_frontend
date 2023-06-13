@@ -1,20 +1,20 @@
-import { SidebarTitles } from 'constant/sidebarTitles';
-import { selectUserPermissions, selectUserRoles } from 'features/user/userSlice';
-import { useAppSelector } from 'hooks/redux';
 
 import type { ISidebarElement } from './components/Sidebar';
 import type { SidebarPages, SidebarSelectors } from './sidebarSlice';
 
-import UserProfile from 'features/user/UserProfile';
+import CreateDataItem from 'components/Forms/CreateDataItem';
 import EditDataItem from 'components/Forms/EditDataItem';
 import FilesDataItem from 'components/Forms/FilesDataItem';
-import CreateDataItem from 'components/Forms/CreateDataItem';
-import VerificateDataItem from 'components/Forms/VerificateDataItem';
 import NotificationSettings from 'components/Forms/NotificationSettings';
 import PrintSettings from 'components/Forms/PrintSettings';
+import VerificateDataItem from 'components/Forms/VerificateDataItem';
+import { SidebarTitles } from 'constant/sidebarTitles';
+import UserProfile from 'features/user/UserProfile';
+import { selectUserPermissions, selectUserRoles } from 'features/user/userSlice';
+import { useAppSelector } from 'hooks/redux';
 
 /**
- *	Простой хук, который возвращает разные массивы элементов садбара, в зависимости от страницы на которой
+ *	Простой хук, который возвращает разные массивы элементов сайдбара, в зависимости от страницы на которой
  * находится пользователь
  *
  * @param page текущая страница, они же ключи состояния сайдбара [см.здесь](./sidebarSlice.ts)
@@ -40,7 +40,7 @@ export const useSidebarElements = (page: SidebarPages): ISidebarElement<SidebarS
 				{
 					Component: VerificateDataItem,
 					selector: 'VerificateDataItem',
-					headerTitle: SidebarTitles.VERIFICATE_ITEM,
+					headerTitle: SidebarTitles.VERIFICATION_ITEM,
 				},
 				{
 					Component: UserProfile,

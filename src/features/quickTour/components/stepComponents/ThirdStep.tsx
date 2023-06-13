@@ -1,5 +1,4 @@
 import { thirdStepContent } from 'features/quickTour/configStepsDesc';
-
 import StyledTourDescription from 'features/quickTour/styled/StyledTourDescription';
 import StyledTourTitle from 'features/quickTour/styled/StyledTourTitle';
 

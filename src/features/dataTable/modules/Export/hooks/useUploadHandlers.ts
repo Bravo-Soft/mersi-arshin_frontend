@@ -1,18 +1,23 @@
 import { useGridApiContext } from '@mui/x-data-grid-pro';
-import { Messages } from 'constant/messages';
-import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
-import { useAppDispatch } from 'hooks/redux';
-import { createWorkbook } from 'utils/excel';
-import { saveAs } from 'utils/saveAs';
-
-import type { IExcelConfig } from 'utils/excel';
-
-import { formatVariant } from 'constant/dateFormat';
 import { format } from 'date-fns';
-import { showNotification } from 'features/notificator/notificatorSlice';
-import { useGetUserProfileQuery } from 'features/user/userApiSlice';
+import { enqueueSnackbar } from 'notistack';
+
 import { useConvertColumns } from './useConvertColumns';
 import { useFiltredSortedData } from './useFiltredSortedData';
+
+import { formatVariant } from 'constant/dateFormat';
+import { Messages } from 'constant/messages';
+import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
+import { useGetUserProfileQuery } from 'features/user/userApiSlice';
+import { useAppDispatch } from 'hooks/redux';
+import { createWorkbook } from 'utils/excel';
+import type { IExcelConfig } from 'utils/excel';
+import { saveAs } from 'utils/saveAs';
+
+
+
+
+
 
 interface IUseUploadHandlers {
 	onCloseMenu: () => void;
@@ -45,12 +50,7 @@ export const useUploadHandlers = ({
 	};
 
 	const showHiddenMessage = () => {
-		dispatch(
-			showNotification({
-				message: Messages.ALL_COLUMNS_IS_HIDDEN,
-				type: 'warning',
-			})
-		);
+		enqueueSnackbar(Messages.ALL_COLUMNS_IS_HIDDEN, { variant: 'warning' });
 	};
 
 	const exportDataAsCSV = () => {
@@ -96,12 +96,7 @@ export const useUploadHandlers = ({
 			const filename = `Книга от ${format(new Date(), formatVariant)}.xlsx`;
 			saveAs(blob, filename);
 		} catch {
-			dispatch(
-				showNotification({
-					message: Messages.FAILED_TO_SAVE_WORKBOOK,
-					type: 'error',
-				})
-			);
+			enqueueSnackbar(Messages.FAILED_TO_SAVE_WORKBOOK, { variant: 'error' });
 		}
 	};
 

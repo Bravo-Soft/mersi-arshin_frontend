@@ -1,8 +1,8 @@
 import { DatePicker } from '@mui/x-date-pickers';
 import { Controller, useFormContext } from 'react-hook-form';
-import { maxDate, minDate } from 'constant/dateMasks';
-
 import type { Validate } from 'react-hook-form';
+
+import { maxDate, minDate } from 'constant/dateMasks';
 import type { IDataItemWithDates } from 'types/dataItem';
 
 interface IDateFieldsProps {

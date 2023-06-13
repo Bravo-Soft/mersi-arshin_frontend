@@ -1,9 +1,8 @@
+import { red } from '@mui/material/colors';
+import MenuItem from '@mui/material/MenuItem';
 import { styled } from '@mui/material/styles';
 
-import MenuItem from '@mui/material/MenuItem';
-import { red } from '@mui/material/colors';
-
-const DeleteMenuItem = styled(MenuItem)(({ theme }) => ({
+const DeleteMenuItem = styled(MenuItem)({
 	':hover': {
 		backgroundColor: red[50],
 		color: red[700],
@@ -11,6 +10,6 @@ const DeleteMenuItem = styled(MenuItem)(({ theme }) => ({
 			color: red[700],
 		},
 	},
-}));
+});
 
 export default DeleteMenuItem;

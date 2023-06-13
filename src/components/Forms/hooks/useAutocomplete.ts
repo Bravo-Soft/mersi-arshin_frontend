@@ -1,6 +1,6 @@
-import { useGetAllDataQuery } from 'features/dataTable/dataTableApiSlice';
 import { validateAutcompleteParams } from '../utils/validateAutocomplete';
 
+import { useGetAllDataQuery } from 'features/dataTable/dataTableApiSlice';
 import type { IDataItem } from 'types/dataItem';
 
 export type AutocompleteKeysType = keyof Omit<

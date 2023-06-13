@@ -1,19 +1,17 @@
-import Button from '@mui/material/Button';
-import InputAdornment from '@mui/material/InputAdornment';
-import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import AuthPaper from '../styled/AuthPaper';
-
 import EmailIcon from '@mui/icons-material/Email';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-
-import type { IAuthFormRequest } from '../authApiSlice';
-
+import Button from '@mui/material/Button';
+import InputAdornment from '@mui/material/InputAdornment';
+import Stack from '@mui/material/Stack';
 import { useTheme } from '@mui/material/styles';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+
+import type { IAuthFormRequest } from '../authApiSlice';
+import AuthPaper from '../styled/AuthPaper';
 import { validationRules } from '../validationRules';
 
 interface IAuthFormProps {
@@ -51,7 +49,7 @@ function AuthForm({ submitCallback, isLoading, isError }: IAuthFormProps): JSX.E
 					InputProps={{
 						endAdornment: (
 							<InputAdornment position='start'>
-								<EmailIcon color={Boolean(errors.email) ? 'error' : 'inherit'} />
+								<EmailIcon color={errors.email ? 'error' : 'inherit'} />
 							</InputAdornment>
 						),
 					}}
@@ -70,7 +68,7 @@ function AuthForm({ submitCallback, isLoading, isError }: IAuthFormProps): JSX.E
 								sx={{
 									cursor: 'pointer',
 									'& .MuiSvgIcon-root': {
-										color: Boolean(errors.password)
+										color: errors.password
 											? theme.palette.error.main
 											: 'inherit',
 									},

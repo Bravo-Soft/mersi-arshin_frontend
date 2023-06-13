@@ -53,7 +53,7 @@
 		"inline-parameters.margin": "0.4em",
 		"inline-parameters.padding": "3px 3px",
 		"thunder-client.saveToWorkspace": true,
-		"cSpell.words": ["Браво", "Софт"],
+		"cSpell.words": ["Браво", "булевого", "сайдбара", "Софт", "чекбоксы", "notistack"],
 		"cSpell.language": "en,ru"
 	},
 	"launch": {

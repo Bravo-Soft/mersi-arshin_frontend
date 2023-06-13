@@ -1,13 +1,13 @@
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import Backdrop from '@mui/material/Backdrop';
 import type { SpeedDialProps } from '@mui/material/SpeedDial';
+import SpeedDialAction from '@mui/material/SpeedDialAction';
 import type { Theme } from '@mui/material/styles';
 import type { MouseEventHandler } from 'react';
-
 import { useState } from 'react';
 
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
-import Backdrop from '@mui/material/Backdrop';
-import SpeedDialAction from '@mui/material/SpeedDialAction';
+
 import StyledSpeedDial from '../styled/StyledSpeedDial';
 
 interface IDataTableActionsProps extends SpeedDialProps {

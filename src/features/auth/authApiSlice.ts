@@ -1,8 +1,11 @@
+import { enqueueSnackbar } from 'notistack';
+
+import { resetCredentials, setCredentials } from './authSlice';
+
 import { API } from 'app/api';
 import { apiSlice } from 'app/apiSlice';
 import { Messages } from 'constant/messages';
-import { showNotification } from 'features/notificator/notificatorSlice';
-import { resetCredentionals, setCredentionals } from './authSlice';
+
 
 export interface IAuthResponse {
 	accessToken: string;
@@ -24,13 +27,8 @@ export const authApiSlice = apiSlice.injectEndpoints({
 			}),
 			onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
 				const { data } = await queryFulfilled;
-				dispatch(setCredentionals(data));
-				dispatch(
-					showNotification({
-						message: Messages.WELCOME,
-						type: 'success',
-					})
-				);
+				dispatch(setCredentials(data));
+				enqueueSnackbar(Messages.WELCOME, { variant: 'success' });
 			},
 		}),
 		logout: builder.mutation<void, void>({
@@ -42,9 +40,9 @@ export const authApiSlice = apiSlice.injectEndpoints({
 				try {
 					await queryFulfilled;
 				} catch {
-					dispatch(showNotification({ message: Messages.ERROR_CONNECTION, type: 'error' }));
+					enqueueSnackbar(Messages.ERROR_CONNECTION, { variant: 'error' });
 				} finally {
-					dispatch(resetCredentionals());
+					dispatch(resetCredentials());
 				}
 			},
 		}),

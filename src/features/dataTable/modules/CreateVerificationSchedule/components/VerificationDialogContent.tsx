@@ -1,17 +1,21 @@
+import AddIcon from '@mui/icons-material/Add';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import DialogContent from '@mui/material/DialogContent';
 import { DateRangePicker } from '@mui/x-date-pickers-pro';
 import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
+
 import { operatorsFilters } from '../operatorsFilters';
+import type { IForm } from '../operatorsFilters';
+
+import BlockFilter from './BlockFilter';
+
 import { columnsFilters } from 'components/Forms/NotificationSettings/data';
 import { hideScrollbar } from 'utils/hideScrollbar';
 
-import type { IForm } from '../operatorsFilters';
 
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import DialogContent from '@mui/material/DialogContent';
-import BlockFilter from './BlockFilter';
 
-import AddIcon from '@mui/icons-material/Add';
+
 
 function VerificationDialogContent() {
 	const { control } = useFormContext<IForm>();

@@ -1,10 +1,9 @@
 import { createContext } from 'react';
 import { useEffect, useState } from 'react';
-import { getCookie, setCookie } from 'utils/cookie';
-
 import type { PropsWithChildren } from 'react';
 
 import CookieBanner from 'components/CookieBanner';
+import { getCookie, setCookie } from 'utils/cookie';
 
 interface ICookieContext {
 	acceptCookie: () => void;
@@ -13,7 +12,7 @@ interface ICookieContext {
 
 export const CookieContext = createContext<ICookieContext>({} as ICookieContext);
 
-interface IWithCookieProps extends PropsWithChildren {}
+type IWithCookieProps = PropsWithChildren
 
 const cookieName = 'cookie_approve';
 

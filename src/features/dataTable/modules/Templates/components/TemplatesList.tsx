@@ -1,19 +1,19 @@
+import Collapse from '@mui/material/Collapse';
+import List from '@mui/material/List';
+import type { PopoverOrigin, PopoverProps } from '@mui/material/Popover';
+import Popover from '@mui/material/Popover';
 import { TransitionGroup } from 'react-transition-group';
+
 import { useFetchAllTemplatesQuery } from '../templatesApiSlice';
 
-import type { PopoverOrigin, PopoverProps } from '@mui/material/Popover';
-
-import List from '@mui/material/List';
 import TemplateItem from './TemplateItem';
-import Popover from '@mui/material/Popover';
-import Collapse from '@mui/material/Collapse';
 
-export const anchorOrigin: PopoverOrigin = {
+const anchorOrigin: PopoverOrigin = {
 	vertical: 'top',
 	horizontal: 'left',
 };
 
-export const transformOrigin: PopoverOrigin = {
+const transformOrigin: PopoverOrigin = {
 	vertical: 'top',
 	horizontal: 'right',
 };
@@ -24,14 +24,14 @@ interface ITemplatesList
 }
 
 function TemplatesList(props: ITemplatesList): JSX.Element {
-	const { onClose, ...othen } = props;
+	const { onClose, ...other } = props;
 
 	const { data: loadedTemplates } = useFetchAllTemplatesQuery();
 
 	return (
 		<>
 			<Popover
-				{...othen}
+				{...other}
 				anchorOrigin={anchorOrigin}
 				transformOrigin={transformOrigin}
 				onClose={onClose}

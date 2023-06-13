@@ -1,18 +1,16 @@
-import { useAppDispatch } from 'hooks/redux';
-import { useGetPhotoQuery } from 'features/photo/photoApiSlice';
-import { forwardRef, useEffect, useState } from 'react';
-import { preparePhotoUrl } from 'utils/preparePhotoUrl';
-
-import type { ChangeEvent } from 'react';
-
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
-
 import Avatar from '@mui/material/Avatar';
 import Badge from '@mui/material/Badge';
 import IconButton from '@mui/material/IconButton';
 import Skeleton from '@mui/material/Skeleton';
-import useNotification from 'hooks/useNotification';
 import Tooltip from '@mui/material/Tooltip';
+import { enqueueSnackbar } from 'notistack';
+import type { ChangeEvent } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
+
+import { Messages } from 'constant/messages';
+import { useGetPhotoQuery } from 'features/photo/photoApiSlice';
+import { preparePhotoUrl } from 'utils/preparePhotoUrl';
 
 interface IUserPhotoProps {
 	file: File | null;
@@ -23,9 +21,6 @@ interface IUserPhotoProps {
 
 const UserPhoto = forwardRef<HTMLInputElement, IUserPhotoProps>((props, ref): JSX.Element => {
 	const { file, setFile, onClickLoadButton, onResetCallback } = props;
-	const dispatch = useAppDispatch();
-
-	const showNotification = useNotification(dispatch);
 
 	const { data, isFetching } = useGetPhotoQuery();
 	const [preview, setPreview] = useState<string>();
@@ -44,18 +39,18 @@ const UserPhoto = forwardRef<HTMLInputElement, IUserPhotoProps>((props, ref): JS
 		return () => {
 			URL.revokeObjectURL(url);
 		};
-	}, [file, showNotification]);
+	}, [file]);
 
 	const handleChangePhoto = (event: ChangeEvent<HTMLInputElement>) => {
 		if (event.currentTarget.files && event.currentTarget.files[0].size >= 2097152) {
-			showNotification('FAILED_TO_UPLOAD_PHOTO_SIZE', 'error');
+			enqueueSnackbar(Messages.FAILED_TO_UPLOAD_PHOTO_SIZE, { variant: 'error' });
 			onResetCallback();
 			return;
 		}
 		if (event.currentTarget.files) {
 			const selectedFile = event.currentTarget.files[0];
 			setFile(selectedFile);
-			showNotification('PRESS_BUTTON_FOR_SAVING', 'info');
+			enqueueSnackbar(Messages.PRESS_BUTTON_FOR_SAVING, { variant: 'info' });
 		}
 	};
 

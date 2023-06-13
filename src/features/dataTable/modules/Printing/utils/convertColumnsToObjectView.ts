@@ -1,4 +1,5 @@
 import type { GridColDef } from '@mui/x-data-grid-pro';
+
 import type { IDataItem } from 'types/dataItem';
 
 type ConvertedColumns = Record<string, boolean>;

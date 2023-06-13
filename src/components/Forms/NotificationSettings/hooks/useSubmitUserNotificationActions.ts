@@ -1,30 +1,18 @@
-import { Messages } from 'constant/messages';
-import { showNotification } from 'features/notificator/notificatorSlice';
-import { useUpdateUserNotificationMutation } from 'features/user/userApiSlice';
-import { useAppDispatch } from 'hooks/redux';
+import { enqueueSnackbar } from 'notistack';
 
+import { Messages } from 'constant/messages';
+import { useUpdateUserNotificationMutation } from 'features/user/userApiSlice';
 import type { INotificationSettings } from 'types/notification';
 
 export const useSubmitUserNotificationActions = (data: INotificationSettings) => {
-	const dispatch = useAppDispatch();
 	const [sendUpdatedItem] = useUpdateUserNotificationMutation();
 
 	const submitNotificationValue = async () => {
 		try {
 			await sendUpdatedItem(data).unwrap();
-			dispatch(
-				showNotification({
-					message: Messages.NOTIFICATION_SUCCESSFULY_UPDATED,
-					type: 'success',
-				})
-			);
+			enqueueSnackbar(Messages.NOTIFICATION_SUCCESSFULLY_UPDATED, { variant: 'success' });
 		} catch {
-			dispatch(
-				showNotification({
-					message: Messages.FAILED_TO_UPDATE_NOTIFICATION,
-					type: 'error',
-				})
-			);
+			enqueueSnackbar(Messages.FAILED_TO_UPDATE_NOTIFICATION, { variant: 'error' });
 		}
 	};
 

@@ -1,15 +1,20 @@
+import LinearProgress from '@mui/material/LinearProgress';
 import { DataGridPro, useGridApiRef } from '@mui/x-data-grid-pro';
-import { selectSidebarStateOfHomePage } from 'features/sidebar/sidebarSlice';
-import { selectUserPermissions } from 'features/user/userSlice';
-import { useAppDispatch, useAppSelector } from 'hooks/redux';
+
+import columns from '../columns';
 import { useGetAllDataQuery } from '../dataTableApiSlice';
 import { selectSelectedDataItem, selectSelectionModel } from '../dataTableSlice';
 import { useApplySelectedTemplate } from '../hooks/useApplySelectedTemplate';
+import useChipFilter from '../hooks/useChipFilter';
 import { useContextMenuActions } from '../hooks/useContextMenuActions';
 import { useDataTableActions } from '../hooks/useDataTableActions';
 import { useRowClasses } from '../hooks/useRowClasses';
+import useTableData from '../hooks/useTableData';
 import { useUpdateTemplate } from '../hooks/useUpdateTemplate';
+import VerificationScheduleModal from '../modules/CreateVerificationSchedule/components/VerificationScheduleModal';
+import DataTableBox from '../styled/DataTableBox';
 import { columnsVisibility } from '../utils/columnsVisibility';
+
 import { ColumnMenu } from './ColumnMenu';
 import { ContextMenu } from './ContextMenu';
 import { Footer } from './Footer';
@@ -17,13 +22,10 @@ import { NoResultsOverlay } from './NoResultsOverlay';
 import { NoRowsOverlay } from './NoRowsOverlay';
 import { Toolbar } from './Toolbar';
 
-import LinearProgress from '@mui/material/LinearProgress';
-import columns from '../columns';
-import useChipFilter from '../hooks/useChipFilter';
-import useTableData from '../hooks/useTableData';
-import VerificationScheduleModal from '../modules/CreateVerificationSchedule/components/VerificationScheduleModal';
-import DataTableBox from '../styled/DataTableBox';
 import { useQuickTourActions } from 'features/quickTour/hooks/useQuickTourActions';
+import { selectSidebarStateOfHomePage } from 'features/sidebar/sidebarSlice';
+import { selectUserPermissions } from 'features/user/userSlice';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
 
 function DataTable(): JSX.Element {
 	const apiRef = useGridApiRef();

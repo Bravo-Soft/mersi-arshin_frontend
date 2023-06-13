@@ -1,5 +1,6 @@
-import { useAppSelector } from 'hooks/redux';
 import { selectToken } from '../features/auth/authSlice';
+
+import { useAppSelector } from 'hooks/redux';
 
 const isJwtToken = (token: string) => token.split('.').length === 3;
 

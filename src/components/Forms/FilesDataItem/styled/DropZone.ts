@@ -1,6 +1,7 @@
 import { styled } from '@mui/material/styles';
-import { hideScrollbar } from 'utils/hideScrollbar';
+
 import { generateBootstrapShadow } from 'utils/generateBootstapShadow';
+import { hideScrollbar } from 'utils/hideScrollbar';
 
 interface IDropZoneProps {
 	isReject: boolean;

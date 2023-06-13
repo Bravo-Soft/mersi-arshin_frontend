@@ -1,8 +1,9 @@
+import type { GridRowModel } from '@mui/x-data-grid-pro';
 import { useMemo } from 'react';
-import { useAppSelector } from 'hooks/redux';
+
 import { selectedPinnedRows } from '../dataTableSlice';
 
-import type { GridRowModel } from '@mui/x-data-grid-pro';
+import { useAppSelector } from 'hooks/redux';
 import type { IDataItem } from 'types/dataItem';
 
 const useTableData = (data: IDataItem[]) => {

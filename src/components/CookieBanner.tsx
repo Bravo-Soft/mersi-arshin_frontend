@@ -1,13 +1,13 @@
-import { blue } from '@mui/material/colors';
-import { styled } from '@mui/material/styles';
-import { CookieContext } from 'hoc/WithCookie';
-import { useContext } from 'react';
 
 import PrivacyTipIcon from '@mui/icons-material/PrivacyTip';
-
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import { blue } from '@mui/material/colors';
+import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
+import { useContext } from 'react';
+
+import { CookieContext } from 'hoc/WithCookie';
 
 const CookieBannerWrapper = styled('div')(({ theme }) => ({
 	...theme.mixins.toolbar,

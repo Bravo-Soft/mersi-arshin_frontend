@@ -1,10 +1,10 @@
 import { gridFilteredSortedRowEntriesSelector, useGridSelector } from '@mui/x-data-grid-pro';
-import { formatVariant } from 'constant/dateFormat';
+import type { GridApiPro } from '@mui/x-data-grid-pro/models/gridApiPro';
 import { format, parseISO } from 'date-fns';
+
+import { formatVariant } from 'constant/dateFormat';
 import { selectSelectionModel } from 'features/dataTable/dataTableSlice';
 import { useAppSelector } from 'hooks/redux';
-
-import type { GridApiPro } from '@mui/x-data-grid-pro/models/gridApiPro';
 import type { IDataItem } from 'types/dataItem';
 
 /**
