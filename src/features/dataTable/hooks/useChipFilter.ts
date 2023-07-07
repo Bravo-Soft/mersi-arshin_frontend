@@ -1,4 +1,4 @@
-import { compareAsc, getMonth, parseISO } from 'date-fns';
+import { compareAsc, getMonth, isThisYear, parseISO } from 'date-fns';
 import { useMemo } from 'react';
 
 import { selectCurrentChipFilterVariant } from '../dataTableSlice';
@@ -30,7 +30,9 @@ const useChipFilter = (data: IDataItem[] = []) => {
 
 			default:
 				return data.filter(
-					row => getMonth(parseISO(row.dateOfTheNextVerification)) === currentChipFilterOption
+					row =>
+						getMonth(parseISO(row.dateOfTheNextVerification)) === currentChipFilterOption &&
+						isThisYear(parseISO(row.dateOfTheNextVerification))
 				);
 		}
 	}, [currentChipFilterOption, data, userId]);
