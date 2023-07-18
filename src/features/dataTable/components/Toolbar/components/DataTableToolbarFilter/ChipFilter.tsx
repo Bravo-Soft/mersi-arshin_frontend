@@ -13,7 +13,6 @@ import type { ChipFilterOptions } from './toolBarFilters';
 import { useChipFilterActions } from 'features/dataTable/hooks/useChipFilterActions';
 import StyledChip from 'features/dataTable/styled/StyledChip';
 
-
 const ChipFilter = forwardRef<HTMLDivElement>((_, ref) => {
 	const {
 		state: { isExpanded, selectedOptionIsMonth, currentFilteringOption, currentBadgeContent },
