@@ -45,7 +45,8 @@ function ContextMenu({ contextMenu, actionsOfContextMenu }: IContextMenuProps): 
 	const { isWriter, isAdmin } = useAppSelector(selectUserRoles);
 	const userId = useAppSelector(selectUserId);
 	const tourStartedIsMenu = useAppSelector(selectMenuStart);
-	const { attachFiles, hasFavorites, hasClipboard } = useAppSelector(selectUserPermissions);
+	// const { attachFiles, hasFavorites, hasClipboard } = useAppSelector(selectUserPermissions);
+	const { isFileStorage } = useAppSelector(selectUserPermissions);
 
 	const isFavoriteRow =
 		isValueDefined(selectedDataItem) && userId && selectedDataItem.userIds.includes(userId);
@@ -76,14 +77,6 @@ function ContextMenu({ contextMenu, actionsOfContextMenu }: IContextMenuProps): 
 			  );
 	};
 
-	const getIconForFavoriteItem = (hasFavoritePermission?: boolean) => {
-		if (!hasFavoritePermission) {
-			return LockIcon;
-		}
-
-		return isFavoriteRow ? StarIcon : StarBorderIcon;
-	};
-
 	const getSecondaryTextForFavoriteItem = (array: IMenuItem[], favoriteIndex: number) => {
 		if (selectionModel.length && array.length - 1 === favoriteIndex) {
 			return 'В том числе выделенные';
@@ -105,20 +98,20 @@ function ContextMenu({ contextMenu, actionsOfContextMenu }: IContextMenuProps): 
 		},
 		{
 			title: SidebarTitles.ITEM_FILES,
-			Icon: attachFiles ? AttachFileIcon : LockIcon,
-			isActive: attachFiles ?? false,
+			Icon: isFileStorage.enable ? AttachFileIcon : LockIcon,
+			isActive: isFileStorage.enable ?? false,
 			action: handleOpenFilesOfDataItem,
 		},
 		{
 			title: 'Скопировать данные',
-			Icon: hasClipboard ? CopyAllIcon : LockIcon,
-			isActive: hasClipboard ?? false,
+			Icon: CopyAllIcon,
+			isActive: true,
 			action: handleCopySelectedValues,
 		},
 		{
 			title: isFavoriteRow ? 'Убрать из избранного' : 'Добавить в избранное',
-			Icon: getIconForFavoriteItem(hasFavorites),
-			isActive: hasFavorites ?? false,
+			Icon: isFavoriteRow ? StarIcon : StarBorderIcon,
+			isActive: true,
 			action: isFavoriteRow ? handleRemoveFromFavorite : handleAddToFavorite,
 		},
 	];

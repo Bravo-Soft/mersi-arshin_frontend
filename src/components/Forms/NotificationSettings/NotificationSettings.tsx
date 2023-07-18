@@ -1,19 +1,22 @@
-
-
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Fade from '@mui/material/Fade';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Stack from '@mui/material/Stack';
 import Switch from '@mui/material/Switch';
+import { enqueueSnackbar } from 'notistack';
+import { useCallback } from 'react';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 
 import EmailInputs from './EmailInputs';
-import { useSubmitUserNotificationActions } from './hooks/useSubmitUserNotificationActions';
 import SelectInputs from './SelectInputs';
 
+import { Messages } from 'constant/messages';
 import FetchingProgress from 'features/dataTable/components/FetchingProgress';
-import { useGetUserNotificationQuery } from 'features/user/userApiSlice';
+import {
+	useGetUserNotificationQuery,
+	useUpdateUserNotificationMutation,
+} from 'features/user/userApiSlice';
 import ButtonContainer from 'styled/ButtonContainer';
 import FormContainer from 'styled/FormContainer';
 import type { INotificationSettings } from 'types/notification';
@@ -31,14 +34,25 @@ function NotificationSettings() {
 		values: settings,
 	});
 
-	const { getValues, handleSubmit, watch, control } = methods;
-
-	const { submitNotificationValue } = useSubmitUserNotificationActions(getValues());
+	const { handleSubmit, watch, control } = methods;
 	const switchNotification = watch('isNotificationEnabled');
-	const onSubmit = handleSubmit(submitNotificationValue);
+
+	const [sendUpdatedItem] = useUpdateUserNotificationMutation();
+
+	const submitNotificationValue = useCallback(
+		async (data: INotificationSettings) => {
+			try {
+				await sendUpdatedItem(data).unwrap();
+				enqueueSnackbar(Messages.NOTIFICATION_SUCCESSFULLY_UPDATED, { variant: 'success' });
+			} catch {
+				enqueueSnackbar(Messages.FAILED_TO_UPDATE_NOTIFICATION, { variant: 'error' });
+			}
+		},
+		[sendUpdatedItem]
+	);
 
 	return (
-		<FormContainer onSubmit={onSubmit}>
+		<FormContainer onSubmit={handleSubmit(submitNotificationValue)}>
 			<FetchingProgress isFetching={isGetDataFetching} />
 			{!isGetDataFetching && (
 				<Stack

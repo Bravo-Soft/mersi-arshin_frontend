@@ -4,7 +4,7 @@
 			"path": "."
 		},
 		{
-			"path": "../mersi_server_3.0"
+			"path": "../../mersi_manager"
 		}
 	],
 	"extensions": {
@@ -53,7 +53,17 @@
 		"inline-parameters.margin": "0.4em",
 		"inline-parameters.padding": "3px 3px",
 		"thunder-client.saveToWorkspace": true,
-		"cSpell.words": ["Браво", "булевого", "сайдбара", "Софт", "чекбоксы", "notistack"],
+		"cSpell.words": [
+			"Браво",
+			"булевого",
+			"Лайт",
+			"сайдбара",
+			"Софт",
+			"Триал",
+			"чекбоксы",
+			"minio",
+			"notistack"
+		],
 		"cSpell.language": "en,ru"
 	},
 	"launch": {
@@ -63,7 +73,7 @@
 				"type": "chrome",
 				"request": "launch",
 				"name": "Default debugger",
-				"url": "http://localhost:3000",
+				"url": "http://localhost:4200",
 				"webRoot": "${workspaceFolder}"
 			}
 		],

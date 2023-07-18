@@ -1,5 +1,3 @@
-
-
 import AddIcon from '@mui/icons-material/Add';
 import ExpandIcon from '@mui/icons-material/ExpandMore';
 import ListIcon from '@mui/icons-material/List';
@@ -12,7 +10,6 @@ import type { MouseEvent } from 'react';
 import { useState } from 'react';
 
 import type { IModuleMenuItemProps } from '../moduleMenuItem';
-
 
 import TemplatesList from './components/TemplatesList';
 import { useFetchAllTemplatesQuery } from './templatesApiSlice';
@@ -51,12 +48,12 @@ function TemplatesMenuItem({
 	const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
 	const dispatch = useAppDispatch();
-	const { maxCountTemplates } = useAppSelector(selectUserPermissions);
+	const { maxNumberUserTemplates } = useAppSelector(selectUserPermissions);
 
 	const { data: loadedTemplates } = useFetchAllTemplatesQuery();
 
 	const open = Boolean(anchorEl);
-	const isReached = isMaxCountTemplatesReached(loadedTemplates, maxCountTemplates);
+	const isReached = isMaxCountTemplatesReached(loadedTemplates, maxNumberUserTemplates);
 
 	const handleOpenTemplatesList = (event: MouseEvent<HTMLLIElement>) => {
 		setAnchorEl(event.currentTarget);
@@ -106,7 +103,7 @@ function TemplatesMenuItem({
 						</ListItemIcon>
 						<ListItemText
 							primary='Добавить'
-							secondary={isReached && `Максимальное кол-во: ${maxCountTemplates} шт`}
+							secondary={isReached && `Максимальное кол-во: ${maxNumberUserTemplates} шт`}
 						/>
 					</MenuItem>
 					<MenuItem onClick={handleOpenTemplatesList}>

@@ -1,5 +1,4 @@
 import ExpandIcon from '@mui/icons-material/ExpandMore';
-import LockIcon from '@mui/icons-material/Lock';
 import PushPinIcon from '@mui/icons-material/PushPin';
 import Collapse from '@mui/material/Collapse';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -9,14 +8,9 @@ import { gridVisibleSortedRowEntriesSelector } from '@mui/x-data-grid-pro';
 import type { GridApiPro } from '@mui/x-data-grid-pro/models/gridApiPro';
 import { useState } from 'react';
 
-import { Messages } from 'constant/messages';
 import usePinnRows from 'features/dataTable/hooks/usePinnRows';
 import StyledMenuList from 'features/dataTable/styled/StyledMenuList';
-import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
-import { selectUserPermissions } from 'features/user/userSlice';
-import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import StyledMenuItem from 'styled/StyledMenuItem';
-
 
 interface IContextMenuPinItemProps {
 	handlePinningRow: () => void;
@@ -29,20 +23,10 @@ function ContextMenuPinItem({
 	handlePinningManyRows,
 	apiRef,
 }: IContextMenuPinItemProps) {
-	const dispatch = useAppDispatch();
 	const [isOpen, setIsOpen] = useState(false);
-	const { rowPinning } = useAppSelector(selectUserPermissions);
 
-	const handleToggleNastedMenu = () => {
-		rowPinning
-			? setIsOpen(prev => !prev)
-			: dispatch(
-					changeSmartDialogState({
-						variant: 'payment',
-						isOpen: true,
-						content: Messages.MODULE_IS_NOT_PAID,
-					})
-			  );
+	const handleToggleNestedMenu = () => {
+		setIsOpen(prev => !prev);
 	};
 
 	const { pinMenuIsActive, disabledPin } = usePinnRows(
@@ -52,11 +36,13 @@ function ContextMenuPinItem({
 	return (
 		<>
 			<StyledMenuItem
-				moduleIsActive={rowPinning}
-				onClick={handleToggleNastedMenu}
+				moduleIsActive={true}
+				onClick={handleToggleNestedMenu}
 				disabled={disabledPin}
 			>
-				<ListItemIcon>{rowPinning ? <PushPinIcon /> : <LockIcon />}</ListItemIcon>
+				<ListItemIcon>
+					<PushPinIcon />
+				</ListItemIcon>
 				<ListItemText
 					primary='Закрепить'
 					secondary={disabledPin ? 'Невозможно закрепить' : undefined}

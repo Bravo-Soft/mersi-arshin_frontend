@@ -2,7 +2,7 @@ import { setPermissions, setRole, setUserId } from './userSlice';
 
 import { API } from 'app/api';
 import { apiSlice } from 'app/apiSlice';
-import type { Role } from 'constant/roles';
+import type { Role } from 'constant/role';
 import type { IGroup } from 'types/group';
 import type { INotificationSettings } from 'types/notification';
 import type { IPrintSettingResponse, IPrintSettings } from 'types/printSettings';
@@ -11,8 +11,8 @@ import type { ITemplateConfig } from 'types/template';
 
 export interface IUserDataResponse {
 	id: string;
-	roles: Role;
-	group: IGroup;
+	role: Role;
+	groupInfo: IGroup;
 }
 
 export type ICreateNewTemplateRequest = Omit<ITemplateConfig, 'id'>;
@@ -26,8 +26,8 @@ export const userApiSlice = apiSlice.injectEndpoints({
 				const { data } = await queryFulfilled;
 
 				dispatch(setUserId(data.id));
-				dispatch(setPermissions(data.group));
-				dispatch(setRole(data.roles));
+				dispatch(setPermissions(data.groupInfo));
+				dispatch(setRole(data.role));
 			},
 		}),
 
@@ -68,7 +68,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
 		updateUserNotification: builder.mutation<INotificationSettings, INotificationSettings>({
 			query: body => ({
 				url: API.user.notification,
-				method: 'PUT',
+				method: 'PATCH',
 				body,
 			}),
 			invalidatesTags: ['Notification'],

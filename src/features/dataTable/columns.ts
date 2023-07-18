@@ -94,7 +94,7 @@ export const columns: GridColDef<IDataItem>[] = [
 		getApplyQuickFilterFn: quickFilterDateFormat,
 	},
 	{
-		field: 'interVerificationinterval',
+		field: 'interVerificationInterval',
 		headerName: ColumnNames.VERIFICATION_INTERVAL,
 		width: initialWidth,
 		headerAlign: 'center',

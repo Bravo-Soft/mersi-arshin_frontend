@@ -8,7 +8,6 @@ import { Controller, useFormContext } from 'react-hook-form';
 import { DATE_OF_SENDING_NOTIFICATION, RANGE_OF_SELECTION } from 'constant/mailer';
 import type { INotificationSettings } from 'types/notification';
 
-
 function SelectInputs() {
 	const { control } = useFormContext<INotificationSettings>();
 

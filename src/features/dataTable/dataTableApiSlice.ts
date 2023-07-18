@@ -7,20 +7,11 @@ import { HttpCodes } from 'constant/httpCodes';
 import { Messages } from 'constant/messages';
 import type { IDataItem } from 'types/dataItem';
 
-export interface IGetAllDataResponse {
-	pagesCount: number;
-	page: number;
-	pageSize: number;
-	totalCount: number;
-	items: IDataItem[];
-}
-
 export const dataTableApiSlice = apiSlice.injectEndpoints({
 	overrideExisting: false,
 	endpoints: builder => ({
 		getAllData: builder.query<IDataItem[], void>({
 			query: () => API.data.default,
-			transformResponse: (response: IGetAllDataResponse) => response.items,
 			providesTags: result =>
 				result
 					? [
@@ -60,7 +51,7 @@ export const dataTableApiSlice = apiSlice.injectEndpoints({
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			query: ({ id, documents, ...body }) => ({
 				url: `${API.data.default}/${id}`,
-				method: 'PUT',
+				method: 'PATCH',
 				body,
 			}),
 			invalidatesTags: (_result, _error, { id }) => [{ type: 'Data', id }],

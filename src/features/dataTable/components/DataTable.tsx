@@ -24,7 +24,6 @@ import { Toolbar } from './Toolbar';
 
 import { useQuickTourActions } from 'features/quickTour/hooks/useQuickTourActions';
 import { selectSidebarStateOfHomePage } from 'features/sidebar/sidebarSlice';
-import { selectUserPermissions } from 'features/user/userSlice';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 
 function DataTable(): JSX.Element {
@@ -36,8 +35,8 @@ function DataTable(): JSX.Element {
 	const selectionModel = useAppSelector(selectSelectionModel);
 	const selectedId = useAppSelector(selectSelectedDataItem);
 	const { open: sidebarIsOpen } = useAppSelector(selectSidebarStateOfHomePage);
-	const { multipleColumnsFiltering, columnPinning, columnReorder, rowPinning } =
-		useAppSelector(selectUserPermissions);
+	// const { multipleColumnsFiltering, columnPinning, columnReorder, rowPinning } =
+	// 	useAppSelector(selectUserPermissions);
 
 	/* Загрузка данных */
 	const { data: loadedData = [], isFetching: isFetchingData } = useGetAllDataQuery(undefined, {
@@ -94,10 +93,6 @@ function DataTable(): JSX.Element {
 				onRowDoubleClick={handleDoubleClickOnRow}
 				selectionModel={selectionModel}
 				getRowClassName={generateClasses}
-				disableColumnPinning={!columnPinning}
-				disableMultipleColumnsFiltering={!multipleColumnsFiltering}
-				disableColumnReorder={!columnReorder}
-				experimentalFeatures={{ rowPinning }}
 				initialState={{ columns: { columnVisibilityModel: {} } }}
 				components={{
 					LoadingOverlay: LinearProgress,

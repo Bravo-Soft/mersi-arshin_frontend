@@ -13,7 +13,6 @@ import { useDateValidate } from 'hooks/useDateValidate';
 import type { IDataItemWithDates } from 'types/dataItem';
 import { getExtendedIntervalRules } from 'utils/getExtendedIntervalRules';
 
-
 interface IVerificateFieldsProps {
 	isReader: boolean;
 }
@@ -47,13 +46,13 @@ function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
 						label={label}
 						validation={validation[key]}
 					/>
-				) : key === 'interVerificationinterval' ? (
+				) : key === 'interVerificationInterval' ? (
 					<TextField
 						key={key}
-						{...register('interVerificationinterval', getExtendedIntervalRules())}
+						{...register('interVerificationInterval', getExtendedIntervalRules())}
 						label={label}
-						error={Boolean(errors.interVerificationinterval)}
-						helperText={errors?.interVerificationinterval?.message}
+						error={Boolean(errors.interVerificationInterval)}
+						helperText={errors?.interVerificationInterval?.message}
 						InputLabelProps={{ shrink: true }}
 						type='number'
 					/>

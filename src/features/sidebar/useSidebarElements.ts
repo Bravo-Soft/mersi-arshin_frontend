@@ -1,4 +1,3 @@
-
 import type { ISidebarElement } from './components/Sidebar';
 import type { SidebarPages, SidebarSelectors } from './sidebarSlice';
 
@@ -22,7 +21,8 @@ import { useAppSelector } from 'hooks/redux';
  */
 export const useSidebarElements = (page: SidebarPages): ISidebarElement<SidebarSelectors>[] => {
 	const { isReader } = useAppSelector(selectUserRoles);
-	const { attachFiles, notifications, printingLabels } = useAppSelector(selectUserPermissions);
+	const { isFileStorage, isPrintLabel, isReceiveNotifications } =
+		useAppSelector(selectUserPermissions);
 
 	switch (page) {
 		case 'home': {
@@ -48,21 +48,21 @@ export const useSidebarElements = (page: SidebarPages): ISidebarElement<SidebarS
 					headerTitle: SidebarTitles.PROFILE_SETTINGS,
 				},
 			];
-			if (notifications) {
+			if (isReceiveNotifications) {
 				sidebarElements.push({
 					Component: NotificationSettings,
 					selector: 'NotificationSettings',
 					headerTitle: SidebarTitles.NOTIFICATION_SETTINGS,
 				});
 			}
-			if (attachFiles) {
+			if (isFileStorage.enable) {
 				sidebarElements.push({
 					Component: FilesDataItem,
 					selector: 'FilesDataItem',
 					headerTitle: SidebarTitles.ITEM_FILES,
 				});
 			}
-			if (printingLabels) {
+			if (isPrintLabel) {
 				sidebarElements.push({
 					Component: PrintSettings,
 					selector: 'PrintSettings',
