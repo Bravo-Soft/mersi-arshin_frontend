@@ -5,6 +5,7 @@ import { PrivateRoute } from './PrivateRoute';
 
 import Layout from 'components/Layout';
 import { AppRoutes } from 'constant/appRoutes';
+import QuickTour from 'features/quickTour/components/QuickTour';
 import { AuthPage } from 'pages/auth';
 import ErrorPage from 'pages/error/ErrorPage';
 import { HomePage } from 'pages/home';
@@ -28,7 +29,9 @@ const config: RouteObject[] = [
 				path: AppRoutes.HOME,
 				element: (
 					<PrivateRoute>
-						<HomePage />
+						<QuickTour>
+							<HomePage />
+						</QuickTour>
 					</PrivateRoute>
 				),
 			},
