@@ -32,13 +32,3 @@ export interface IProfile {
 	 */
 	phone: string;
 }
-
-export interface IProfileRequest {
-	firstName: string;
-	lastName: string;
-	patronymicName: string;
-	organization: string;
-	position: string;
-	division: string;
-	phone: string;
-}
