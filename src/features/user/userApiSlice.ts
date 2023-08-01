@@ -51,7 +51,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
 			providesTags: ['Profile'],
 		}),
 
-		updateUserProfile: builder.mutation<IProfile, IProfileRequest>({
+		updateUserProfile: builder.mutation<IProfile, IProfile>({
 			query: body => ({
 				url: API.user.profile.default,
 				method: 'PATCH',
