@@ -18,7 +18,7 @@ const startResetStoreListener = resetStoreListener.startListening as TypedStartL
 
 startResetStoreListener({
 	actionCreator: resetCredentials,
-	effect: async (action, listenerApi) => {
+	effect: async (_, listenerApi) => {
 		await listenerApi.delay(100);
 		listenerApi.dispatch(resetUserState());
 		listenerApi.dispatch(resetSidebarState());
