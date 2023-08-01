@@ -22,6 +22,7 @@ import FormContainer from 'styled/FormContainer';
 import type { INotificationSettings } from 'types/notification';
 
 function NotificationSettings() {
+	const [sendUpdatedItem] = useUpdateUserNotificationMutation();
 	const { settings, isGetDataFetching, isLoading } = useGetUserNotificationQuery(undefined, {
 		selectFromResult: ({ data, isFetching, isLoading }) => ({
 			settings: data,
