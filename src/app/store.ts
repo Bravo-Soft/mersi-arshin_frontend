@@ -2,7 +2,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
 
 import { apiSlice } from './apiSlice';
-import { resetStoreListener } from './middlewares/resetStore';
+import { resetStoreListener } from './middlewares';
 
 import { authPath, authReducer } from 'features/auth/authSlice';
 import { dataTablePath, dataTableReducer } from 'features/dataTable/dataTableSlice';
