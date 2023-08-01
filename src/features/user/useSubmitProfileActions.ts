@@ -8,7 +8,7 @@ import {
 	useGetPhotoQuery,
 	useUpdatePhotoMutation,
 } from 'features/photo/photoApiSlice';
-import type { IProfileRequest } from 'types/profile';
+import type { IProfile } from 'types/profile';
 
 export const useSubmitProfileActions = (file: File | null, isDirty: boolean) => {
 	const [updateUserProfile, { isLoading: isUserProfileLoading }] = useUpdateUserProfileMutation();
@@ -23,7 +23,7 @@ export const useSubmitProfileActions = (file: File | null, isDirty: boolean) => 
 		await updatePhoto(data);
 	};
 
-	const submitProfile = async (data: IProfileRequest) => {
+	const submitProfile = async (data: IProfile) => {
 		try {
 			await updateUserProfile(data).unwrap();
 			enqueueSnackbar(Messages.USER_PROFILE_SUCCESSFULLY_UPDATED, { variant: 'success' });
@@ -32,7 +32,7 @@ export const useSubmitProfileActions = (file: File | null, isDirty: boolean) => 
 		}
 	};
 
-	const submitAllForm = async (data: IProfileRequest) => {
+	const submitAllForm = async (data: IProfile) => {
 		if (isDirty) await submitProfile(data);
 		if (file) await submitPhoto(file);
 	};

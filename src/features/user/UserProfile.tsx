@@ -14,7 +14,6 @@ import { selectUserProfileIsOpen } from 'features/sidebar/sidebarSlice';
 import { useAppSelector } from 'hooks/redux';
 import FormContainer from 'styled/FormContainer';
 import type { IProfile } from 'types/profile';
-import { userProfileMapping } from 'utils/userProfileMapping';
 
 interface IProfileInput {
 	key: keyof Omit<IProfile, 'userId'>;
@@ -49,7 +48,7 @@ function UserProfile(): JSX.Element {
 	const { submitAllForm, handleDeletePhoto, status } = useSubmitProfileActions(file, isDirty);
 
 	const onSubmit = handleSubmit(async data => {
-		await submitAllForm(userProfileMapping(data));
+		await submitAllForm(data);
 		setFile(null);
 	});
 
