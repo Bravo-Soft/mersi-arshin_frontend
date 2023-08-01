@@ -6,7 +6,7 @@ import type { Role } from 'constant/role';
 import type { IGroup } from 'types/group';
 import type { INotificationSettings } from 'types/notification';
 import type { IPrintSettingResponse, IPrintSettings } from 'types/printSettings';
-import type { IProfile } from 'types/profile';
+import type { IProfile, IProfileRequest } from 'types/profile';
 import type { ITemplateConfig } from 'types/template';
 
 export interface IUserDataResponse {
@@ -51,7 +51,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
 			providesTags: ['Profile'],
 		}),
 
-		updateUserProfile: builder.mutation<IProfile, IProfile>({
+		updateUserProfile: builder.mutation<IProfile, IProfileRequest>({
 			query: body => ({
 				url: API.user.profile.default,
 				method: 'PATCH',
