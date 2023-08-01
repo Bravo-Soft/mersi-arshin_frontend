@@ -45,7 +45,7 @@ export const quickConfig: Step[] = [
 	},
 	{
 		target: '#context-menu',
-		title: 'Работа со средством измерения',
+		title: 'Работа со средствами измерения',
 		disableBeacon: true,
 		placement: 'right',
 		content: (
@@ -56,7 +56,7 @@ export const quickConfig: Step[] = [
 	},
 	{
 		target: '#toolbar',
-		title: 'Быстрые подборки',
+		title: 'Быстрые подборки:',
 		disableBeacon: true,
 		placement: 'bottom',
 		content: (
@@ -67,7 +67,7 @@ export const quickConfig: Step[] = [
 	},
 	{
 		target: '#column',
-		title: 'Настройка столбцов',
+		title: '«Настройка столбцов»',
 		disableBeacon: true,
 		placement: 'bottom',
 		content: (
@@ -78,7 +78,7 @@ export const quickConfig: Step[] = [
 	},
 	{
 		target: '#column-panel',
-		title: 'Настройка столбцов',
+		title: '«Настройка столбцов»',
 		disableBeacon: true,
 		placement: 'right',
 		content: (
@@ -89,7 +89,7 @@ export const quickConfig: Step[] = [
 	},
 	{
 		target: '#density',
-		title: 'Настройка размера строки',
+		title: '«Настройка размера строки»',
 		disableBeacon: true,
 		placement: 'bottom',
 		content: (
@@ -100,7 +100,7 @@ export const quickConfig: Step[] = [
 	},
 	{
 		target: '.MuiList-root ',
-		title: 'Настройка размера строки',
+		title: '«Настройка размера строки»',
 		disableBeacon: true,
 		placement: 'bottom',
 		content: (
@@ -111,7 +111,7 @@ export const quickConfig: Step[] = [
 	},
 	{
 		target: '#filter',
-		title: 'Использование фильтров',
+		title: '«Использование фильтров»',
 		disableBeacon: true,
 		placement: 'bottom',
 		content: (
@@ -123,7 +123,7 @@ export const quickConfig: Step[] = [
 
 	{
 		target: '#filter-panel',
-		title: 'Использование фильтров',
+		title: '«Использование фильтров»',
 		disableBeacon: true,
 		placement: 'bottom',
 		content: (
@@ -135,7 +135,7 @@ export const quickConfig: Step[] = [
 
 	{
 		target: '#modules-btn',
-		title: 'Основные инструменты',
+		title: '«Основные инструменты»:',
 		disableBeacon: true,
 		placement: 'bottom',
 		content: (
@@ -146,7 +146,7 @@ export const quickConfig: Step[] = [
 	},
 	{
 		target: '.MuiList-root ',
-		title: 'Основные инструменты',
+		title: '«Основные инструменты»:',
 		disableBeacon: true,
 		placement: 'left',
 		content: (
