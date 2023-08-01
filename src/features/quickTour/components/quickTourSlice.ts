@@ -37,6 +37,7 @@ const quickTourSlice = createSlice({
 		menuStartTour: (state, action: PayloadAction<boolean>) => {
 			state.startIsMenu = action.payload;
 		},
+		resetQuickTourState: () => initialState,
 	},
 });
 
@@ -46,4 +47,5 @@ export const selectMenuStart = (state: RootState) => state.quickTour.startIsMenu
 
 export const quickTourPath = quickTourSlice.name;
 export const quickTourReducer = quickTourSlice.reducer;
-export const { stepHandler, startTourHandler, menuStartTour } = quickTourSlice.actions;
+export const { stepHandler, startTourHandler, menuStartTour, resetQuickTourState } =
+	quickTourSlice.actions;

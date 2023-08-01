@@ -4,7 +4,7 @@
 			"path": "."
 		},
 		{
-			"path": "../../mersi_manager"
+			"path": "../../AdminProject/mersi_manager"
 		}
 	],
 	"extensions": {

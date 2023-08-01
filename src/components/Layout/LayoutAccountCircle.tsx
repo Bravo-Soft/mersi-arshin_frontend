@@ -72,9 +72,9 @@ function LayoutAccountCircle({ setOpenModal }: ILayoutAccountCircleProps) {
 	};
 
 	const handleLogout = async () => {
+		navigate(AppRoutes.AUTH, { replace: true });
 		await logout().unwrap();
 		clearCookie();
-		navigate(AppRoutes.AUTH, { replace: true });
 	};
 
 	const handleOpenAccountSettings = () => {
