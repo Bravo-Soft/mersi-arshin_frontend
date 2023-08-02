@@ -1,5 +1,3 @@
-
-
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Box from '@mui/material/Box';
@@ -19,7 +17,7 @@ import NotificationPopover from './components/NotificationPopover';
 import { validationRules } from 'features/auth/validationRules';
 import type { INotificationSettings } from 'types/notification';
 
-const MAX_EMAILS_COUNTS = 3;
+const MAX_EMAILS_COUNTS = 15;
 
 function EmailInputs() {
 	const {
