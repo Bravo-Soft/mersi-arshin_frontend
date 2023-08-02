@@ -37,9 +37,10 @@ const formatDateCallback = (params: GridValueFormatterParams<string>) =>
 
 const getCellClasses = ({ value = '' }: GridCellParams<string>) => {
 	//TODO: При необходимости включить стили для ячеек, срок поверки которых меньше 2 недель
-	const parsedItemDate = parseISO(formatISO(new Date(value), { representation: 'date' }));
+	const parsedItemDate = parseISO(formatISO(new Date(value)));
 	const today = parseISO(formatISO(new Date(), { representation: 'date' }));
 	// const result = differenceInDays(parsedItemDate, today);
+
 	return cn({
 		overdueItem: compareAsc(today, parsedItemDate) !== -1,
 		// twoWeeksToGo: result <= 14 && result >= 0,
