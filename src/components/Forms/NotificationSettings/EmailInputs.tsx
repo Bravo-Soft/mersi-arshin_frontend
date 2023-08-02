@@ -124,7 +124,7 @@ function EmailInputs() {
 
 			{isMaximumNumberOfAddressesReached && (
 				<Typography variant='subtitle2' textAlign='center'>
-					Максимальное кол-во адресов :{MAX_EMAILS_COUNTS}шт
+					Максимальное кол-во адресов:{MAX_EMAILS_COUNTS}шт
 				</Typography>
 			)}
 			<Popover
