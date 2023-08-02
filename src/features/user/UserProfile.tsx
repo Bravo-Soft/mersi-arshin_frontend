@@ -1,5 +1,3 @@
-
-
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Skeleton from '@mui/material/Skeleton';
@@ -40,11 +38,13 @@ function UserProfile(): JSX.Element {
 	const isUserProfileOpen = useAppSelector(selectUserProfileIsOpen);
 
 	const { data: userData } = useGetUserProfileQuery();
+
 	const {
 		handleSubmit,
 		register,
 		formState: { isDirty },
 	} = useForm<IProfile>({ values: userData });
+
 	const { submitAllForm, handleDeletePhoto, status } = useSubmitProfileActions(file, isDirty);
 
 	const onSubmit = handleSubmit(async data => {
@@ -111,12 +111,7 @@ function UserProfile(): JSX.Element {
 				<Button fullWidth onClick={handleDeletePhoto}>
 					Сброс фото
 				</Button>
-				<Button
-					fullWidth
-					variant='contained'
-					type='submit'
-					disabled={!isDirty && !file}
-				>
+				<Button fullWidth variant='contained' type='submit' disabled={!isDirty && !file}>
 					Сохранить
 				</Button>
 			</Stack>
