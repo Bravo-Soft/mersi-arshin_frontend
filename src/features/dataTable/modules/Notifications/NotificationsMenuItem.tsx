@@ -30,7 +30,7 @@ const notificationBang = keyframes`
 
 function NotificationsMenuItem({ onCloseMenu, ...othen }: IModuleMenuItemProps): JSX.Element {
 	const dispatch = useAppDispatch();
-	const { notifications } = useAppSelector(selectUserPermissions);
+	const { isReceiveNotifications } = useAppSelector(selectUserPermissions);
 	const { openSidebarWith } = useSidebarAction('home');
 
 	const openNotificationsSettings = () => {
@@ -40,7 +40,7 @@ function NotificationsMenuItem({ onCloseMenu, ...othen }: IModuleMenuItemProps):
 
 	const handleOpenNotificationsSettings = () => {
 		onCloseMenu();
-		notifications
+		isReceiveNotifications
 			? openNotificationsSettings()
 			: dispatch(
 					changeSmartDialogState({
@@ -55,9 +55,9 @@ function NotificationsMenuItem({ onCloseMenu, ...othen }: IModuleMenuItemProps):
 		<StyledMenuItem
 			{...othen}
 			onClick={handleOpenNotificationsSettings}
-			moduleIsActive={notifications}
+			moduleIsActive={isReceiveNotifications}
 			sx={{
-				...(notifications && {
+				...(isReceiveNotifications && {
 					':hover': {
 						'& .MuiSvgIcon-root': {
 							animation: `${notificationBang} 0.3s both`,
@@ -66,7 +66,9 @@ function NotificationsMenuItem({ onCloseMenu, ...othen }: IModuleMenuItemProps):
 				}),
 			}}
 		>
-			<ListItemIcon>{notifications ? <NotificationsIcon /> : <LockIcon />}</ListItemIcon>
+			<ListItemIcon>
+				{isReceiveNotifications ? <NotificationsIcon /> : <LockIcon />}
+			</ListItemIcon>
 			<ListItemText>Уведомления</ListItemText>
 		</StyledMenuItem>
 	);

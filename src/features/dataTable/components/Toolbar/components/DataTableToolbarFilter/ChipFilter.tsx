@@ -1,5 +1,4 @@
 import CalendarMonth from '@mui/icons-material/CalendarMonth';
-import LockIcon from '@mui/icons-material/Lock';
 import StarIcon from '@mui/icons-material/Star';
 import Badge from '@mui/material/Badge';
 import Stack from '@mui/material/Stack';
@@ -7,8 +6,8 @@ import Tooltip from '@mui/material/Tooltip';
 import { forwardRef } from 'react';
 
 import MonthsChips from './MonthsChips';
-import { chipDefaultOptions } from './toolBarFilters';
 import type { ChipFilterOptions } from './toolBarFilters';
+import { chipDefaultOptions } from './toolBarFilters';
 
 import { useChipFilterActions } from 'features/dataTable/hooks/useChipFilterActions';
 import StyledChip from 'features/dataTable/styled/StyledChip';
@@ -18,7 +17,6 @@ const ChipFilter = forwardRef<HTMLDivElement>((_, ref) => {
 		state: { isExpanded, selectedOptionIsMonth, currentFilteringOption, currentBadgeContent },
 		actions: {
 			checkHasChoiceMonth,
-			currentChipIsPayd,
 			handleSelectChipFilterOption,
 			currentChipIsFavorite,
 			currentChipIsOverdue,
@@ -26,9 +24,6 @@ const ChipFilter = forwardRef<HTMLDivElement>((_, ref) => {
 	} = useChipFilterActions();
 
 	const setIconForFavoriteChip = (option: ChipFilterOptions) => {
-		if (!currentChipIsPayd(option)) {
-			return <LockIcon />;
-		}
 		return option === 'Избранное' ? (
 			<StarIcon />
 		) : option === 'Месяц' ? (
@@ -48,7 +43,6 @@ const ChipFilter = forwardRef<HTMLDivElement>((_, ref) => {
 						onClick={handleSelectChipFilterOption(option)}
 						isFavoriteChip={currentChipIsFavorite(option)}
 						icon={setIconForFavoriteChip(option)}
-						isPaydChip={currentChipIsPayd(option)}
 						isOverdueChip={currentChipIsOverdue(option)}
 					/>
 				</Tooltip>
@@ -65,7 +59,6 @@ const ChipFilter = forwardRef<HTMLDivElement>((_, ref) => {
 						clickable
 						onClick={checkHasChoiceMonth}
 						monthPanelIsActivated={isExpanded || selectedOptionIsMonth}
-						isPaydChip={currentChipIsPayd('Месяц')}
 					/>
 				</Tooltip>
 			</Badge>
@@ -73,7 +66,6 @@ const ChipFilter = forwardRef<HTMLDivElement>((_, ref) => {
 				isExpanded={isExpanded}
 				handleSelectChipFilterOption={handleSelectChipFilterOption}
 				currentBadgeContent={currentBadgeContent}
-				currentChipIsPayd={currentChipIsPayd}
 			/>
 		</Stack>
 	);

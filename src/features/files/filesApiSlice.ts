@@ -71,7 +71,6 @@ const filesApiSlice = apiSlice.injectEndpoints({
 				const result = await baseQuery({
 					url: API.data.documents.byDocumentId(itemId, documentId),
 					cache: 'no-cache',
-
 					responseHandler: response =>
 						response.status === HttpCodes.OK ? response.blob() : response.json(),
 				});

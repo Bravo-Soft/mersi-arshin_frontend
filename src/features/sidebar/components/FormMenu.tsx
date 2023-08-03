@@ -35,7 +35,7 @@ function FormMenu({ page }: IFormMenuProps): JSX.Element | null {
 
 	const dispatch = useAppDispatch();
 	const { isWriter, isAdmin } = useAppSelector(selectUserRoles);
-	const { attachFiles } = useAppSelector(selectUserPermissions);
+	const { isFileStorage } = useAppSelector(selectUserPermissions);
 	const { selector } = useAppSelector(selectSidebarStateOfHomePage);
 
 	const { openSidebarWith } = useSidebarAction(page);
@@ -59,7 +59,7 @@ function FormMenu({ page }: IFormMenuProps): JSX.Element | null {
 	};
 
 	const handleOpenFilesForm = () => {
-		attachFiles
+		isFileStorage.enable
 			? openSidebarWith('FilesDataItem')
 			: dispatch(
 					changeSmartDialogState({
@@ -113,12 +113,14 @@ function FormMenu({ page }: IFormMenuProps): JSX.Element | null {
 					<ListItemText>{SidebarTitles.VERIFICATION_ITEM}</ListItemText>
 				</MenuItem>
 				<StyledMenuItem
-					moduleIsActive={attachFiles}
+					moduleIsActive={isFileStorage.enable}
 					onClick={handleOpenFilesForm}
 					selected={selector === 'FilesDataItem'}
 					divider={isWriter || isAdmin}
 				>
-					<ListItemIcon>{attachFiles ? <AttachFileIcon /> : <LockIcon />}</ListItemIcon>
+					<ListItemIcon>
+						{isFileStorage.enable ? <AttachFileIcon /> : <LockIcon />}
+					</ListItemIcon>
 					<ListItemText>{SidebarTitles.ITEM_FILES}</ListItemText>
 				</StyledMenuItem>
 				{(isWriter || isAdmin) && (

@@ -22,7 +22,6 @@ import FormContainer from 'styled/FormContainer';
 import type { INotificationSettings } from 'types/notification';
 
 function NotificationSettings() {
-	const [sendUpdatedItem] = useUpdateUserNotificationMutation();
 	const { settings, isGetDataFetching, isLoading } = useGetUserNotificationQuery(undefined, {
 		selectFromResult: ({ data, isFetching, isLoading }) => ({
 			settings: data,
@@ -35,11 +34,12 @@ function NotificationSettings() {
 		values: settings,
 	});
 
-	const { watch, control, handleSubmit } = methods;
-
+	const { handleSubmit, watch, control } = methods;
 	const switchNotification = watch('isNotificationEnabled');
 
-	const onSubmit = useCallback(
+	const [sendUpdatedItem] = useUpdateUserNotificationMutation();
+
+	const submitNotificationValue = useCallback(
 		async (data: INotificationSettings) => {
 			try {
 				await sendUpdatedItem(data).unwrap();
@@ -52,7 +52,7 @@ function NotificationSettings() {
 	);
 
 	return (
-		<FormContainer onSubmit={handleSubmit(onSubmit)}>
+		<FormContainer onSubmit={handleSubmit(submitNotificationValue)}>
 			<FetchingProgress isFetching={isGetDataFetching} />
 			{!isGetDataFetching && (
 				<Stack

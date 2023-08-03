@@ -29,9 +29,6 @@ import type { IDataItem, IDataItemWithDates } from 'types/dataItem';
 import { createDateISO } from 'utils/createDateISO';
 import { getExtendedIntervalRules } from 'utils/getExtendedIntervalRules';
 
-
-
-
 const today = new Date();
 
 const defaultValues = {
@@ -44,7 +41,7 @@ const defaultValues = {
 	condition: '',
 	division: '',
 	factoryNumber: '',
-	interVerificationinterval: '',
+	interVerificationInterval: '',
 	inventoryNumber: '',
 	measurementLimit: '',
 	name: '',
@@ -57,7 +54,7 @@ const defaultValues = {
 
 function CreateDataItem(): JSX.Element {
 	const dispatch = useAppDispatch();
-	const { maxCountRowTable } = useAppSelector(selectUserPermissions);
+	const { maxRowsPerTable } = useAppSelector(selectUserPermissions);
 
 	const { data } = useGetAllDataQuery();
 	const [createNewItem, { isLoading, isSuccess }] = useCreateNewDataItemMutation();
@@ -73,7 +70,7 @@ function CreateDataItem(): JSX.Element {
 	const { handleSubmit, reset } = methods;
 
 	const rowCount = data?.length ?? 0;
-	const maxRowsIsReached = isValueDefined(maxCountRowTable) && rowCount >= maxCountRowTable;
+	const maxRowsIsReached = isValueDefined(maxRowsPerTable) && rowCount >= maxRowsPerTable;
 
 	useEffect(() => {
 		if (isSuccess) {
@@ -142,14 +139,14 @@ function CreateDataItem(): JSX.Element {
 						</FormProvider>
 					</Fragment>
 				);
-			case 'interVerificationinterval':
+			case 'interVerificationInterval':
 				return (
 					<TextField
-						{...methods.register('interVerificationinterval', getExtendedIntervalRules())}
+						{...methods.register('interVerificationInterval', getExtendedIntervalRules())}
 						label={label}
 						key={key}
-						error={Boolean(methods.formState.errors.interVerificationinterval)}
-						helperText={methods.formState.errors?.interVerificationinterval?.message}
+						error={Boolean(methods.formState.errors.interVerificationInterval)}
+						helperText={methods.formState.errors?.interVerificationInterval?.message}
 						InputLabelProps={{ shrink: true }}
 						type='number'
 					/>

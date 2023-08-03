@@ -1,6 +1,6 @@
 import { enqueueSnackbar } from 'notistack';
-import { useCallback } from 'react';
 import type { MouseEvent } from 'react';
+import { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 
 import { acceptedFiles as accept } from '../acceptedFiles';
@@ -11,7 +11,6 @@ import { Messages } from 'constant/messages';
 import { useLazyDownloadArchiveQuery, useUploadFileMutation } from 'features/files/filesApiSlice';
 import { isValueDefined } from 'guards/isValueDefined';
 import type { IDocument } from 'types/dataItem';
-
 
 export interface IUseValidateFileFormProps {
 	id?: string | undefined;

@@ -12,7 +12,7 @@ export type AutocompleteKeysType = keyof Omit<
 	| 'verificationDate'
 	| 'dateOfTheNextVerification'
 	| 'productionDate'
-	| 'interVerificationinterval'
+	| 'interVerificationInterval'
 >;
 
 const defaultKeys: AutocompleteKeysType[] = [

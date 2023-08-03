@@ -24,7 +24,6 @@ const UserPhoto = forwardRef<HTMLInputElement, IUserPhotoProps>((props, ref): JS
 
 	const { data, isFetching } = useGetPhotoQuery();
 	const [preview, setPreview] = useState<string>();
-
 	const photoUrl = preparePhotoUrl(data);
 
 	useEffect(() => {

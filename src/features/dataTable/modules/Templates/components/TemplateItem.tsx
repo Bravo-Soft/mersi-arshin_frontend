@@ -18,9 +18,6 @@ import { Messages } from 'constant/messages';
 import type { ITemplateConfig } from 'types/template';
 import { parseTemplate } from 'utils/templateUtils';
 
-
-
-
 interface ITemplateItemProps {
 	item: Omit<ITemplateConfig, 'template'>;
 }
@@ -45,7 +42,7 @@ function TemplateItem({ item }: ITemplateItemProps): JSX.Element {
 				} else {
 					enqueueSnackbar(Messages.TEMPLATE_SUCCESSFULLY_APPLIED, { variant: 'info' });
 				}
-			} catch {
+			} catch (error) {
 				enqueueSnackbar(Messages.FAILED_TO_LOADING_TEMPLATE, { variant: 'error' });
 			}
 		} else {
