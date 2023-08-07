@@ -3,13 +3,57 @@ import SvgIcon from '@mui/material/SvgIcon';
 
 export function ArshinIcon(props: SvgIconProps): JSX.Element {
 	return (
-		<SvgIcon {...props} viewBox='0 0 24 24'>
-			<path d='M4.17389 11.4783H7.30432V24H4.17389V11.4783Z' />
-			<path d='M16.6956 11.4783H19.8261V24H16.6956V17.7391V11.4783Z' />
-			<path d='M12.5217 11.4783H15.6521V24H12.5217V11.4783Z' />
-			<path d='M8.3478 11.4783H11.4782L11.4782 24H8.3478L8.3478 11.4783Z' />
-			<path fillRule='evenodd' clipRule='evenodd' d='M3.13043 0H0V24H3.13043V0Z' />
-			<path fillRule='evenodd' clipRule='evenodd' d='M24 0H20.8696V24H24V0Z' />
+		<SvgIcon {...props}>
+			<svg
+				width='24'
+				height='15'
+				viewBox='0 0 24 15'
+				xmlns='http://www.w3.org/2000/svg'
+				xmlnsXlink='http://www.w3.org/1999/xlink'
+			>
+				<path
+					id='path1'
+					strokeWidth='0.615054'
+					strokeLinecap='round'
+					strokeLinejoin='round'
+					d='M 0.328267 14.677033 L 1.787234 14.677033 L 1.787234 0.322967 L 0.328267 0.322967 Z'
+				/>
+				<path
+					id='--4'
+					strokeWidth='0.615054'
+					strokeLinecap='round'
+					strokeLinejoin='round'
+					d='M 22.212767 14.677033 L 23.671732 14.677033 L 23.671732 0.322967 L 22.212767 0.322967 Z'
+				/>
+				<path
+					id='-'
+					strokeWidth='0.615054'
+					strokeLinecap='round'
+					strokeLinejoin='round'
+					d='M 4.705167 14.677033 L 6.164134 14.677033 L 6.164134 8.899521 L 4.705167 8.899521 Z'
+				/>
+				<path
+					id='--1'
+					strokeWidth='0.615054'
+					strokeLinecap='round'
+					strokeLinejoin='round'
+					d='M 9.082067 14.677033 L 10.541034 14.677033 L 10.541034 8.899521 L 9.082067 8.899521 Z'
+				/>
+				<path
+					id='--2'
+					strokeWidth='0.615054'
+					strokeLinecap='round'
+					strokeLinejoin='round'
+					d='M 13.458966 14.677033 L 14.917933 14.677033 L 14.917933 8.899521 L 13.458966 8.899521 Z'
+				/>
+				<path
+					id='--3'
+					strokeWidth='0.615054'
+					strokeLinecap='round'
+					strokeLinejoin='round'
+					d='M 17.835867 14.677033 L 19.294832 14.677033 L 19.294832 8.899521 L 17.835867 8.899521 Z'
+				/>
+			</svg>
 		</SvgIcon>
 	);
 }
