@@ -5,6 +5,7 @@ import Tooltip from '@mui/material/Tooltip';
 import { useRef, useState, useEffect } from 'react';
 import type { MouseEvent } from 'react';
 
+import ArshinMenuItem from './Arshin/ArshinMenuItem';
 import CreateVerificationScheduleMenuItem from './CreateVerificationSchedule/CreateVerificationScheduleMenuItem';
 import ExportMenuItem from './Export/ExportMenuItem';
 import NotificationsMenuItem from './Notifications/NotificationsMenuItem';
@@ -15,9 +16,6 @@ import { PrintMenuItem } from 'features/dataTable/modules/Printing';
 import { selectActualStep } from 'features/quickTour/components/quickTourSlice';
 import { usePrefetch } from 'features/user/userApiSlice';
 import { useAppSelector } from 'hooks/redux';
-
-
-
 
 function DataTableModulesButton(): JSX.Element {
 	const [templateFormIsOpen, setTemplateFormIsOpen] = useState(false);
@@ -103,6 +101,7 @@ function DataTableModulesButton(): JSX.Element {
 					onCloseMenu={handleCloseModulesMenu}
 					openTourMenuItems={actualStep === 11}
 				/>
+				<ArshinMenuItem onCloseMenu={handleCloseModulesMenu} />
 			</Menu>
 			<TemplateForm open={templateFormIsOpen} onClose={handleToggleTemplateForm} />
 		</>
