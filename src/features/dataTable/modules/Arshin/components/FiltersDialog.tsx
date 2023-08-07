@@ -41,7 +41,7 @@ function FiltersDialog({ handleClose, isOpenFiltersDialog }: IFiltersDialogProps
 		<Dialog open={isOpenFiltersDialog} onClose={handleClose} maxWidth={'xs'} fullWidth>
 			<FormProvider {...methods}>
 				<Paper component='form' onSubmit={methods.handleSubmit(onSubmit)}>
-					<DialogTitle>Фильтра</DialogTitle>
+					<DialogTitle>Выберете фильтра для поиска</DialogTitle>
 					<DialogContent>
 						{config.map(el => (
 							<Box key={el.name}>
@@ -57,7 +57,7 @@ function FiltersDialog({ handleClose, isOpenFiltersDialog }: IFiltersDialogProps
 													checked={field.value}
 												/>
 											)}
-										></Controller>
+										/>
 									}
 									label={el.title}
 								/>

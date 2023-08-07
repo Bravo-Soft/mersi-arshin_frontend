@@ -1,39 +1,40 @@
+import { ColumnNames } from 'features/dataTable/columns';
 import { IConfigArshin } from 'types/arshinIntegration';
 
 const config: IConfigArshin[] = [
 	{
 		name: 'organization',
-		title: 'Организация',
+		title: ColumnNames.ORGANIZATION,
 		disabled: true,
 	},
 	{
 		name: 'type',
-		title: 'Тип СИ',
+		title: ColumnNames.TYPE,
 		disabled: true,
 	},
 	{
 		name: 'factoryNumber',
-		title: 'Заводской номер',
+		title: ColumnNames.FACTORY_NUMBER,
 		disabled: true,
 	},
 	{
 		name: 'verificationDate',
-		title: 'Дата поверки',
+		title: ColumnNames.VERIFICATION_DATE,
 		disabled: false,
 	},
 	{
 		name: 'dateOfTheNextVerification',
-		title: 'Дата следующей поверки',
+		title: ColumnNames.DATE_OF_THE_NEXT_VERIFICATION,
 		disabled: false,
 	},
 	{
 		name: 'certificate',
-		title: 'Свидетельство',
+		title: ColumnNames.CERTIFICATE,
 		disabled: false,
 	},
 	{
 		name: 'suitability',
-		title: 'Пригодность',
+		title: ColumnNames.SUITABILITY,
 		disabled: false,
 	},
 ];
