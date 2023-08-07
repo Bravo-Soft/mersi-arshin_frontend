@@ -1,80 +1,79 @@
 {
-	"name": "client",
-	"version": "0.1.0",
-	"private": true,
-	"dependencies": {
-		"@emotion/react": "^11.10.4",
-		"@emotion/styled": "^11.10.4",
-		"@mui/icons-material": "^5.10.3",
-		"@mui/material": "^5.10.3",
-		"@mui/x-data-grid-pro": "^5.16.0",
-		"@mui/x-date-pickers": "^6.5.0",
-		"@mui/x-date-pickers-pro": "^6.5.0",
-		"@reduxjs/toolkit": "^1.8.5",
-		"@testing-library/jest-dom": "^5.14.1",
-		"@testing-library/react": "^13.0.0",
-		"@testing-library/user-event": "^13.2.1",
-		"@types/jest": "^27.0.1",
-		"@types/node": "^16.7.13",
-		"@types/react": "^18.0.0",
-		"@types/react-dom": "^18.0.0",
-		"async-mutex": "^0.4.0",
-		"classnames": "^2.3.1",
-		"date-fns": "^2.29.3",
-		"exceljs": "^4.3.0",
-		"notistack": "^3.0.1",
-		"react": "^18.2.0",
-		"react-device-detect": "^2.2.2",
-		"react-dom": "^18.2.0",
-		"react-dropzone": "^14.2.2",
-		"react-hook-form": "^7.43.5",
-		"react-joyride": "^2.5.3",
-		"react-redux": "^8.0.2",
-		"react-router-dom": "^6.3.0",
-		"react-scripts": "5.0.1",
-		"react-to-print": "^2.14.10",
-		"typescript": "^4.4.2",
-		"web-vitals": "^2.1.0",
-		"zod": "^3.21.4"
-	},
-	"husky": {
-		"hooks": {
-			"pre-commit": "npm run lint:check"
-		}
-	},
-	"scripts": {
-		"start": "react-scripts start",
-		"build": "react-scripts build",
-		"lint:fix": "eslint src --fix",
-		"lint:check": "eslint src",
-		"prettier:fix": "prettier --write src",
-		"prettier:check": "prettier --check src"
-	},
-	"eslintConfig": {
-		"extends": [
-			"react-app",
-			"react-app/jest"
-		]
-	},
-	"browserslist": {
-		"production": [
-			">0.2%",
-			"not dead",
-			"not op_mini all"
-		],
-		"development": [
-			"last 1 chrome version",
-			"last 1 firefox version",
-			"last 1 safari version"
-		]
-	},
-	"devDependencies": {
-		"eslint": "^8.23.0",
-		"eslint-config-prettier": "^8.5.0",
-		"eslint-import-resolver-typescript": "^3.5.5",
-		"eslint-plugin-import": "^2.27.5",
-		"eslint-plugin-react-refresh": "^0.4.1",
-		"husky": "^8.0.2",
-		"prettier": "^2.7.1"
-	}
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
+    "@mui/icons-material": "^5.10.3",
+    "@mui/material": "^5.10.3",
+    "@mui/x-data-grid-pro": "^5.16.0",
+    "@mui/x-date-pickers-pro": "^6.11.0",
+    "@reduxjs/toolkit": "^1.8.5",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^13.0.0",
+    "@testing-library/user-event": "^13.2.1",
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.7.13",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "async-mutex": "^0.4.0",
+    "classnames": "^2.3.1",
+    "date-fns": "^2.29.3",
+    "exceljs": "^4.3.0",
+    "notistack": "^3.0.1",
+    "react": "^18.2.0",
+    "react-device-detect": "^2.2.2",
+    "react-dom": "^18.2.0",
+    "react-dropzone": "^14.2.2",
+    "react-hook-form": "^7.43.5",
+    "react-joyride": "^2.5.3",
+    "react-redux": "^8.0.2",
+    "react-router-dom": "^6.3.0",
+    "react-scripts": "5.0.1",
+    "react-to-print": "^2.14.10",
+    "typescript": "^4.4.2",
+    "web-vitals": "^2.1.0",
+    "zod": "^3.21.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint:check"
+    }
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "lint:fix": "eslint src --fix",
+    "lint:check": "eslint src",
+    "prettier:fix": "prettier --write src",
+    "prettier:check": "prettier --check src"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "eslint": "^8.23.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-typescript": "^3.5.5",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-react-refresh": "^0.4.1",
+    "husky": "^8.0.2",
+    "prettier": "^2.7.1"
+  }
 }
