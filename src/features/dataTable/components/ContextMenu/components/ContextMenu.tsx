@@ -17,6 +17,7 @@ import { Messages } from 'constant/messages';
 import { SidebarTitles } from 'constant/sidebarTitles';
 import { selectSelectedDataItem, selectSelectionModel } from 'features/dataTable/dataTableSlice';
 import type { UseContextMenuActionsReturned } from 'features/dataTable/hooks/useContextMenuActions';
+import { ArshinIcon } from 'features/dataTable/modules/Arshin/ArshinIcon';
 import { selectActualStep, selectMenuStart } from 'features/quickTour/components/quickTourSlice';
 import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
 import { selectUserId, selectUserPermissions, selectUserRoles } from 'features/user/userSlice';
@@ -60,6 +61,7 @@ function ContextMenu({ contextMenu, actionsOfContextMenu }: IContextMenuProps): 
 		handleAddToFavorite,
 		handleRemoveFromFavorite,
 		handleCopySelectedValues,
+		handleAddToArshin,
 	} = actionsOfContextMenu;
 
 	const actualStep = useAppSelector(selectActualStep);
@@ -113,6 +115,17 @@ function ContextMenu({ contextMenu, actionsOfContextMenu }: IContextMenuProps): 
 			Icon: isFavoriteRow ? StarIcon : StarBorderIcon,
 			isActive: true,
 			action: isFavoriteRow ? handleRemoveFromFavorite : handleAddToFavorite,
+		},
+		{
+			title: 'Добавить в Аршин',
+			//TODO: необходимо добавить права
+			// eslint-disable-next-line no-constant-condition
+			Icon: true ? ArshinIcon : LockIcon,
+			//TODO: необходимо добавить права
+			isActive: true ?? false,
+			//TODO: необходимо добавить права
+			// eslint-disable-next-line no-constant-condition
+			action: true ? handleAddToArshin : handleOpenFilesOfDataItem,
 		},
 	];
 
