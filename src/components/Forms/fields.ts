@@ -1,4 +1,4 @@
-import { ColumnNames } from 'features/dataTable/columns';
+import { ColumnNames } from 'constant/columnsName';
 import type { IDataItemWithDates } from 'types/dataItem';
 
 interface ICreateInputs {

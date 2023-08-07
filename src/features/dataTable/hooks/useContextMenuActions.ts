@@ -5,7 +5,6 @@ import { enqueueSnackbar } from 'notistack';
 import { useState } from 'react';
 import type { MouseEvent } from 'react';
 
-import type { ColumnNames } from '../columns';
 import {
 	pinManyRows,
 	pinSelectedRow,
@@ -21,6 +20,7 @@ import {
 	useDeleteFavoriteIdsMutation,
 } from '../favoritesApiSlice';
 
+import type { ColumnNames } from 'constant/columnsName';
 import { formatVariant } from 'constant/dateFormat';
 import { Messages } from 'constant/messages';
 import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';

@@ -1,4 +1,4 @@
-import type { ColumnNames } from 'features/dataTable/columns';
+import type { ColumnNames } from 'constant/columnsName';
 
 export interface IOperatorsFIltersOptions {
 	columnField: string;

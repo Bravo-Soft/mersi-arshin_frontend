@@ -3,7 +3,7 @@ import { Controller } from 'react-hook-form';
 import { useFormContext } from 'react-hook-form';
 
 import type { AutocompleteKeysType } from 'components/Forms/hooks/useAutocomplete';
-import type { ColumnNames } from 'features/dataTable/columns';
+import type { ColumnNames } from 'constant/columnsName';
 import type { IDataItemWithDates } from 'types/dataItem';
 
 interface IAutocompleteFieldsProps {
