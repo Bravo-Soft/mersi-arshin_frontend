@@ -20,9 +20,7 @@ function LayoutButtonNotification() {
 	// TODO Убрать когда появится Back
 	const notification = 1;
 
-	const handleClick = () => {
-		console.log('CLICK');
-	};
+	const handleClick = () => {};
 
 	return (
 		<>
@@ -36,8 +34,8 @@ function LayoutButtonNotification() {
 			<StyledLayoutNotificationPopover
 				open={Boolean(anchorEl)}
 				anchorEl={anchorEl}
-				handleClose={handleClose}
-				notification={Boolean(notification)}
+				onClose={handleClose}
+				hasNotification={Boolean(notification)}
 			>
 				<DialogTitle>Уведомления</DialogTitle>
 				<DialogContent>

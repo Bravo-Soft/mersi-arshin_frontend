@@ -1,44 +1,33 @@
-import { dialogContentClasses, dialogTitleClasses, styled } from '@mui/material';
-import Popover from '@mui/material/Popover';
-import { PropsWithChildren } from 'react';
+import { dialogContentClasses, dialogTitleClasses, popoverClasses, styled } from '@mui/material';
+import Popover, { PopoverProps } from '@mui/material/Popover';
 
-interface LayoutNotificationPopoverProps {
-	open: boolean;
-	anchorEl: Element | null;
-	handleClose: VoidFunction;
-	notification: boolean;
+interface StyledPopoverProps extends PopoverProps {
+	hasNotification: boolean;
 }
 
-const styles = (notification: boolean) => ({
-	padding: 2,
-	width: notification ? 528 : 282,
+const StyledLayoutNotificationPopover = styled(
+	(props: StyledPopoverProps) => (
+		<Popover
+			{...props}
+			anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+			transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+		/>
+	),
+	{
+		shouldForwardProp: prop => prop !== 'hasNotification',
+	}
+)(({ theme, hasNotification }) => ({
+	[`& .${popoverClasses.paper}`]: {
+		padding: theme.spacing(2),
+		width: hasNotification ? 528 : 282,
+	},
 	[`& .${dialogTitleClasses.root}`]: {
 		padding: 0,
-		mb: 1,
+		marginBottom: theme.spacing(1),
 	},
 	[`& .${dialogContentClasses.root}`]: {
 		padding: 0,
 	},
-});
+}));
 
-const StyledLayoutNotificationPopover = styled(
-	({
-		open,
-		anchorEl,
-		handleClose,
-		notification,
-		children,
-	}: PropsWithChildren<LayoutNotificationPopoverProps>) => (
-		<Popover
-			open={open}
-			anchorEl={anchorEl}
-			anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-			transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-			onClose={handleClose}
-			PaperProps={{ sx: styles(notification) }}
-		>
-			{children}
-		</Popover>
-	)
-)();
 export default StyledLayoutNotificationPopover;
