@@ -18,7 +18,7 @@ function ArshinMenuItem({ onCloseMenu, ...othen }: IModuleMenuItemProps) {
 	const navigate = useNavigate();
 	// const { isArshin } = useAppSelector(selectUserPermissions);
 
-	const isArshin = false;
+	const isArshin = true;
 
 	const handleRouteToArshin = () => {
 		onCloseMenu();
