@@ -1,4 +1,4 @@
-import { ColumnNames } from 'features/dataTable/columns';
+import { ColumnNames } from 'constant/columnsName';
 import { IConfigArshin } from 'types/arshinIntegration';
 
 const config: IConfigArshin[] = [
