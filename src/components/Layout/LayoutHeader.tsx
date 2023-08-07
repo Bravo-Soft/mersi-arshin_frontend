@@ -1,12 +1,13 @@
 import AppBar from '@mui/material/AppBar';
+import Stack from '@mui/material/Stack';
 import { useTheme } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
 import LayoutAccountCircle from './LayoutAccountCircle';
 import LayoutLogo from './LayoutLogo';
+import LayoutNotificationIcon from './LayoutNotificationIcon';
 import LogoWrapper from './LogoWrapper';
-
 
 interface ILayoutHeaderProps {
 	setOpenModal: (arg: boolean) => void;
@@ -35,7 +36,10 @@ function LayoutHeader({ setOpenModal }: ILayoutHeaderProps): JSX.Element {
 						МЕРСИ
 					</Typography>
 				</LogoWrapper>
-				<LayoutAccountCircle setOpenModal={setOpenModal} />
+				<Stack direction='row' alignItems='center' columnGap={2}>
+					<LayoutNotificationIcon />
+					<LayoutAccountCircle setOpenModal={setOpenModal} />
+				</Stack>
 			</Toolbar>
 		</AppBar>
 	);
