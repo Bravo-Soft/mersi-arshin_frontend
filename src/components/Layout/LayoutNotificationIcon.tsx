@@ -26,9 +26,9 @@ function LayoutNotificationIcon() {
 
 	return (
 		<>
-			<Tooltip sx={{ flexGrow: 1 }} title='Уведомления'>
-				<IconButton sx={{ flexGrow: 1 }} onClick={handleOpen}>
-					<Badge badgeContent={1} color='info' variant='dot'>
+			<Tooltip title='Уведомления'>
+				<IconButton onClick={handleOpen}>
+					<Badge badgeContent={notification} color='info' variant='dot'>
 						<NotificationsIcon sx={{ color: '#ffffff' }} />
 					</Badge>
 				</IconButton>
