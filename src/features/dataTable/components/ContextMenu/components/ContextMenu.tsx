@@ -52,6 +52,8 @@ function ContextMenu({ contextMenu, actionsOfContextMenu }: IContextMenuProps): 
 	const isFavoriteRow =
 		isValueDefined(selectedDataItem) && userId && selectedDataItem.userIds.includes(userId);
 
+	const isArshin = true;
+
 	const {
 		handleClose,
 		handleOpenEditDataItem,
@@ -119,13 +121,11 @@ function ContextMenu({ contextMenu, actionsOfContextMenu }: IContextMenuProps): 
 		{
 			title: 'Добавить в Аршин',
 			//TODO: необходимо добавить права
-			// eslint-disable-next-line no-constant-condition
-			Icon: true ? ArshinIcon : LockIcon,
+			Icon: isArshin ? ArshinIcon : LockIcon,
 			//TODO: необходимо добавить права
-			isActive: true ?? false,
+			isActive: isArshin ?? false,
 			//TODO: необходимо добавить права
-			// eslint-disable-next-line no-constant-condition
-			action: true ? handleAddToArshin : handleOpenFilesOfDataItem,
+			action: isArshin ? handleAddToArshin : handleOpenFilesOfDataItem,
 		},
 	];
 
