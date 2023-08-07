@@ -14,7 +14,7 @@ import { useAnchor } from '../../features/dataTable/modules/CreateVerificationSc
 import StyledLayoutNotificationListItemBtn from './styled/StyledLayoutNotificationListItemBtn';
 import StyledLayoutNotificationPopover from './styled/StyledLayoutNotificationPopover';
 
-function LayoutNotificationIcon() {
+function LayoutButtonNotification() {
 	const [anchorEl, handleOpen, handleClose] = useAnchor();
 
 	// TODO Убрать когда появится Back
@@ -62,4 +62,4 @@ function LayoutNotificationIcon() {
 	);
 }
 
-export default LayoutNotificationIcon;
+export default LayoutButtonNotification;

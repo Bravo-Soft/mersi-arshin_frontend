@@ -1,9 +1,8 @@
 import { dialogContentClasses, dialogTitleClasses, styled } from '@mui/material';
-import type { PopoverProps } from '@mui/material/Popover';
 import Popover from '@mui/material/Popover';
 import { PropsWithChildren } from 'react';
 
-interface LayoutNotificationPopoverProps extends PopoverProps {
+interface LayoutNotificationPopoverProps {
 	open: boolean;
 	anchorEl: Element | null;
 	handleClose: VoidFunction;
