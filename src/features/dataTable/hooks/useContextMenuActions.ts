@@ -197,6 +197,10 @@ export const useContextMenuActions = (
 		}
 	};
 
+	const handleAddToArshin = () => {
+		console.log('добавить в аршин');
+	};
+
 	return {
 		contextMenu,
 		actionsOfContextMenu: {
@@ -213,6 +217,7 @@ export const useContextMenuActions = (
 			handleAddToFavorite,
 			handleRemoveFromFavorite,
 			handleCopySelectedValues,
+			handleAddToArshin,
 		},
 	};
 };
