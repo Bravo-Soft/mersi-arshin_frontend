@@ -10,15 +10,15 @@ import Paper from '@mui/material/Paper';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 
 import config from '../config/filterConfig';
+import { closeFilterDialogArshin, selectOpenFilterDialogArshin } from '../filtersDialogSlice';
 
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { IFormFilterArshin } from 'types/arshinIntegration';
 
-interface IFiltersDialogProps {
-	isOpenFiltersDialog: boolean;
-	handleClose: VoidFunction;
-}
+function FiltersDialog() {
+	const dispatch = useAppDispatch();
+	const isOpenFiltersDialog = useAppSelector(selectOpenFilterDialogArshin);
 
-function FiltersDialog({ handleClose, isOpenFiltersDialog }: IFiltersDialogProps) {
 	const methods = useForm<IFormFilterArshin>({
 		defaultValues: {
 			organization: true,
@@ -31,6 +31,10 @@ function FiltersDialog({ handleClose, isOpenFiltersDialog }: IFiltersDialogProps
 		},
 	});
 
+	const handleClose = () => {
+		dispatch(closeFilterDialogArshin());
+	};
+
 	const onSubmit = (data: IFormFilterArshin) => {
 		console.log(data);
 		handleClose();
@@ -38,10 +42,18 @@ function FiltersDialog({ handleClose, isOpenFiltersDialog }: IFiltersDialogProps
 	};
 
 	return (
-		<Dialog open={isOpenFiltersDialog} onClose={handleClose} maxWidth={'xs'} fullWidth>
+		<Dialog
+			PaperProps={{
+				variant: 'elevation',
+			}}
+			open={isOpenFiltersDialog}
+			onClose={handleClose}
+			maxWidth={'xs'}
+			fullWidth
+		>
 			<FormProvider {...methods}>
 				<Paper component='form' onSubmit={methods.handleSubmit(onSubmit)}>
-					<DialogTitle>Выберете фильтра для поиска</DialogTitle>
+					<DialogTitle>Выберите фильтра для поиска</DialogTitle>
 					<DialogContent>
 						{config.map(el => (
 							<Box key={el.name}>

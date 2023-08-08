@@ -7,20 +7,27 @@ import List from '@mui/material/List';
 import ListItemText from '@mui/material/ListItemText';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { useAnchor } from '../../features/dataTable/modules/CreateVerificationSchedule/components/utils/hooks';
 
 import StyledLayoutNotificationListItemBtn from './styled/StyledLayoutNotificationListItemBtn';
 import StyledLayoutNotificationPopover from './styled/StyledLayoutNotificationPopover';
 
+import { AppRoutes } from 'constant/appRoutes';
+
 function LayoutButtonNotification() {
 	const [anchorEl, handleOpen, handleClose] = useAnchor();
+
+	const navigate = useNavigate();
 
 	// TODO Убрать когда появится Back
 	const notification = 1;
 
-	const handleClick = () => {};
+	const handleClick = () => {
+		navigate(AppRoutes.ARSHIN);
+		handleClose();
+	};
 
 	return (
 		<>

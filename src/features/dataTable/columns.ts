@@ -1,19 +1,16 @@
-import type { GridCellParams, GridColDef, GridValueFormatterParams } from '@mui/x-data-grid-pro';
+import type { GridCellParams, GridColDef } from '@mui/x-data-grid-pro';
 import cn from 'classnames';
-import { compareAsc, format, formatISO, parseISO } from 'date-fns';
+import { compareAsc, formatISO, parseISO } from 'date-fns';
 
 import { RenderCellExpand, RenderCellExpandedRegister } from './components/RenderCellExpand';
+import { formatDateCallback } from './utils/formatDateCallback';
 import { quickFilterDateFormat } from './utils/quickFilterDateFormat';
 
 import { ColumnNames } from 'constant/columnsName';
-import { formatVariant } from 'constant/dateFormat';
 import { Tag } from 'constant/tag';
 import type { IDataItem } from 'types/dataItem';
 
 const initialWidth = 200;
-
-const formatDateCallback = (params: GridValueFormatterParams<string>) =>
-	format(new Date(params.value), formatVariant);
 
 const getCellClasses = ({ value = '' }: GridCellParams<string>) => {
 	//TODO: При необходимости включить стили для ячеек, срок поверки которых меньше 2 недель
