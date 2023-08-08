@@ -28,7 +28,6 @@ function EditInputs({ isReader }: IEditInputsProps): JSX.Element {
 
 	const rendercol = modifiedEditFields ? modifiedEditFields : editFields;
 	const params = useFilterAutocomplete();
-	console.log('rendercol', rendercol);
 	return (
 		<Stack direction='column' px={3} pb={3.5} rowGap={1} flexGrow={1}>
 			{rendercol.map(({ key, label }) => {
