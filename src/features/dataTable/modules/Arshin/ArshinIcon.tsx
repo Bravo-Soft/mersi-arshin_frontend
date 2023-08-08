@@ -3,14 +3,8 @@ import SvgIcon from '@mui/material/SvgIcon';
 
 export function ArshinIcon(props: SvgIconProps): JSX.Element {
 	return (
-		<SvgIcon {...props}>
-			<svg
-				width='24'
-				height='15'
-				viewBox='0 0 24 15'
-				xmlns='http://www.w3.org/2000/svg'
-				xmlnsXlink='http://www.w3.org/1999/xlink'
-			>
+		<SvgIcon {...props} width='24' height='15' viewBox='0 0 24 15'>
+			<svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'>
 				<path
 					id='path1'
 					strokeWidth='0.615054'
