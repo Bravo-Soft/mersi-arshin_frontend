@@ -7,7 +7,7 @@ import { useApplyTemplate } from '../hooks/useApplyTemplate';
 
 import DataTableArshinToolbar from './DataTableArshinToolbar';
 
-import { Status } from 'constant/status';
+import { ArshinStatus } from 'constant/arshinStatus';
 import { Tag } from 'constant/tag';
 import { NoResultsOverlay } from 'features/dataTable/components/NoResultsOverlay';
 import { NoRowsOverlay } from 'features/dataTable/components/NoRowsOverlay';
@@ -39,7 +39,7 @@ const data1: IDataItemArshin[] = [
 		responsible: 'responsible',
 		size: Tag.MEDIUM,
 		stateRegister: 'stateRegister',
-		status: Status.FAILED,
+		status: ArshinStatus.FAILED_TO_RETRIEVE_DATA,
 		suitability: 'suitability',
 		type: 'type',
 		typeOfWork: 'typeOfWork',

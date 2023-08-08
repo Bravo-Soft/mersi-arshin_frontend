@@ -1,6 +1,6 @@
 import { IDataItem } from './dataItem';
 
-import { Status } from 'constant/status';
+import { ArshinStatus } from 'constant/arshinStatus';
 
 export interface IFormFilterArshin {
 	organization: boolean;
@@ -19,5 +19,5 @@ export interface IConfigArshin {
 }
 
 export interface IDataItemArshin extends IDataItem {
-	status: Status;
+	status: ArshinStatus;
 }

@@ -3,8 +3,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { GridActionsCellItem, GridColDef } from '@mui/x-data-grid-pro';
 import { parseISO } from 'date-fns';
 
+import { ArshinStatus } from 'constant/arshinStatus';
 import { ColumnNames } from 'constant/columnsName';
-import { Status } from 'constant/status';
 import { Tag } from 'constant/tag';
 import { RenderCellExpand } from 'features/dataTable/components/RenderCellExpand';
 import { formatDateCallback } from 'features/dataTable/utils/formatDateCallback';
@@ -239,7 +239,11 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 		width: 200,
 		headerAlign: 'center',
 		type: 'singleSelect',
-		valueOptions: [Status.FAILED, Status.READY, Status.PENDING],
+		valueOptions: [
+			ArshinStatus.DONE,
+			ArshinStatus.FAILED_TO_RETRIEVE_DATA,
+			ArshinStatus.AWAITING_SHIPMENT,
+		],
 		renderCell: RenderCellExpand,
 	},
 	{
