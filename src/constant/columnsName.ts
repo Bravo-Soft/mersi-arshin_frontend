@@ -25,4 +25,6 @@ export enum ColumnNames {
 	ADDITIONAL_DATA = 'Доп. Данные',
 	METHODOLOGY = 'Методика',
 	COST = 'Стоимость',
+	STATUS = 'Статус',
+	ACTIONS = 'Действия',
 }
