@@ -5,32 +5,12 @@ import { compareAsc, /* differenceInDays */ format, formatISO, parseISO } from '
 import { RenderCellExpand } from './components/RenderCellExpand';
 import { quickFilterDateFormat } from './utils/quickFilterDateFormat';
 
+import { ColumnNames } from 'constant/columnsName';
 import { formatVariant } from 'constant/dateFormat';
 import { Tag } from 'constant/tag';
 import type { IDataItem } from 'types/dataItem';
 
 const initialWidth = 200;
-
-export enum ColumnNames {
-	NAME = 'Наименование',
-	TYPE = 'Тип СИ',
-	FACTORY_NUMBER = 'Заводской номер',
-	INVENTORY_NUMBER = 'Инвентарный номер',
-	DIVISION = 'Подразделение',
-	VERIFICATION_DATE = 'Дата поверки',
-	DATE_OF_THE_NEXT_VERIFICATION = 'Дата след. поверки',
-	TYPE_OF_WORK = 'Вид работ',
-	CONDITION = 'Состояние',
-	STATE_REGISTER = 'Госреестр',
-	CERTIFICATE = 'Свидетельство',
-	PRODUCTION_DATE = 'Дата производства',
-	ORGANIZATION = 'Организация',
-	ACCURACY_CLASS = 'Класс точности',
-	MEASUREMENT_LIMIT = 'Предел измерения',
-	SIZE = 'Размер бирки',
-	NOTES = 'Примечания',
-	VERIFICATION_INTERVAL = 'Межповерочный интервал',
-}
 
 const formatDateCallback = (params: GridValueFormatterParams<string>) =>
 	format(new Date(params.value), formatVariant);
