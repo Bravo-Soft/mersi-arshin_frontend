@@ -53,6 +53,7 @@ export const columns: GridColDef<IDataItem>[] = [
 		field: 'verificationControlInStateRegister',
 		headerName: ColumnNames.VERIFICATION_CONTROL_STATE_REGISTER,
 		width: initialWidth,
+		type: 'boolean',
 		headerAlign: 'center',
 		renderCell: RenderCellExpandedRegister,
 	},
@@ -216,6 +217,7 @@ export const columns: GridColDef<IDataItem>[] = [
 		headerName: ColumnNames.COST,
 		width: initialWidth,
 		headerAlign: 'center',
+		type: 'number',
 		renderCell: RenderCellExpand,
 	},
 
