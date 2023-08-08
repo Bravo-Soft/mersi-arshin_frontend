@@ -236,7 +236,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 		field: 'status',
 		sortable: false,
 		headerName: ColumnNames.STATUS,
-		width: 200,
+		width: 250,
 		headerAlign: 'center',
 		type: 'singleSelect',
 		valueOptions: [
