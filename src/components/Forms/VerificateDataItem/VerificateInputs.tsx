@@ -1,3 +1,4 @@
+import InputAdornment from '@mui/material/InputAdornment';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import { useFormContext } from 'react-hook-form';
@@ -11,7 +12,7 @@ import { selectedVisibleColumns } from 'features/dataTable/dataTableSlice';
 import { useAppSelector } from 'hooks/redux';
 import { useDateValidate } from 'hooks/useDateValidate';
 import type { IDataItemWithDates } from 'types/dataItem';
-import { getExtendedIntervalRules } from 'utils/getExtendedIntervalRules';
+import { getCostRules, getExtendedIntervalRules } from 'utils/getExtendedIntervalRules';
 
 interface IVerificateFieldsProps {
 	isReader: boolean;
@@ -55,6 +56,29 @@ function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
 						helperText={errors?.interVerificationInterval?.message}
 						InputLabelProps={{ shrink: true }}
 						type='number'
+					/>
+				) : key === 'cost' ? (
+					<TextField
+						key={key}
+						{...register('cost', getCostRules())}
+						label={label}
+						error={Boolean(errors.cost)}
+						helperText={errors?.cost?.message}
+						InputLabelProps={{ shrink: true }}
+						InputProps={{
+							startAdornment: <InputAdornment position='start'>₽</InputAdornment>,
+						}}
+						type='number'
+					/>
+				) : key === 'fgisUrl' ? (
+					<TextField
+						key={key}
+						{...register('fgisUrl')}
+						label={label}
+						error={Boolean(errors.fgisUrl)}
+						helperText={errors?.fgisUrl?.message}
+						InputLabelProps={{ shrink: true }}
+						type='text'
 					/>
 				) : (
 					<AutocompleteField
