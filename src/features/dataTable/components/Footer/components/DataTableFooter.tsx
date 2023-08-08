@@ -27,6 +27,7 @@ function DataTableFooter(): JSX.Element {
 	const selectedRowCount = useGridSelector(apiRef, selectedGridRowsCountSelector);
 	const { spacing } = useTheme();
 
+
 	return (
 		<GridFooterContainer>
 			<Box flexGrow={1} minWidth={115}>

@@ -1,8 +1,8 @@
 import type { GridCellParams, GridColDef, GridValueFormatterParams } from '@mui/x-data-grid-pro';
 import cn from 'classnames';
-import { compareAsc, /* differenceInDays */ format, formatISO, parseISO } from 'date-fns';
+import { compareAsc, format, formatISO, parseISO } from 'date-fns';
 
-import { RenderCellExpand } from './components/RenderCellExpand';
+import { RenderCellExpand, RenderCellExpandedRegister } from './components/RenderCellExpand';
 import { quickFilterDateFormat } from './utils/quickFilterDateFormat';
 
 import { ColumnNames } from 'constant/columnsName';
@@ -50,6 +50,13 @@ export const columns: GridColDef<IDataItem>[] = [
 		renderCell: RenderCellExpand,
 	},
 	{
+		field: 'verificationControlInStateRegister',
+		headerName: ColumnNames.VERIFICATION_CONTROL_STATE_REGISTER,
+		width: initialWidth,
+		headerAlign: 'center',
+		renderCell: RenderCellExpandedRegister,
+	},
+	{
 		field: 'inventoryNumber',
 		headerName: ColumnNames.INVENTORY_NUMBER,
 		width: initialWidth,
@@ -59,6 +66,20 @@ export const columns: GridColDef<IDataItem>[] = [
 	{
 		field: 'division',
 		headerName: ColumnNames.DIVISION,
+		width: initialWidth,
+		headerAlign: 'center',
+		renderCell: RenderCellExpand,
+	},
+	{
+		field: 'location',
+		headerName: ColumnNames.LOCATION,
+		width: initialWidth,
+		headerAlign: 'center',
+		renderCell: RenderCellExpand,
+	},
+	{
+		field: 'responsible',
+		headerName: ColumnNames.RESPONSIBLE,
 		width: initialWidth,
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
@@ -101,6 +122,13 @@ export const columns: GridColDef<IDataItem>[] = [
 		renderCell: RenderCellExpand,
 	},
 	{
+		field: 'suitability',
+		headerName: ColumnNames.SUITABILITY,
+		width: initialWidth,
+		headerAlign: 'center',
+		renderCell: RenderCellExpand,
+	},
+	{
 		field: 'condition',
 		headerName: ColumnNames.CONDITION,
 		width: initialWidth,
@@ -110,6 +138,13 @@ export const columns: GridColDef<IDataItem>[] = [
 	{
 		field: 'stateRegister',
 		headerName: ColumnNames.STATE_REGISTER,
+		width: initialWidth,
+		headerAlign: 'center',
+		renderCell: RenderCellExpand,
+	},
+	{
+		field: 'fgisUrl',
+		headerName: ColumnNames.FGIS_URL,
 		width: initialWidth,
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
@@ -154,6 +189,13 @@ export const columns: GridColDef<IDataItem>[] = [
 		renderCell: RenderCellExpand,
 	},
 	{
+		field: 'additionalData',
+		headerName: ColumnNames.ADDITIONAL_DATA,
+		width: initialWidth,
+		headerAlign: 'center',
+		renderCell: RenderCellExpand,
+	},
+	{
 		field: 'size',
 		headerName: ColumnNames.SIZE,
 		width: initialWidth,
@@ -162,6 +204,21 @@ export const columns: GridColDef<IDataItem>[] = [
 		valueOptions: [Tag.SMALL, Tag.MEDIUM, Tag.LARGE],
 		renderCell: RenderCellExpand,
 	},
+	{
+		field: 'methodology',
+		headerName: ColumnNames.METHODOLOGY,
+		width: initialWidth,
+		headerAlign: 'center',
+		renderCell: RenderCellExpand,
+	},
+	{
+		field: 'cost',
+		headerName: ColumnNames.COST,
+		width: initialWidth,
+		headerAlign: 'center',
+		renderCell: RenderCellExpand,
+	},
+
 	{
 		field: 'notes',
 		headerName: ColumnNames.NOTES,
