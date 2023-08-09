@@ -48,7 +48,7 @@ function FiltersDialog() {
 			}}
 			open={isOpenFiltersDialog}
 			onClose={handleClose}
-			maxWidth={'xs'}
+			maxWidth='xs'
 			fullWidth
 		>
 			<FormProvider {...methods}>

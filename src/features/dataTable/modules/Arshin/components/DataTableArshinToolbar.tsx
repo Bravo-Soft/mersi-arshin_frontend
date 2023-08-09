@@ -1,10 +1,12 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CachedIcon from '@mui/icons-material/Cached';
 import SettingsIcon from '@mui/icons-material/Settings';
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import Toolbar from '@mui/material/Toolbar';
+import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { GridToolbarContainer } from '@mui/x-data-grid-pro';
 import { Link } from 'react-router-dom';
@@ -29,10 +31,18 @@ function DataTableArshinToolbar(): JSX.Element {
 		<>
 			<GridToolbarContainer>
 				<Toolbar sx={{ width: 1 }}>
-					<Box display='flex' alignItems='flex-start' gap={5} flexGrow={1} minWidth={350}>
-						<Button startIcon={<ArrowBackIcon />} component={Link} to={AppRoutes.HOME}>
-							На главную
-						</Button>
+					<Stack
+						direction='row'
+						alignItems='center'
+						flexGrow={1}
+						spacing={2}
+						divider={<Divider orientation='vertical' flexItem />}
+					>
+						<Tooltip title='На главную'>
+							<IconButton color='primary' component={Link} to={AppRoutes.HOME}>
+								<ArrowBackIcon />
+							</IconButton>
+						</Tooltip>
 						<Typography
 							color='primary.main'
 							variant='h6'
@@ -42,7 +52,7 @@ function DataTableArshinToolbar(): JSX.Element {
 						>
 							Контроль поверки в Госреестре
 						</Typography>
-					</Box>
+					</Stack>
 					<Stack flexDirection='row' gap={4}>
 						<Button startIcon={<SettingsIcon />} onClick={handleOpenFilter}>
 							Настроить фильтра
