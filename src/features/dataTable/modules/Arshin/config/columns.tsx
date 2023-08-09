@@ -4,7 +4,10 @@ import { parseISO } from 'date-fns';
 import { ArshinStatus } from 'constant/arshinStatus';
 import { ColumnNames } from 'constant/columnsName';
 import { Tag } from 'constant/tag';
-import { RenderCellExpand } from 'features/dataTable/components/RenderCellExpand';
+import {
+	RenderCellExpand,
+	RenderCellExpandedRegister,
+} from 'features/dataTable/components/RenderCellExpand';
 import { formatDateCallback } from 'features/dataTable/utils/formatDateCallback';
 import { IDataItemArshin } from 'types/arshinIntegration';
 
@@ -40,6 +43,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 		width: 200,
 		type: 'boolean',
 		headerAlign: 'center',
+		renderCell: RenderCellExpandedRegister,
 	},
 	{
 		field: 'inventoryNumber',
