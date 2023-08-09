@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
+import InputAdornment from '@mui/material/InputAdornment';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import { Fragment, useEffect } from 'react';
@@ -27,7 +28,7 @@ import ButtonContainer from 'styled/ButtonContainer';
 import FormContainer from 'styled/FormContainer';
 import type { IDataItem, IDataItemWithDates } from 'types/dataItem';
 import { createDateISO } from 'utils/createDateISO';
-import { getExtendedIntervalRules } from 'utils/getExtendedIntervalRules';
+import { getCostRules, getExtendedIntervalRules } from 'utils/getExtendedIntervalRules';
 
 const today = new Date();
 
@@ -50,6 +51,13 @@ const defaultValues = {
 	stateRegister: '',
 	type: '',
 	typeOfWork: '',
+	location: '',
+	responsible: '',
+	suitability: '',
+	fgisUrl: '',
+	additionalData: '',
+	methodology: '',
+	cost: '',
 };
 
 function CreateDataItem(): JSX.Element {
@@ -149,6 +157,34 @@ function CreateDataItem(): JSX.Element {
 						helperText={methods.formState.errors?.interVerificationInterval?.message}
 						InputLabelProps={{ shrink: true }}
 						type='number'
+					/>
+				);
+
+			case 'cost':
+				return (
+					<TextField
+						key={key}
+						{...methods.register('cost', getCostRules())}
+						label={label}
+						error={Boolean(methods.formState.errors.cost)}
+						helperText={methods.formState.errors?.cost?.message}
+						InputLabelProps={{ shrink: true }}
+						InputProps={{
+							startAdornment: <InputAdornment position='start'>₽</InputAdornment>,
+						}}
+						type='number'
+					/>
+				);
+			case 'fgisUrl':
+				return (
+					<TextField
+						key={key}
+						{...methods.register('fgisUrl')}
+						label={label}
+						error={Boolean(methods.formState.errors.fgisUrl)}
+						helperText={methods.formState.errors?.fgisUrl?.message}
+						InputLabelProps={{ shrink: true }}
+						type='text'
 					/>
 				);
 			default:

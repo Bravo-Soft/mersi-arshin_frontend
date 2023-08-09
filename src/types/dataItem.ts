@@ -85,6 +85,38 @@ export interface IDataItem {
 	 * Межповерочный интервал
 	 */
 	interVerificationInterval: string;
+	/**
+	 * Контроль поверки в Госреестр
+	 */
+	verificationControlInStateRegister: boolean;
+	/**
+	 * Местоположение СИ
+	 */
+	location: string;
+	/**
+	 * Ответственный
+	 */
+	responsible: string;
+	/**
+	 * Пригодность
+	 */
+	suitability: string;
+	/**
+	 * Ссылка
+	 */
+	fgisUrl: string;
+	/**
+	 * Доп. Данные
+	 */
+	additionalData: string;
+	/**
+	 * Методика
+	 */
+	methodology: string;
+	/**
+	 * Стоимость
+	 */
+	cost: string;
 }
 
 export interface IDocument {

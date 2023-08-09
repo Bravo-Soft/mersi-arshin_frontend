@@ -1,6 +1,5 @@
 import { Autocomplete, TextField } from '@mui/material';
-import { Controller } from 'react-hook-form';
-import { useFormContext } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 
 import type { AutocompleteKeysType } from 'components/Forms/hooks/useAutocomplete';
 import type { ColumnNames } from 'constant/columnsName';
@@ -21,6 +20,9 @@ const shortKeys = [
 	'division',
 	'typeOfWork',
 	'measurementLimit',
+	'location',
+	'responsible',
+	'suitability',
 ];
 
 const getValueOfMaxLength = (name: AutocompleteKeysType) => {

@@ -27,7 +27,6 @@ function EditInputs({ isReader }: IEditInputsProps): JSX.Element {
 	const { modifiedEditFields } = useAppSelector(selectedVisibleColumns);
 
 	const rendercol = modifiedEditFields ? modifiedEditFields : editFields;
-
 	const params = useFilterAutocomplete();
 	return (
 		<Stack direction='column' px={3} pb={3.5} rowGap={1} flexGrow={1}>
