@@ -1,202 +1,206 @@
-import type { GridCellParams, GridColDef } from '@mui/x-data-grid-pro';
-import cn from 'classnames';
-import { compareAsc, formatISO, parseISO } from 'date-fns';
+import CachedIcon from '@mui/icons-material/Cached';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { GridActionsCellItem, GridColDef } from '@mui/x-data-grid-pro';
+import { parseISO } from 'date-fns';
 
-import { RenderCellExpand, RenderCellExpandedRegister } from './components/RenderCellExpand';
-import { formatDateCallback } from './utils/formatDateCallback';
-import { quickFilterDateFormat } from './utils/quickFilterDateFormat';
-
+import { ArshinStatus } from 'constant/arshinStatus';
 import { ColumnNames } from 'constant/columnsName';
 import { Tag } from 'constant/tag';
-import type { IDataItem } from 'types/dataItem';
+import { RenderCellExpand } from 'features/dataTable/components/RenderCellExpand';
+import { formatDateCallback } from 'features/dataTable/utils/formatDateCallback';
+import { IDataItemArshin } from 'types/arshinIntegration';
 
-const initialWidth = 200;
-
-const getCellClasses = ({ value = '' }: GridCellParams<string>) => {
-	//TODO: При необходимости включить стили для ячеек, срок поверки которых меньше 2 недель
-	const parsedItemDate = parseISO(formatISO(new Date(value)));
-	const today = parseISO(formatISO(new Date(), { representation: 'date' }));
-	// const result = differenceInDays(parsedItemDate, today);
-
-	return cn({
-		overdueItem: compareAsc(today, parsedItemDate) !== -1,
-		// twoWeeksToGo: result <= 14 && result >= 0,
-	});
-};
-
-export const columns: GridColDef<IDataItem>[] = [
+export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	{
 		field: 'name',
+		sortable: false,
 		headerName: ColumnNames.NAME,
-		width: initialWidth,
+		width: 200,
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
 	},
 	{
 		field: 'type',
+		sortable: false,
 		headerName: ColumnNames.TYPE,
-		width: initialWidth,
+		width: 200,
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
 	},
 	{
 		field: 'factoryNumber',
+		sortable: false,
 		headerName: ColumnNames.FACTORY_NUMBER,
-		width: initialWidth,
+		width: 200,
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
 	},
 	{
 		field: 'verificationControlInStateRegister',
+		sortable: false,
 		headerName: ColumnNames.VERIFICATION_CONTROL_STATE_REGISTER,
-		width: initialWidth,
+		width: 200,
 		type: 'boolean',
 		headerAlign: 'center',
-		renderCell: RenderCellExpandedRegister,
 	},
 	{
 		field: 'inventoryNumber',
+		sortable: false,
 		headerName: ColumnNames.INVENTORY_NUMBER,
-		width: initialWidth,
+		width: 200,
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
 	},
 	{
 		field: 'division',
+		sortable: false,
 		headerName: ColumnNames.DIVISION,
-		width: initialWidth,
+		width: 200,
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
 	},
 	{
 		field: 'location',
+		sortable: false,
 		headerName: ColumnNames.LOCATION,
-		width: initialWidth,
+		width: 200,
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
 	},
 	{
 		field: 'responsible',
+		sortable: false,
 		headerName: ColumnNames.RESPONSIBLE,
-		width: initialWidth,
+		width: 200,
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
 	},
 	{
 		field: 'verificationDate',
+		sortable: false,
 		headerName: ColumnNames.VERIFICATION_DATE,
-		width: initialWidth,
+		width: 200,
 		resizable: false,
 		headerAlign: 'center',
 		type: 'date',
 		valueFormatter: formatDateCallback,
 		valueGetter: ({ row }) => parseISO(row.verificationDate),
-		getApplyQuickFilterFn: quickFilterDateFormat,
 	},
 	{
 		field: 'interVerificationInterval',
+		sortable: false,
 		headerName: ColumnNames.VERIFICATION_INTERVAL,
-		width: initialWidth,
+		width: 200,
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
 	},
 	{
 		field: 'dateOfTheNextVerification',
+		sortable: false,
 		headerName: ColumnNames.DATE_OF_THE_NEXT_VERIFICATION,
-		width: initialWidth,
+		width: 200,
 		resizable: false,
 		headerAlign: 'center',
 		type: 'date',
 		valueFormatter: formatDateCallback,
-		cellClassName: getCellClasses,
 		valueGetter: ({ row }) => parseISO(row.dateOfTheNextVerification),
-		getApplyQuickFilterFn: quickFilterDateFormat,
 	},
 	{
 		field: 'typeOfWork',
+		sortable: false,
 		headerName: ColumnNames.TYPE_OF_WORK,
-		width: initialWidth,
+		width: 200,
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
 	},
 	{
 		field: 'suitability',
+		sortable: false,
 		headerName: ColumnNames.SUITABILITY,
-		width: initialWidth,
+		width: 200,
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
 	},
 	{
 		field: 'condition',
+		sortable: false,
 		headerName: ColumnNames.CONDITION,
-		width: initialWidth,
+		width: 200,
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
 	},
 	{
 		field: 'stateRegister',
+		sortable: false,
 		headerName: ColumnNames.STATE_REGISTER,
-		width: initialWidth,
+		width: 200,
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
 	},
 	{
 		field: 'fgisUrl',
+		sortable: false,
 		headerName: ColumnNames.FGIS_URL,
-		width: initialWidth,
+		width: 200,
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
 	},
 	{
 		field: 'certificate',
+		sortable: false,
 		headerName: ColumnNames.CERTIFICATE,
-		width: initialWidth,
+		width: 200,
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
 	},
 	{
 		field: 'productionDate',
+		sortable: false,
 		headerName: ColumnNames.PRODUCTION_DATE,
-		width: initialWidth,
+		width: 200,
 		resizable: false,
 		headerAlign: 'center',
 		type: 'date',
 		valueFormatter: formatDateCallback,
 		valueGetter: ({ row }) => parseISO(row.productionDate),
-		getApplyQuickFilterFn: quickFilterDateFormat,
 	},
 	{
 		field: 'organization',
+		sortable: false,
 		headerName: ColumnNames.ORGANIZATION,
-		width: initialWidth,
+		width: 200,
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
 	},
 	{
 		field: 'accuracyClass',
+		sortable: false,
 		headerName: ColumnNames.ACCURACY_CLASS,
-		width: initialWidth,
+		width: 200,
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
 	},
 	{
 		field: 'measurementLimit',
+		sortable: false,
 		headerName: ColumnNames.MEASUREMENT_LIMIT,
-		width: initialWidth,
+		width: 200,
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
 	},
 	{
 		field: 'additionalData',
+		sortable: false,
 		headerName: ColumnNames.ADDITIONAL_DATA,
-		width: initialWidth,
+		width: 200,
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
 	},
 	{
 		field: 'size',
+		sortable: false,
 		headerName: ColumnNames.SIZE,
-		width: initialWidth,
+		width: 200,
 		headerAlign: 'center',
 		type: 'singleSelect',
 		valueOptions: [Tag.SMALL, Tag.MEDIUM, Tag.LARGE],
@@ -204,15 +208,17 @@ export const columns: GridColDef<IDataItem>[] = [
 	},
 	{
 		field: 'methodology',
+		sortable: false,
 		headerName: ColumnNames.METHODOLOGY,
-		width: initialWidth,
+		width: 200,
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
 	},
 	{
 		field: 'cost',
+		sortable: false,
 		headerName: ColumnNames.COST,
-		width: initialWidth,
+		width: 200,
 		headerAlign: 'center',
 		type: 'number',
 		renderCell: RenderCellExpand,
@@ -220,11 +226,45 @@ export const columns: GridColDef<IDataItem>[] = [
 
 	{
 		field: 'notes',
+		sortable: false,
 		headerName: ColumnNames.NOTES,
-		width: initialWidth,
+		width: 200,
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
 	},
+	{
+		field: 'status',
+		sortable: false,
+		headerName: ColumnNames.STATUS,
+		width: 250,
+		headerAlign: 'center',
+		type: 'singleSelect',
+		valueOptions: [
+			ArshinStatus.DONE,
+			ArshinStatus.FAILED_TO_RETRIEVE_DATA,
+			ArshinStatus.AWAITING_SHIPMENT,
+		],
+		renderCell: RenderCellExpand,
+	},
+	{
+		field: 'actions',
+		type: 'actions',
+		headerName: ColumnNames.ACTIONS,
+		width: 150,
+		headerAlign: 'center',
+		renderCell: () => [
+			<GridActionsCellItem
+				key='delete'
+				icon={<DeleteIcon />}
+				label='Удалить'
+				onClick={() => console.log('удалить')}
+			/>,
+			<GridActionsCellItem
+				key='refresh'
+				icon={<CachedIcon />}
+				label='Обновить'
+				onClick={() => console.log('обновить')}
+			/>,
+		],
+	},
 ];
-
-export default columns;
