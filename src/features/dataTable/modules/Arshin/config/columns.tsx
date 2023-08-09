@@ -1,6 +1,4 @@
-import CachedIcon from '@mui/icons-material/Cached';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { GridActionsCellItem, GridColDef } from '@mui/x-data-grid-pro';
+import { GridColDef } from '@mui/x-data-grid-pro';
 import { parseISO } from 'date-fns';
 
 import { ArshinStatus } from 'constant/arshinStatus';
@@ -245,26 +243,5 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 			ArshinStatus.AWAITING_SHIPMENT,
 		],
 		renderCell: RenderCellExpand,
-	},
-	{
-		field: 'actions',
-		type: 'actions',
-		headerName: ColumnNames.ACTIONS,
-		width: 150,
-		headerAlign: 'center',
-		renderCell: () => [
-			<GridActionsCellItem
-				key='delete'
-				icon={<DeleteIcon />}
-				label='Удалить'
-				onClick={() => console.log('удалить')}
-			/>,
-			<GridActionsCellItem
-				key='refresh'
-				icon={<CachedIcon />}
-				label='Обновить'
-				onClick={() => console.log('обновить')}
-			/>,
-		],
 	},
 ];

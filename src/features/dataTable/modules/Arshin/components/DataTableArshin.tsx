@@ -1,10 +1,13 @@
 import LinearProgress from '@mui/material/LinearProgress';
-import { useGridApiRef } from '@mui/x-data-grid-pro';
+import { GridSelectionModel, useGridApiRef } from '@mui/x-data-grid-pro';
 import { DataGridPro } from '@mui/x-data-grid-pro';
+import { useState } from 'react';
 
 import { columnsArshin } from '../config/columns';
 import { useApplyTemplate } from '../hooks/useApplyTemplate';
+import { useContextMenuActions } from '../hooks/useContextMenuActions';
 
+import ContextMenuArshin from './ContextMenuArshin';
 import DataTableArshinToolbar from './DataTableArshinToolbar';
 
 import { ArshinStatus } from 'constant/arshinStatus';
@@ -14,7 +17,7 @@ import { NoRowsOverlay } from 'features/dataTable/components/NoRowsOverlay';
 import DataTableBox from 'styled/DataTableBox';
 import { IDataItemArshin } from 'types/arshinIntegration';
 
-const data1: IDataItemArshin[] = [
+const data: IDataItemArshin[] = [
 	{
 		accuracyClass: '123',
 		additionalData: '123',
@@ -50,16 +53,20 @@ const data1: IDataItemArshin[] = [
 ];
 
 function DataTableArshin() {
+	const [selectionItems, setSelectionItems] = useState<GridSelectionModel>([]);
+
 	const apiRef = useGridApiRef();
 
 	useApplyTemplate(apiRef);
+
+	const { contextMenu, handleOpenContextMenu, handleClose } = useContextMenuActions();
 
 	return (
 		<DataTableBox>
 			<DataGridPro
 				apiRef={apiRef}
 				columns={columnsArshin}
-				rows={data1}
+				rows={data}
 				// loading={isFetchingData}
 				disableColumnMenu
 				pagination
@@ -74,6 +81,21 @@ function DataTableArshin() {
 					NoRowsOverlay,
 					NoResultsOverlay,
 				}}
+				onSelectionModelChange={(newSelectionModel: GridSelectionModel) => {
+					setSelectionItems(newSelectionModel);
+				}}
+				selectionModel={selectionItems}
+				componentsProps={{
+					row: {
+						onContextMenu: handleOpenContextMenu,
+						style: { cursor: 'pointer' },
+					},
+				}}
+			/>
+			<ContextMenuArshin
+				contextMenu={contextMenu}
+				selectionItems={selectionItems}
+				handleClose={handleClose}
 			/>
 		</DataTableBox>
 	);
