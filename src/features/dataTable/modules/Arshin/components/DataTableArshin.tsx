@@ -5,9 +5,7 @@ import { useState } from 'react';
 
 import { columnsArshin } from '../config/columns';
 import { useApplyTemplate } from '../hooks/useApplyTemplate';
-import { useContextMenuActions } from '../hooks/useContextMenuActions';
 
-import ContextMenuArshin from './ContextMenuArshin';
 import DataTableArshinToolbar from './DataTableArshinToolbar';
 
 import { ArshinStatus } from 'constant/arshinStatus';
@@ -59,8 +57,6 @@ function DataTableArshin() {
 
 	useApplyTemplate(apiRef);
 
-	const { contextMenu, handleOpenContextMenu, handleClose } = useContextMenuActions();
-
 	return (
 		<DataTableBox>
 			<DataGridPro
@@ -81,21 +77,13 @@ function DataTableArshin() {
 					NoRowsOverlay,
 					NoResultsOverlay,
 				}}
+				componentsProps={{
+					toolbar: { selectionItems },
+				}}
 				onSelectionModelChange={(newSelectionModel: GridSelectionModel) => {
 					setSelectionItems(newSelectionModel);
 				}}
 				selectionModel={selectionItems}
-				componentsProps={{
-					row: {
-						onContextMenu: handleOpenContextMenu,
-						style: { cursor: 'pointer' },
-					},
-				}}
-			/>
-			<ContextMenuArshin
-				contextMenu={contextMenu}
-				selectionItems={selectionItems}
-				handleClose={handleClose}
 			/>
 		</DataTableBox>
 	);

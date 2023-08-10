@@ -1,26 +1,11 @@
 import { GridSelectionModel } from '@mui/x-data-grid-pro';
-import { useState } from 'react';
-import type { MouseEvent } from 'react';
 
 import { openFilterDialogArshin } from '../filtersDialogSlice';
 
-import { ICoordinates } from 'features/dataTable/hooks/useContextMenuActions';
 import { useAppDispatch } from 'hooks/redux';
 
-export const useContextMenuActions = () => {
+export const useMenuActions = () => {
 	const dispatch = useAppDispatch();
-	const [contextMenu, setContextMenu] = useState<ICoordinates | null>(null);
-
-	const handleClose = () => {
-		setContextMenu(null);
-	};
-
-	const handleOpenContextMenu = (event: MouseEvent<HTMLDivElement>) => {
-		event.preventDefault();
-		setContextMenu(
-			contextMenu === null ? { mouseX: event.clientX - 2, mouseY: event.clientY - 4 } : null
-		);
-	};
 
 	const handleOpenFilter = () => {
 		dispatch(openFilterDialogArshin());
@@ -39,9 +24,6 @@ export const useContextMenuActions = () => {
 	};
 
 	return {
-		contextMenu,
-		handleClose,
-		handleOpenContextMenu,
 		handleOpenFilter,
 		handleSynchronizeItems,
 		handleGetDataFromFgis,
