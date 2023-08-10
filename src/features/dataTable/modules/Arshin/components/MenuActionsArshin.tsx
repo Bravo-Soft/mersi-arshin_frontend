@@ -9,7 +9,6 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Menu from '@mui/material/Menu';
 import { GridSelectionModel } from '@mui/x-data-grid-pro';
-import { MouseEvent, useState } from 'react';
 
 import { useMenuActions } from '../hooks/useMenuActions';
 
@@ -27,16 +26,15 @@ interface IMenuItem {
 }
 
 function MenuActionsArshin({ selectionItems }: IMenuActionsArshinProps) {
-	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-	const open = Boolean(anchorEl);
-	const handleOpenMenu = (event: MouseEvent<HTMLButtonElement>) => {
-		setAnchorEl(event.currentTarget);
-	};
-	const handleClose = () => {
-		setAnchorEl(null);
-	};
-
-	const { handleOpenFilter, handleSynchronizeItems, handleDeleteItems } = useMenuActions();
+	const {
+		anchorEl,
+		open,
+		handleOpenFilter,
+		handleSynchronizeItems,
+		handleDeleteItems,
+		handleCloseMenu,
+		handleOpenMenu,
+	} = useMenuActions();
 
 	const menuItems: IMenuItem[] = [
 		{
@@ -60,7 +58,7 @@ function MenuActionsArshin({ selectionItems }: IMenuActionsArshinProps) {
 	];
 
 	const handleClick = (action: VoidFunction, isActive: boolean) => () => {
-		handleClose();
+		handleCloseMenu();
 		isActive && action();
 	};
 
@@ -79,7 +77,7 @@ function MenuActionsArshin({ selectionItems }: IMenuActionsArshinProps) {
 			>
 				Действия
 			</Button>
-			<Menu open={open} onClose={handleClose} anchorEl={anchorEl}>
+			<Menu open={open} onClose={handleCloseMenu} anchorEl={anchorEl}>
 				{menuItems.map(({ action, title, Icon, isDisabled }) => (
 					<StyledMenuItem
 						moduleIsActive={true}
