@@ -12,7 +12,7 @@ export const useApplyTemplate = (apiRef: MutableRefObject<GridApiPro>) => {
 			template.columns.orderedFields = template.columns.orderedFields.filter(
 				(el: string) => !Object.keys(template.columns.columnVisibilityModel).includes(el)
 			);
-			template.columns.orderedFields.splice(2, 0, 'status', 'actions');
+			template.columns.orderedFields.splice(2, 0, 'status');
 			// сброс моделей из шаблона
 			template.sorting.sortModel = [{ field: 'status', sort: 'asc' }];
 			template.filter.filterModel = { items: [] };

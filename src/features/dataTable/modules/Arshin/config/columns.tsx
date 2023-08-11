@@ -1,12 +1,13 @@
-import CachedIcon from '@mui/icons-material/Cached';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { GridActionsCellItem, GridColDef } from '@mui/x-data-grid-pro';
+import { GridColDef } from '@mui/x-data-grid-pro';
 import { parseISO } from 'date-fns';
 
 import { ArshinStatus } from 'constant/arshinStatus';
 import { ColumnNames } from 'constant/columnsName';
 import { Tag } from 'constant/tag';
-import { RenderCellExpand } from 'features/dataTable/components/RenderCellExpand';
+import {
+	RenderCellExpand,
+	RenderCellExpandedRegister,
+} from 'features/dataTable/components/RenderCellExpand';
 import { formatDateCallback } from 'features/dataTable/utils/formatDateCallback';
 import { IDataItemArshin } from 'types/arshinIntegration';
 
@@ -42,6 +43,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 		width: 200,
 		type: 'boolean',
 		headerAlign: 'center',
+		renderCell: RenderCellExpandedRegister,
 	},
 	{
 		field: 'inventoryNumber',
@@ -245,26 +247,5 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 			ArshinStatus.AWAITING_SHIPMENT,
 		],
 		renderCell: RenderCellExpand,
-	},
-	{
-		field: 'actions',
-		type: 'actions',
-		headerName: ColumnNames.ACTIONS,
-		width: 150,
-		headerAlign: 'center',
-		renderCell: () => [
-			<GridActionsCellItem
-				key='delete'
-				icon={<DeleteIcon />}
-				label='Удалить'
-				onClick={() => console.log('удалить')}
-			/>,
-			<GridActionsCellItem
-				key='refresh'
-				icon={<CachedIcon />}
-				label='Обновить'
-				onClick={() => console.log('обновить')}
-			/>,
-		],
 	},
 ];

@@ -14,7 +14,7 @@ import { NoRowsOverlay } from 'features/dataTable/components/NoRowsOverlay';
 import DataTableBox from 'styled/DataTableBox';
 import { IDataItemArshin } from 'types/arshinIntegration';
 
-const data1: IDataItemArshin[] = [
+const data: IDataItemArshin[] = [
 	{
 		accuracyClass: '123',
 		additionalData: '123',
@@ -59,7 +59,7 @@ function DataTableArshin() {
 			<DataGridPro
 				apiRef={apiRef}
 				columns={columnsArshin}
-				rows={data1}
+				rows={data}
 				// loading={isFetchingData}
 				disableColumnMenu
 				pagination
