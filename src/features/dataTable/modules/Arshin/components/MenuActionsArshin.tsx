@@ -8,15 +8,12 @@ import red from '@mui/material/colors/red';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Menu from '@mui/material/Menu';
-import { GridSelectionModel } from '@mui/x-data-grid-pro';
+// import { GridSelectionModel } from '@mui/x-data-grid-pro';
+import { selectedGridRowsSelector, useGridApiContext, useGridSelector } from '@mui/x-data-grid-pro';
 
 import { useMenuActions } from '../hooks/useMenuActions';
 
 import StyledMenuItem from 'styled/StyledMenuItem';
-
-interface IMenuActionsArshinProps {
-	selectionItems: GridSelectionModel;
-}
 
 interface IMenuItem {
 	title: string;
@@ -25,7 +22,11 @@ interface IMenuItem {
 	action: VoidFunction;
 }
 
-function MenuActionsArshin({ selectionItems }: IMenuActionsArshinProps) {
+function MenuActionsArshin() {
+	const apiRef = useGridApiContext();
+	const selectionIds = useGridSelector(apiRef, selectedGridRowsSelector);
+	const selectionItems = Array.from(selectionIds.keys());
+
 	const {
 		anchorEl,
 		open,

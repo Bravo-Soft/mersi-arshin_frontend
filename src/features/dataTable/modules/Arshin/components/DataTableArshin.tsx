@@ -1,7 +1,6 @@
 import LinearProgress from '@mui/material/LinearProgress';
-import { GridSelectionModel, useGridApiRef } from '@mui/x-data-grid-pro';
+import { useGridApiRef } from '@mui/x-data-grid-pro';
 import { DataGridPro } from '@mui/x-data-grid-pro';
-import { useState } from 'react';
 
 import { columnsArshin } from '../config/columns';
 import { useApplyTemplate } from '../hooks/useApplyTemplate';
@@ -51,8 +50,6 @@ const data: IDataItemArshin[] = [
 ];
 
 function DataTableArshin() {
-	const [selectionItems, setSelectionItems] = useState<GridSelectionModel>([]);
-
 	const apiRef = useGridApiRef();
 
 	useApplyTemplate(apiRef);
@@ -77,13 +74,6 @@ function DataTableArshin() {
 					NoRowsOverlay,
 					NoResultsOverlay,
 				}}
-				componentsProps={{
-					toolbar: { selectionItems },
-				}}
-				onSelectionModelChange={(newSelectionModel: GridSelectionModel) => {
-					setSelectionItems(newSelectionModel);
-				}}
-				selectionModel={selectionItems}
 			/>
 		</DataTableBox>
 	);

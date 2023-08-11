@@ -7,7 +7,7 @@ import Stack from '@mui/material/Stack';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import { GridSelectionModel, GridToolbarContainer } from '@mui/x-data-grid-pro';
+import { /* GridSelectionModel */ GridToolbarContainer } from '@mui/x-data-grid-pro';
 import { Link } from 'react-router-dom';
 
 import { useMenuActions } from '../hooks/useMenuActions';
@@ -16,11 +16,7 @@ import MenuActionsArshin from './MenuActionsArshin';
 
 import { AppRoutes } from 'constant/appRoutes';
 
-interface IDataTableArshinToolbarProps {
-	selectionItems: GridSelectionModel;
-}
-
-function DataTableArshinToolbar({ selectionItems }: IDataTableArshinToolbarProps): JSX.Element {
+function DataTableArshinToolbar(): JSX.Element {
 	const { handleGetDataFromFgis } = useMenuActions();
 
 	return (
@@ -53,7 +49,7 @@ function DataTableArshinToolbar({ selectionItems }: IDataTableArshinToolbarProps
 						<Button startIcon={<GetAppIcon />} onClick={handleGetDataFromFgis}>
 							Запросить данные из ФГИС
 						</Button>
-						<MenuActionsArshin selectionItems={selectionItems} />
+						<MenuActionsArshin />
 					</Stack>
 				</Toolbar>
 			</GridToolbarContainer>
