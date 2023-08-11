@@ -5,6 +5,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -81,16 +82,22 @@ function FiltersDialog() {
 						))}
 						<Controller
 							control={methods.control}
-							name={'period'}
+							name='period'
 							render={({ field }) => (
-								<Box mt={2}>
-									<InputLabel>Периодичность отправки запроса в ФГИС «Аршин»</InputLabel>
-									<Select fullWidth {...field}>
+								<FormControl fullWidth sx={{ marginTop: 2 }}>
+									<InputLabel id='select-label'>
+										Периодичность отправки запроса в ФГИС «Аршин»
+									</InputLabel>
+									<Select
+										{...field}
+										labelId='select-label'
+										label='Периодичность отправки запроса в ФГИС «Аршин»'
+									>
 										<MenuItem value={1}>1 раз в 4 часа</MenuItem>
 										<MenuItem value={2}>1 раз в 6 часов</MenuItem>
 										<MenuItem value={3}>1 раз в сутки</MenuItem>
 									</Select>
-								</Box>
+								</FormControl>
 							)}
 						/>
 					</DialogContent>
