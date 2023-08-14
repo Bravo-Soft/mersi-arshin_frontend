@@ -11,12 +11,12 @@ import { GridToolbarContainer, useGridApiContext } from '@mui/x-data-grid-pro';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import StyledChip from '../../../styled/StyledChip';
 import { useMenuActions } from '../hooks/useMenuActions';
 
 import MenuActionsArshin from './MenuActionsArshin';
 
 import { AppRoutes } from 'constant/appRoutes';
+import StyledChip from 'features/dataTable/styled/StyledChip';
 
 function DataTableArshinToolbar(): JSX.Element {
 	const { handleGetDataFromFgis } = useMenuActions();
