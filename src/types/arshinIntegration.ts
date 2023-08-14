@@ -10,10 +10,11 @@ export interface IFormFilterArshin {
 	dateOfTheNextVerification: boolean;
 	certificate: boolean;
 	suitability: boolean;
+	period: number;
 }
 
 export interface IConfigArshin {
-	name: keyof IFormFilterArshin;
+	name: keyof Omit<IFormFilterArshin, 'period'>;
 	title: string;
 	disabled: boolean;
 }
