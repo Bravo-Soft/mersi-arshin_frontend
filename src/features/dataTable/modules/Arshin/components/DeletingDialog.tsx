@@ -16,7 +16,7 @@ function DeletingDialog(): JSX.Element {
 		dispatch(resetDialogState());
 	};
 
-	const handleDeleteSelectedDataItem = async () => {
+	const handleDeleteSelectedDataItem = () => {
 		if (selectionIds.length) {
 			console.log(selectionIds);
 			handleCloseDeletingDialog();
