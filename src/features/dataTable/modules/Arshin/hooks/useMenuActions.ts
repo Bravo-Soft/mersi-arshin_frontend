@@ -1,8 +1,10 @@
 import { GridSelectionModel } from '@mui/x-data-grid-pro';
 import { useState, MouseEvent } from 'react';
 
-import { openFilterDialogArshin } from '../filtersDialogSlice';
+import { dataArshin } from '../components/DataTableArshin';
+import { changeDialogState, openFilterDialogArshin } from '../dialogArshinSlice';
 
+import { ArshinStatus } from 'constant/arshinStatus';
 import { useAppDispatch } from 'hooks/redux';
 
 export const useMenuActions = () => {
@@ -22,16 +24,30 @@ export const useMenuActions = () => {
 		dispatch(openFilterDialogArshin());
 	};
 
-	const handleSynchronizeItems = (selectedItems: GridSelectionModel) => {
-		console.log('Синхронизировать выделенное', selectedItems);
+	const handleSynchronizeItems = (selectedIds: GridSelectionModel) => {
+		console.log('Синхронизировать выделенное', selectedIds);
 	};
 
 	const handleGetDataFromFgis = () => {
 		console.log('Запросить данные из ФГИС');
 	};
 
-	const handleDeleteItems = (selectedItems: GridSelectionModel) => {
-		console.log('Удалить выделенное', selectedItems);
+	const handleDeleteItems = (selectedIds: GridSelectionModel) => {
+		// вместо dataArshin получать из кэша данные
+		const selectedData = dataArshin.filter(el => selectedIds.includes(el.id));
+		if (selectedData.some(el => el.status === ArshinStatus.DONE)) {
+			dispatch(
+				changeDialogState({
+					isOpen: true,
+					variant: 'deleting',
+					content: `При удалении ${
+						selectedIds.length > 1 ? 'данных строк' : 'данной строки'
+					} будут потеряны все данные, полученные из ФГИС “Аршин”`,
+				})
+			);
+		} else {
+			console.log('Удалить выделенное', selectedIds);
+		}
 	};
 
 	return {
