@@ -54,7 +54,6 @@ function TemplatesMenuItem({
 
 	const open = Boolean(anchorEl);
 	const isReached = isMaxCountTemplatesReached(loadedTemplates, maxNumberUserTemplates);
-
 	const handleOpenTemplatesList = (event: MouseEvent<HTMLLIElement>) => {
 		setAnchorEl(event.currentTarget);
 	};

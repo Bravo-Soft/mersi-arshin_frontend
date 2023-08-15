@@ -7,7 +7,6 @@ import { useInitSessionQuery } from 'features/auth/authApiSlice';
 export const useInitializeSession = () => {
 	const { isSuccess, isError } = useInitSessionQuery();
 	const navigate = useNavigate();
-
 	useEffect(() => {
 		if (isSuccess) {
 			navigate(AppRoutes.HOME, { replace: true });

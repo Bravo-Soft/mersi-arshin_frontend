@@ -25,7 +25,7 @@ function LayoutButtonNotification() {
 	const notification = 1;
 
 	const handleClick = () => {
-		navigate(AppRoutes.ARSHIN);
+		navigate(AppRoutes.ARSHIN, { state: { isComplete: true } });
 		handleClose();
 	};
 
