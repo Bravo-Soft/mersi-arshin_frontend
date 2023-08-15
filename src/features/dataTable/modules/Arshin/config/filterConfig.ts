@@ -1,12 +1,7 @@
 import { ColumnNames } from 'constant/columnsName';
-import { IConfigArshin } from 'types/arshinIntegration';
+import { IConfigMainFiltersArshin, IConfigAdditionalFiltersArshin } from 'types/arshinIntegration';
 
-const config: IConfigArshin[] = [
-	{
-		name: 'organization',
-		title: ColumnNames.ORGANIZATION,
-		disabled: true,
-	},
+export const configMain: IConfigMainFiltersArshin[] = [
 	{
 		name: 'type',
 		title: ColumnNames.TYPE,
@@ -20,6 +15,14 @@ const config: IConfigArshin[] = [
 	{
 		name: 'verificationDate',
 		title: ColumnNames.VERIFICATION_DATE,
+		disabled: true,
+	},
+];
+
+export const configAdditional: IConfigAdditionalFiltersArshin[] = [
+	{
+		name: 'organization',
+		title: ColumnNames.ORGANIZATION,
 		disabled: false,
 	},
 	{
@@ -38,5 +41,3 @@ const config: IConfigArshin[] = [
 		disabled: false,
 	},
 ];
-
-export default config;
