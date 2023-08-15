@@ -7,9 +7,13 @@ import { resetStoreListener } from './middlewares';
 import { authPath, authReducer } from 'features/auth/authSlice';
 import { dataTablePath, dataTableReducer } from 'features/dataTable/dataTableSlice';
 import {
-	filterDialogArshinPath,
-	filterDialogArshinReducer,
-} from 'features/dataTable/modules/Arshin/filtersDialogSlice';
+	arshinTablePath,
+	arshinTableReducer,
+} from 'features/dataTable/modules/Arshin/arshinTableSlice';
+import {
+	dialogArshinPath,
+	dialogArshinReducer,
+} from 'features/dataTable/modules/Arshin/dialogArshinSlice';
 import { quickTourPath, quickTourReducer } from 'features/quickTour/components/quickTourSlice';
 import { sidebarPath, sidebarReducer } from 'features/sidebar/sidebarSlice';
 import { smartDialogPath, smartDialogReducer } from 'features/smartDialog/smartDialogSlice';
@@ -23,7 +27,8 @@ const rootReducer = combineReducers({
 	[userPath]: userReducer,
 	[smartDialogPath]: smartDialogReducer,
 	[quickTourPath]: quickTourReducer,
-	[filterDialogArshinPath]: filterDialogArshinReducer,
+	[arshinTablePath]: arshinTableReducer,
+	[dialogArshinPath]: dialogArshinReducer,
 });
 
 export const store = configureStore({

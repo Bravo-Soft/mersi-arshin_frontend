@@ -14,7 +14,7 @@ import Select from '@mui/material/Select';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 
 import config from '../config/filterConfig';
-import { closeFilterDialogArshin, selectOpenFilterDialogArshin } from '../filtersDialogSlice';
+import { closeFilterDialogArshin, selectOpenFilterDialogArshin } from '../dialogArshinSlice';
 
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { IFormFilterArshin } from 'types/arshinIntegration';
