@@ -19,6 +19,7 @@ const useTableActions = () => {
 		const selectedItems = dataArshin.filter(el => newSelectionModel.includes(el.id));
 		dispatch(setSelectedDataItems(selectedItems));
 	};
+
 	return {
 		selectionIds,
 		selectionItems,

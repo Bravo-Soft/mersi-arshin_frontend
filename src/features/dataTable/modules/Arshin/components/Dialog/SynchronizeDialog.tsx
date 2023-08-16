@@ -24,10 +24,8 @@ function SynchronizeDialog() {
 				.filter(el => el.status === ArshinStatus.DONE)
 				.map(el => el.id);
 			console.log('id на бэк', selectedIdsDone);
-			handleCloseSynchronizeDialog();
-		} else {
-			handleCloseSynchronizeDialog();
 		}
+		handleCloseSynchronizeDialog();
 	};
 
 	return (

@@ -20,10 +20,8 @@ function DeletingDialog(): JSX.Element {
 	const handleDeleteSelectedDataItem = () => {
 		if (isValueDefined(selectionIds)) {
 			console.log(selectionIds);
-			handleCloseDeletingDialog();
-		} else {
-			handleCloseDeletingDialog();
 		}
+		handleCloseDeletingDialog();
 	};
 
 	return (
