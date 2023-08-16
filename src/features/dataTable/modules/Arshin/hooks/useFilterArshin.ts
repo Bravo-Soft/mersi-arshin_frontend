@@ -16,18 +16,14 @@ export const UseFilterArshin = (): [VoidFunction, boolean] => {
 	const apiRef = useGridApiContext();
 
 	const state = useLocation().state as ILocationState | null;
-
 	const [isComplete, setIsComplete] = useState(false);
 
 	useEffect(() => {
-		const filterIsCompleteArshin = localStorage.getItem('FilterIsCompleteArshin');
+		const filterIsCompleteArshin = Boolean(localStorage.getItem('FilterIsCompleteArshin'));
 
-		localStorage.setItem(
-			'FilterIsCompleteArshin',
-			`${state?.isComplete ?? filterIsCompleteArshin ?? false}`
-		);
+		const complete = Boolean(state === null ? filterIsCompleteArshin : state.isComplete);
 
-		const complete = state?.isComplete || Boolean(filterIsCompleteArshin);
+		localStorage.setItem('FilterIsCompleteArshin', `${complete}`);
 
 		if (complete) {
 			apiRef &&
@@ -35,9 +31,18 @@ export const UseFilterArshin = (): [VoidFunction, boolean] => {
 					items: [filterItem(complete)],
 				});
 			setIsComplete(complete);
-			localStorage.setItem('FilterIsCompleteArshin', `${state?.isComplete}`);
 		}
-	}, []);
+
+		const filterModel: GridFilterItem[] = [];
+
+		setIsComplete(complete);
+
+		if (complete) {
+			filterModel.push(filterItem(complete));
+		}
+
+		apiRef && apiRef.current.setFilterModel({ items: filterModel });
+	}, [apiRef, state]);
 
 	const handleCompleting = () => {
 		const filterModel: GridFilterItem[] = [];

@@ -23,7 +23,7 @@ function ArshinMenuItem({ onCloseMenu, ...othen }: IModuleMenuItemProps) {
 	const handleRouteToArshin = () => {
 		onCloseMenu();
 		isArshin
-			? navigate(AppRoutes.ARSHIN)
+			? navigate(AppRoutes.ARSHIN, { state: { isComplete: false } })
 			: dispatch(
 					changeSmartDialogState({
 						variant: 'payment',
