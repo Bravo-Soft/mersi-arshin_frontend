@@ -1,10 +1,11 @@
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 
-import { selectSelectedDataIds } from '../arshinTableSlice';
-import { resetDialogState, selectDeletingDialog } from '../dialogArshinSlice';
+import { selectSelectedDataIds } from '../../arshinTableSlice';
+import { resetDialogState, selectDeletingDialog } from '../../dialogArshinSlice';
 
 import Dialog from 'components/Dialog';
+import { isValueDefined } from 'guards/isValueDefined';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 
 function DeletingDialog(): JSX.Element {
@@ -17,7 +18,7 @@ function DeletingDialog(): JSX.Element {
 	};
 
 	const handleDeleteSelectedDataItem = () => {
-		if (selectionIds.length) {
+		if (isValueDefined(selectionIds)) {
 			console.log(selectionIds);
 			handleCloseDeletingDialog();
 		} else {

@@ -25,7 +25,21 @@ export const useMenuActions = () => {
 	};
 
 	const handleSynchronizeItems = (selectedIds: GridSelectionModel) => {
-		console.log('Синхронизировать выделенное', selectedIds);
+		const selectedData = dataArshin.filter(el => selectedIds.includes(el.id));
+
+		if (selectedData.every(el => el.status === ArshinStatus.DONE)) {
+			console.log('Синхронизировать выделенное', selectedIds);
+		} else {
+			const selectedItemsDone = selectedData.filter(el => el.status === ArshinStatus.DONE);
+
+			dispatch(
+				changeDialogState({
+					isOpen: true,
+					variant: 'synchronize',
+					content: `Будут синхронизированы только строки, по которым получены данные с ФГИС “Аршин”, ${selectedItemsDone.length} из ${selectedData.length}`,
+				})
+			);
+		}
 	};
 
 	const handleGetDataFromFgis = () => {
