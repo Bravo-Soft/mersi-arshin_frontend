@@ -1,20 +1,25 @@
-import { GridFilterItem } from '@mui/x-data-grid/models/gridFilterItem';
 import { useGridApiContext } from '@mui/x-data-grid-pro';
 import { useCallback, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+
+import { useFetchSelectedTemplateQuery } from '../../Templates/templatesApiSlice';
+
+import { ArshinStatus } from 'constant/arshinStatus';
 
 interface ILocationState {
 	isComplete: boolean;
 }
 
 const filterItem = {
-	columnField: 'verificationControlInStateRegister',
+	columnField: 'status',
 	operatorValue: 'is',
-	value: true,
+	value: ArshinStatus.DONE,
 };
 
-export const UseFilterArshin = (): [VoidFunction, boolean] => {
+export const useFilterArshin = () => {
 	const apiRef = useGridApiContext();
+
+	const { data: selectedConfig } = useFetchSelectedTemplateQuery();
 
 	const state = useLocation().state as ILocationState | null;
 	const localeStorageFilterArshin = Boolean(localStorage.getItem('FilterIsCompleteArshin'));
@@ -22,28 +27,33 @@ export const UseFilterArshin = (): [VoidFunction, boolean] => {
 
 	const [isComplete, setIsComplete] = useState(complete);
 
-	const filterStorage = useCallback(
-		(complete: boolean) => {
-			const filterModel: GridFilterItem[] = [];
+	useEffect(() => {
+		if (selectedConfig && apiRef) {
+			const template = JSON.parse(selectedConfig.template);
+			template.columns.orderedFields = template.columns.orderedFields.filter(
+				(el: string) => !Object.keys(template.columns.columnVisibilityModel).includes(el)
+			);
+			template.columns.orderedFields.splice(2, 0, 'status');
+			// сброс моделей из шаблона
+			template.sorting.sortModel = [{ field: 'status', sort: 'asc' }];
+			template.filter.filterModel = { items: complete ? [filterItem] : [{}] };
+			template.pinnedColumns.left = [];
+			template.pinnedColumns.right = [];
+			apiRef.current.restoreState(template);
+		}
+	}, [apiRef, selectedConfig, complete]);
 
-			if (complete) {
-				filterModel.push(filterItem);
-			}
+	const filterStorage = useCallback((complete: boolean) => {
+		if (complete) {
+			localStorage.setItem('FilterIsCompleteArshin', `${complete}`);
+			apiRef.current.upsertFilterItem(filterItem);
+		} else {
+			localStorage.removeItem('FilterIsCompleteArshin');
+			apiRef.current.deleteFilterItem(filterItem);
+		}
 
-			if (complete) {
-				localStorage.setItem('FilterIsCompleteArshin', `${complete}`);
-			} else {
-				localStorage.removeItem('FilterIsCompleteArshin');
-			}
-
-			apiRef.current.setFilterModel({
-				items: filterModel,
-			});
-
-			setIsComplete(complete);
-		},
-		[apiRef]
-	);
+		setIsComplete(complete);
+	}, []);
 
 	useEffect(() => {
 		filterStorage(complete);
@@ -53,5 +63,5 @@ export const UseFilterArshin = (): [VoidFunction, boolean] => {
 		filterStorage(!isComplete);
 	};
 
-	return [handleCompleting, isComplete];
+	return { handleCompleting, isComplete };
 };

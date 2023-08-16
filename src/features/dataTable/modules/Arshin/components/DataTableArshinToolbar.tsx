@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import { GridToolbarContainer } from '@mui/x-data-grid-pro';
 import { Link } from 'react-router-dom';
 
-import { UseFilterArshin } from '../hooks/useFilterArshin';
+import { useFilterArshin } from '../hooks/useFilterArshin';
 import { useMenuActions } from '../hooks/useMenuActions';
 
 import MenuActionsArshin from './MenuActionsArshin';
@@ -20,7 +20,7 @@ import StyledChip from 'features/dataTable/styled/StyledChip';
 
 function DataTableArshinToolbar(): JSX.Element {
 	const { handleGetDataFromFgis } = useMenuActions();
-	const [handleCompleting, isComplete] = UseFilterArshin();
+	const { handleCompleting, isComplete } = useFilterArshin();
 
 	return (
 		<>
