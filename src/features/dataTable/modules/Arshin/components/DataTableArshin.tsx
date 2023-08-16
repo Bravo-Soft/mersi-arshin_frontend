@@ -2,9 +2,9 @@ import LinearProgress from '@mui/material/LinearProgress';
 import { GridSelectionModel, useGridApiRef } from '@mui/x-data-grid-pro';
 import { DataGridPro } from '@mui/x-data-grid-pro';
 
-import { selectSelectedDataIds, setSelectedDataIds } from '../arshinTableSlice';
 import { columnsArshin } from '../config/columns';
 import { useApplyTemplate } from '../hooks/useApplyTemplate';
+import useTableActions from '../hooks/useTableActions';
 
 import DataTableArshinToolbar from './DataTableArshinToolbar';
 
@@ -12,7 +12,6 @@ import { ArshinStatus } from 'constant/arshinStatus';
 import { Tag } from 'constant/tag';
 import { NoResultsOverlay } from 'features/dataTable/components/NoResultsOverlay';
 import { NoRowsOverlay } from 'features/dataTable/components/NoRowsOverlay';
-import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import DataTableBox from 'styled/DataTableBox';
 import { IDataItemArshin } from 'types/arshinIntegration';
 
@@ -117,11 +116,10 @@ export const dataArshin: IDataItemArshin[] = [
 
 function DataTableArshin() {
 	const apiRef = useGridApiRef();
-	const dispatch = useAppDispatch();
-
-	const selectionIds = useAppSelector(selectSelectedDataIds);
 
 	useApplyTemplate(apiRef);
+
+	const { selectionIds, handleSelectItems } = useTableActions();
 
 	return (
 		<DataTableBox>
@@ -144,7 +142,7 @@ function DataTableArshin() {
 					NoResultsOverlay,
 				}}
 				onSelectionModelChange={(newSelectionModel: GridSelectionModel) => {
-					dispatch(setSelectedDataIds(newSelectionModel));
+					handleSelectItems(newSelectionModel);
 				}}
 				selectionModel={selectionIds}
 			/>

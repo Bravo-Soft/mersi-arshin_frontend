@@ -6,7 +6,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Paper from '@mui/material/Paper';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { closeFilterDialogArshin, selectOpenFilterDialogArshin } from '../dialogArshinSlice';
+import { closeFilterDialogArshin, selectOpenFilterDialogArshin } from '../../dialogArshinSlice';
 
 import FiltersDialogContent from './FiltersDialogContent';
 
