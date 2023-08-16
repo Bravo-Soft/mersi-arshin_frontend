@@ -13,8 +13,16 @@ export interface IFormFilterArshin {
 	period: number;
 }
 
-export interface IConfigArshin {
-	name: keyof Omit<IFormFilterArshin, 'period'>;
+export interface IConfigMainFiltersArshin {
+	name: keyof Pick<IFormFilterArshin, 'verificationDate' | 'type' | 'factoryNumber'>;
+	title: string;
+	disabled: boolean;
+}
+export interface IConfigAdditionalFiltersArshin {
+	name: keyof Pick<
+		IFormFilterArshin,
+		'organization' | 'dateOfTheNextVerification' | 'certificate' | 'suitability'
+	>;
 	title: string;
 	disabled: boolean;
 }

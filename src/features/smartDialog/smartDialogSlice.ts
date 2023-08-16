@@ -11,7 +11,7 @@ interface ISmartDialogOptions {
 	content: Messages;
 }
 
-type ISmartDialogState = Record<SmartDialogVariants, ISmartDialogOptions>
+type ISmartDialogState = Record<SmartDialogVariants, ISmartDialogOptions>;
 
 interface IChangeSmartDialogAction extends Omit<ISmartDialogOptions, 'content'> {
 	content?: Messages;
