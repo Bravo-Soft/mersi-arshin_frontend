@@ -1,59 +1,56 @@
 import { GridFilterItem } from '@mui/x-data-grid/models/gridFilterItem';
 import { useGridApiContext } from '@mui/x-data-grid-pro';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 interface ILocationState {
 	isComplete: boolean;
 }
 
-const filterItem = (isComplete: boolean) => ({
+const filterItem = {
 	columnField: 'verificationControlInStateRegister',
 	operatorValue: 'is',
-	value: isComplete,
-});
+	value: true,
+};
+
 export const UseFilterArshin = (): [VoidFunction, boolean] => {
 	const apiRef = useGridApiContext();
 
 	const state = useLocation().state as ILocationState | null;
-	const [isComplete, setIsComplete] = useState(false);
+	const localeStorageFilterArshin = Boolean(localStorage.getItem('FilterIsCompleteArshin'));
+	const complete = state?.isComplete ?? localeStorageFilterArshin;
+
+	const [isComplete, setIsComplete] = useState(complete);
+
+	const filterStorage = useCallback(
+		(complete: boolean) => {
+			const filterModel: GridFilterItem[] = [];
+
+			if (complete) {
+				filterModel.push(filterItem);
+			}
+
+			if (complete) {
+				localStorage.setItem('FilterIsCompleteArshin', `${complete}`);
+			} else {
+				localStorage.removeItem('FilterIsCompleteArshin');
+			}
+
+			apiRef.current.setFilterModel({
+				items: filterModel,
+			});
+
+			setIsComplete(complete);
+		},
+		[apiRef]
+	);
 
 	useEffect(() => {
-		const filterIsCompleteArshin = Boolean(localStorage.getItem('FilterIsCompleteArshin'));
-
-		const complete = Boolean(state === null ? filterIsCompleteArshin : state.isComplete);
-
-		localStorage.setItem('FilterIsCompleteArshin', `${complete}`);
-
-		if (complete) {
-			apiRef &&
-				apiRef.current.setFilterModel({
-					items: [filterItem(complete)],
-				});
-			setIsComplete(complete);
-		}
-
-		const filterModel: GridFilterItem[] = [];
-
-		setIsComplete(complete);
-
-		if (complete) {
-			filterModel.push(filterItem(complete));
-		}
-
-		apiRef && apiRef.current.setFilterModel({ items: filterModel });
-	}, [apiRef, state]);
+		filterStorage(complete);
+	}, [apiRef, complete, filterStorage, state]);
 
 	const handleCompleting = () => {
-		const filterModel: GridFilterItem[] = [];
-
-		setIsComplete(prev => !prev);
-
-		if (!isComplete) {
-			filterModel.push(filterItem(!isComplete));
-		}
-
-		apiRef && apiRef.current.setFilterModel({ items: filterModel });
+		filterStorage(!isComplete);
 	};
 
 	return [handleCompleting, isComplete];
