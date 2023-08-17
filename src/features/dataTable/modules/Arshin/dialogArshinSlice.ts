@@ -24,7 +24,8 @@ interface IChangeDialogAction extends Omit<IDialogOptions, 'content'> {
 const initialState: ISmartDialogState = {
 	synchronize: {
 		isOpen: false,
-		content: '',
+		content:
+			'Будут синхронизированы только строки, по которым получены данные с ФГИС “Аршин”, 1 из 1',
 	},
 	deleting: {
 		isOpen: false,

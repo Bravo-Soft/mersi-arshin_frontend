@@ -1,6 +1,7 @@
 import DataTableArshin from 'features/dataTable/modules/Arshin/components/DataTableArshin';
-import DeletingDialog from 'features/dataTable/modules/Arshin/components/DeletingDialog';
-import FiltersDialog from 'features/dataTable/modules/Arshin/components/FiltersDialog';
+import DeletingDialog from 'features/dataTable/modules/Arshin/components/Dialog/DeletingDialog';
+import FiltersDialog from 'features/dataTable/modules/Arshin/components/Dialog/FiltersDialog';
+import SynchronizeDialog from 'features/dataTable/modules/Arshin/components/Dialog/SynchronizeDialog';
 import PageBox from 'styled/PageBox';
 
 function ArshinIntegrationPage() {
@@ -9,6 +10,7 @@ function ArshinIntegrationPage() {
 			<DataTableArshin />
 			<FiltersDialog />
 			<DeletingDialog />
+			<SynchronizeDialog />
 		</PageBox>
 	);
 }

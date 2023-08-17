@@ -10,11 +10,11 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { Controller, useFormContext } from 'react-hook-form';
 
-import { configAdditional, configMain } from '../config/filterConfig';
+import { configAdditional, configMain } from '../../config/filterConfig';
 
 import { IFormFilterArshin } from 'types/arshinIntegration';
 
-const FiltersDialogContent = () => {
+function FiltersDialogContent() {
 	const { control } = useFormContext<IFormFilterArshin>();
 	return (
 		<>
@@ -97,6 +97,6 @@ const FiltersDialogContent = () => {
 			/>
 		</>
 	);
-};
+}
 
 export default FiltersDialogContent;
