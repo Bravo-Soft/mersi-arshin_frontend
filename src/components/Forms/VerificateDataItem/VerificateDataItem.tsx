@@ -1,6 +1,9 @@
 import Button from '@mui/material/Button';
 import { FormProvider, useForm } from 'react-hook-form';
 
+import { createDateISO } from '../../../utils/createDateISO';
+import { verificationResolver } from '../dataItemResolvers';
+
 import VerificateInputs from './VerificateInputs';
 
 import FetchingProgress from 'features/dataTable/components/FetchingProgress';
@@ -13,7 +16,6 @@ import { useUpdateSelectedDataItem } from 'hooks/useUpdateSelectedDataItem';
 import ButtonContainer from 'styled/ButtonContainer';
 import FormContainer from 'styled/FormContainer';
 import type { IDataItem, IDataItemWithDates } from 'types/dataItem';
-import { createDateISO } from 'utils/createDateISO';
 import { setDefaultValue } from 'utils/setDefaultValue';
 
 function VerificateDataItem(): JSX.Element {
@@ -23,16 +25,20 @@ function VerificateDataItem(): JSX.Element {
 	const [sendUpdatedItem, { isLoading: isUpdateLoading }] = useUpdateDataItemMutation();
 	const methods = useForm<IDataItemWithDates>({
 		values: setDefaultValue(selectedDataItem),
+		resolver: verificationResolver,
 	});
+	const { dateOfTheNextVerification } = methods.watch();
+
+	// console.log('www', dateOfTheNextVerification);
 
 	useUpdateSelectedDataItem(selectedDataItem);
 	useUpdateInputValues(selectedDataItem, methods.setValue);
 
 	const onSubmit = methods.handleSubmit(async data => {
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 		const { productionDate, verificationDate, dateOfTheNextVerification, userIds, ...other } =
 			data;
-
 		const preparedDataItem: Omit<IDataItem, 'userIds'> = {
 			...other,
 			productionDate: createDateISO(productionDate),
@@ -40,6 +46,7 @@ function VerificateDataItem(): JSX.Element {
 			dateOfTheNextVerification: createDateISO(dateOfTheNextVerification),
 		};
 
+		console.log('preparedDataItem', preparedDataItem);
 		await sendUpdatedItem(preparedDataItem).unwrap();
 	});
 

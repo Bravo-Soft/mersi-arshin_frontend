@@ -9,9 +9,7 @@ import AutocompleteField from 'components/AutocompleteField';
 import DateField from 'components/DateField';
 import { selectedVisibleColumns } from 'features/dataTable/dataTableSlice';
 import { useAppSelector } from 'hooks/redux';
-import { useDateValidate } from 'hooks/useDateValidate';
 import type { IDataItemWithDates } from 'types/dataItem';
-import { getExtendedIntervalRules } from 'utils/getExtendedIntervalRules';
 
 interface IVerificateFieldsProps {
 	isReader: boolean;
@@ -24,11 +22,11 @@ function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
 		register,
 	} = useFormContext<IDataItemWithDates>();
 
-	const validation = useDateValidate({
-		productionDateValue: watch('productionDate'),
-		verificationDateValue: watch('verificationDate'),
-		dateOfNextVerificationValue: watch('dateOfTheNextVerification'),
-	});
+	// const validation = useDateValidate({
+	// 	productionDateValue: watch('productionDate'),
+	// 	verificationDateValue: watch('verificationDate'),
+	// 	dateOfNextVerificationValue: watch('dateOfTheNextVerification'),
+	// });
 
 	const { modifiedVerificationFields } = useAppSelector(selectedVisibleColumns);
 
@@ -44,12 +42,15 @@ function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
 						readOnly={isReader}
 						nameOfKey={key}
 						label={label}
-						validation={validation[key]}
+						// validation={validation[key]}
 					/>
 				) : key === 'interVerificationInterval' ? (
 					<TextField
 						key={key}
-						{...register('interVerificationInterval', getExtendedIntervalRules())}
+						{...register(
+							'interVerificationInterval'
+							// getExtendedIntervalRules()
+						)}
 						label={label}
 						error={Boolean(errors.interVerificationInterval)}
 						helperText={errors?.interVerificationInterval?.message}

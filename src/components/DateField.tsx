@@ -1,6 +1,6 @@
 import { DatePicker } from '@mui/x-date-pickers';
-import { Controller, useFormContext } from 'react-hook-form';
 import type { Validate } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 
 import { maxDate, minDate } from 'constant/dateMasks';
 import type { IDataItemWithDates } from 'types/dataItem';
@@ -29,7 +29,7 @@ function DateField({ label, nameOfKey, readOnly, validation }: IDateFieldsProps)
 					message: 'Это поле обязательное',
 					value: true,
 				},
-				validate: validation,
+				// validate: validation,
 			}}
 			render={({ field, fieldState: { error } }) => (
 				<DatePicker

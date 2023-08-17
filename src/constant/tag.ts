@@ -1,4 +1,4 @@
-export const enum Tag {
+export enum Tag {
 	SMALL = 'маленький',
 	MEDIUM = 'средний',
 	LARGE = 'большой',

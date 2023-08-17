@@ -22,7 +22,6 @@ import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
 import { selectUserPermissions } from 'features/user/userSlice';
 import { isValueDefined } from 'guards/isValueDefined';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { useDateValidate } from 'hooks/useDateValidate';
 import ButtonContainer from 'styled/ButtonContainer';
 import FormContainer from 'styled/FormContainer';
 import type { IDataItem, IDataItemWithDates } from 'types/dataItem';
@@ -62,11 +61,11 @@ function CreateDataItem(): JSX.Element {
 	const methods = useForm<Omit<IDataItemWithDates, 'id'>>({
 		defaultValues,
 	});
-	const validation = useDateValidate({
-		productionDateValue: methods.watch('productionDate'),
-		verificationDateValue: methods.watch('verificationDate'),
-		dateOfNextVerificationValue: methods.watch('dateOfTheNextVerification'),
-	});
+	// const validation = useDateValidate({
+	// 	productionDateValue: methods.watch('productionDate'),
+	// 	verificationDateValue: methods.watch('verificationDate'),
+	// 	dateOfNextVerificationValue: methods.watch('dateOfTheNextVerification'),
+	// });
 	const { handleSubmit, reset } = methods;
 
 	const rowCount = data?.length ?? 0;
@@ -120,7 +119,11 @@ function CreateDataItem(): JSX.Element {
 			case 'dateOfTheNextVerification':
 				return (
 					<FormProvider {...methods} key={key}>
-						<DateField nameOfKey={key} label={label} validation={validation[key]} />
+						<DateField
+							nameOfKey={key}
+							label={label}
+							// validation={validation[key]}
+						/>
 					</FormProvider>
 				);
 
@@ -134,7 +137,7 @@ function CreateDataItem(): JSX.Element {
 							<DateField
 								nameOfKey={key}
 								label={label}
-								validation={validation.verificationDate}
+								// validation={validation.verificationDate}
 							/>
 						</FormProvider>
 					</Fragment>
