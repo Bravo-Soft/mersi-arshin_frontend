@@ -3,8 +3,12 @@ import { MutableRefObject, useEffect } from 'react';
 
 import { useFetchSelectedTemplateQuery } from '../../Templates/templatesApiSlice';
 
+import { arshinFilterStatusDone } from 'constant/arshinStatus';
+
 export const useApplyTemplate = (apiRef: MutableRefObject<GridApiPro>) => {
 	const { data: selectedConfig } = useFetchSelectedTemplateQuery();
+
+	const localeStorageArshinState = Boolean(localStorage.getItem('Arshin-filter'));
 
 	useEffect(() => {
 		if (selectedConfig && apiRef) {
@@ -15,10 +19,12 @@ export const useApplyTemplate = (apiRef: MutableRefObject<GridApiPro>) => {
 			template.columns.orderedFields.splice(2, 0, 'status');
 			// сброс моделей из шаблона
 			template.sorting.sortModel = [{ field: 'status', sort: 'asc' }];
-			template.filter.filterModel = { items: [] };
+			template.filter.filterModel = {
+				items: localeStorageArshinState ? [arshinFilterStatusDone] : [],
+			};
 			template.pinnedColumns.left = [];
 			template.pinnedColumns.right = [];
 			apiRef.current.restoreState(template);
 		}
-	}, [apiRef, selectedConfig]);
+	}, [apiRef, localeStorageArshinState, selectedConfig]);
 };

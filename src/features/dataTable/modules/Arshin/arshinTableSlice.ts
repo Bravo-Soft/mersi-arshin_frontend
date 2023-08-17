@@ -1,5 +1,5 @@
 import { GridSelectionModel } from '@mui/x-data-grid-pro';
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { RootState } from 'app/store';
 

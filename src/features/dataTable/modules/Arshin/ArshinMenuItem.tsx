@@ -20,10 +20,15 @@ function ArshinMenuItem({ onCloseMenu, ...othen }: IModuleMenuItemProps) {
 
 	const isArshin = true;
 
+	const arshinNavigateAction = () => {
+		navigate(AppRoutes.ARSHIN);
+		localStorage.removeItem('Arshin-filter');
+	};
+
 	const handleRouteToArshin = () => {
 		onCloseMenu();
 		isArshin
-			? navigate(AppRoutes.ARSHIN, { state: { isComplete: false } })
+			? arshinNavigateAction()
 			: dispatch(
 					changeSmartDialogState({
 						variant: 'payment',

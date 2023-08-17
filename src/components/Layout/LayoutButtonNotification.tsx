@@ -9,23 +9,22 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 
-import { useAnchor } from '../../features/dataTable/modules/CreateVerificationSchedule/components/utils/hooks';
-
 import StyledLayoutNotificationListItemBtn from './styled/StyledLayoutNotificationListItemBtn';
 import StyledLayoutNotificationPopover from './styled/StyledLayoutNotificationPopover';
 
 import { AppRoutes } from 'constant/appRoutes';
+import { useAnchor } from 'features/dataTable/modules/CreateVerificationSchedule/components/utils/hooks';
 
 function LayoutButtonNotification() {
 	const [anchorEl, handleOpen, handleClose] = useAnchor();
 
 	const navigate = useNavigate();
-
 	// TODO Убрать когда появится Back
 	const notification = 1;
 
 	const handleClick = () => {
-		navigate(AppRoutes.ARSHIN, { state: { isComplete: true } });
+		navigate(AppRoutes.ARSHIN);
+		localStorage.setItem('Arshin-filter', 'Done');
 		handleClose();
 	};
 

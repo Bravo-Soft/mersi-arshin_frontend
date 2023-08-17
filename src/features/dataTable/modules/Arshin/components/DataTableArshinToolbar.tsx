@@ -20,7 +20,12 @@ import StyledChip from 'features/dataTable/styled/StyledChip';
 
 function DataTableArshinToolbar(): JSX.Element {
 	const { handleGetDataFromFgis } = useMenuActions();
-	const { handleCompleting, isComplete } = useFilterArshin();
+
+	const [updateArshinFilter, completeDone] = useFilterArshin();
+
+	const handleCompleting = () => {
+		updateArshinFilter();
+	};
 
 	return (
 		<>
@@ -51,7 +56,7 @@ function DataTableArshinToolbar(): JSX.Element {
 							label='Готовые'
 							variant='filled'
 							onClick={handleCompleting}
-							color={isComplete ? 'primary' : 'default'}
+							color={completeDone ? 'primary' : 'default'}
 						/>
 					</Stack>
 					<Stack direction='row' gap={4}>

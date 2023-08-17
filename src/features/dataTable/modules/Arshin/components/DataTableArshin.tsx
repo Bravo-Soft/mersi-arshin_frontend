@@ -120,7 +120,7 @@ function DataTableArshin() {
 
 	const selectionIds = useAppSelector(selectSelectedDataIds);
 
-	// useApplyTemplate(apiRef);
+	useApplyTemplate(apiRef);
 
 	return (
 		<DataTableBox>
