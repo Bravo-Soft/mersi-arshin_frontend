@@ -11,8 +11,8 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import type { IAuthFormRequest } from '../authApiSlice';
+import { authResolver } from '../authResolver';
 import AuthPaper from '../styled/AuthPaper';
-import { validationRules } from '../validationRules';
 
 interface IAuthFormProps {
 	submitCallback: (data: IAuthFormRequest) => void;
@@ -26,7 +26,9 @@ function AuthForm({ submitCallback, isLoading, isError }: IAuthFormProps): JSX.E
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<IAuthFormRequest>({});
+	} = useForm<IAuthFormRequest>({
+		resolver: authResolver,
+	});
 	const theme = useTheme();
 
 	const onSubmit = handleSubmit(submitCallback);
@@ -42,7 +44,7 @@ function AuthForm({ submitCallback, isLoading, isError }: IAuthFormProps): JSX.E
 			</Typography>
 			<Stack gap={3}>
 				<TextField
-					{...register('email', validationRules.email)}
+					{...register('email')}
 					label='Почта'
 					error={Boolean(errors.email)}
 					helperText={errors.email?.message}
@@ -55,7 +57,7 @@ function AuthForm({ submitCallback, isLoading, isError }: IAuthFormProps): JSX.E
 					}}
 				/>
 				<TextField
-					{...register('password', validationRules.password)}
+					{...register('password')}
 					label='Пароль'
 					type={passwordIsVisible ? 'text' : 'password'}
 					error={Boolean(errors.password)}
@@ -68,9 +70,7 @@ function AuthForm({ submitCallback, isLoading, isError }: IAuthFormProps): JSX.E
 								sx={{
 									cursor: 'pointer',
 									'& .MuiSvgIcon-root': {
-										color: errors.password
-											? theme.palette.error.main
-											: 'inherit',
+										color: errors.password ? theme.palette.error.main : 'inherit',
 									},
 								}}
 							>

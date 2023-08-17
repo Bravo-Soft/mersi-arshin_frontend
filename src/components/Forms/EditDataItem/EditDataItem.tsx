@@ -31,7 +31,7 @@ function EditDataItem(): JSX.Element {
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		const { productionDate, verificationDate, dateOfTheNextVerification, userIds, ...other } =
 			data;
-
+	
 		const preparedDataItem: Omit<IDataItem, 'userIds'> = {
 			...other,
 			productionDate: createDateISO(productionDate),
