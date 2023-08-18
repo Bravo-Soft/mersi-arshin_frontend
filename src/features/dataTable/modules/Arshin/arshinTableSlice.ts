@@ -1,29 +1,32 @@
-import { GridSelectionModel } from '@mui/x-data-grid-pro';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { RootState } from 'app/store';
+import { IDataItemArshin } from 'types/arshinIntegration';
 
 interface IArshinTableState {
-	selectedDataIds: GridSelectionModel;
+	selectedDataItems: IDataItemArshin[] | null;
 }
 
 const initialState: IArshinTableState = {
-	selectedDataIds: [],
+	selectedDataItems: null,
 };
 
 const arshinTableSlice = createSlice({
 	name: 'arshinTable',
 	initialState,
 	reducers: {
-		setSelectedDataIds: (state, action: PayloadAction<GridSelectionModel>) => {
-			state.selectedDataIds = action.payload;
+		setSelectedDataItems: (state, action: PayloadAction<IDataItemArshin[]>) => {
+			state.selectedDataItems = action.payload;
 		},
 	},
 });
 
-export const selectSelectedDataIds = (state: RootState) => state.arshinTable.selectedDataIds;
+export const selectSelectedDataItems = (state: RootState) => state.arshinTable.selectedDataItems;
 
-export const { setSelectedDataIds } = arshinTableSlice.actions;
+export const selectSelectedDataIds = (state: RootState) =>
+	state.arshinTable.selectedDataItems?.map(el => el.id);
+
+export const { setSelectedDataItems } = arshinTableSlice.actions;
 
 export const arshinTablePath = arshinTableSlice.name;
 export const arshinTableReducer = arshinTableSlice.reducer;
