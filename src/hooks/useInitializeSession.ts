@@ -9,7 +9,7 @@ export const useInitializeSession = () => {
 	const navigate = useNavigate();
 	useEffect(() => {
 		if (isSuccess) {
-			navigate(AppRoutes.ARSHIN, { replace: true });
+			navigate(AppRoutes.HOME, { replace: true });
 		}
 	}, [isSuccess, navigate]);
 
