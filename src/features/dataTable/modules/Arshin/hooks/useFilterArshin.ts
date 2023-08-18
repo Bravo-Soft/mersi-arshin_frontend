@@ -8,8 +8,7 @@ export const useFilterArshin = (): [VoidFunction, boolean] => {
 
 	const localeStorageArshinState = Boolean(localStorage.getItem('Arshin-filter'));
 
-	const isComplete = Boolean(localeStorageArshinState);
-	const [completeDone, setCompleteDone] = useState(isComplete);
+	const [completeDone, setCompleteDone] = useState(localeStorageArshinState);
 
 	const updateArshinFilter = () => {
 		if (completeDone) {
