@@ -17,6 +17,7 @@ const config: RouteObject[] = [
 	{
 		element: <Layout />,
 		errorElement: <ErrorPage />,
+
 		children: [
 			{
 				path: '/',

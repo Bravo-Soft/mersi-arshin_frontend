@@ -1,6 +1,5 @@
 import LinearProgress from '@mui/material/LinearProgress';
-import { GridSelectionModel, useGridApiRef } from '@mui/x-data-grid-pro';
-import { DataGridPro } from '@mui/x-data-grid-pro';
+import { DataGridPro, GridSelectionModel, useGridApiRef } from '@mui/x-data-grid-pro';
 
 import { columnsArshin } from '../config/columns';
 import { useApplyTemplate } from '../hooks/useApplyTemplate';

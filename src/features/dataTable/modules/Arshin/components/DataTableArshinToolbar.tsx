@@ -7,10 +7,10 @@ import Stack from '@mui/material/Stack';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import { GridToolbarContainer, useGridApiContext } from '@mui/x-data-grid-pro';
-import { useState } from 'react';
+import { GridToolbarContainer } from '@mui/x-data-grid-pro';
 import { Link } from 'react-router-dom';
 
+import { useFilterArshin } from '../hooks/useFilterArshin';
 import { useMenuActions } from '../hooks/useMenuActions';
 
 import MenuActionsArshin from './MenuActionsArshin';
@@ -20,21 +20,13 @@ import StyledChip from 'features/dataTable/styled/StyledChip';
 
 function DataTableArshinToolbar(): JSX.Element {
 	const { handleGetDataFromFgis } = useMenuActions();
-	const apiRef = useGridApiContext();
-	const [isComplete, setIsComplete] = useState(true);
+
+	const [updateArshinFilter, completeDone] = useFilterArshin();
+
 	const handleCompleting = () => {
-		setIsComplete(prev => !prev);
-		apiRef.current &&
-			apiRef.current.setFilterModel({
-				items: [
-					{
-						columnField: 'verificationControlInStateRegister',
-						operatorValue: 'is',
-						value: isComplete,
-					},
-				],
-			});
+		updateArshinFilter();
 	};
+
 	return (
 		<>
 			<GridToolbarContainer>
@@ -64,7 +56,7 @@ function DataTableArshinToolbar(): JSX.Element {
 							label='Готовые'
 							variant='filled'
 							onClick={handleCompleting}
-							color={isComplete ? 'primary' : 'default'}
+							color={completeDone ? 'primary' : 'default'}
 						/>
 					</Stack>
 					<Stack direction='row' gap={4}>
