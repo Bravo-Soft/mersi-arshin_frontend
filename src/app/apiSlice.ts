@@ -40,7 +40,7 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
 	api,
 	extraOptions
 ) => {
-	// mutex позволяет предотвратить множетсвенное обращение на обновление токена
+	// mutex позволяет предотвратить множественное обращение на обновление токена
 	await mutex.waitForUnlock();
 	let result = await baseQuery(args, api, extraOptions);
 	if (result.error && result.error.status === HttpCodes.UNAUTHORZED && api.endpoint !== 'login') {
@@ -86,6 +86,7 @@ export const apiSlice = createApi({
 		'Notification',
 		'Favorites',
 		'PrintSettings',
+		'ArshinFilters',
 	],
 	endpoints: () => ({}),
 });

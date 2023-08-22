@@ -36,4 +36,9 @@ export const API = {
 		},
 		print: `${PREFIX}/print/data`,
 	},
+	arshin: {
+		getFilters: `${PREFIX}/user/fgis/settings`,
+		editFilters: `${PREFIX}/user/fgis/settings`,
+		resetFilters: `${PREFIX}/user/fgis/settings/reset`,
+	},
 };
