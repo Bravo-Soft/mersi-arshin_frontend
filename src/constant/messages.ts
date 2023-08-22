@@ -35,6 +35,8 @@ export enum Messages {
 	SETTINGS_SUCCESSFULLY_UPDATED = 'Настройки печати успешно обновлены',
 	SETTINGS_SUCCESSFULLY_RESET = 'Применены стандартные настройки печати',
 	REVIEW_SUCCESSFULLY_SENDED = 'Отзыв успешно отправлен',
+	ARSHIN_FILTERS_SUCCESSFULLY_EDITED = 'Фильтра успешно обновлены',
+	ARSHIN_FILTERS_SUCCESSFULLY_RESET = 'Применены стандартные фильтра',
 
 	//Уведомления – ошибочные
 	FORBIDDEN = 'Нет доступа',
@@ -73,4 +75,6 @@ export enum Messages {
 	FAILED_TO_WRONG_FILE_TIPE = 'Неверный тип файлов',
 	FAILED_TO_DELETE_TEMPLATE = 'Не удалось удалить шаблон',
 	FAILED_TO_UPLOAD_PHOTO_SIZE = 'Файл превышает максимальный размер',
+	FAILED_ARSHIN_FILTERS_EDITED = 'Не удалось обновить фильтра',
+	FAILED_ARSHIN_FILTERS_RESET = 'Не удалось применить стандартные фильтра',
 }

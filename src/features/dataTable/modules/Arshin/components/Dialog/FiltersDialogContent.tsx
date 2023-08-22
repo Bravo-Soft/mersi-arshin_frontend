@@ -88,9 +88,9 @@ function FiltersDialogContent() {
 							labelId='select-label'
 							label='Периодичность отправки запроса в ФГИС «Аршин»'
 						>
-							<MenuItem value={1}>1 раз в 4 часа</MenuItem>
+							<MenuItem value={3}>1 раз в 4 часа</MenuItem>
 							<MenuItem value={2}>1 раз в 6 часов</MenuItem>
-							<MenuItem value={3}>1 раз в сутки</MenuItem>
+							<MenuItem value={1}>1 раз в сутки</MenuItem>
 						</Select>
 					</FormControl>
 				)}
