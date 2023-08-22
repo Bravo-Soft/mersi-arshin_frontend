@@ -45,7 +45,7 @@ function MenuActionsArshin() {
 		{
 			title: 'Синхронизировать выделенное',
 			Icon: CachedIcon,
-			isActive: !!selectionItemsDone.length,
+			isActive: Boolean(selectionItemsDone.length),
 			action: () => handleSynchronizeItems(selectionIds),
 		},
 		{
@@ -57,7 +57,7 @@ function MenuActionsArshin() {
 		{
 			title: 'Удалить выделенное',
 			Icon: DeleteIcon,
-			isActive: !!selectionIds.length,
+			isActive: Boolean(selectionIds.length),
 			action: () => handleDeleteItems(selectionIds),
 		},
 	];
