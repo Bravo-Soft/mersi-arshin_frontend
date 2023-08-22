@@ -1,6 +1,8 @@
 import Button from '@mui/material/Button';
 import { FormProvider, useForm } from 'react-hook-form';
 
+import { dateItemSchema, formResolver } from '../dataItemResolvers';
+
 import EditInputs from './EditInputs';
 
 import FetchingProgress from 'features/dataTable/components/FetchingProgress';
@@ -11,8 +13,7 @@ import { useAppSelector } from 'hooks/redux';
 import { useUpdateSelectedDataItem } from 'hooks/useUpdateSelectedDataItem';
 import ButtonContainer from 'styled/ButtonContainer';
 import FormContainer from 'styled/FormContainer';
-import type { IDataItem, IDataItemWithDates } from 'types/dataItem';
-import { createDateISO } from 'utils/createDateISO';
+import type { IDataItemWithDates } from 'types/dataItem';
 import { setDefaultValue } from 'utils/setDefaultValue';
 
 function EditDataItem(): JSX.Element {
@@ -23,23 +24,13 @@ function EditDataItem(): JSX.Element {
 
 	const methods = useForm<IDataItemWithDates>({
 		values: setDefaultValue(selectedDataItem),
+		resolver: formResolver,
 	});
 
 	useUpdateSelectedDataItem(selectedDataItem);
 
 	const onSubmit = methods.handleSubmit(async data => {
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		const { productionDate, verificationDate, dateOfTheNextVerification, userIds, ...other } =
-			data;
-	
-		const preparedDataItem: Omit<IDataItem, 'userIds'> = {
-			...other,
-			productionDate: createDateISO(productionDate),
-			verificationDate: createDateISO(verificationDate),
-			dateOfTheNextVerification: createDateISO(dateOfTheNextVerification),
-		};
-
-		await sendUpdatedItem(preparedDataItem).unwrap();
+		await sendUpdatedItem(dateItemSchema.parse(data)).unwrap();
 	});
 
 	return (

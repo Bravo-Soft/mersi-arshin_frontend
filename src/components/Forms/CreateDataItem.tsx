@@ -6,6 +6,7 @@ import TextField from '@mui/material/TextField';
 import { Fragment, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
+import { dateItemSchema, formResolver } from './dataItemResolvers';
 import { allInputFields } from './fields';
 import { useFilterAutocomplete } from './hooks/useAutocomplete';
 
@@ -24,8 +25,7 @@ import { isValueDefined } from 'guards/isValueDefined';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import ButtonContainer from 'styled/ButtonContainer';
 import FormContainer from 'styled/FormContainer';
-import type { IDataItem, IDataItemWithDates } from 'types/dataItem';
-import { createDateISO } from 'utils/createDateISO';
+import { IDataItemWithDates } from 'types/dataItem';
 import { getExtendedIntervalRules } from 'utils/getExtendedIntervalRules';
 
 const today = new Date();
@@ -60,12 +60,9 @@ function CreateDataItem(): JSX.Element {
 
 	const methods = useForm<Omit<IDataItemWithDates, 'id'>>({
 		defaultValues,
+		resolver: formResolver,
 	});
-	// const validation = useDateValidate({
-	// 	productionDateValue: methods.watch('productionDate'),
-	// 	verificationDateValue: methods.watch('verificationDate'),
-	// 	dateOfNextVerificationValue: methods.watch('dateOfTheNextVerification'),
-	// });
+
 	const { handleSubmit, reset } = methods;
 
 	const rowCount = data?.length ?? 0;
@@ -78,16 +75,7 @@ function CreateDataItem(): JSX.Element {
 	}, [isSuccess, reset]);
 
 	const onSubmit = handleSubmit(async newItem => {
-		const { productionDate, verificationDate, dateOfTheNextVerification, ...othen } = newItem;
-
-		const prepearedDataItem: Omit<IDataItem, 'id'> = {
-			...othen,
-			productionDate: createDateISO(productionDate),
-			verificationDate: createDateISO(verificationDate),
-			dateOfTheNextVerification: createDateISO(dateOfTheNextVerification),
-		};
-
-		await createNewItem(prepearedDataItem);
+		await createNewItem(dateItemSchema.parse(data));
 	});
 
 	const handleResetForm = () => {
@@ -119,11 +107,7 @@ function CreateDataItem(): JSX.Element {
 			case 'dateOfTheNextVerification':
 				return (
 					<FormProvider {...methods} key={key}>
-						<DateField
-							nameOfKey={key}
-							label={label}
-							// validation={validation[key]}
-						/>
+						<DateField nameOfKey={key} label={label} />
 					</FormProvider>
 				);
 
@@ -134,11 +118,7 @@ function CreateDataItem(): JSX.Element {
 							<Divider sx={{ color: 'text.secondary', fontWeight: 500 }}>Поверка СИ</Divider>
 						</Box>
 						<FormProvider {...methods}>
-							<DateField
-								nameOfKey={key}
-								label={label}
-								// validation={validation.verificationDate}
-							/>
+							<DateField nameOfKey={key} label={label} />
 						</FormProvider>
 					</Fragment>
 				);

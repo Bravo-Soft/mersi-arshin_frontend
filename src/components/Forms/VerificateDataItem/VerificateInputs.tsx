@@ -17,16 +17,9 @@ interface IVerificateFieldsProps {
 
 function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
 	const {
-		watch,
 		formState: { errors },
 		register,
 	} = useFormContext<IDataItemWithDates>();
-
-	// const validation = useDateValidate({
-	// 	productionDateValue: watch('productionDate'),
-	// 	verificationDateValue: watch('verificationDate'),
-	// 	dateOfNextVerificationValue: watch('dateOfTheNextVerification'),
-	// });
 
 	const { modifiedVerificationFields } = useAppSelector(selectedVisibleColumns);
 
@@ -37,20 +30,11 @@ function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
 		<Stack direction='column' px={3.5} pb={3.5} rowGap={1} flexGrow={1}>
 			{rendercol.map(({ key, label }) =>
 				key === 'verificationDate' || key === 'dateOfTheNextVerification' ? (
-					<DateField
-						key={key}
-						readOnly={isReader}
-						nameOfKey={key}
-						label={label}
-						// validation={validation[key]}
-					/>
+					<DateField key={key} readOnly={isReader} nameOfKey={key} label={label} />
 				) : key === 'interVerificationInterval' ? (
 					<TextField
 						key={key}
-						{...register(
-							'interVerificationInterval'
-							// getExtendedIntervalRules()
-						)}
+						{...register('interVerificationInterval')}
 						label={label}
 						error={Boolean(errors.interVerificationInterval)}
 						helperText={errors?.interVerificationInterval?.message}
