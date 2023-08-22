@@ -130,6 +130,7 @@ function DataTableArshin() {
 				disableColumnMenu
 				pagination
 				checkboxSelection
+				disableColumnFilter
 				disableSelectionOnClick
 				disableColumnResize
 				disableColumnReorder

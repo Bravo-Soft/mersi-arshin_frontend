@@ -13,19 +13,23 @@ import { selectedGridRowsSelector, useGridApiContext, useGridSelector } from '@m
 
 import { useMenuActions } from '../hooks/useMenuActions';
 
+import { ArshinStatus } from 'constant/arshinStatus';
 import StyledMenuItem from 'styled/StyledMenuItem';
 
 interface IMenuItem {
 	title: string;
-	isDisabled: boolean;
+	isActive: boolean;
 	Icon: (props: SvgIconProps) => JSX.Element;
 	action: VoidFunction;
 }
 
 function MenuActionsArshin() {
 	const apiRef = useGridApiContext();
-	const selectionIds = useGridSelector(apiRef, selectedGridRowsSelector);
-	const selectionItems = Array.from(selectionIds.keys());
+	const selectionModel = useGridSelector(apiRef, selectedGridRowsSelector);
+	const selectionIds = Array.from(selectionModel.keys());
+	const selectionItemsDone = Array.from(selectionModel.values()).filter(
+		el => el.status === ArshinStatus.DONE
+	);
 
 	const {
 		anchorEl,
@@ -41,20 +45,20 @@ function MenuActionsArshin() {
 		{
 			title: 'Синхронизировать выделенное',
 			Icon: CachedIcon,
-			isDisabled: selectionItems.length ? true : false,
-			action: () => handleSynchronizeItems(selectionItems),
+			isActive: Boolean(selectionItemsDone.length),
+			action: () => handleSynchronizeItems(selectionIds),
 		},
 		{
 			title: 'Настроить фильтра',
 			Icon: SettingsIcon,
-			isDisabled: true,
+			isActive: true,
 			action: handleOpenFilter,
 		},
 		{
 			title: 'Удалить выделенное',
 			Icon: DeleteIcon,
-			isDisabled: selectionItems.length ? true : false,
-			action: () => handleDeleteItems(selectionItems),
+			isActive: Boolean(selectionIds.length),
+			action: () => handleDeleteItems(selectionIds),
 		},
 	];
 
@@ -79,12 +83,12 @@ function MenuActionsArshin() {
 				Действия
 			</Button>
 			<Menu open={open} onClose={handleCloseMenu} anchorEl={anchorEl}>
-				{menuItems.map(({ action, title, Icon, isDisabled }) => (
+				{menuItems.map(({ action, title, Icon, isActive }) => (
 					<StyledMenuItem
 						moduleIsActive={true}
-						disabled={!isDisabled}
+						disabled={!isActive}
 						key={title}
-						onClick={handleClick(action, isDisabled)}
+						onClick={handleClick(action, isActive)}
 						sx={{
 							...(title === 'Удалить выделенное' && {
 								':hover': {
