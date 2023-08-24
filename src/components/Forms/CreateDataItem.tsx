@@ -64,6 +64,10 @@ function CreateDataItem(): JSX.Element {
 	});
 
 	const { handleSubmit, reset } = methods;
+	const watches = methods.watch();
+	useEffect(() => {
+		console.log('methods.formState.errors', methods.formState.errors);
+	}, [methods.formState.errors, watches]);
 
 	const rowCount = data?.length ?? 0;
 	const maxRowsIsReached = isValueDefined(maxRowsPerTable) && rowCount >= maxRowsPerTable;
@@ -75,7 +79,7 @@ function CreateDataItem(): JSX.Element {
 	}, [isSuccess, reset]);
 
 	const onSubmit = handleSubmit(async newItem => {
-		await createNewItem(dateItemSchema.parse(data));
+		await createNewItem(dateItemSchema.parse(newItem));
 	});
 
 	const handleResetForm = () => {

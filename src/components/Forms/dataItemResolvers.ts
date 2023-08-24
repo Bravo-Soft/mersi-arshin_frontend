@@ -47,6 +47,7 @@ export const dataItemSchema = z
 
 		id: z.string(),
 	})
+	.partial({ id: true, documents: true })
 	.superRefine(({ dateOfTheNextVerification, verificationDate, productionDate }, ctx) => {
 		if (compareAsc(productionDate, verificationDate) !== -1) {
 			ctx.addIssue({
@@ -56,6 +57,14 @@ export const dataItemSchema = z
 					formatVariant
 				)})`,
 				path: ['productionDate'],
+			});
+			ctx.addIssue({
+				code: 'custom',
+				message: `Дата поверки должна идти позже даты производства, либо быть равной ей (${format(
+					productionDate,
+					formatVariant
+				)})`,
+				path: ['verificationDate'],
 			});
 		}
 		if (compareAsc(productionDate, dateOfTheNextVerification) !== -1) {
@@ -67,30 +76,6 @@ export const dataItemSchema = z
 				)})`,
 				path: ['productionDate'],
 			});
-		}
-
-		if (compareAsc(productionDate, verificationDate) !== -1) {
-			ctx.addIssue({
-				code: 'custom',
-				message: `Дата поверки должна идти позже даты производства, либо быть равной ей (${format(
-					productionDate,
-					formatVariant
-				)})`,
-				path: ['verificationDate'],
-			});
-		}
-
-		if (compareAsc(verificationDate, dateOfTheNextVerification) !== 1) {
-			ctx.addIssue({
-				code: 'custom',
-				message: `Дата поверки должна идти раньше даты следующей поверки, либо быть равной ей (${format(
-					dateOfTheNextVerification,
-					formatVariant
-				)})`,
-				path: ['verificationDate'],
-			});
-		}
-		if (compareAsc(dateOfTheNextVerification, productionDate) !== -1) {
 			ctx.addIssue({
 				code: 'custom',
 				message: `Дата следующей поверки должна идти после даты производства, либо быть равной ей (${format(
@@ -100,7 +85,16 @@ export const dataItemSchema = z
 				path: ['dateOfTheNextVerification'],
 			});
 		}
-		if (compareAsc(dateOfTheNextVerification, verificationDate) !== -1) {
+
+		if (compareAsc(verificationDate, dateOfTheNextVerification) !== -1) {
+			ctx.addIssue({
+				code: 'custom',
+				message: `Дата поверки должна идти раньше даты следующей поверки, либо быть равной ей (${format(
+					dateOfTheNextVerification,
+					formatVariant
+				)})`,
+				path: ['verificationDate'],
+			});
 			ctx.addIssue({
 				code: 'custom',
 				message: `Дата следующей поверки должна идти после даты поверки, либо быть равной ей (${format(

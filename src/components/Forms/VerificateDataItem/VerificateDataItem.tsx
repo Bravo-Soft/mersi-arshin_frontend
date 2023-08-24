@@ -1,7 +1,6 @@
 import Button from '@mui/material/Button';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { createDateISO } from '../../../utils/createDateISO';
 import { dateItemSchema, formResolver } from '../dataItemResolvers';
 
 import VerificateInputs from './VerificateInputs';
@@ -15,7 +14,7 @@ import { useAppSelector } from 'hooks/redux';
 import { useUpdateSelectedDataItem } from 'hooks/useUpdateSelectedDataItem';
 import ButtonContainer from 'styled/ButtonContainer';
 import FormContainer from 'styled/FormContainer';
-import type { IDataItem, IDataItemWithDates } from 'types/dataItem';
+import type { IDataItemWithDates } from 'types/dataItem';
 import { setDefaultValue } from 'utils/setDefaultValue';
 
 function VerificateDataItem(): JSX.Element {
