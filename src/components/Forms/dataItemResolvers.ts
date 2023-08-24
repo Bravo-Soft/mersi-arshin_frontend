@@ -15,7 +15,10 @@ const iDocumentSchema = z.object({
 
 export const dataItemSchema = z
 	.object({
-		name: z.string().max(256, 'Длинна строки не может быть больше 256'),
+		name: z
+			.string()
+			.max(256, 'Длинна строки не может быть больше 256')
+			.min(1, 'Это обязательное поле'),
 		type: z.string().max(128, 'Длинна строки не может быть больше 128'),
 		factoryNumber: z.string().max(128, 'Длинна строки не может быть больше 128'),
 		inventoryNumber: z.string().max(128, 'Длинна строки не может быть больше 128'),
@@ -47,7 +50,6 @@ export const dataItemSchema = z
 
 		id: z.string(),
 	})
-	.partial({ id: true, documents: true })
 	.superRefine(({ dateOfTheNextVerification, verificationDate, productionDate }, ctx) => {
 		if (compareAsc(productionDate, verificationDate) !== -1) {
 			ctx.addIssue({
@@ -112,6 +114,30 @@ export const transformDataItemSchema = z.object({
 	productionDate: z.date().transform(e => createDateISO(e)),
 });
 
+export const transformCreateDataItemSchema = z.object({
+	dateOfTheNextVerification: z
+		.date()
+		.or(z.string())
+		.transform(e => createDateISO(new Date(e))),
+	verificationDate: z
+		.date()
+		.or(z.string())
+		.transform(e => createDateISO(new Date(e))),
+	productionDate: z
+		.date()
+		.or(z.string())
+		.transform(e => createDateISO(new Date(e))),
+});
+
 export const dateItemSchema = dataItemSchema.innerType().merge(transformDataItemSchema);
 
+export const createDataItemSchema = dataItemSchema
+	.innerType()
+	.omit({
+		id: true,
+		documents: true,
+	})
+	.merge(transformCreateDataItemSchema);
+
 export const formResolver = zodResolver(dataItemSchema);
+export const createResolver = zodResolver(createDataItemSchema);

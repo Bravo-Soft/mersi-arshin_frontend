@@ -5,6 +5,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import { DEFAULT_SETTINGS } from './constants/defaultSettings';
 import PrintBlock from './PrintBlock';
+import { printSettingsResolver } from './utils/printSettingsResolver';
 import { transformDataSettings } from './utils/transformDataSettings';
 
 import { Messages } from 'constant/messages';
@@ -18,9 +19,6 @@ import ButtonContainer from 'styled/ButtonContainer';
 import FormContainer from 'styled/FormContainer';
 import type { ISendData } from 'types/printSettings';
 
-
-
-
 function PrintSettings() {
 	const { open, selector } = useAppSelector(selectSidebarStateOfHomePage);
 
@@ -32,9 +30,13 @@ function PrintSettings() {
 
 	const methods = useForm<ISendData>({
 		mode: 'onChange',
+		resolver: printSettingsResolver,
 	});
 
-	const { handleSubmit } = methods;
+	const {
+		handleSubmit,
+		formState: { isDirty },
+	} = methods;
 
 	const onSubmit = handleSubmit(async sendData => {
 		try {
@@ -65,7 +67,7 @@ function PrintSettings() {
 				</FormProvider>
 			</Box>
 			<ButtonContainer sx={{ columnGap: 2, mt: 4 }}>
-				<Button variant='contained' fullWidth type='submit' disabled={isLoading}>
+				<Button variant='contained' fullWidth type='submit' disabled={isLoading || !isDirty}>
 					Сохранить
 				</Button>
 				<Button fullWidth onClick={handleResetPrintSettings} disabled={isLoading}>

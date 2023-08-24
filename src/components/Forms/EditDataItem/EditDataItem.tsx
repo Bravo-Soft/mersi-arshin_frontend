@@ -43,7 +43,12 @@ function EditDataItem(): JSX.Element {
 			)}
 			{(isWriter || isAdmin) && (
 				<ButtonContainer>
-					<Button variant='contained' fullWidth type='submit' disabled={isUpdateLoading}>
+					<Button
+						variant='contained'
+						fullWidth
+						type='submit'
+						disabled={isUpdateLoading || !methods.formState.isDirty}
+					>
 						Сохранить
 					</Button>
 				</ButtonContainer>

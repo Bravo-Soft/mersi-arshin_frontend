@@ -13,10 +13,6 @@ import BlockFilter from './BlockFilter';
 import { columnsFilters } from 'components/Forms/NotificationSettings/data';
 import { hideScrollbar } from 'utils/hideScrollbar';
 
-
-
-
-
 function VerificationDialogContent() {
 	const { control } = useFormContext<IForm>();
 
@@ -40,13 +36,16 @@ function VerificationDialogContent() {
 			<Controller
 				control={control}
 				name='fieldsDate'
-				render={({ field: { value, onChange, ref } }) => (
+				render={({ field: { value, onChange, ref }, fieldState: { error } }) => (
 					<DateRangePicker
 						ref={ref}
 						value={value}
 						onChange={onChange}
 						slotProps={{
 							fieldSeparator: { hidden: true },
+							textField: {
+								helperText: error?.message,
+							},
 						}}
 						localeText={{ start: 'Начальная дата', end: 'Дата окончания' }}
 					/>

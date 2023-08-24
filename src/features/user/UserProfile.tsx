@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form';
 
 import { useGetUserProfileQuery } from './userApiSlice';
 import UserPhoto from './UserPhoto';
+import { userResolver } from './userResolver';
 import { useSubmitProfileActions } from './useSubmitProfileActions';
 
 import { selectUserProfileIsOpen } from 'features/sidebar/sidebarSlice';
@@ -43,7 +44,7 @@ function UserProfile(): JSX.Element {
 		handleSubmit,
 		register,
 		formState: { isDirty },
-	} = useForm<IProfile>({ values: userData });
+	} = useForm<IProfile>({ values: userData, resolver: userResolver });
 
 	const { submitAllForm, handleDeletePhoto, status } = useSubmitProfileActions(file, isDirty);
 

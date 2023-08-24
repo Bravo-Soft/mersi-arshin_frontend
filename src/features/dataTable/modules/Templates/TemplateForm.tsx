@@ -1,5 +1,3 @@
-
-
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import type { PopoverProps } from '@mui/material/Popover';
@@ -10,6 +8,7 @@ import { useGridApiContext } from '@mui/x-data-grid-pro';
 import { enqueueSnackbar } from 'notistack';
 import { useForm } from 'react-hook-form';
 
+import { templateResolver } from './templateResolver';
 import { useCreateNewTemplateMutation } from './templatesApiSlice';
 
 import { Messages } from 'constant/messages';
@@ -33,7 +32,9 @@ function TemplateForm(props: ITemplateFormProps): JSX.Element {
 		reset,
 		formState: { errors },
 		watch,
-	} = useForm<Pick<ITemplateConfig, 'templateName'>>();
+	} = useForm<Pick<ITemplateConfig, 'templateName'>>({
+		resolver: templateResolver,
+	});
 
 	const [createNewTemplate] = useCreateNewTemplateMutation();
 

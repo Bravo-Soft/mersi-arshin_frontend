@@ -42,5 +42,5 @@ export interface IEmailSettings {
 export interface IEmailFilter {
 	columnFilter: string;
 	operatorValue: string;
-	value?: string | Date;
+	value: string | Date;
 }

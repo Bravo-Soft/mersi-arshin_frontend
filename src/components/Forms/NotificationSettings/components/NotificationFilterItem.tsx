@@ -18,11 +18,9 @@ import { columnsFilters, linkOperators, operatorsFilters } from '../data';
 import { useNotificationFormActions } from '../hooks/useNotificationFormActions';
 import type { FormFiltersTypes } from '../types';
 
-
 import { maxDate, minDate } from 'constant/dateMasks';
 import { Tag } from 'constant/tag';
 import type { INotificationSettings } from 'types/notification';
-
 
 interface INotificationFilterItemProps {
 	index: number;
@@ -203,6 +201,7 @@ function NotificationFilterItem({
 								) : operatorValueX === 'dateFilters' ? (
 									<DatePicker
 										{...field}
+										value={new Date(field.value)}
 										label={'Дата Фильтрации'}
 										minDate={minDate}
 										maxDate={maxDate}

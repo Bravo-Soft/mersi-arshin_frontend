@@ -6,7 +6,12 @@ import TextField from '@mui/material/TextField';
 import { Fragment, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { dateItemSchema, formResolver } from './dataItemResolvers';
+import {
+	createDataItemSchema,
+	createResolver,
+	dateItemSchema,
+	transformCreateDataItemSchema,
+} from './dataItemResolvers';
 import { allInputFields } from './fields';
 import { useFilterAutocomplete } from './hooks/useAutocomplete';
 
@@ -58,16 +63,12 @@ function CreateDataItem(): JSX.Element {
 	const { data } = useGetAllDataQuery();
 	const [createNewItem, { isLoading, isSuccess }] = useCreateNewDataItemMutation();
 
-	const methods = useForm<Omit<IDataItemWithDates, 'id'>>({
+	const methods = useForm<Omit<IDataItemWithDates, 'id' | 'documents'>>({
 		defaultValues,
-		resolver: formResolver,
+		resolver: createResolver,
 	});
 
 	const { handleSubmit, reset } = methods;
-	const watches = methods.watch();
-	useEffect(() => {
-		console.log('methods.formState.errors', methods.formState.errors);
-	}, [methods.formState.errors, watches]);
 
 	const rowCount = data?.length ?? 0;
 	const maxRowsIsReached = isValueDefined(maxRowsPerTable) && rowCount >= maxRowsPerTable;
@@ -79,7 +80,7 @@ function CreateDataItem(): JSX.Element {
 	}, [isSuccess, reset]);
 
 	const onSubmit = handleSubmit(async newItem => {
-		await createNewItem(dateItemSchema.parse(newItem));
+		await createNewItem(createDataItemSchema.parse(newItem));
 	});
 
 	const handleResetForm = () => {
