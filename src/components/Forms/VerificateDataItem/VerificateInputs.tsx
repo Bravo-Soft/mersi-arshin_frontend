@@ -23,12 +23,14 @@ function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
 
 	const { modifiedVerificationFields } = useAppSelector(selectedVisibleColumns);
 
-	const rendercol = modifiedVerificationFields ? modifiedVerificationFields : verificationFields;
+	const renderColumns = modifiedVerificationFields
+		? modifiedVerificationFields
+		: verificationFields;
 	const params = useFilterAutocomplete();
 
 	return (
 		<Stack direction='column' px={3.5} pb={3.5} rowGap={1} flexGrow={1}>
-			{rendercol.map(({ key, label }) =>
+			{renderColumns.map(({ key, label }) =>
 				key === 'verificationDate' || key === 'dateOfTheNextVerification' ? (
 					<DateField key={key} readOnly={isReader} nameOfKey={key} label={label} />
 				) : key === 'interVerificationInterval' ? (

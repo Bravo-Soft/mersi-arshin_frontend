@@ -16,12 +16,12 @@ interface IEditInputsProps {
 function EditInputs({ isReader }: IEditInputsProps): JSX.Element {
 	const { modifiedEditFields } = useAppSelector(selectedVisibleColumns);
 
-	const rendercol = modifiedEditFields ? modifiedEditFields : editFields;
+	const renderColumns = modifiedEditFields ? modifiedEditFields : editFields;
 
 	const params = useFilterAutocomplete();
 	return (
 		<Stack direction='column' px={3} pb={3.5} rowGap={1} flexGrow={1}>
-			{rendercol.map(({ key, label }) => {
+			{renderColumns.map(({ key, label }) => {
 				switch (key) {
 					case 'productionDate':
 						return <DateField key={key} readOnly={isReader} nameOfKey={key} label={label} />;

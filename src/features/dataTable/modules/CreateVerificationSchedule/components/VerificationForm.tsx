@@ -17,6 +17,7 @@ function VerificationForm({ apiRef }: VerificationFormProps): JSX.Element {
 	const methods = useForm<IForm>({
 		defaultValues: { fieldsDate: [null, null] },
 		resolver: verificationResolver,
+		mode: 'onChange',
 	});
 
 	return (
