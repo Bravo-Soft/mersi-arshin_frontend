@@ -17,9 +17,6 @@ const notificationSchema = z.object({
 						operatorValue: z.string(),
 						value: z.string().or(z.date()),
 					})
-					// .partial({
-					// 	value: true,
-					// })
 				),
 				linkOperator: z.string().refine(e => e === 'or' || 'and'),
 			})

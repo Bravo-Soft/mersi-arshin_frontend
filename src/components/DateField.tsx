@@ -17,7 +17,7 @@ interface IDateFieldsProps {
 		| Record<string, Validate<Date, IDataItemWithDates>>;
 }
 
-function DateField({ label, nameOfKey, readOnly, validation }: IDateFieldsProps): JSX.Element {
+function DateField({ label, nameOfKey, readOnly }: IDateFieldsProps): JSX.Element {
 	const { control } = useFormContext<IDataItemWithDates>();
 
 	return (
@@ -29,7 +29,6 @@ function DateField({ label, nameOfKey, readOnly, validation }: IDateFieldsProps)
 					message: 'Это поле обязательное',
 					value: true,
 				},
-				// validate: validation,
 			}}
 			render={({ field, fieldState: { error } }) => (
 				<DatePicker
