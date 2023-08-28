@@ -6,12 +6,7 @@ import TextField from '@mui/material/TextField';
 import { Fragment, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import {
-	createDataItemSchema,
-	createResolver,
-	dateItemSchema,
-	transformCreateDataItemSchema,
-} from './dataItemResolvers';
+import { createResolver, parseCreateSchema } from './dataItemResolvers';
 import { allInputFields } from './fields';
 import { useFilterAutocomplete } from './hooks/useAutocomplete';
 
@@ -66,6 +61,7 @@ function CreateDataItem(): JSX.Element {
 	const methods = useForm<Omit<IDataItemWithDates, 'id' | 'documents'>>({
 		defaultValues,
 		resolver: createResolver,
+		mode: 'onChange',
 	});
 
 	const { handleSubmit, reset } = methods;
@@ -80,7 +76,7 @@ function CreateDataItem(): JSX.Element {
 	}, [isSuccess, reset]);
 
 	const onSubmit = handleSubmit(async newItem => {
-		await createNewItem(createDataItemSchema.parse(newItem));
+		await createNewItem(parseCreateSchema.parse(newItem));
 	});
 
 	const handleResetForm = () => {

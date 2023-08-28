@@ -114,30 +114,16 @@ export const transformDataItemSchema = z.object({
 	productionDate: z.date().transform(e => createDateISO(e)),
 });
 
-export const transformCreateDataItemSchema = z.object({
-	dateOfTheNextVerification: z
-		.date()
-		.or(z.string())
-		.transform(e => createDateISO(new Date(e))),
-	verificationDate: z
-		.date()
-		.or(z.string())
-		.transform(e => createDateISO(new Date(e))),
-	productionDate: z
-		.date()
-		.or(z.string())
-		.transform(e => createDateISO(new Date(e))),
-});
-
 export const dateItemSchema = dataItemSchema.innerType().merge(transformDataItemSchema);
 
-export const createDataItemSchema = dataItemSchema
-	.innerType()
-	.omit({
-		id: true,
-		documents: true,
-	})
-	.merge(transformCreateDataItemSchema);
+export const createDataItemSchema = dataItemSchema.innerType().omit({
+	id: true,
+	documents: true,
+});
+
+export const parseCreateSchema = createDataItemSchema.merge(transformDataItemSchema);
 
 export const formResolver = zodResolver(dataItemSchema);
 export const createResolver = zodResolver(createDataItemSchema);
+
+export type ICreateItem = z.infer<typeof parseCreateSchema>;

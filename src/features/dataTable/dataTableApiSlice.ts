@@ -1,6 +1,8 @@
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
 import { enqueueSnackbar } from 'notistack';
 
+import { ICreateItem } from '../../components/Forms/dataItemResolvers';
+
 import { API } from 'app/api';
 import { apiSlice } from 'app/apiSlice';
 import { HttpCodes } from 'constant/httpCodes';
@@ -30,10 +32,7 @@ export const dataTableApiSlice = apiSlice.injectEndpoints({
 			providesTags: (_result, _error, id) => [{ type: 'Data', id }],
 		}),
 
-		createNewDataItem: builder.mutation<
-			IDataItem,
-			Omit<IDataItem, 'id' | 'userIds' | 'documents'>
-		>({
+		createNewDataItem: builder.mutation<IDataItem, ICreateItem>({
 			query: body => ({
 				url: API.data.default,
 				method: 'POST',

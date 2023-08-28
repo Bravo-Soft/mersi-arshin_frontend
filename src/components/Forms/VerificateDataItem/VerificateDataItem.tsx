@@ -25,6 +25,7 @@ function VerificateDataItem(): JSX.Element {
 	const methods = useForm<IDataItemWithDates>({
 		values: setDefaultValue(selectedDataItem),
 		resolver: formResolver,
+		mode: 'onChange',
 	});
 
 	useUpdateSelectedDataItem(selectedDataItem);
