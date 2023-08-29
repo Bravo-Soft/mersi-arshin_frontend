@@ -82,7 +82,7 @@ function ContextMenu({ contextMenu, actionsOfContextMenu }: IContextMenuProps): 
 	};
 
 	const getSecondaryTextForFavoriteItem = (array: IMenuItem[], favoriteIndex: number) => {
-		if (selectionModel.length && array.length - 1 === favoriteIndex) {
+		if (selectionModel.length && array.length - 2 === favoriteIndex) {
 			return 'В том числе выделенные';
 		}
 	};
@@ -119,13 +119,13 @@ function ContextMenu({ contextMenu, actionsOfContextMenu }: IContextMenuProps): 
 			action: isFavoriteRow ? handleRemoveFromFavorite : handleAddToFavorite,
 		},
 		{
-			title: 'Добавить в Аршин',
+			title: 'Контроль поверки в Госреестре',
 			//TODO: необходимо добавить права
 			Icon: isArshin ? ArshinIcon : LockIcon,
 			//TODO: необходимо добавить права
 			isActive: isArshin ?? false,
 			//TODO: необходимо добавить права
-			action: isArshin ? handleAddToArshin : handleOpenFilesOfDataItem,
+			action: isArshin ? () => handleAddToArshin(selectionModel) : handleOpenFilesOfDataItem,
 		},
 	];
 

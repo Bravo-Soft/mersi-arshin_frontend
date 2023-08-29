@@ -1,4 +1,3 @@
-import { GridSelectionModel } from '@mui/x-data-grid-pro';
 import { useState, MouseEvent } from 'react';
 
 import { dataArshin } from '../components/DataTableArshin';
@@ -24,11 +23,11 @@ export const useMenuActions = () => {
 		dispatch(openFilterDialogArshin());
 	};
 
-	const handleSynchronizeItems = (selectedIds: GridSelectionModel) => {
+	const handleSynchronizeItems = (selectedIds: string[]) => {
 		const selectedData = dataArshin.filter(el => selectedIds.includes(el.id));
 
 		if (selectedData.every(el => el.status === ArshinStatus.DONE)) {
-			console.log('Синхронизировать выделенное', selectedIds);
+			console.log('Обновить выделенное', selectedIds);
 		} else {
 			const selectedItemsDone = selectedData.filter(el => el.status === ArshinStatus.DONE);
 
@@ -36,7 +35,7 @@ export const useMenuActions = () => {
 				changeDialogState({
 					isOpen: true,
 					variant: 'synchronize',
-					content: `Будут синхронизированы только строки, по которым получены данные с ФГИС “Аршин”, ${selectedItemsDone.length} из ${selectedData.length}`,
+					content: `Будут обновлены только строки, по которым получены данные с ФГИС “Аршин”, ${selectedItemsDone.length} из ${selectedData.length}`,
 				})
 			);
 		}
@@ -46,7 +45,7 @@ export const useMenuActions = () => {
 		console.log('Запросить данные из ФГИС');
 	};
 
-	const handleDeleteItems = (selectedIds: GridSelectionModel) => {
+	const handleDeleteItems = (selectedIds: string[]) => {
 		// вместо dataArshin получать из кэша данные
 		const selectedData = dataArshin.filter(el => selectedIds.includes(el.id));
 		if (selectedData.some(el => el.status === ArshinStatus.DONE)) {

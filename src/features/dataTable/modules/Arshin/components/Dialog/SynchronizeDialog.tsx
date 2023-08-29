@@ -36,7 +36,7 @@ function SynchronizeDialog() {
 			action={
 				<Stack direction='row' columnGap={1}>
 					<Button onClick={handleCloseSynchronizeDialog}>Отмена</Button>
-					<Button onClick={handleSynchronizeData}>Синхронизировать</Button>
+					<Button onClick={handleSynchronizeData}>Обновить</Button>
 				</Stack>
 			}
 			onClose={handleCloseSynchronizeDialog}

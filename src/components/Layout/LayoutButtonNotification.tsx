@@ -49,7 +49,7 @@ function LayoutButtonNotification() {
 						<List>
 							<StyledLayoutNotificationListItemBtn onClick={handleClick}>
 								<ListItemText
-									primary='ФГИС Аршин'
+									primary='Контроль поверки в Госреестре'
 									secondary='Обновите данные по отправленным СИ (14 шт)'
 								/>
 								<Typography variant='button'>Перейти</Typography>

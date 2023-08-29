@@ -1,19 +1,13 @@
-import LockIcon from '@mui/icons-material/Lock';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
-
-import { IModuleMenuItemProps } from '../moduleMenuItem';
-
-import { ArshinIcon } from './ArshinIcon';
 
 import { AppRoutes } from 'constant/appRoutes';
 import { Messages } from 'constant/messages';
 import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
 import { useAppDispatch } from 'hooks/redux';
-import StyledMenuItem from 'styled/StyledMenuItem';
 
-function ArshinMenuItem({ onCloseMenu, ...othen }: IModuleMenuItemProps) {
+function ArshinButton() {
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
 	// const { isArshin } = useAppSelector(selectUserPermissions);
@@ -26,7 +20,6 @@ function ArshinMenuItem({ onCloseMenu, ...othen }: IModuleMenuItemProps) {
 	};
 
 	const handleRouteToArshin = () => {
-		onCloseMenu();
 		isArshin
 			? arshinNavigateAction()
 			: dispatch(
@@ -39,11 +32,16 @@ function ArshinMenuItem({ onCloseMenu, ...othen }: IModuleMenuItemProps) {
 	};
 
 	return (
-		<StyledMenuItem {...othen} onClick={handleRouteToArshin} moduleIsActive={isArshin}>
-			<ListItemIcon>{isArshin ? <ArshinIcon /> : <LockIcon />}</ListItemIcon>
-			<ListItemText>Перейти в модуль Аршин</ListItemText>
-		</StyledMenuItem>
+		<Button
+			sx={{ p: 0, textTransform: 'none' }}
+			onClick={handleRouteToArshin}
+			disabled={!isArshin}
+		>
+			<Typography variant='h6' textOverflow='ellipsis' noWrap>
+				Контроль поверки в Госреестре
+			</Typography>
+		</Button>
 	);
 }
 
-export default ArshinMenuItem;
+export default ArshinButton;

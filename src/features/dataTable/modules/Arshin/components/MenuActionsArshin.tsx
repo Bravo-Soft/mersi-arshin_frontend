@@ -8,12 +8,11 @@ import red from '@mui/material/colors/red';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Menu from '@mui/material/Menu';
-// import { GridSelectionModel } from '@mui/x-data-grid-pro';
-import { selectedGridRowsSelector, useGridApiContext, useGridSelector } from '@mui/x-data-grid-pro';
 
+import { selectSelectedDataIds, selectSelectedItemsDone } from '../arshinTableSlice';
 import { useMenuActions } from '../hooks/useMenuActions';
 
-import { ArshinStatus } from 'constant/arshinStatus';
+import { useAppSelector } from 'hooks/redux';
 import StyledMenuItem from 'styled/StyledMenuItem';
 
 interface IMenuItem {
@@ -24,12 +23,8 @@ interface IMenuItem {
 }
 
 function MenuActionsArshin() {
-	const apiRef = useGridApiContext();
-	const selectionModel = useGridSelector(apiRef, selectedGridRowsSelector);
-	const selectionIds = Array.from(selectionModel.keys());
-	const selectionItemsDone = Array.from(selectionModel.values()).filter(
-		el => el.status === ArshinStatus.DONE
-	);
+	const selectionIds = useAppSelector(selectSelectedDataIds);
+	const selectionItemsDone = useAppSelector(selectSelectedItemsDone);
 
 	const {
 		anchorEl,
@@ -43,7 +38,7 @@ function MenuActionsArshin() {
 
 	const menuItems: IMenuItem[] = [
 		{
-			title: 'Синхронизировать выделенное',
+			title: 'Обновить',
 			Icon: CachedIcon,
 			isActive: Boolean(selectionItemsDone.length),
 			action: () => handleSynchronizeItems(selectionIds),
@@ -55,7 +50,7 @@ function MenuActionsArshin() {
 			action: handleOpenFilter,
 		},
 		{
-			title: 'Удалить выделенное',
+			title: 'Удалить',
 			Icon: DeleteIcon,
 			isActive: Boolean(selectionIds.length),
 			action: () => handleDeleteItems(selectionIds),

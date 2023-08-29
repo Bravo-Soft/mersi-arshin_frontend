@@ -1,6 +1,4 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import GetAppIcon from '@mui/icons-material/GetApp';
-import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
@@ -11,22 +9,19 @@ import { GridToolbarContainer } from '@mui/x-data-grid-pro';
 import { Link } from 'react-router-dom';
 
 import { useFilterArshin } from '../hooks/useFilterArshin';
-import { useMenuActions } from '../hooks/useMenuActions';
 
 import MenuActionsArshin from './MenuActionsArshin';
+import ProgressCircular from './ProgressCircular';
 
 import { AppRoutes } from 'constant/appRoutes';
 import StyledChip from 'features/dataTable/styled/StyledChip';
 
 function DataTableArshinToolbar(): JSX.Element {
-	const { handleGetDataFromFgis } = useMenuActions();
-
 	const [updateArshinFilter, completeDone] = useFilterArshin();
 
 	const handleCompleting = () => {
 		updateArshinFilter();
 	};
-
 	return (
 		<>
 			<GridToolbarContainer>
@@ -60,9 +55,7 @@ function DataTableArshinToolbar(): JSX.Element {
 						/>
 					</Stack>
 					<Stack direction='row' gap={4}>
-						<Button startIcon={<GetAppIcon />} onClick={handleGetDataFromFgis}>
-							Запросить данные из ФГИС
-						</Button>
+						<ProgressCircular />
 						<MenuActionsArshin />
 					</Stack>
 				</Toolbar>
