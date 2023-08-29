@@ -12,7 +12,7 @@ function ProgressCircular() {
 	const intervalRef = useRef<number | null>(null);
 
 	// Количество позиций для обновления (для расчета интервала), нужно будет вытащить из кеша
-	const items = 5;
+	const items = 3;
 	// Количество позиций умноженное на 3 сек(условие Аршина чтобы не положить его) и разделить на 100%
 	const interval = (items * 3000) / 100;
 
