@@ -24,12 +24,6 @@ function DateField({ label, nameOfKey, readOnly }: IDateFieldsProps): JSX.Elemen
 		<Controller
 			control={control}
 			name={nameOfKey}
-			rules={{
-				required: {
-					message: 'Это поле обязательное',
-					value: true,
-				},
-			}}
 			render={({ field, fieldState: { error } }) => (
 				<DatePicker
 					{...field}

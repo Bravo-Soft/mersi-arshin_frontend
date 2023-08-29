@@ -29,7 +29,6 @@ function AuthForm({ submitCallback, isLoading, isError }: IAuthFormProps): JSX.E
 	} = useForm<IAuthFormRequest>({
 		resolver: authResolver,
 	});
-	const theme = useTheme();
 
 	const onSubmit = handleSubmit(submitCallback);
 
@@ -69,12 +68,13 @@ function AuthForm({ submitCallback, isLoading, isError }: IAuthFormProps): JSX.E
 								onClick={handleTogglePasswordVisibility}
 								sx={{
 									cursor: 'pointer',
-									'& .MuiSvgIcon-root': {
-										color: errors.password ? theme.palette.error.main : 'inherit',
-									},
 								}}
 							>
-								{passwordIsVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
+								{passwordIsVisible ? (
+									<VisibilityIcon color={errors.password ? 'error' : 'inherit'} />
+								) : (
+									<VisibilityOffIcon color={errors.password ? 'error' : 'inherit'} />
+								)}
 							</InputAdornment>
 						),
 					}}

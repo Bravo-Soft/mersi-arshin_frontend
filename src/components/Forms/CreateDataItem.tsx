@@ -6,9 +6,10 @@ import TextField from '@mui/material/TextField';
 import { Fragment, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { createResolver, parseCreateSchema } from './dataItemResolvers';
 import { allInputFields } from './fields';
 import { useFilterAutocomplete } from './hooks/useAutocomplete';
+import { createResolver } from './utils/dataItemResolvers';
+import { dateFormTransform } from './utils/dateFormTransform';
 
 import AutocompleteField from 'components/AutocompleteField';
 import DateField from 'components/DateField';
@@ -58,7 +59,7 @@ function CreateDataItem(): JSX.Element {
 	const { data } = useGetAllDataQuery();
 	const [createNewItem, { isLoading, isSuccess }] = useCreateNewDataItemMutation();
 
-	const methods = useForm<Omit<IDataItemWithDates, 'id' | 'documents'>>({
+	const methods = useForm<Omit<IDataItemWithDates, 'id' | 'userIds'>>({
 		defaultValues,
 		resolver: createResolver,
 		mode: 'onChange',
@@ -76,7 +77,7 @@ function CreateDataItem(): JSX.Element {
 	}, [isSuccess, reset]);
 
 	const onSubmit = handleSubmit(async newItem => {
-		await createNewItem(parseCreateSchema.parse(newItem));
+		await createNewItem(dateFormTransform(newItem));
 	});
 
 	const handleResetForm = () => {
@@ -98,29 +99,18 @@ function CreateDataItem(): JSX.Element {
 	const createRenderedField = allInputFields.map(({ key, label }) => {
 		switch (key) {
 			case 'size':
-				return (
-					<FormProvider {...methods} key={key}>
-						<SizeSelect />
-					</FormProvider>
-				);
+				return <SizeSelect key={key} />;
 
 			case 'productionDate':
 			case 'dateOfTheNextVerification':
-				return (
-					<FormProvider {...methods} key={key}>
-						<DateField nameOfKey={key} label={label} />
-					</FormProvider>
-				);
-
+				return <DateField key={key} nameOfKey={key} label={label} />;
 			case 'verificationDate':
 				return (
 					<Fragment key={key}>
 						<Box my={2}>
 							<Divider sx={{ color: 'text.secondary', fontWeight: 500 }}>Поверка СИ</Divider>
 						</Box>
-						<FormProvider {...methods}>
-							<DateField nameOfKey={key} label={label} />
-						</FormProvider>
+						<DateField nameOfKey={key} label={label} />
 					</Fragment>
 				);
 			case 'interVerificationInterval':
@@ -137,41 +127,42 @@ function CreateDataItem(): JSX.Element {
 				);
 			default:
 				return (
-					<FormProvider {...methods} key={key}>
-						<AutocompleteField
-							name={key}
-							label={label}
-							required={key === 'name'}
-							autocompleteParams={parametrs[key]}
-						/>
-					</FormProvider>
+					<AutocompleteField
+						key={key}
+						name={key}
+						label={label}
+						required={key === 'name'}
+						autocompleteParams={parametrs[key]}
+					/>
 				);
 		}
 	});
 
 	return (
-		<FormContainer onSubmit={onSubmit} noValidate>
-			<Stack px={3.5} rowGap={1}>
-				{createRenderedField}
-			</Stack>
-			<ButtonContainer sx={{ mt: 4 }}>
-				<Button
-					variant='contained'
-					fullWidth
-					type={maxRowsIsReached ? 'button' : 'submit'}
-					disabled={isLoading}
-					onClick={maxRowsIsReached ? handleShowPaymentDialog : undefined}
-				>
-					Сохранить
-				</Button>
-				<Button
-					fullWidth
-					onClick={handleResetForm}
-					disabled={!methods.formState.isDirty || isLoading}
-				>
-					Очистить
-				</Button>
-			</ButtonContainer>
+		<FormContainer onSubmit={onSubmit}>
+			<FormProvider {...methods}>
+				<Stack px={3.5} rowGap={1}>
+					{createRenderedField}
+				</Stack>
+				<ButtonContainer sx={{ mt: 4 }}>
+					<Button
+						variant='contained'
+						fullWidth
+						type={maxRowsIsReached ? 'button' : 'submit'}
+						disabled={isLoading}
+						onClick={maxRowsIsReached ? handleShowPaymentDialog : undefined}
+					>
+						Сохранить
+					</Button>
+					<Button
+						fullWidth
+						onClick={handleResetForm}
+						disabled={!methods.formState.isDirty || isLoading}
+					>
+						Очистить
+					</Button>
+				</ButtonContainer>
+			</FormProvider>
 		</FormContainer>
 	);
 }

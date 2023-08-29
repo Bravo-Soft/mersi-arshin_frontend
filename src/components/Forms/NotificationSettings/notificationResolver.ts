@@ -18,7 +18,7 @@ const notificationSchema = z.object({
 						value: z.string().or(z.date()),
 					})
 				),
-				linkOperator: z.string().refine(e => e === 'or' || 'and'),
+				linkOperator: z.enum(['or', 'and']),
 			})
 		)
 		.superRefine((e, ctx) => {

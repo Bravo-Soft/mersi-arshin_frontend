@@ -29,12 +29,12 @@ function NotificationAddButton({
 	}, [index, watchEmailFilters]);
 
 	return (
-		<Tooltip title='Добавить Фильтр'>
+		<Tooltip title='Добавить фильтр'>
 			<IconButton
 				aria-describedby='id'
 				size='small'
 				onClick={handleClickFilters(index)}
-				sx={errors?.subscribedEmails?.[index] ? { mt: '10px' } : {}}
+				sx={errors?.subscribedEmails?.[index] ? { mt: '10px' } : undefined }
 			>
 				{length ? (
 					<Badge color='primary' badgeContent={length}>

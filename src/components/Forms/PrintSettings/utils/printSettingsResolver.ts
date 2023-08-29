@@ -1,16 +1,18 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
+const errorMessage = 'Число должно быть >= 0';
+
 const printSettingsSchema = z.object({
-	'large-font': z.number().nonnegative('Число должно быть >= 0'),
-	'large-height': z.number().nonnegative('Число должно быть >= 0'),
-	'large-width': z.number().nonnegative('Число должно быть >= 0'),
-	'medium-font': z.number().nonnegative('Число должно быть >= 0'),
-	'medium-height': z.number().nonnegative('Число должно быть >= 0'),
-	'medium-width': z.number().nonnegative('Число должно быть >= 0'),
-	'small-font': z.number().nonnegative('Число должно быть >= 0'),
-	'small-height': z.number().nonnegative('Число должно быть >= 0'),
-	'small-width': z.number().nonnegative('Число должно быть >= 0'),
+	'large-font': z.number().nonnegative(errorMessage),
+	'large-height': z.number().nonnegative(errorMessage),
+	'large-width': z.number().nonnegative(errorMessage),
+	'medium-font': z.number().nonnegative(errorMessage),
+	'medium-height': z.number().nonnegative(errorMessage),
+	'medium-width': z.number().nonnegative(errorMessage),
+	'small-font': z.number().nonnegative(errorMessage),
+	'small-height': z.number().nonnegative(errorMessage),
+	'small-width': z.number().nonnegative(errorMessage),
 });
 
 export const printSettingsResolver = zodResolver(printSettingsSchema);

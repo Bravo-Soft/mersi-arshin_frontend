@@ -1,7 +1,8 @@
 import Button from '@mui/material/Button';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { dateItemSchema, formResolver } from '../dataItemResolvers';
+import { formResolver } from '../utils/dataItemResolvers';
+import { dateFormTransform } from '../utils/dateFormTransform';
 
 import VerificateInputs from './VerificateInputs';
 
@@ -32,7 +33,7 @@ function VerificateDataItem(): JSX.Element {
 	useUpdateInputValues(selectedDataItem, methods.setValue);
 
 	const onSubmit = methods.handleSubmit(async data => {
-		await sendUpdatedItem(dateItemSchema.parse(data)).unwrap();
+		await sendUpdatedItem(dateFormTransform(data)).unwrap();
 	});
 
 	return (

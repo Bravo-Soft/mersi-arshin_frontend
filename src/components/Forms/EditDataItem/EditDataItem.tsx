@@ -1,7 +1,8 @@
 import Button from '@mui/material/Button';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { dateItemSchema, formResolver } from '../dataItemResolvers';
+import { formResolver } from '../utils/dataItemResolvers';
+import { dateFormTransform } from '../utils/dateFormTransform';
 
 import EditInputs from './EditInputs';
 
@@ -22,7 +23,7 @@ function EditDataItem(): JSX.Element {
 
 	const [sendUpdatedItem, { isLoading: isUpdateLoading }] = useUpdateDataItemMutation();
 
-	const methods = useForm<IDataItemWithDates>({
+	const methods = useForm<Omit<IDataItemWithDates, 'document'>>({
 		values: setDefaultValue(selectedDataItem),
 		resolver: formResolver,
 	});
@@ -30,7 +31,7 @@ function EditDataItem(): JSX.Element {
 	useUpdateSelectedDataItem(selectedDataItem);
 
 	const onSubmit = methods.handleSubmit(async data => {
-		await sendUpdatedItem(dateItemSchema.parse(data)).unwrap();
+		await sendUpdatedItem(dateFormTransform(data)).unwrap();
 	});
 
 	return (
