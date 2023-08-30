@@ -1,7 +1,7 @@
 import CachedIcon from '@mui/icons-material/Cached';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { SvgIconProps } from '@mui/material';
-import red from '@mui/material/colors/red';
+import { red } from '@mui/material/colors';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Menu from '@mui/material/Menu';

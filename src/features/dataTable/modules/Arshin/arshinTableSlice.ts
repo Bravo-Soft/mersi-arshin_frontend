@@ -24,7 +24,7 @@ const arshinTableSlice = createSlice({
 
 export const selectSelectedDataItems = (state: RootState) => state.arshinTable.selectedDataItems;
 export const selectSelectedItemsDone = (state: RootState) =>
-	state.arshinTable.selectedDataItems?.filter(el => el.status === ArshinStatus.DONE) || [];
+	state.arshinTable.selectedDataItems?.filter(el => el.status === ArshinStatus.DONE) ?? [];
 
 export const selectSelectedDataIds = (state: RootState) =>
 	state.arshinTable.selectedDataItems?.map(el => el.id) || [];

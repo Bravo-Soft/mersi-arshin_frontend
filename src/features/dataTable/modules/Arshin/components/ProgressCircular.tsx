@@ -9,7 +9,7 @@ import { useMenuActions } from '../hooks/useMenuActions';
 function ProgressCircular() {
 	const { handleGetDataFromFgis } = useMenuActions();
 	const [progress, setProgress] = useState(0);
-	const intervalRef = useRef<number | null>(null);
+	const intervalRef = useRef<NodeJS.Timer | null>(null);
 
 	// Количество позиций для обновления (для расчета интервала), нужно будет вытащить из кеша
 	const items = 3;
@@ -35,7 +35,7 @@ function ProgressCircular() {
 		}
 		handleGetDataFromFgis();
 		setProgress(1);
-		intervalRef.current = window.setInterval(() => {
+		intervalRef.current = setInterval(() => {
 			setProgress(prev => (prev += 1));
 		}, interval);
 	};
