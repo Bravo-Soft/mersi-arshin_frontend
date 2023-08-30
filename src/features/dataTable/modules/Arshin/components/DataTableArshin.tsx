@@ -3,8 +3,10 @@ import { DataGridPro, GridSelectionModel, useGridApiRef } from '@mui/x-data-grid
 
 import { columnsArshin } from '../config/columns';
 import { useApplyTemplate } from '../hooks/useApplyTemplate';
+import { useContextMenuActions } from '../hooks/useContextMenuActions';
 import useTableActions from '../hooks/useTableActions';
 
+import ContextMenuArshin from './ContextMenuArshin';
 import DataTableArshinToolbar from './DataTableArshinToolbar';
 
 import { ArshinStatus } from 'constant/arshinStatus';
@@ -71,7 +73,7 @@ export const dataArshin: IDataItemArshin[] = [
 		responsible: 'responsible',
 		size: Tag.MEDIUM,
 		stateRegister: 'stateRegister',
-		status: ArshinStatus.DONE,
+		status: ArshinStatus.AWAITING_SHIPMENT,
 		suitability: 'suitability',
 		type: 'type',
 		typeOfWork: 'typeOfWork',
@@ -120,6 +122,8 @@ function DataTableArshin() {
 
 	const { selectionIds, handleSelectItems } = useTableActions();
 
+	const { contextMenu, handleOpenContextMenu, handleCloseContextMenu } = useContextMenuActions();
+
 	return (
 		<DataTableBox>
 			<DataGridPro
@@ -145,7 +149,14 @@ function DataTableArshin() {
 					handleSelectItems(newSelectionModel);
 				}}
 				selectionModel={selectionIds}
+				componentsProps={{
+					row: {
+						onContextMenu: handleOpenContextMenu,
+						style: { cursor: 'pointer' },
+					},
+				}}
 			/>
+			<ContextMenuArshin contextMenu={contextMenu} handleClose={handleCloseContextMenu} />
 		</DataTableBox>
 	);
 }

@@ -17,6 +17,7 @@ import DataTableColumnButton from './DataTableColumnButton';
 import DataTableToolbarFilter from './DataTableToolbarFilter';
 import { scrollbarStyles } from './scrollbarStyles';
 
+import ArshinButton from 'features/dataTable/modules/Arshin/ArshinButton';
 import DataTableModulesButton from 'features/dataTable/modules/DataTableModulesButton';
 import { selectActualStep, selectMenuStart } from 'features/quickTour/components/quickTourSlice';
 import { useAppSelector } from 'hooks/redux';
@@ -49,7 +50,14 @@ function DataTableToolbar(): JSX.Element {
 		<>
 			<GridToolbarContainer sx={scrollbarStyles}>
 				<Toolbar sx={{ width: 1 }}>
-					<Box display='flex' flexDirection='row' columnGap={2} flexGrow={1} minWidth={350}>
+					<Box
+						display='flex'
+						flexDirection='row'
+						columnGap={3}
+						flexGrow={1}
+						minWidth={350}
+						alignItems='center'
+					>
 						<Typography
 							color='primary.main'
 							variant='h6'
@@ -59,6 +67,7 @@ function DataTableToolbar(): JSX.Element {
 						>
 							Средства измерения
 						</Typography>
+						<ArshinButton />
 						<Tooltip
 							title={
 								expanded

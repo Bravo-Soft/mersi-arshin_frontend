@@ -1,4 +1,4 @@
-import type { GridStateColDef } from '@mui/x-data-grid-pro';
+import type { GridSelectionModel, GridStateColDef } from '@mui/x-data-grid-pro';
 import type { GridApiPro } from '@mui/x-data-grid-pro/models/gridApiPro';
 import { format, parseISO } from 'date-fns';
 import { enqueueSnackbar } from 'notistack';
@@ -197,8 +197,8 @@ export const useContextMenuActions = (
 		}
 	};
 
-	const handleAddToArshin = () => {
-		console.log('добавить в аршин');
+	const handleAddToArshin = (selectionModel: GridSelectionModel) => {
+		console.log('добавить в аршин id : ', selectionModel);
 	};
 
 	return {
