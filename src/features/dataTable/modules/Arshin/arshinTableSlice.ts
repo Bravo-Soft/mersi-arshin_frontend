@@ -1,5 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
+import { arshinTableApiSlice } from './arshinTableApiSlice';
+
 import { RootState } from 'app/store';
 import { ArshinStatus } from 'constant/arshinStatus';
 import { IDataItemArshin } from 'types/arshinIntegration';
@@ -27,7 +29,10 @@ export const selectSelectedItemsDone = (state: RootState) =>
 	state.arshinTable.selectedDataItems?.filter(el => el.status === ArshinStatus.DONE) ?? [];
 
 export const selectSelectedDataIds = (state: RootState) =>
-	state.arshinTable.selectedDataItems?.map(el => el.id) || [];
+	state.arshinTable.selectedDataItems?.map(el => el.id) ?? [];
+
+export const selectArshinData = (state: RootState) =>
+	arshinTableApiSlice.endpoints.getData.select()(state).data ?? [];
 
 export const { setSelectedDataItems } = arshinTableSlice.actions;
 

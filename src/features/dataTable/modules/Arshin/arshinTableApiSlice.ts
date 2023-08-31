@@ -1,9 +1,51 @@
+import { GridSelectionModel } from '@mui/x-data-grid-pro';
+
 import { API } from 'app/api';
 import { apiSlice } from 'app/apiSlice';
-import { IFormFilterArshin } from 'types/arshinIntegration';
+import { IDataItemArshin, IFormFilterArshin } from 'types/arshinIntegration';
 
 export const arshinTableApiSlice = apiSlice.injectEndpoints({
 	endpoints: builder => ({
+		getData: builder.query<IDataItemArshin[], void>({
+			query: () => API.arshin.getData,
+			providesTags: ['ArshinData'],
+		}),
+		addItems: builder.mutation<void, GridSelectionModel>({
+			query: ids => ({
+				url: API.arshin.addItems,
+				method: 'POST',
+				body: {
+					dataIds: ids,
+				},
+			}),
+			invalidatesTags: ['ArshinData'],
+		}),
+		deleteItems: builder.mutation<void, GridSelectionModel>({
+			query: ids => ({
+				url: API.arshin.deleteItems,
+				method: 'DELETE',
+				body: {
+					dataIds: ids,
+				},
+			}),
+			invalidatesTags: ['ArshinData'],
+		}),
+		synchronizeItems: builder.mutation<void, GridSelectionModel>({
+			query: ids => ({
+				url: API.arshin.synchronizeItems,
+				method: 'PATCH',
+				body: {
+					dataIds: ids,
+				},
+			}),
+			invalidatesTags: ['ArshinData'],
+		}),
+		checkItems: builder.mutation<IDataItemArshin[], void>({
+			query: () => ({
+				url: API.arshin.checkItems,
+				method: 'POST',
+			}),
+		}),
 		getFilters: builder.query<IFormFilterArshin, void>({
 			query: () => API.arshin.getFilters,
 			providesTags: ['ArshinFilters'],
@@ -26,5 +68,13 @@ export const arshinTableApiSlice = apiSlice.injectEndpoints({
 	}),
 });
 
-export const { useGetFiltersQuery, useEditFiltersMutation, useResetFiltersMutation } =
-	arshinTableApiSlice;
+export const {
+	useGetDataQuery,
+	useGetFiltersQuery,
+	useEditFiltersMutation,
+	useResetFiltersMutation,
+	useAddItemsMutation,
+	useDeleteItemsMutation,
+	useSynchronizeItemsMutation,
+	useCheckItemsMutation,
+} = arshinTableApiSlice;

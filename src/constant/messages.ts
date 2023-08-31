@@ -21,13 +21,14 @@ export enum Messages {
 	PHOTO_RESET = 'Фотография сброшена',
 	FILES_SUCCESSFULLY_UPLOADED = 'Файл(ы) успешно загружен(ы)',
 	DATA_COPY_TO_CLIPBOARD = 'Скопировано в буфер обмена',
+	POSITION_NOT_SELECTED = 'Выберите позиции',
 
 	// Уведомления – Успешные
 	WELCOME = 'Добро пожаловать',
 	THE_TEMPLATE_WAS_CREATED_SUCCESSFULLY = 'Шаблон успешно создан',
 	THE_TEMPLATE_WAS_SUCCESSFULLY_DELETED = 'Шаблон успешно удален',
 	ITEM_SUCCESSFULLY_CREATED = 'Новая позиция успешно добавлена',
-	ITEM_SUCCESSFULLY_DELETED = 'Позиция успешно удалена',
+	ITEM_SUCCESSFULLY_DELETED = 'Позиция(и) успешно удалена(ы)',
 	PHOTO_SUCCESSFULLY_UPDATED = 'Фотография обновлена',
 	USER_PROFILE_SUCCESSFULLY_UPDATED = 'Профиль успешно обновлен',
 	FILE_SUCCESSFULLY_DELETED = 'Файл успешно удален',
@@ -37,6 +38,8 @@ export enum Messages {
 	REVIEW_SUCCESSFULLY_SENDED = 'Отзыв успешно отправлен',
 	ARSHIN_FILTERS_SUCCESSFULLY_EDITED = 'Фильтра успешно обновлены',
 	ARSHIN_FILTERS_SUCCESSFULLY_RESET = 'Применены стандартные фильтра',
+	ARSHIN_ITEMS_SUCCESSFULLY_ADDED = 'Позиция(и) добавлены в Контроль поверки в Госреестре',
+	ARSHIN_ITEM_SUCCESSFULLY_UPDATED = 'Позиция(и) успешно обновлена(ы)',
 
 	//Уведомления – ошибочные
 	FORBIDDEN = 'Нет доступа',
@@ -44,7 +47,7 @@ export enum Messages {
 	ERROR_CONNECTION = 'Соединение с сервером оборвано',
 	ERROR_REPEAT = 'Произошла ошибка, повторите попытку',
 	SOMETHING_WRONG_ELSE = 'Что-то пошло не так',
-	FAILED_DELETE_ITEM = 'Не удалось удалить позицию',
+	FAILED_DELETE_ITEM = 'Не удалось удалить позицию(и)',
 	FAILED_TO_SAVE_ITEM = 'Не удалось сохранить позицию',
 	FAILED_TO_SAVE_TEMPLATE = 'Не удалось сохранить шаблон',
 	FAILED_TO_LOADING_TEMPLATE = 'Не удалось загрузить шаблон',
@@ -77,4 +80,6 @@ export enum Messages {
 	FAILED_TO_UPLOAD_PHOTO_SIZE = 'Файл превышает максимальный размер',
 	FAILED_ARSHIN_FILTERS_EDITED = 'Не удалось обновить фильтра',
 	FAILED_ARSHIN_FILTERS_RESET = 'Не удалось применить стандартные фильтра',
+	FAILED_ARSHIN_ITEMS_ADDED = 'Не удалось добавить позицию(и) в Контроль поверки в Госреестре',
+	FAILED_ARSHIN_ITEM_UPDATED = 'Не удалось обновить позицию(и)',
 }

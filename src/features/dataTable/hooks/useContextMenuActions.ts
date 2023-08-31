@@ -19,6 +19,7 @@ import {
 	useCreateNewListFavoriteIdsMutation,
 	useDeleteFavoriteIdsMutation,
 } from '../favoritesApiSlice';
+import { useAddItemsMutation } from '../modules/Arshin/arshinTableApiSlice';
 
 import type { ColumnNames } from 'constant/columnsName';
 import { formatVariant } from 'constant/dateFormat';
@@ -56,6 +57,7 @@ export const useContextMenuActions = (
 	/* Методы взаимодействия с сервером */
 	const [sendNewFavoriteList] = useCreateNewListFavoriteIdsMutation();
 	const [deleteFromFavorite] = useDeleteFavoriteIdsMutation();
+	const [addToArshin] = useAddItemsMutation();
 
 	const { openSidebarWith } = useSidebarAction('home');
 
@@ -197,8 +199,17 @@ export const useContextMenuActions = (
 		}
 	};
 
-	const handleAddToArshin = (selectionModel: GridSelectionModel) => {
-		console.log('добавить в аршин id : ', selectionModel);
+	const handleAddToArshin = async (selectionModel: GridSelectionModel) => {
+		if (selectionModel.length) {
+			try {
+				await addToArshin(selectionModel).unwrap();
+				enqueueSnackbar(Messages.ARSHIN_ITEMS_SUCCESSFULLY_ADDED, { variant: 'success' });
+			} catch {
+				enqueueSnackbar(Messages.FAILED_ARSHIN_ITEMS_ADDED, { variant: 'error' });
+			}
+		} else {
+			enqueueSnackbar(Messages.POSITION_NOT_SELECTED, { variant: 'info' });
+		}
 	};
 
 	return {
