@@ -2,7 +2,6 @@ import { DatePicker } from '@mui/x-date-pickers';
 import type { Validate } from 'react-hook-form';
 import { Controller, useFormContext } from 'react-hook-form';
 
-import { maxDate, minDate } from 'constant/dateMasks';
 import type { IDataItemWithDates } from 'types/dataItem';
 
 interface IDateFieldsProps {
@@ -24,17 +23,16 @@ function DateField({ label, nameOfKey, readOnly }: IDateFieldsProps): JSX.Elemen
 		<Controller
 			control={control}
 			name={nameOfKey}
-			render={({ field, fieldState: { error } }) => (
+			render={({ field: { ref, ...field }, fieldState: { error } }) => (
 				<DatePicker
 					{...field}
 					label={label}
 					readOnly={readOnly}
-					minDate={minDate}
-					maxDate={maxDate}
 					slotProps={{
 						textField: {
+							inputRef: ref,
 							error: Boolean(error),
-							helperText: error?.message,
+							helperText: error?.message ?? ' ',
 						},
 					}}
 				/>

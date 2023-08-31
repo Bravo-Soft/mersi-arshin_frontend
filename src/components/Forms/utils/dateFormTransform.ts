@@ -1,7 +1,9 @@
 import type { IDataItemWithDates } from 'types/dataItem';
 import { createDateISO } from 'utils/createDateISO';
 
-export const dateFormTransform = <T extends Omit<IDataItemWithDates, 'id' | 'userIds'>>(
+export const dateFormTransform = <
+	T extends Omit<IDataItemWithDates, 'id' | 'userIds' | 'documents'>
+>(
 	data: T
 ) => {
 	const { dateOfTheNextVerification, productionDate, verificationDate, ...other } = data;

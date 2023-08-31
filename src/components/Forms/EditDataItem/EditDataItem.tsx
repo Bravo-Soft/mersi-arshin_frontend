@@ -23,7 +23,7 @@ function EditDataItem(): JSX.Element {
 
 	const [sendUpdatedItem, { isLoading: isUpdateLoading }] = useUpdateDataItemMutation();
 
-	const methods = useForm<Omit<IDataItemWithDates, 'document'>>({
+	const methods = useForm<Omit<IDataItemWithDates, 'document' | 'userIds'>>({
 		values: setDefaultValue(selectedDataItem),
 		resolver: formResolver,
 	});

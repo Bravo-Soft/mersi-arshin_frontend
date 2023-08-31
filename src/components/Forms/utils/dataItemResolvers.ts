@@ -1,11 +1,13 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { compareAsc, format } from 'date-fns';
-import { z } from 'zod';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { compareAsc, format } from "date-fns";
+import { z } from "zod";
 
-import { largeLengthField, smallLengthField } from './errorMessage';
+import { largeLengthField, smallLengthField } from "./errorMessage";
 
-import { formatVariant } from 'constant/dateFormat';
-import { Tag } from 'constant/tag';
+import { formatVariant } from "constant/dateFormat";
+import { Tag } from "constant/tag";
+// export const minDate = new Date('01-01-1950');
+// export const maxDate = new Date('01-01-2070');
 
 export const itemSchema = z.object({
 	name: z.string().max(256, largeLengthField).min(1, 'Это обязательное поле'),
@@ -38,12 +40,21 @@ export const itemSchema = z.object({
 
 const dateSchema = z
 	.object({
-		verificationDate: z.date({ required_error: 'Это обязательное поле' }),
-		dateOfTheNextVerification: z.date({ required_error: 'Это обязательное поле' }),
-		productionDate: z.date({ required_error: 'Это обязательное поле' }),
+		verificationDate: z
+			.date({ required_error: 'Это обязательное поле' })
+			.min(new Date('01-01-1950'), `Дата должна быть не раньше  чем 01-01-1950`)
+			.max(new Date('01-01-2070'), `Дата не должна быть позже чем 01-01-2070`),
+		dateOfTheNextVerification: z
+			.date({ required_error: 'Это обязательное поле' })
+			.min(new Date('01-01-1950'), `Дата должна быть не раньше  чем 01-01-1950`)
+			.max(new Date('01-01-2070'), `Дата не должна быть позже чем 01-01-2070`),
+		productionDate: z
+			.date({ required_error: 'Это обязательное поле' })
+			.min(new Date('01-01-1950'), `Дата должна быть не раньше  чем 01-01-1950`)
+			.max(new Date('01-01-2070'), `Дата не должна быть позже чем 01-01-2070`),
 	})
 	.superRefine(({ dateOfTheNextVerification, verificationDate, productionDate }, ctx) => {
-		if (compareAsc(productionDate, verificationDate) !== -1) {
+		if (compareAsc(productionDate, verificationDate) === 1) {
 			ctx.addIssue({
 				code: 'invalid_date',
 				message: `Дата производства должна идти раньше или быть равной дате поверки (${format(
@@ -61,7 +72,7 @@ const dateSchema = z
 				path: ['verificationDate'],
 			});
 		}
-		if (compareAsc(productionDate, dateOfTheNextVerification) !== -1) {
+		if (compareAsc(productionDate, dateOfTheNextVerification) === 1) {
 			ctx.addIssue({
 				code: 'invalid_date',
 				message: `Дата производства должна идти раньше даты следующей поверки, либо быть равной ей (${format(
@@ -80,7 +91,7 @@ const dateSchema = z
 			});
 		}
 
-		if (compareAsc(verificationDate, dateOfTheNextVerification) !== -1) {
+		if (compareAsc(verificationDate, dateOfTheNextVerification) === 1) {
 			ctx.addIssue({
 				code: 'invalid_date',
 				message: `Дата поверки должна идти раньше даты следующей поверки, либо быть равной ей (${format(

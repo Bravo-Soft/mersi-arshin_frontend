@@ -4,7 +4,7 @@ import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import { Fragment, useEffect } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { Controller, FormProvider, useForm } from 'react-hook-form';
 
 import { allInputFields } from './fields';
 import { useFilterAutocomplete } from './hooks/useAutocomplete';
@@ -27,7 +27,6 @@ import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import ButtonContainer from 'styled/ButtonContainer';
 import FormContainer from 'styled/FormContainer';
 import { IDataItemWithDates } from 'types/dataItem';
-import { getExtendedIntervalRules } from 'utils/getExtendedIntervalRules';
 
 const today = new Date();
 
@@ -59,7 +58,7 @@ function CreateDataItem(): JSX.Element {
 	const { data } = useGetAllDataQuery();
 	const [createNewItem, { isLoading, isSuccess }] = useCreateNewDataItemMutation();
 
-	const methods = useForm<Omit<IDataItemWithDates, 'id' | 'userIds'>>({
+	const methods = useForm<Omit<IDataItemWithDates, 'id' | 'userIds' | 'documents'>>({
 		defaultValues,
 		resolver: createResolver,
 		mode: 'onChange',
@@ -74,6 +73,7 @@ function CreateDataItem(): JSX.Element {
 		if (isSuccess) {
 			reset();
 		}
+		return reset();
 	}, [isSuccess, reset]);
 
 	const onSubmit = handleSubmit(async newItem => {
@@ -100,7 +100,6 @@ function CreateDataItem(): JSX.Element {
 		switch (key) {
 			case 'size':
 				return <SizeSelect key={key} />;
-
 			case 'productionDate':
 			case 'dateOfTheNextVerification':
 				return <DateField key={key} nameOfKey={key} label={label} />;
@@ -115,14 +114,21 @@ function CreateDataItem(): JSX.Element {
 				);
 			case 'interVerificationInterval':
 				return (
-					<TextField
-						{...methods.register('interVerificationInterval', getExtendedIntervalRules())}
-						label={label}
-						key={key}
-						error={Boolean(methods.formState.errors.interVerificationInterval)}
-						helperText={methods.formState.errors?.interVerificationInterval?.message}
-						InputLabelProps={{ shrink: true }}
-						type='number'
+					<Controller
+						name={key}
+						control={methods.control}
+						render={({ field: { ref, name, ...field }, fieldState: { error } }) => (
+							<TextField
+								{...field}
+								key={name}
+								label={label}
+								error={Boolean(error)}
+								helperText={error?.message ?? ' '}
+								inputRef={ref}
+								InputLabelProps={{ shrink: true }}
+								type='number'
+							/>
+						)}
 					/>
 				);
 			default:

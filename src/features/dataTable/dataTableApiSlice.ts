@@ -30,7 +30,10 @@ export const dataTableApiSlice = apiSlice.injectEndpoints({
 			providesTags: (_result, _error, id) => [{ type: 'Data', id }],
 		}),
 
-		createNewDataItem: builder.mutation<IDataItem, Omit<IDataItem, 'id' | 'userIds'>>({
+		createNewDataItem: builder.mutation<
+			IDataItem,
+			Omit<IDataItem, 'id' | 'userIds' | 'documents'>
+		>({
 			query: body => ({
 				url: API.data.default,
 				method: 'POST',
