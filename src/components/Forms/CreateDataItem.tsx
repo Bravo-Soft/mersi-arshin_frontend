@@ -4,7 +4,7 @@ import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import { Fragment, useEffect } from 'react';
-import { Controller, FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 
 import { allInputFields } from './fields';
 import { useFilterAutocomplete } from './hooks/useAutocomplete';
@@ -61,7 +61,7 @@ function CreateDataItem(): JSX.Element {
 	const methods = useForm<Omit<IDataItemWithDates, 'id' | 'userIds' | 'documents'>>({
 		defaultValues,
 		resolver: createResolver,
-		mode: 'onChange',
+		// mode: 'onChange',
 	});
 
 	const { handleSubmit, reset } = methods;
@@ -114,21 +114,14 @@ function CreateDataItem(): JSX.Element {
 				);
 			case 'interVerificationInterval':
 				return (
-					<Controller
-						name={key}
-						control={methods.control}
-						render={({ field: { ref, name, ...field }, fieldState: { error } }) => (
-							<TextField
-								{...field}
-								key={name}
-								label={label}
-								error={Boolean(error)}
-								helperText={error?.message ?? ' '}
-								inputRef={ref}
-								InputLabelProps={{ shrink: true }}
-								type='number'
-							/>
-						)}
+					<TextField
+						{...methods.register('interVerificationInterval')}
+						label={label}
+						key={key}
+						error={Boolean(methods.formState.errors.interVerificationInterval)}
+						helperText={methods.formState.errors?.interVerificationInterval?.message}
+						InputLabelProps={{ shrink: true }}
+						type='number'
 					/>
 				);
 			default:
