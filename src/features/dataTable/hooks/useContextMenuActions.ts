@@ -206,6 +206,8 @@ export const useContextMenuActions = (
 				enqueueSnackbar(Messages.ARSHIN_ITEMS_SUCCESSFULLY_ADDED, { variant: 'success' });
 			} catch {
 				enqueueSnackbar(Messages.FAILED_ARSHIN_ITEMS_ADDED, { variant: 'error' });
+			} finally {
+				dispatch(resetSelectedModel());
 			}
 		} else {
 			enqueueSnackbar(Messages.POSITION_NOT_SELECTED, { variant: 'info' });

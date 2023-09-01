@@ -3,6 +3,7 @@ import Stack from '@mui/material/Stack';
 import { enqueueSnackbar } from 'notistack';
 
 import { useSynchronizeItemsMutation } from '../../arshinTableApiSlice';
+import { resetSelectedDataItem } from '../../arshinTableSlice';
 import { resetDialogState, selectSynchronizeDialog } from '../../dialogArshinSlice';
 import useTableActions from '../../hooks/useTableActions';
 
@@ -41,6 +42,7 @@ function SynchronizeDialog() {
 				});
 			} finally {
 				handleCloseSynchronizeDialog();
+				dispatch(resetSelectedDataItem());
 			}
 		}
 	};
