@@ -61,7 +61,6 @@ function CreateDataItem(): JSX.Element {
 	const methods = useForm<Omit<IDataItemWithDates, 'id' | 'userIds' | 'documents'>>({
 		defaultValues,
 		resolver: createResolver,
-		// mode: 'onChange',
 	});
 
 	const { handleSubmit, reset } = methods;
