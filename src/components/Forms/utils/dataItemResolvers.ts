@@ -42,16 +42,16 @@ const dateSchema = z
 	.object({
 		verificationDate: z
 			.date({ required_error: 'Это обязательное поле' })
-			.min(new Date('01-01-1950'), `Дата должна быть не раньше  чем 01-01-1950`)
-			.max(new Date('01-01-2070'), `Дата не должна быть позже чем 01-01-2070`),
+			.min(new Date('01-01-1950'), `Дата должна быть не раньше  чем 01.01.1950`)
+			.max(new Date('01-01-2070'), `Дата не должна быть позже чем 01.01.2070`),
 		dateOfTheNextVerification: z
 			.date({ required_error: 'Это обязательное поле' })
-			.min(new Date('01-01-1950'), `Дата должна быть не раньше  чем 01-01-1950`)
-			.max(new Date('01-01-2070'), `Дата не должна быть позже чем 01-01-2070`),
+			.min(new Date('01-01-1950'), `Дата должна быть не раньше  чем 01.01.1950`)
+			.max(new Date('01-01-2070'), `Дата не должна быть позже чем 01.01.2070`),
 		productionDate: z
 			.date({ required_error: 'Это обязательное поле' })
-			.min(new Date('01-01-1950'), `Дата должна быть не раньше  чем 01-01-1950`)
-			.max(new Date('01-01-2070'), `Дата не должна быть позже чем 01-01-2070`),
+			.min(new Date('01-01-1950'), `Дата должна быть не раньше  чем 01.01.1950`)
+			.max(new Date('01-01-2070'), `Дата не должна быть позже чем 01.01.2070`),
 	})
 	.superRefine(({ dateOfTheNextVerification, verificationDate, productionDate }, ctx) => {
 		if (compareAsc(productionDate, verificationDate) === 1) {
