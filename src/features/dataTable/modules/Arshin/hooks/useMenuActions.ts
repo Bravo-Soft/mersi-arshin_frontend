@@ -1,14 +1,24 @@
+import { enqueueSnackbar } from 'notistack';
 import { useState, MouseEvent } from 'react';
 
-import { dataArshin } from '../components/DataTableArshin';
+import { useDeleteItemsMutation, useSynchronizeItemsMutation } from '../arshinTableApiSlice';
+import { selectArshinData, selectSelectedDataItems } from '../arshinTableSlice';
 import { changeDialogState, openFilterDialogArshin } from '../dialogArshinSlice';
 
 import { ArshinStatus } from 'constant/arshinStatus';
-import { useAppDispatch } from 'hooks/redux';
+import { Messages } from 'constant/messages';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
 
 export const useMenuActions = () => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const open = Boolean(anchorEl);
+
+	const dataArshin = useAppSelector(selectArshinData);
+
+	const selectedData = useAppSelector(selectSelectedDataItems);
+
+	const [deleteFromArshin] = useDeleteItemsMutation();
+	const [synchronizeItemsArshin] = useSynchronizeItemsMutation();
 
 	const handleOpenMenu = (event: MouseEvent<HTMLButtonElement>) => {
 		setAnchorEl(event.currentTarget);
@@ -23,11 +33,20 @@ export const useMenuActions = () => {
 		dispatch(openFilterDialogArshin());
 	};
 
-	const handleSynchronizeItems = (selectedIds: string[]) => {
+	const handleSynchronizeItems = async (selectedIds: string[]) => {
 		const selectedData = dataArshin.filter(el => selectedIds.includes(el.id));
 
 		if (selectedData.every(el => el.status === ArshinStatus.DONE)) {
-			console.log('Обновить выделенное', selectedIds);
+			try {
+				await synchronizeItemsArshin(selectedIds);
+				enqueueSnackbar(Messages.ARSHIN_ITEM_SUCCESSFULLY_UPDATED, {
+					variant: 'success',
+				});
+			} catch {
+				enqueueSnackbar(Messages.FAILED_ARSHIN_ITEM_UPDATED, {
+					variant: 'error',
+				});
+			}
 		} else {
 			const selectedItemsDone = selectedData.filter(el => el.status === ArshinStatus.DONE);
 
@@ -42,24 +61,29 @@ export const useMenuActions = () => {
 	};
 
 	const handleGetDataFromFgis = () => {
+		// пока еще не работает
+		// checkItemsArshin();
 		console.log('Запросить данные из ФГИС');
 	};
 
-	const handleDeleteItems = (selectedIds: string[]) => {
-		// вместо dataArshin получать из кэша данные
-		const selectedData = dataArshin.filter(el => selectedIds.includes(el.id));
-		if (selectedData.some(el => el.status === ArshinStatus.DONE)) {
+	const handleDeleteItems = async (selectionIds: string[]) => {
+		if (selectedData?.some(el => el.status === ArshinStatus.DONE)) {
 			dispatch(
 				changeDialogState({
 					isOpen: true,
 					variant: 'deleting',
 					content: `При удалении ${
-						selectedIds.length > 1 ? 'данных строк' : 'данной строки'
+						selectionIds.length > 1 ? 'данных строк' : 'данной строки'
 					} будут потеряны все данные, полученные из ФГИС “Аршин”`,
 				})
 			);
 		} else {
-			console.log('Удалить выделенное', selectedIds);
+			try {
+				await deleteFromArshin(selectionIds).unwrap();
+				enqueueSnackbar(Messages.ITEM_SUCCESSFULLY_DELETED, { variant: 'success' });
+			} catch {
+				enqueueSnackbar(Messages.FAILED_DELETE_ITEM, { variant: 'error' });
+			}
 		}
 	};
 

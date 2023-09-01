@@ -67,7 +67,6 @@ function DataTableToolbar(): JSX.Element {
 						>
 							Средства измерения
 						</Typography>
-						<ArshinButton />
 						<Tooltip
 							title={
 								expanded
@@ -84,6 +83,7 @@ function DataTableToolbar(): JSX.Element {
 								/>
 							</IconButton>
 						</Tooltip>
+						<ArshinButton />
 					</Box>
 					<Stack
 						direction='row'

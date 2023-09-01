@@ -37,8 +37,13 @@ export const API = {
 		print: `${PREFIX}/print/data`,
 	},
 	arshin: {
+		getData: `${PREFIX}/user/fgis/data`,
 		getFilters: `${PREFIX}/user/fgis/settings`,
 		editFilters: `${PREFIX}/user/fgis/settings`,
 		resetFilters: `${PREFIX}/user/fgis/settings/reset`,
+		addItems: `${PREFIX}/user/fgis/data`,
+		deleteItems: `${PREFIX}/user/fgis/data`,
+		synchronizeItems: `${PREFIX}/user/fgis/synchronize`,
+		checkItems: `${PREFIX}/user/fgis/check`,
 	},
 };

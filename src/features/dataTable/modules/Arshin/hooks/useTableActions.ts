@@ -1,16 +1,18 @@
 import { GridSelectionModel } from '@mui/x-data-grid-pro';
 
 import {
+	selectArshinData,
 	selectSelectedDataIds,
 	selectSelectedDataItems,
 	setSelectedDataItems,
 } from '../arshinTableSlice';
-import { dataArshin } from '../components/DataTableArshin';
 
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 
 const useTableActions = () => {
 	const dispatch = useAppDispatch();
+
+	const dataArshin = useAppSelector(selectArshinData);
 
 	const selectionIds = useAppSelector(selectSelectedDataIds);
 	const selectionItems = useAppSelector(selectSelectedDataItems);
