@@ -1,13 +1,16 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { compareAsc, format } from "date-fns";
-import { z } from "zod";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { compareAsc, format } from 'date-fns';
+import { z } from 'zod';
 
-import { largeLengthField, smallLengthField } from "./errorMessage";
+import { largeLengthField, smallLengthField } from './errorMessage';
 
-import { formatVariant } from "constant/dateFormat";
-import { Tag } from "constant/tag";
-// export const minDate = new Date('01-01-1950');
-// export const maxDate = new Date('01-01-2070');
+import { formatVariant } from 'constant/dateFormat';
+import { Tag } from 'constant/tag';
+
+const minDate = new Date('01-01-1950');
+const maxDate = new Date('01-01-2070');
+const minDateMessage = 'Дата должна быть не раньше  чем 01.01.1950';
+const maxDateMessage = 'Дата не должна быть позже чем 01.01.2070';
 
 export const itemSchema = z.object({
 	name: z.string().max(256, largeLengthField).min(1, 'Это обязательное поле'),
@@ -42,16 +45,16 @@ const dateSchema = z
 	.object({
 		verificationDate: z
 			.date({ required_error: 'Это обязательное поле' })
-			.min(new Date('01-01-1950'), `Дата должна быть не раньше  чем 01.01.1950`)
-			.max(new Date('01-01-2070'), `Дата не должна быть позже чем 01.01.2070`),
+			.min(minDate, minDateMessage)
+			.max(maxDate, maxDateMessage),
 		dateOfTheNextVerification: z
 			.date({ required_error: 'Это обязательное поле' })
-			.min(new Date('01-01-1950'), `Дата должна быть не раньше  чем 01.01.1950`)
-			.max(new Date('01-01-2070'), `Дата не должна быть позже чем 01.01.2070`),
+			.min(minDate, minDateMessage)
+			.max(maxDate, maxDateMessage),
 		productionDate: z
 			.date({ required_error: 'Это обязательное поле' })
-			.min(new Date('01-01-1950'), `Дата должна быть не раньше  чем 01.01.1950`)
-			.max(new Date('01-01-2070'), `Дата не должна быть позже чем 01.01.2070`),
+			.min(minDate, minDateMessage)
+			.max(maxDate, maxDateMessage),
 	})
 	.superRefine(({ dateOfTheNextVerification, verificationDate, productionDate }, ctx) => {
 		if (compareAsc(productionDate, verificationDate) === 1) {

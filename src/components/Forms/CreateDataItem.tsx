@@ -114,7 +114,7 @@ function CreateDataItem(): JSX.Element {
 			case 'interVerificationInterval':
 				return (
 					<TextField
-						{...methods.register('interVerificationInterval')}
+						{...methods.register(key)}
 						label={label}
 						key={key}
 						error={Boolean(methods.formState.errors.interVerificationInterval)}
