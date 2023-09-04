@@ -69,10 +69,6 @@ function BlockFilter({ index, remove, columnsFilters }: IBlockFilterProps) {
 		remove(index);
 	};
 
-	console.log(
-		'dayjs(minDate).format(dayjsFormatVariant)',
-		dayjs(minDate).format(dayjsFormatVariant)
-	);
 	return (
 		<Box
 			display='flex'
