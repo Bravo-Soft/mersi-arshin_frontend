@@ -21,6 +21,7 @@ const arshinTableSlice = createSlice({
 		setSelectedDataItems: (state, action: PayloadAction<IDataItemArshin[]>) => {
 			state.selectedDataItems = action.payload;
 		},
+		resetSelectedDataItem: () => initialState,
 	},
 });
 
@@ -34,7 +35,7 @@ export const selectSelectedDataIds = (state: RootState) =>
 export const selectArshinData = (state: RootState) =>
 	arshinTableApiSlice.endpoints.getData.select()(state).data ?? [];
 
-export const { setSelectedDataItems } = arshinTableSlice.actions;
+export const { setSelectedDataItems, resetSelectedDataItem } = arshinTableSlice.actions;
 
 export const arshinTablePath = arshinTableSlice.name;
 export const arshinTableReducer = arshinTableSlice.reducer;

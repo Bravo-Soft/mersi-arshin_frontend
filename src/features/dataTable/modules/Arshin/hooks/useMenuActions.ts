@@ -2,7 +2,11 @@ import { enqueueSnackbar } from 'notistack';
 import { useState, MouseEvent } from 'react';
 
 import { useDeleteItemsMutation, useSynchronizeItemsMutation } from '../arshinTableApiSlice';
-import { selectArshinData, selectSelectedDataItems } from '../arshinTableSlice';
+import {
+	resetSelectedDataItem,
+	selectArshinData,
+	selectSelectedDataItems,
+} from '../arshinTableSlice';
 import { changeDialogState, openFilterDialogArshin } from '../dialogArshinSlice';
 
 import { ArshinStatus } from 'constant/arshinStatus';
@@ -46,6 +50,8 @@ export const useMenuActions = () => {
 				enqueueSnackbar(Messages.FAILED_ARSHIN_ITEM_UPDATED, {
 					variant: 'error',
 				});
+			} finally {
+				dispatch(resetSelectedDataItem());
 			}
 		} else {
 			const selectedItemsDone = selectedData.filter(el => el.status === ArshinStatus.DONE);
