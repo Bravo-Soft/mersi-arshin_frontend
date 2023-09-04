@@ -9,6 +9,7 @@ import Select from '@mui/material/Select';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import { DatePicker } from '@mui/x-date-pickers';
+import dayjs, { isDayjs } from 'dayjs';
 import { useState } from 'react';
 import type { Control, ControllerRenderProps } from 'react-hook-form';
 import { Controller, useFormContext } from 'react-hook-form';
@@ -200,14 +201,22 @@ function NotificationFilterItem({
 								) : operatorValueX === 'dateFilters' ? (
 									<DatePicker
 										{...field}
-										value={new Date(field.value)}
+										value={dayjs(field.value)}
+										onChange={newDate => {
+											if (isDayjs(newDate)) {
+												field.onChange(newDate);
+											}
+										}}
 										label={'Дата Фильтрации'}
 										slotProps={{
 											textField: {
+												inputRef: field.ref,
 												error: Boolean(error),
 												helperText: error?.message,
 											},
 										}}
+										minDate={dayjs(minDate)}
+										maxDate={dayjs(maxDate)}
 									/>
 								) : (
 									<FormControl variant='standard' fullWidth>

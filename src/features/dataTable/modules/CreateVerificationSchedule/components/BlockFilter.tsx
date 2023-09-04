@@ -9,6 +9,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import { DatePicker } from '@mui/x-date-pickers-pro';
+import dayjs, { isDayjs } from 'dayjs';
 import { useState } from 'react';
 import type { ControllerRenderProps } from 'react-hook-form';
 import { Controller, useFormContext } from 'react-hook-form';
@@ -19,6 +20,7 @@ import { operatorsFilters } from '../operatorsFilters';
 import { getCurrentColumns } from './utils/helpers';
 
 import { useNotificationFormActions } from 'components/Forms/NotificationSettings/hooks/useNotificationFormActions';
+import { dayjsFormatVariant } from 'constant/dateFormat';
 import { maxDate, minDate } from 'constant/dateMasks';
 import { Tag } from 'constant/tag';
 
@@ -67,6 +69,10 @@ function BlockFilter({ index, remove, columnsFilters }: IBlockFilterProps) {
 		remove(index);
 	};
 
+	console.log(
+		'dayjs(minDate).format(dayjsFormatVariant)',
+		dayjs(minDate).format(dayjsFormatVariant)
+	);
 	return (
 		<Box
 			display='flex'
@@ -168,8 +174,12 @@ function BlockFilter({ index, remove, columnsFilters }: IBlockFilterProps) {
 									<DatePicker
 										{...field}
 										label='Дата Фильтрации'
-										// minDate={minDate}
-										// maxDate={maxDate}
+										value={dayjs(field.value)}
+										onChange={newDate => {
+											if (isDayjs(newDate)) {
+												field.onChange(newDate);
+											}
+										}}
 										slotProps={{
 											textField: {
 												inputRef: field.ref,
@@ -177,6 +187,8 @@ function BlockFilter({ index, remove, columnsFilters }: IBlockFilterProps) {
 												helperText: error?.message,
 											},
 										}}
+										minDate={dayjs(minDate)}
+										maxDate={dayjs(maxDate)}
 									/>
 								) : (
 									<FormControl variant='standard' fullWidth>
