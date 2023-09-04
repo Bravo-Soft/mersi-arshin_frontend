@@ -207,7 +207,7 @@ function NotificationFilterItem({
 												field.onChange(newDate);
 											}
 										}}
-										label={'Дата Фильтрации'}
+										label='Дата Фильтрации'
 										slotProps={{
 											textField: {
 												inputRef: field.ref,

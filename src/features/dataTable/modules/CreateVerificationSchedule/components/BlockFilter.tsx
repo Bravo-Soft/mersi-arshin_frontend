@@ -169,7 +169,7 @@ function BlockFilter({ index, remove, columnsFilters }: IBlockFilterProps) {
 								) : operatorValue === 'dateFilters' ? (
 									<DatePicker
 										{...field}
-										label='Дата Фильтрации'
+										label='Дата фильтрации'
 										value={dayjs(field.value)}
 										onChange={newDate => {
 											if (isDayjs(newDate)) {

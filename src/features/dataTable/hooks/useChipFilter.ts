@@ -9,9 +9,9 @@ import { selectUserId } from 'features/user/userSlice';
 import { useAppSelector } from 'hooks/redux';
 import type { IDataItem } from 'types/dataItem';
 
-const useChipFilter = (data: IDataItem[] = []) => {
-	dayjs.extend(duration);
+dayjs.extend(duration);
 
+const useChipFilter = (data: IDataItem[] = []) => {
 	const currentChipFilterOption = useAppSelector(selectCurrentChipFilterVariant);
 	const userId = useAppSelector(selectUserId);
 
@@ -22,8 +22,8 @@ const useChipFilter = (data: IDataItem[] = []) => {
 				return data;
 
 			case 'Просроченные':
-				return data.filter(row =>
-					Boolean(!dayjs().startOf('date').isBefore(row.dateOfTheNextVerification))
+				return data.filter(
+					row => !dayjs().startOf('date').isBefore(row.dateOfTheNextVerification)
 				);
 			case 'Избранное': {
 				return data.filter(row => (userId ? row.userIds.includes(userId) : false));
