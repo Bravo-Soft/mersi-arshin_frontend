@@ -9,6 +9,7 @@ import { useCallback } from 'react';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 
 import EmailInputs from './EmailInputs';
+import { notificationResolver } from './notificationResolver';
 import SelectInputs from './SelectInputs';
 
 import { Messages } from 'constant/messages';
@@ -32,6 +33,7 @@ function NotificationSettings() {
 
 	const methods = useForm<INotificationSettings>({
 		values: settings,
+		resolver: notificationResolver,
 	});
 
 	const { handleSubmit, watch, control } = methods;

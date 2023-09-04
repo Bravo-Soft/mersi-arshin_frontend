@@ -1,6 +1,5 @@
 import { Autocomplete, TextField } from '@mui/material';
-import { Controller } from 'react-hook-form';
-import { useFormContext } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 
 import type { AutocompleteKeysType } from 'components/Forms/hooks/useAutocomplete';
 import type { ColumnNames } from 'features/dataTable/columns';
@@ -13,29 +12,6 @@ interface IAutocompleteFieldsProps {
 	name: AutocompleteKeysType;
 	autocompleteParams: string[];
 }
-
-const shortKeys = [
-	'type',
-	'factoryNumber',
-	'inventoryNumber',
-	'division',
-	'typeOfWork',
-	'measurementLimit',
-];
-
-const getValueOfMaxLength = (name: AutocompleteKeysType) => {
-	if (shortKeys.includes(name)) {
-		return {
-			value: 128,
-			message: 'Максимальное значение в поле 128 символов',
-		};
-	} else {
-		return {
-			value: 256,
-			message: 'Максимальное значение в поле 256 символов',
-		};
-	}
-};
 
 function AutocompleteField({
 	name,
@@ -50,13 +26,9 @@ function AutocompleteField({
 		<Controller
 			name={name}
 			control={control}
-			rules={{
-				required: required && 'Поле обязательное',
-				maxLength: getValueOfMaxLength(name),
-			}}
-			render={({ field: { onChange, ...rest }, fieldState: { error } }) => (
+			render={({ field: { onChange, value, ref }, fieldState: { error } }) => (
 				<Autocomplete
-					{...rest}
+					value={value}
 					freeSolo
 					disableClearable
 					options={autocompleteParams}
@@ -71,6 +43,7 @@ function AutocompleteField({
 							onChange={onChange}
 							error={Boolean(error)}
 							helperText={error?.message}
+							inputRef={ref}
 							InputLabelProps={{ shrink: true, required: required }}
 						/>
 					)}
