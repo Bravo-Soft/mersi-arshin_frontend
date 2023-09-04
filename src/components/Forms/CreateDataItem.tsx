@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
+import dayjs from 'dayjs';
 import { Fragment, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
@@ -28,7 +29,7 @@ import ButtonContainer from 'styled/ButtonContainer';
 import FormContainer from 'styled/FormContainer';
 import { IDataItemWithDates } from 'types/dataItem';
 
-const today = new Date();
+const today = dayjs(new Date());
 
 const defaultValues = {
 	size: Tag.SMALL,

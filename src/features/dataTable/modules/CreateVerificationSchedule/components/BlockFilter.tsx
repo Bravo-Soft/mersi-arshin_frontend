@@ -9,24 +9,18 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import { DatePicker } from '@mui/x-date-pickers-pro';
-import { parseISO } from 'date-fns';
 import { useState } from 'react';
-import { Controller, useFormContext } from 'react-hook-form';
 import type { ControllerRenderProps } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 
+import type { FormFilterType, IColumnTable, IForm } from '../operatorsFilters';
 import { operatorsFilters } from '../operatorsFilters';
-import type { FormFilterType, IForm, IColumnTable } from '../operatorsFilters';
 
 import { getCurrentColumns } from './utils/helpers';
 
 import { useNotificationFormActions } from 'components/Forms/NotificationSettings/hooks/useNotificationFormActions';
 import { maxDate, minDate } from 'constant/dateMasks';
 import { Tag } from 'constant/tag';
-
-
-
-
-
 
 interface IBlockFilterProps {
 	index: number;
@@ -173,12 +167,12 @@ function BlockFilter({ index, remove, columnsFilters }: IBlockFilterProps) {
 								) : operatorValue === 'dateFilters' ? (
 									<DatePicker
 										{...field}
-										label={'Дата Фильтрации'}
-										minDate={minDate}
-										maxDate={maxDate}
-										value={parseISO('2019-02-11T14:00:00')}
+										label='Дата Фильтрации'
+										// minDate={minDate}
+										// maxDate={maxDate}
 										slotProps={{
 											textField: {
+												inputRef: field.ref,
 												error: Boolean(error),
 												helperText: error?.message,
 											},

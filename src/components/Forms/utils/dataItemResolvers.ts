@@ -1,10 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { compareAsc, format } from 'date-fns';
+import dayjs, { Dayjs } from 'dayjs';
 import { z } from 'zod';
 
 import { largeLengthField, smallLengthField } from './errorMessage';
 
-import { formatVariant } from 'constant/dateFormat';
+import { dayjsFormatVariant } from 'constant/dateFormat';
 import { Tag } from 'constant/tag';
 
 const minDate = new Date('01-01-1950');
@@ -44,71 +44,81 @@ export const itemSchema = z.object({
 const dateSchema = z
 	.object({
 		verificationDate: z
-			.date({ required_error: 'Это обязательное поле' })
-			.min(minDate, minDateMessage)
-			.max(maxDate, maxDateMessage),
+			.instanceof(dayjs as unknown as typeof Dayjs)
+			.transform(e => new Date(e.format()))
+			.pipe(
+				z
+					.date({ required_error: 'Это обязательное поле' })
+					.min(minDate, minDateMessage)
+					.max(maxDate, maxDateMessage)
+			),
 		dateOfTheNextVerification: z
-			.date({ required_error: 'Это обязательное поле' })
-			.min(minDate, minDateMessage)
-			.max(maxDate, maxDateMessage),
+			.instanceof(dayjs as unknown as typeof Dayjs)
+			.transform(e => new Date(e.format()))
+			.pipe(
+				z
+					.date({ required_error: 'Это обязательное поле' })
+					.min(minDate, minDateMessage)
+					.max(maxDate, maxDateMessage)
+			),
 		productionDate: z
-			.date({ required_error: 'Это обязательное поле' })
-			.min(minDate, minDateMessage)
-			.max(maxDate, maxDateMessage),
+			.instanceof(dayjs as unknown as typeof Dayjs)
+			.transform(e => new Date(e.format()))
+			.pipe(
+				z
+					.date({ required_error: 'Это обязательное поле' })
+					.min(minDate, minDateMessage)
+					.max(maxDate, maxDateMessage)
+			),
 	})
+
 	.superRefine(({ dateOfTheNextVerification, verificationDate, productionDate }, ctx) => {
-		if (compareAsc(productionDate, verificationDate) === 1) {
+		if (dayjs(productionDate).isAfter(dayjs(verificationDate))) {
 			ctx.addIssue({
 				code: 'invalid_date',
-				message: `Дата производства должна идти раньше или быть равной дате поверки (${format(
-					verificationDate,
-					formatVariant
-				)})`,
+				message: `Дата производства должна идти раньше или быть равной дате поверки (${dayjs(
+					verificationDate
+				).format(dayjsFormatVariant)})`,
 				path: ['productionDate'],
 			});
 			ctx.addIssue({
 				code: 'invalid_date',
-				message: `Дата поверки должна идти позже даты производства, либо быть равной ей (${format(
-					productionDate,
-					formatVariant
-				)})`,
+				message: `Дата поверки должна идти позже даты производства, либо быть равной ей (${dayjs(
+					productionDate
+				).format(dayjsFormatVariant)})`,
 				path: ['verificationDate'],
 			});
 		}
-		if (compareAsc(productionDate, dateOfTheNextVerification) === 1) {
+		if (dayjs(productionDate).isAfter(dayjs(dateOfTheNextVerification))) {
 			ctx.addIssue({
 				code: 'invalid_date',
-				message: `Дата производства должна идти раньше даты следующей поверки, либо быть равной ей (${format(
-					dateOfTheNextVerification,
-					formatVariant
-				)})`,
+				message: `Дата производства должна идти раньше даты следующей поверки, либо быть равной ей (${dayjs(
+					dateOfTheNextVerification
+				).format(dayjsFormatVariant)})`,
 				path: ['productionDate'],
 			});
 			ctx.addIssue({
 				code: 'invalid_date',
-				message: `Дата следующей поверки должна идти после даты производства, либо быть равной ей (${format(
-					productionDate,
-					formatVariant
-				)})`,
+				message: `Дата следующей поверки должна идти после даты производства, либо быть равной ей (${dayjs(
+					productionDate
+				).format(dayjsFormatVariant)})`,
 				path: ['dateOfTheNextVerification'],
 			});
 		}
 
-		if (compareAsc(verificationDate, dateOfTheNextVerification) === 1) {
+		if (dayjs(verificationDate).isAfter(dayjs(dateOfTheNextVerification))) {
 			ctx.addIssue({
 				code: 'invalid_date',
-				message: `Дата поверки должна идти раньше даты следующей поверки, либо быть равной ей (${format(
-					dateOfTheNextVerification,
-					formatVariant
-				)})`,
+				message: `Дата поверки должна идти раньше даты следующей поверки, либо быть равной ей (${dayjs(
+					dateOfTheNextVerification
+				).format(dayjsFormatVariant)})`,
 				path: ['verificationDate'],
 			});
 			ctx.addIssue({
 				code: 'invalid_date',
-				message: `Дата следующей поверки должна идти после даты поверки, либо быть равной ей (${format(
-					verificationDate,
-					formatVariant
-				)})`,
+				message: `Дата следующей поверки должна идти после даты поверки, либо быть равной ей (${dayjs(
+					verificationDate
+				).format(dayjsFormatVariant)})`,
 				path: ['dateOfTheNextVerification'],
 			});
 		}

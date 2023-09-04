@@ -1,11 +1,11 @@
 import { useGridApiContext } from '@mui/x-data-grid-pro';
-import { format } from 'date-fns';
+import dayjs from 'dayjs';
 import { enqueueSnackbar } from 'notistack';
 
 import { useConvertColumns } from './useConvertColumns';
 import { useFiltredSortedData } from './useFiltredSortedData';
 
-import { formatVariant } from 'constant/dateFormat';
+import { dayjsFormatVariant } from 'constant/dateFormat';
 import { Messages } from 'constant/messages';
 import { useGetUserProfileQuery } from 'features/user/userApiSlice';
 import type { IExcelConfig } from 'utils/excel';
@@ -38,7 +38,7 @@ export const useUploadHandlers = ({ onCloseMenu }: IUseUploadHandlers) => {
 		apiRef.current.exportDataAsCsv({
 			delimiter: ';',
 			utf8WithBom: true,
-			fileName: `Файл от ${format(new Date(), formatVariant)}`,
+			fileName: `Файл от ${dayjs().format(dayjsFormatVariant)}`,
 		});
 	};
 
@@ -69,7 +69,7 @@ export const useUploadHandlers = ({ onCloseMenu }: IUseUploadHandlers) => {
 			});
 
 			/* Задаем название и сохраняем файл */
-			const filename = `Книга от ${format(new Date(), formatVariant)}.xlsx`;
+			const filename = `Книга от ${dayjs().format(dayjsFormatVariant)}.xlsx`;
 			saveAs(blob, filename);
 		} catch {
 			enqueueSnackbar(Messages.FAILED_TO_SAVE_WORKBOOK, { variant: 'error' });

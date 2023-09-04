@@ -4,7 +4,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { formResolver } from '../utils/dataItemResolvers';
 import { dateFormTransform } from '../utils/dateFormTransform';
 
-import VerificateInputs from './VerificateInputs';
+import VerificateInputs from "./VerificateInputs";
 
 import FetchingProgress from 'features/dataTable/components/FetchingProgress';
 import { useUpdateDataItemMutation } from 'features/dataTable/dataTableApiSlice';
@@ -19,8 +19,8 @@ import type { IDataItemWithDates } from 'types/dataItem';
 import { setDefaultValue } from 'utils/setDefaultValue';
 
 function VerificateDataItem(): JSX.Element {
-	const selectedDataItem = useAppSelector(selectSelectedDataItem);
-	const { isWriter, isAdmin, isReader } = useAppSelector(selectUserRoles);
+  const selectedDataItem = useAppSelector(selectSelectedDataItem);
+  const { isWriter, isAdmin, isReader } = useAppSelector(selectUserRoles);
 
 	const [sendUpdatedItem, { isLoading: isUpdateLoading }] = useUpdateDataItemMutation();
 	const methods = useForm<IDataItemWithDates>({
@@ -29,8 +29,8 @@ function VerificateDataItem(): JSX.Element {
 		mode: 'onChange',
 	});
 
-	useUpdateSelectedDataItem(selectedDataItem);
-	useUpdateInputValues(selectedDataItem, methods.setValue);
+  useUpdateSelectedDataItem(selectedDataItem);
+  useUpdateInputValues(selectedDataItem, methods.setValue);
 
 	const onSubmit = methods.handleSubmit(async data => {
 		await sendUpdatedItem(dateFormTransform(data)).unwrap();

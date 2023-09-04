@@ -1,5 +1,4 @@
 import { DatePicker } from '@mui/x-date-pickers';
-import type { Validate } from 'react-hook-form';
 import { Controller, useFormContext } from 'react-hook-form';
 
 import type { IDataItemWithDates } from 'types/dataItem';
@@ -11,9 +10,6 @@ interface IDateFieldsProps {
 		'productionDate' | 'verificationDate' | 'dateOfTheNextVerification'
 	>;
 	readOnly?: boolean;
-	validation?:
-		| Validate<Date, IDataItemWithDates>
-		| Record<string, Validate<Date, IDataItemWithDates>>;
 }
 
 function DateField({ label, nameOfKey, readOnly }: IDateFieldsProps): JSX.Element {

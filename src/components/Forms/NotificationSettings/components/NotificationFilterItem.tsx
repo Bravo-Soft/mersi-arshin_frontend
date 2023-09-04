@@ -10,9 +10,8 @@ import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import { DatePicker } from '@mui/x-date-pickers';
 import { useState } from 'react';
+import type { Control, ControllerRenderProps } from 'react-hook-form';
 import { Controller, useFormContext } from 'react-hook-form';
-import type { Control } from 'react-hook-form';
-import type { ControllerRenderProps } from 'react-hook-form';
 
 import { columnsFilters, linkOperators, operatorsFilters } from '../data';
 import { useNotificationFormActions } from '../hooks/useNotificationFormActions';
@@ -203,8 +202,6 @@ function NotificationFilterItem({
 										{...field}
 										value={new Date(field.value)}
 										label={'Дата Фильтрации'}
-										minDate={minDate}
-										maxDate={maxDate}
 										slotProps={{
 											textField: {
 												error: Boolean(error),

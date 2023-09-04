@@ -1,11 +1,10 @@
 import type { GridCellParams, GridColDef, GridValueFormatterParams } from '@mui/x-data-grid-pro';
 import cn from 'classnames';
-import { compareAsc, /* differenceInDays */ format, formatISO, parseISO } from 'date-fns';
+import dayjs from 'dayjs';
 
 import { RenderCellExpand } from './components/RenderCellExpand';
 import { quickFilterDateFormat } from './utils/quickFilterDateFormat';
 
-import { formatVariant } from 'constant/dateFormat';
 import { Tag } from 'constant/tag';
 import type { IDataItem } from 'types/dataItem';
 
@@ -32,17 +31,13 @@ export enum ColumnNames {
 	VERIFICATION_INTERVAL = 'Межповерочный интервал',
 }
 
-const formatDateCallback = (params: GridValueFormatterParams<string>) =>
-	format(new Date(params.value), formatVariant);
-
+const formatDateCallback = (params: GridValueFormatterParams<string>) => {
+	return dayjs(params.value).format('DD.MM.YYYY');
+};
 const getCellClasses = ({ value = '' }: GridCellParams<string>) => {
 	//TODO: При необходимости включить стили для ячеек, срок поверки которых меньше 2 недель
-	const parsedItemDate = parseISO(formatISO(new Date(value)));
-	const today = parseISO(formatISO(new Date(), { representation: 'date' }));
-	// const result = differenceInDays(parsedItemDate, today);
-
 	return cn({
-		overdueItem: compareAsc(today, parsedItemDate) !== -1,
+		overdueItem: Boolean(!dayjs().isBefore(dayjs(value))),
 		// twoWeeksToGo: result <= 14 && result >= 0,
 	});
 };
@@ -91,7 +86,6 @@ export const columns: GridColDef<IDataItem>[] = [
 		headerAlign: 'center',
 		type: 'date',
 		valueFormatter: formatDateCallback,
-		valueGetter: ({ row }) => parseISO(row.verificationDate),
 		getApplyQuickFilterFn: quickFilterDateFormat,
 	},
 	{
@@ -110,7 +104,6 @@ export const columns: GridColDef<IDataItem>[] = [
 		type: 'date',
 		valueFormatter: formatDateCallback,
 		cellClassName: getCellClasses,
-		valueGetter: ({ row }) => parseISO(row.dateOfTheNextVerification),
 		getApplyQuickFilterFn: quickFilterDateFormat,
 	},
 	{
@@ -149,7 +142,6 @@ export const columns: GridColDef<IDataItem>[] = [
 		headerAlign: 'center',
 		type: 'date',
 		valueFormatter: formatDateCallback,
-		valueGetter: ({ row }) => parseISO(row.productionDate),
 		getApplyQuickFilterFn: quickFilterDateFormat,
 	},
 	{
