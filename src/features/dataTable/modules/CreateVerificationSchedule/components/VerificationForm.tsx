@@ -1,6 +1,7 @@
 import DialogTitle from '@mui/material/DialogTitle';
 import type { GridApiPro } from '@mui/x-data-grid-pro/models/gridApiPro';
 import type { MutableRefObject } from 'react';
+import { useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import type { IForm } from '../operatorsFilters';
@@ -19,6 +20,12 @@ function VerificationForm({ apiRef }: VerificationFormProps): JSX.Element {
 		resolver: verificationResolver,
 		mode: 'onChange',
 	});
+
+	const test = methods.watch();
+
+	useEffect(() => {
+		console.log('meyhods.errror', methods.formState.errors);
+	}, [methods.formState.errors, test]);
 
 	return (
 		<FormProvider {...methods}>

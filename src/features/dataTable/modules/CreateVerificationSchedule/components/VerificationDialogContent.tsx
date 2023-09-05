@@ -41,13 +41,20 @@ function VerificationDialogContent() {
 			<Controller
 				control={control}
 				name='fieldsDate'
-				render={({ field: { value, onChange, ref } }) => (
+				render={({ field: { value, onChange, ref }, formState: { errors } }) => (
 					<DateRangePicker
 						ref={ref}
 						value={value}
 						onChange={onChange}
 						slotProps={{
 							fieldSeparator: { hidden: true },
+							textField: ({ position }) => {
+								const error = errors.fieldsDate?.[position === 'start' ? 0 : 1];
+								return {
+									error: Boolean(error),
+									helperText: error?.message ?? ' ',
+								};
+							},
 						}}
 						localeText={{ start: 'Начальная дата', end: 'Дата окончания' }}
 					/>
