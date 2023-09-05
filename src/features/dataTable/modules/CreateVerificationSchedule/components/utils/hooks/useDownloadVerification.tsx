@@ -1,15 +1,16 @@
-import { GridLinkOperator, gridFilterModelSelector } from '@mui/x-data-grid-pro';
+import { gridFilterModelSelector, GridLinkOperator } from '@mui/x-data-grid-pro';
 import type { GridApiPro } from '@mui/x-data-grid-pro/models/gridApiPro';
-import { format } from 'date-fns';
+import { DateRange } from '@mui/x-date-pickers-pro';
+import dayjs from 'dayjs';
 import type { MutableRefObject } from 'react';
 import { useFormContext } from 'react-hook-form';
 
-import type { IForm } from '../../../operatorsFilters';
-import { updateData } from '../../../utils/updateData';
 import { createDateRange } from '../helpers';
 
-import { formatVariant } from 'constant/dateFormat';
+import { dayjsFormatVariant } from 'constant/dateFormat';
 import { setVerificationScheduleModal } from 'features/dataTable/dataTableSlice';
+import type { IForm } from 'features/dataTable/modules/CreateVerificationSchedule/operatorsFilters';
+import { updateData } from 'features/dataTable/modules/CreateVerificationSchedule/utils/updateData';
 import { useAppDispatch } from 'hooks/redux';
 import { createWorkbook } from 'utils/excel';
 import { saveAs } from 'utils/saveAs';
@@ -36,8 +37,14 @@ export const useDownloadVerification = (apiRef: MutableRefObject<GridApiPro>) =>
 	};
 
 	const setFilters = () => {
+		const [first, second] = fieldsDate;
+		const firstDate = first ? new Date(first.format()) : first;
+		const secondDate = second ? new Date(second.format()) : second;
+
+		const newFiltersDate: DateRange<Date> = [firstDate, secondDate];
+
 		apiRef.current.setFilterModel({
-			items: [...createDateRange(fieldsDate), ...formFilters],
+			items: [...createDateRange(newFiltersDate), ...formFilters],
 			linkOperator: GridLinkOperator.And,
 		});
 	};
@@ -64,7 +71,7 @@ export const useDownloadVerification = (apiRef: MutableRefObject<GridApiPro>) =>
 				type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
 			});
 
-			const filename = `Книга от ${format(new Date(), formatVariant)}.xlsx`;
+			const filename = `Книга от ${dayjs().format(dayjsFormatVariant)}.xlsx`;
 			saveAs(blob, filename);
 		} finally {
 			closeModal();

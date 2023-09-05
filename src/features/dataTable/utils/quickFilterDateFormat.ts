@@ -1,11 +1,12 @@
 import type { GridCellParams, GridFilterItem } from '@mui/x-data-grid-pro';
-import { format } from 'date-fns';
+import dayjs from 'dayjs';
 
-import { formatVariant } from 'constant/dateFormat';
+import { dayjsFormatVariant } from 'constant/dateFormat';
 
 export const quickFilterDateFormat = (filterItem: GridFilterItem) => (params: GridCellParams) =>
 	params.value
-		? format(Number(params.value), formatVariant)
+		? dayjs(params.value)
+				.format(dayjsFormatVariant)
 				.toString()
 				.includes(filterItem.toString().trim().toLowerCase())
 		: false;

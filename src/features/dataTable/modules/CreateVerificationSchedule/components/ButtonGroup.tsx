@@ -8,7 +8,6 @@ import { useFormContext } from 'react-hook-form';
 
 import type { IForm } from '../operatorsFilters';
 
-import { checkIsDisabledBtn } from './utils/helpers';
 import { useAnchor, useDownloadVerification } from './utils/hooks';
 
 interface IButtonGroupProps {
@@ -21,15 +20,16 @@ function ButtonGroup({ apiRef }: IButtonGroupProps) {
 
 	const { downloadDataCSV, downloadDataExcel, closeModal } = useDownloadVerification(apiRef);
 
-	const { watch } = useFormContext<IForm>();
-	const { fieldsDate } = watch();
+	const {
+		formState: { errors },
+	} = useFormContext<IForm>();
 
-	const isDisabled = checkIsDisabledBtn(fieldsDate);
+	const isDisabled = Boolean(errors?.fieldsDate);
 
 	return (
 		<DialogActions>
 			<Button
-				disabled={!isDisabled}
+				disabled={isDisabled}
 				id='basic-button'
 				aria-controls={open ? 'basic-menu' : undefined}
 				aria-haspopup='true'
