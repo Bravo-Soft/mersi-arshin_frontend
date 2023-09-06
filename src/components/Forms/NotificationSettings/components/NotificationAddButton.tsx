@@ -38,7 +38,9 @@ function NotificationAddButton({
 			>
 				{length ? (
 					<Badge color='primary' badgeContent={length}>
-						<FilterListIcon />
+						<FilterListIcon
+							sx={errors?.subscribedEmails?.[index]?.emailFilters && { color: 'red' }}
+						/>
 					</Badge>
 				) : (
 					<FilterListIcon />

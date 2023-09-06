@@ -2,7 +2,15 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import dayjs, { Dayjs } from 'dayjs';
 import { z } from 'zod';
 
+import {
+	maxDateMessageResolver,
+	maxDateResolver,
+	minDateMessageResolver,
+	minDateResolver,
+} from '../utils/dataItemResolvers';
+
 import { DATE_OF_SENDING_NOTIFICATION, RANGE_OF_SELECTION } from 'constant/mailer';
+import { Tag } from 'constant/tag';
 
 const notificationSchema = z.object({
 	isNotificationEnabled: z.boolean(),
@@ -16,7 +24,24 @@ const notificationSchema = z.object({
 					z.object({
 						columnFilter: z.string(),
 						operatorValue: z.string(),
-						value: z.string().or(z.instanceof(dayjs as unknown as typeof Dayjs)),
+
+						value: z
+							.string()
+							.or(z.nativeEnum(Tag))
+							.or(
+								z
+									.instanceof(dayjs as unknown as typeof Dayjs, {
+										message: 'Неверный формат даты',
+									})
+									.refine(e => e.isValid(), 'Неверный формат даты')
+									.transform(e => new Date(e.format()))
+									.pipe(
+										z
+											.date()
+											.min(minDateResolver, minDateMessageResolver)
+											.max(maxDateResolver, maxDateMessageResolver)
+									)
+							),
 					})
 				),
 				linkOperator: z.enum(['or', 'and']),
