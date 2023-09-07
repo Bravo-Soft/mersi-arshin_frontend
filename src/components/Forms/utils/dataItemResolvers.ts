@@ -2,15 +2,16 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import dayjs, { Dayjs } from 'dayjs';
 import { z } from 'zod';
 
+import {
+	maxDateConstant,
+	maxDateMessageConstant,
+	minDateConstant,
+	minDateMessageConstant,
+} from './dateConstants';
 import { largeLengthField, smallLengthField } from './errorMessage';
 
 import { dayjsFormatVariant } from 'constant/dateFormat';
 import { Tag } from 'constant/tag';
-
-export const minDateResolver = new Date('01-01-1950');
-export const maxDateResolver = new Date('01-01-2070');
-export const minDateMessageResolver = 'Дата должна быть не раньше  чем 01.01.1950';
-export const maxDateMessageResolver = 'Дата не должна быть позже чем 01.01.2070';
 
 export const itemSchema = z.object({
 	name: z.string().max(256, largeLengthField).min(1, 'Это обязательное поле'),
@@ -52,8 +53,8 @@ const dateSchema = z
 					.date({
 						required_error: 'Это обязательное поле',
 					})
-					.min(minDateResolver, minDateMessageResolver)
-					.max(maxDateResolver, maxDateMessageResolver)
+					.min(minDateConstant, minDateMessageConstant)
+					.max(maxDateConstant, maxDateMessageConstant)
 			),
 		dateOfTheNextVerification: z
 			.instanceof(dayjs as unknown as typeof Dayjs, { message: 'Неверный формат даты' })
@@ -64,8 +65,8 @@ const dateSchema = z
 					.date({
 						required_error: 'Это обязательное поле',
 					})
-					.min(minDateResolver, minDateMessageResolver)
-					.max(maxDateResolver, maxDateMessageResolver)
+					.min(minDateConstant, minDateMessageConstant)
+					.max(maxDateConstant, maxDateMessageConstant)
 			),
 		productionDate: z
 			.instanceof(dayjs as unknown as typeof Dayjs, { message: 'Неверный формат даты' })
@@ -76,8 +77,8 @@ const dateSchema = z
 					.date({
 						required_error: 'Это обязательное поле',
 					})
-					.min(minDateResolver, minDateMessageResolver)
-					.max(maxDateResolver, maxDateMessageResolver)
+					.min(minDateConstant, minDateMessageConstant)
+					.max(maxDateConstant, maxDateMessageConstant)
 			),
 	})
 

@@ -3,11 +3,11 @@ import dayjs, { Dayjs } from 'dayjs';
 import { z } from 'zod';
 
 import {
-	maxDateMessageResolver,
-	maxDateResolver,
-	minDateMessageResolver,
-	minDateResolver,
-} from 'components/Forms/utils/dataItemResolvers';
+	maxDateConstant,
+	maxDateMessageConstant,
+	minDateConstant,
+	minDateMessageConstant,
+} from 'components/Forms/utils/dateConstants';
 import { Tag } from 'constant/tag';
 
 const verificationSchema = z.object({
@@ -20,8 +20,8 @@ const verificationSchema = z.object({
 				.pipe(
 					z
 						.date()
-						.min(minDateResolver, minDateMessageResolver)
-						.max(maxDateResolver, maxDateMessageResolver)
+						.min(minDateConstant, minDateMessageConstant)
+						.max(maxDateConstant, maxDateMessageConstant)
 				)
 				.nullable(),
 			z
@@ -31,8 +31,8 @@ const verificationSchema = z.object({
 				.pipe(
 					z
 						.date()
-						.min(minDateResolver, minDateMessageResolver)
-						.max(maxDateResolver, maxDateMessageResolver)
+						.min(minDateConstant, minDateMessageConstant)
+						.max(maxDateConstant, maxDateMessageConstant)
 				)
 				.nullable(),
 		])
@@ -60,8 +60,8 @@ const verificationSchema = z.object({
 						.pipe(
 							z
 								.date()
-								.min(minDateResolver, minDateMessageResolver)
-								.max(maxDateResolver, maxDateMessageResolver)
+								.min(minDateConstant, minDateMessageConstant)
+								.max(maxDateConstant, maxDateMessageConstant)
 						)
 				),
 			id: z.number(),

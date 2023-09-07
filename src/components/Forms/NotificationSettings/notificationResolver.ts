@@ -3,11 +3,11 @@ import dayjs, { Dayjs } from 'dayjs';
 import { z } from 'zod';
 
 import {
-	maxDateMessageResolver,
-	maxDateResolver,
-	minDateMessageResolver,
-	minDateResolver,
-} from '../utils/dataItemResolvers';
+	maxDateConstant,
+	maxDateMessageConstant,
+	minDateConstant,
+	minDateMessageConstant,
+} from '../utils/dateConstants';
 
 import { DATE_OF_SENDING_NOTIFICATION, RANGE_OF_SELECTION } from 'constant/mailer';
 import { Tag } from 'constant/tag';
@@ -38,8 +38,8 @@ const notificationSchema = z.object({
 									.pipe(
 										z
 											.date()
-											.min(minDateResolver, minDateMessageResolver)
-											.max(maxDateResolver, maxDateMessageResolver)
+											.min(minDateConstant, minDateMessageConstant)
+											.max(maxDateConstant, maxDateMessageConstant)
 									)
 							),
 					})
