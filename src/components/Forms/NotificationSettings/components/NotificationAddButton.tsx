@@ -18,14 +18,14 @@ function NotificationAddButton({
 	watchEmailFilters,
 	handleClickFilters,
 }: INotificationAddButtonProps) {
-	const [length, setlength] = useState(watchEmailFilters);
+	const [length, setLength] = useState(watchEmailFilters);
 
 	const {
 		formState: { errors },
 	} = useFormContext<INotificationSettings>();
 
 	useEffect(() => {
-		setlength(watchEmailFilters);
+		setLength(watchEmailFilters);
 	}, [index, watchEmailFilters]);
 
 	return (
@@ -34,11 +34,13 @@ function NotificationAddButton({
 				aria-describedby='id'
 				size='small'
 				onClick={handleClickFilters(index)}
-				sx={errors?.subscribedEmails?.[index] ? { mt: '10px' } : undefined }
+				sx={errors?.subscribedEmails?.[index] ? { mt: '10px' } : undefined}
 			>
 				{length ? (
 					<Badge color='primary' badgeContent={length}>
-						<FilterListIcon />
+						<FilterListIcon
+							sx={errors?.subscribedEmails?.[index]?.emailFilters && { color: 'red' }}
+						/>
 					</Badge>
 				) : (
 					<FilterListIcon />

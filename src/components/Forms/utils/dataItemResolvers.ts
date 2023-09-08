@@ -2,15 +2,16 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import dayjs, { Dayjs } from 'dayjs';
 import { z } from 'zod';
 
+import {
+	maxDateConstant,
+	maxDateMessageConstant,
+	minDateConstant,
+	minDateMessageConstant,
+} from './dateConstants';
 import { largeLengthField, smallLengthField } from './errorMessage';
 
 import { dayjsFormatVariant } from 'constant/dateFormat';
 import { Tag } from 'constant/tag';
-
-const minDate = new Date('01-01-1950');
-const maxDate = new Date('01-01-2070');
-const minDateMessage = 'Дата должна быть не раньше  чем 01.01.1950';
-const maxDateMessage = 'Дата не должна быть позже чем 01.01.2070';
 
 export const itemSchema = z.object({
 	name: z.string().max(256, largeLengthField).min(1, 'Это обязательное поле'),
@@ -44,31 +45,40 @@ export const itemSchema = z.object({
 const dateSchema = z
 	.object({
 		verificationDate: z
-			.instanceof(dayjs as unknown as typeof Dayjs)
+			.instanceof(dayjs as unknown as typeof Dayjs, { message: 'Неверный формат даты' })
+			.refine(e => e.isValid(), 'Неверный формат даты')
 			.transform(e => new Date(e.format()))
 			.pipe(
 				z
-					.date({ required_error: 'Это обязательное поле' })
-					.min(minDate, minDateMessage)
-					.max(maxDate, maxDateMessage)
+					.date({
+						required_error: 'Это обязательное поле',
+					})
+					.min(minDateConstant, minDateMessageConstant)
+					.max(maxDateConstant, maxDateMessageConstant)
 			),
 		dateOfTheNextVerification: z
-			.instanceof(dayjs as unknown as typeof Dayjs)
+			.instanceof(dayjs as unknown as typeof Dayjs, { message: 'Неверный формат даты' })
+			.refine(e => e.isValid(), 'Неверный формат даты')
 			.transform(e => new Date(e.format()))
 			.pipe(
 				z
-					.date({ required_error: 'Это обязательное поле' })
-					.min(minDate, minDateMessage)
-					.max(maxDate, maxDateMessage)
+					.date({
+						required_error: 'Это обязательное поле',
+					})
+					.min(minDateConstant, minDateMessageConstant)
+					.max(maxDateConstant, maxDateMessageConstant)
 			),
 		productionDate: z
-			.instanceof(dayjs as unknown as typeof Dayjs)
+			.instanceof(dayjs as unknown as typeof Dayjs, { message: 'Неверный формат даты' })
+			.refine(e => e.isValid(), 'Неверный формат даты')
 			.transform(e => new Date(e.format()))
 			.pipe(
 				z
-					.date({ required_error: 'Это обязательное поле' })
-					.min(minDate, minDateMessage)
-					.max(maxDate, maxDateMessage)
+					.date({
+						required_error: 'Это обязательное поле',
+					})
+					.min(minDateConstant, minDateMessageConstant)
+					.max(maxDateConstant, maxDateMessageConstant)
 			),
 	})
 

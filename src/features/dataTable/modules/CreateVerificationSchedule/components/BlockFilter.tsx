@@ -20,7 +20,6 @@ import { operatorsFilters } from '../operatorsFilters';
 import { getCurrentColumns } from './utils/helpers';
 
 import { useNotificationFormActions } from 'components/Forms/NotificationSettings/hooks/useNotificationFormActions';
-import { dayjsFormatVariant } from 'constant/dateFormat';
 import { maxDate, minDate } from 'constant/dateMasks';
 import { Tag } from 'constant/tag';
 
@@ -70,13 +69,7 @@ function BlockFilter({ index, remove, columnsFilters }: IBlockFilterProps) {
 	};
 
 	return (
-		<Box
-			display='flex'
-			flexDirection='row'
-			py={1.5}
-			justifyContent='space-between'
-			alignItems='center'
-		>
+		<Box display='flex' flexDirection='row' justifyContent='space-between' alignItems='center'>
 			<IconButton onClick={removeFilter(index)} sx={{ mr: 1 }}>
 				<CloseIcon />
 			</IconButton>
@@ -155,7 +148,7 @@ function BlockFilter({ index, remove, columnsFilters }: IBlockFilterProps) {
 						<Controller
 							control={control}
 							name={`filters.${index}.value`}
-							render={({ field, fieldState: { error } }) =>
+							render={({ field, fieldState: { error }, formState: { errors } }) =>
 								operatorValue === 'defaultFilters' ? (
 									<TextField
 										{...field}
@@ -165,6 +158,8 @@ function BlockFilter({ index, remove, columnsFilters }: IBlockFilterProps) {
 										InputLabelProps={{
 											shrink: true,
 										}}
+										error={Boolean(error)}
+										helperText={error?.message ?? ' '}
 									/>
 								) : operatorValue === 'dateFilters' ? (
 									<DatePicker
@@ -179,8 +174,8 @@ function BlockFilter({ index, remove, columnsFilters }: IBlockFilterProps) {
 										slotProps={{
 											textField: {
 												inputRef: field.ref,
-												error: Boolean(error),
-												helperText: error?.message,
+												error: Boolean(errors.filters && errors.filters[index]?.value),
+												helperText: error?.message ?? ' ',
 											},
 										}}
 										minDate={dayjs(minDate)}
