@@ -66,28 +66,6 @@ function AuthForm({ submitCallback, isLoading, isError }: IAuthFormProps): JSX.E
 						),
 					}}
 				/>
-
-				{/*<Controller*/}
-				{/*	control={control}*/}
-				{/*	name={'email'}*/}
-				{/*	render={({ field }) => (*/}
-				{/*		<TextField*/}
-				{/*			{...field}*/}
-				{/*			label='Почта'*/}
-				{/*			value={field.value}*/}
-				{/*			onChange={e => field.onChange(e.target.value.trim())}*/}
-				{/*			error={Boolean(errors.email)}*/}
-				{/*			helperText={errors.email?.message}*/}
-				{/*			inputProps={{ onPaste: e => e.clipboardData.getData('').trim() }}*/}
-				{/*			InputProps={{*/}
-				{/*				endAdornment: (*/}
-				{/*					<InputAdornment position='start'>*/}
-				{/*						<EmailIcon color={errors.email ? 'error' : 'inherit'} />*/}
-				{/*					</InputAdornment>*/}
-				{/*				),*/}
-				{/*			}}*/}
-				{/*		/>*/}
-
 				<TextField
 					{...register('password')}
 					label='Пароль'
