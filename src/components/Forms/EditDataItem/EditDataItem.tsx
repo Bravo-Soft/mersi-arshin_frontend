@@ -15,6 +15,7 @@ import { useUpdateSelectedDataItem } from 'hooks/useUpdateSelectedDataItem';
 import ButtonContainer from 'styled/ButtonContainer';
 import FormContainer from 'styled/FormContainer';
 import type { IDataItemWithDates } from 'types/dataItem';
+import { formTrimming } from 'utils/formTrimming';
 import { setDefaultValue } from 'utils/setDefaultValue';
 
 function EditDataItem(): JSX.Element {
@@ -31,7 +32,7 @@ function EditDataItem(): JSX.Element {
 	useUpdateSelectedDataItem(selectedDataItem);
 
 	const onSubmit = methods.handleSubmit(async data => {
-		await sendUpdatedItem(dateFormTransform(data)).unwrap();
+		await sendUpdatedItem(dateFormTransform(formTrimming(data))).unwrap();
 	});
 
 	return (

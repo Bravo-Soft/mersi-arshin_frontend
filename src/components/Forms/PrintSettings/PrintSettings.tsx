@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import { enqueueSnackbar } from 'notistack';
 import { FormProvider, useForm } from 'react-hook-form';
 
+
 import { DEFAULT_SETTINGS } from './constants/defaultSettings';
 import PrintBlock from './PrintBlock';
 import { printSettingsResolver } from './utils/printSettingsResolver';
@@ -18,6 +19,7 @@ import { useAppSelector } from 'hooks/redux';
 import ButtonContainer from 'styled/ButtonContainer';
 import FormContainer from 'styled/FormContainer';
 import type { ISendData } from 'types/printSettings';
+import { formTrimming } from 'utils/formTrimming';
 
 function PrintSettings() {
 	const { open, selector } = useAppSelector(selectSidebarStateOfHomePage);
@@ -41,7 +43,7 @@ function PrintSettings() {
 	const onSubmit = handleSubmit(async sendData => {
 		try {
 			const settings = transformDataSettings(sendData);
-			await sendUpdatedPrintSettings(settings).unwrap();
+			await sendUpdatedPrintSettings(formTrimming(settings)).unwrap();
 			enqueueSnackbar(Messages.SETTINGS_SUCCESSFULLY_UPDATED, { variant: 'success' });
 		} catch {
 			enqueueSnackbar(Messages.FAILED_TO_CHANGE_PRINTING_OPTIONS, { variant: 'error' });

@@ -6,7 +6,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
+import { ClipboardEvent, KeyboardEvent, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import type { IAuthFormRequest } from '../authApiSlice';
@@ -24,6 +24,8 @@ function AuthForm({ submitCallback, isLoading, isError }: IAuthFormProps): JSX.E
 	const {
 		register,
 		handleSubmit,
+		setValue,
+
 		formState: { errors },
 	} = useForm<IAuthFormRequest>({
 		resolver: authResolver,
@@ -33,6 +35,15 @@ function AuthForm({ submitCallback, isLoading, isError }: IAuthFormProps): JSX.E
 
 	const handleTogglePasswordVisibility = () => {
 		setPasswordIsVisible(prev => !prev);
+	};
+
+	const handleKeyDownSpace = (event: KeyboardEvent<HTMLDivElement>) =>
+		event.code === 'Space' && event.preventDefault();
+
+	const handlePasteEmail = (event: ClipboardEvent<HTMLDivElement>) => {
+		event.preventDefault();
+		const pasteEmail = event.clipboardData.getData('text').trim();
+		setValue('email', pasteEmail);
 	};
 
 	return (
@@ -46,6 +57,7 @@ function AuthForm({ submitCallback, isLoading, isError }: IAuthFormProps): JSX.E
 					label='Почта'
 					error={Boolean(errors.email)}
 					helperText={errors.email?.message}
+					onPaste={handlePasteEmail}
 					InputProps={{
 						endAdornment: (
 							<InputAdornment position='start'>
@@ -54,12 +66,35 @@ function AuthForm({ submitCallback, isLoading, isError }: IAuthFormProps): JSX.E
 						),
 					}}
 				/>
+
+				{/*<Controller*/}
+				{/*	control={control}*/}
+				{/*	name={'email'}*/}
+				{/*	render={({ field }) => (*/}
+				{/*		<TextField*/}
+				{/*			{...field}*/}
+				{/*			label='Почта'*/}
+				{/*			value={field.value}*/}
+				{/*			onChange={e => field.onChange(e.target.value.trim())}*/}
+				{/*			error={Boolean(errors.email)}*/}
+				{/*			helperText={errors.email?.message}*/}
+				{/*			inputProps={{ onPaste: e => e.clipboardData.getData('').trim() }}*/}
+				{/*			InputProps={{*/}
+				{/*				endAdornment: (*/}
+				{/*					<InputAdornment position='start'>*/}
+				{/*						<EmailIcon color={errors.email ? 'error' : 'inherit'} />*/}
+				{/*					</InputAdornment>*/}
+				{/*				),*/}
+				{/*			}}*/}
+				{/*		/>*/}
+
 				<TextField
 					{...register('password')}
 					label='Пароль'
 					type={passwordIsVisible ? 'text' : 'password'}
 					error={Boolean(errors.password)}
 					helperText={errors.password?.message}
+					onKeyDown={handleKeyDownSpace}
 					InputProps={{
 						endAdornment: (
 							<InputAdornment
