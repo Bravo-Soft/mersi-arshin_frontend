@@ -1,3 +1,4 @@
+import { GridRowId } from '@mui/x-data-grid';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
 import { enqueueSnackbar } from 'notistack';
 
@@ -89,10 +90,11 @@ export const dataTableApiSlice = apiSlice.injectEndpoints({
 			},
 		}),
 
-		deleteDataItem: builder.mutation<void, IDataItem['id']>({
-			query: id => ({
-				url: `${API.data.default}/${id}`,
+		deleteDataItem: builder.mutation<void, GridRowId[]>({
+			query: deleteItems => ({
+				url: API.data.default,
 				method: 'DELETE',
+				body: deleteItems,
 			}),
 			invalidatesTags: [{ type: 'Data', id: 'DELETE_ITEM' }],
 			onQueryStarted: async (_arg, { queryFulfilled }) => {

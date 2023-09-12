@@ -1,11 +1,12 @@
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
+import { GridRowId } from '@mui/x-data-grid';
 
 import { changeSmartDialogState, selectDeletingVariant } from './smartDialogSlice';
 
 import Dialog from 'components/Dialog';
 import { useDeleteDataItemMutation } from 'features/dataTable/dataTableApiSlice';
-import { selectSelectedDataItem } from 'features/dataTable/dataTableSlice';
+import { selectSelectedDataItem, selectSelectionModel } from 'features/dataTable/dataTableSlice';
 import { selectSidebarStateOfHomePage } from 'features/sidebar/sidebarSlice';
 import { isFormSelector } from 'guards/isFormSelector';
 import { isValueDefined } from 'guards/isValueDefined';
@@ -24,12 +25,17 @@ function DeletingDialog(): JSX.Element {
 	const handleCloseDeletingDialog = () => {
 		dispatch(changeSmartDialogState({ variant: 'deleting', isOpen: false }));
 	};
+	const selectionModel = useAppSelector(selectSelectionModel);
 
 	const handleDeleteSelectedDataItem = async () => {
+		const deleteArrayFiltered = Array.from(
+			new Set([...selectionModel, selectedDataItem?.id])
+		).filter(e => isValueDefined<GridRowId>(e)) as GridRowId[];
+
 		if (isValueDefined(selectedDataItem)) {
 			try {
 				handleCloseDeletingDialog();
-				await deleteDataItem(selectedDataItem.id).unwrap();
+				await deleteDataItem(deleteArrayFiltered).unwrap();
 			} finally {
 				handleCloseDeletingDialog();
 				isFormSelector(selector) && closeSidebar();
