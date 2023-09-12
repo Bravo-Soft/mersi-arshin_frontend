@@ -43,8 +43,6 @@ function NotificationSettings() {
 
 	const submitNotificationValue = useCallback(
 		async (data: INotificationSettings) => {
-			console.log('formTrimming(data)', formTrimming(data));
-
 			try {
 				await sendUpdatedItem(formTrimming(data)).unwrap();
 				enqueueSnackbar(Messages.NOTIFICATION_SUCCESSFULLY_UPDATED, { variant: 'success' });
