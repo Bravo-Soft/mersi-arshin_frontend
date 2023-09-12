@@ -6,12 +6,15 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
+import { enqueueSnackbar } from 'notistack';
+import { KeyboardEvent, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import type { IAuthFormRequest } from '../authApiSlice';
 import { authResolver } from '../authResolver';
 import AuthPaper from '../styled/AuthPaper';
+
+import { Messages } from 'constant/messages';
 
 interface IAuthFormProps {
 	submitCallback: (data: IAuthFormRequest) => void;
@@ -33,6 +36,13 @@ function AuthForm({ submitCallback, isLoading, isError }: IAuthFormProps): JSX.E
 
 	const handleTogglePasswordVisibility = () => {
 		setPasswordIsVisible(prev => !prev);
+	};
+
+	const handleKeyDownSpace = (event: KeyboardEvent<HTMLDivElement>) => {
+		if (event.code === 'Space') {
+			event.preventDefault();
+			enqueueSnackbar(Messages.SPACE_CLICK, { preventDuplicate: true });
+		}
 	};
 
 	return (
@@ -60,6 +70,7 @@ function AuthForm({ submitCallback, isLoading, isError }: IAuthFormProps): JSX.E
 					type={passwordIsVisible ? 'text' : 'password'}
 					error={Boolean(errors.password)}
 					helperText={errors.password?.message}
+					onKeyDown={handleKeyDownSpace}
 					InputProps={{
 						endAdornment: (
 							<InputAdornment

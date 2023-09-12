@@ -19,7 +19,10 @@ const notificationSchema = z.object({
 	subscribedEmails: z
 		.array(
 			z.object({
-				email: z.string().email('Введите email в верном формате').min(0, 'Введите адрес почты'),
+				email: z
+					.string()
+					.transform(e => e.trim())
+					.pipe(z.string().email('Введите email в верном формате').min(1, 'Введите почту')),
 				emailFilters: z.array(
 					z.object({
 						columnFilter: z.string(),

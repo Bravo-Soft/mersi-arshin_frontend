@@ -21,6 +21,7 @@ import {
 import ButtonContainer from 'styled/ButtonContainer';
 import FormContainer from 'styled/FormContainer';
 import type { INotificationSettings } from 'types/notification';
+import { formTrimming } from 'utils/formTrimming';
 
 function NotificationSettings() {
 	const { settings, isGetDataFetching, isLoading } = useGetUserNotificationQuery(undefined, {
@@ -44,7 +45,7 @@ function NotificationSettings() {
 	const submitNotificationValue = useCallback(
 		async (data: INotificationSettings) => {
 			try {
-				await sendUpdatedItem(data).unwrap();
+				await sendUpdatedItem(formTrimming(data)).unwrap();
 				enqueueSnackbar(Messages.NOTIFICATION_SUCCESSFULLY_UPDATED, { variant: 'success' });
 			} catch {
 				enqueueSnackbar(Messages.FAILED_TO_UPDATE_NOTIFICATION, { variant: 'error' });
@@ -100,4 +101,5 @@ function NotificationSettings() {
 		</FormContainer>
 	);
 }
+
 export default NotificationSettings;

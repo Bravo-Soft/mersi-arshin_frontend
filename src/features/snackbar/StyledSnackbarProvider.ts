@@ -1,5 +1,5 @@
 import { alpha, iconButtonClasses } from '@mui/material';
-import { blue, green, orange, red } from '@mui/material/colors';
+import { blue, green, orange, red, grey } from '@mui/material/colors';
 import { styled } from '@mui/material/styles';
 import { MaterialDesignContent } from 'notistack';
 
@@ -8,6 +8,14 @@ export const StyledSnackbarProvider = styled(MaterialDesignContent)(({ theme }) 
 		boxShadow: 'none',
 		borderRadius: theme.shape.borderRadius,
 		fontWeight: 500,
+		svg: {
+			color: theme.palette.common.white,
+		},
+		':hover': {
+			[`& .${iconButtonClasses.root}`]: {
+				backgroundColor: alpha(theme.palette.common.white, theme.palette.action.hoverOpacity),
+			},
+		},
 	},
 
 	'&.notistack-MuiContent-info': {

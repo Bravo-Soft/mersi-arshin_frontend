@@ -8,11 +8,13 @@ import { useGridApiContext } from '@mui/x-data-grid-pro';
 import { enqueueSnackbar } from 'notistack';
 import { useForm } from 'react-hook-form';
 
+
 import { templateResolver } from './templateResolver';
 import { useCreateNewTemplateMutation } from './templatesApiSlice';
 
 import { Messages } from 'constant/messages';
 import type { ITemplateConfig } from 'types/template';
+import { formTrimming } from 'utils/formTrimming';
 
 interface ITemplateFormProps
 	extends Omit<
@@ -42,7 +44,7 @@ function TemplateForm(props: ITemplateFormProps): JSX.Element {
 
 	const onSubmit = handleSubmit(async data => {
 		try {
-			await createNewTemplate(data).unwrap();
+			await createNewTemplate(formTrimming(data)).unwrap();
 			enqueueSnackbar(Messages.THE_TEMPLATE_WAS_CREATED_SUCCESSFULLY, { variant: 'success' });
 			reset();
 			onClose();

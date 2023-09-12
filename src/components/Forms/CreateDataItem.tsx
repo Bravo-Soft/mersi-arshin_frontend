@@ -7,6 +7,7 @@ import dayjs from 'dayjs';
 import { Fragment, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
+
 import { allInputFields } from './fields';
 import { useFilterAutocomplete } from './hooks/useAutocomplete';
 import { createResolver } from './utils/dataItemResolvers';
@@ -28,6 +29,7 @@ import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import ButtonContainer from 'styled/ButtonContainer';
 import FormContainer from 'styled/FormContainer';
 import { IDataItemWithDates } from 'types/dataItem';
+import { formTrimming } from 'utils/formTrimming';
 
 const today = dayjs(new Date());
 
@@ -77,7 +79,7 @@ function CreateDataItem(): JSX.Element {
 	}, [isSuccess, reset]);
 
 	const onSubmit = handleSubmit(async newItem => {
-		await createNewItem(dateFormTransform(newItem));
+		await createNewItem(dateFormTransform(formTrimming(newItem)));
 	});
 
 	const handleResetForm = () => {
