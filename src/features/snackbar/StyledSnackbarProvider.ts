@@ -9,11 +9,11 @@ export const StyledSnackbarProvider = styled(MaterialDesignContent)(({ theme }) 
 		borderRadius: theme.shape.borderRadius,
 		fontWeight: 500,
 		svg: {
-			color: grey[50],
+			color: theme.palette.common.white,
 		},
 		':hover': {
 			[`& .${iconButtonClasses.root}`]: {
-				backgroundColor: alpha(grey[100], theme.palette.action.hoverOpacity),
+				backgroundColor: alpha(theme.palette.common.white, theme.palette.action.hoverOpacity),
 			},
 		},
 	},
