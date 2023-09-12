@@ -13,32 +13,6 @@ interface IAutocompleteFieldsProps {
 	autocompleteParams: string[];
 }
 
-const shortKeys = [
-	'type',
-	'factoryNumber',
-	'inventoryNumber',
-	'division',
-	'typeOfWork',
-	'measurementLimit',
-	'location',
-	'responsible',
-	'suitability',
-];
-
-const getValueOfMaxLength = (name: AutocompleteKeysType) => {
-	if (shortKeys.includes(name)) {
-		return {
-			value: 128,
-			message: 'Максимальное значение в поле 128 символов',
-		};
-	} else {
-		return {
-			value: 256,
-			message: 'Максимальное значение в поле 256 символов',
-		};
-	}
-};
-
 function AutocompleteField({
 	name,
 	label,
@@ -52,13 +26,9 @@ function AutocompleteField({
 		<Controller
 			name={name}
 			control={control}
-			rules={{
-				required: required && 'Поле обязательное',
-				maxLength: getValueOfMaxLength(name),
-			}}
-			render={({ field: { onChange, ...rest }, fieldState: { error } }) => (
+			render={({ field: { onChange, value, ref }, fieldState: { error } }) => (
 				<Autocomplete
-					{...rest}
+					value={value}
 					freeSolo
 					disableClearable
 					options={autocompleteParams}
@@ -73,6 +43,7 @@ function AutocompleteField({
 							onChange={onChange}
 							error={Boolean(error)}
 							helperText={error?.message}
+							inputRef={ref}
 							InputLabelProps={{ shrink: true, required: required }}
 						/>
 					)}

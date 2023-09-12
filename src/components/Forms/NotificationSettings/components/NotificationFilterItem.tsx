@@ -9,20 +9,18 @@ import Select from '@mui/material/Select';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import { DatePicker } from '@mui/x-date-pickers';
+import dayjs, { isDayjs } from 'dayjs';
 import { useState } from 'react';
+import type { Control, ControllerRenderProps } from 'react-hook-form';
 import { Controller, useFormContext } from 'react-hook-form';
-import type { Control } from 'react-hook-form';
-import type { ControllerRenderProps } from 'react-hook-form';
 
 import { columnsFilters, linkOperators, operatorsFilters } from '../data';
 import { useNotificationFormActions } from '../hooks/useNotificationFormActions';
 import type { FormFiltersTypes } from '../types';
 
-
 import { maxDate, minDate } from 'constant/dateMasks';
 import { Tag } from 'constant/tag';
 import type { INotificationSettings } from 'types/notification';
-
 
 interface INotificationFilterItemProps {
 	index: number;
@@ -86,7 +84,7 @@ function NotificationFilterItem({
 		};
 
 	return (
-		<Stack direction='row' p={1} justifyContent='space-between' alignItems='flex-end' spacing={2}>
+		<Stack direction='row' p={1} justifyContent='space-between' alignItems='center' spacing={2}>
 			<Stack direction='row'>
 				<IconButton onClick={removeEmail(indexK)}>
 					<CloseIcon />
@@ -96,7 +94,7 @@ function NotificationFilterItem({
 						control={control}
 						name={`subscribedEmails.${index}.linkOperator`}
 						render={({ field }) => (
-							<FormControl variant='standard' size='medium'>
+							<FormControl variant='standard' size='medium' sx={{ mt: -0.5 }}>
 								<Select
 									{...field}
 									value={field.value}
@@ -203,15 +201,22 @@ function NotificationFilterItem({
 								) : operatorValueX === 'dateFilters' ? (
 									<DatePicker
 										{...field}
-										label={'Дата Фильтрации'}
-										minDate={minDate}
-										maxDate={maxDate}
+										value={dayjs(field.value)}
+										onChange={newDate => {
+											if (isDayjs(newDate)) {
+												field.onChange(newDate);
+											}
+										}}
+										label='Дата фильтрации'
 										slotProps={{
 											textField: {
+												inputRef: field.ref,
 												error: Boolean(error),
-												helperText: error?.message,
+												helperText: error?.message ?? ' ',
 											},
 										}}
+										minDate={dayjs(minDate)}
+										maxDate={dayjs(maxDate)}
 									/>
 								) : (
 									<FormControl variant='standard' fullWidth>

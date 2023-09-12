@@ -1,4 +1,5 @@
 import type { DateRange } from '@mui/x-date-pickers-pro';
+import { Dayjs } from 'dayjs';
 
 export interface IOperatorFilterOption {
 	columnField: string;
@@ -14,7 +15,7 @@ export interface IFilter {
 
 export interface IForm {
 	filters: IFilter[];
-	fieldsDate: DateRange<Date>;
+	fieldsDate: DateRange<Dayjs>;
 }
 
 export interface IOperatorFilter {

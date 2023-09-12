@@ -1,10 +1,9 @@
-
 import type { GridValidRowModel } from '@mui/x-data-grid-pro';
 import type { GridApiPro } from '@mui/x-data-grid-pro/models/gridApiPro';
-import { format, parseISO } from 'date-fns';
+import dayjs from 'dayjs';
 import type { MutableRefObject } from 'react';
 
-import { formatVariant } from 'constant/dateFormat';
+import { dayjsFormatVariant } from 'constant/dateFormat';
 
 export const updateData = (data: GridValidRowModel[], apiRef: MutableRefObject<GridApiPro>) => {
 	const newData: GridValidRowModel[] = [];
@@ -19,7 +18,7 @@ export const updateData = (data: GridValidRowModel[], apiRef: MutableRefObject<G
 			...el[1],
 		};
 		columnsData.forEach(key => {
-			dataItem[key] = format(parseISO(dataItem[key]), formatVariant);
+			dataItem[key] = dayjs(dataItem[key]).format(dayjsFormatVariant);
 		});
 		newData.push(dataItem);
 	});

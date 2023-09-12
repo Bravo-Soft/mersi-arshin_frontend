@@ -9,6 +9,7 @@ import { useCallback } from 'react';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 
 import EmailInputs from './EmailInputs';
+import { notificationResolver } from './notificationResolver';
 import SelectInputs from './SelectInputs';
 
 import { Messages } from 'constant/messages';
@@ -20,6 +21,7 @@ import {
 import ButtonContainer from 'styled/ButtonContainer';
 import FormContainer from 'styled/FormContainer';
 import type { INotificationSettings } from 'types/notification';
+import { formTrimming } from 'utils/formTrimming';
 
 function NotificationSettings() {
 	const { settings, isGetDataFetching, isLoading } = useGetUserNotificationQuery(undefined, {
@@ -32,6 +34,7 @@ function NotificationSettings() {
 
 	const methods = useForm<INotificationSettings>({
 		values: settings,
+		resolver: notificationResolver,
 	});
 
 	const { handleSubmit, watch, control } = methods;
@@ -42,7 +45,7 @@ function NotificationSettings() {
 	const submitNotificationValue = useCallback(
 		async (data: INotificationSettings) => {
 			try {
-				await sendUpdatedItem(data).unwrap();
+				await sendUpdatedItem(formTrimming(data)).unwrap();
 				enqueueSnackbar(Messages.NOTIFICATION_SUCCESSFULLY_UPDATED, { variant: 'success' });
 			} catch {
 				enqueueSnackbar(Messages.FAILED_TO_UPDATE_NOTIFICATION, { variant: 'error' });
@@ -98,4 +101,5 @@ function NotificationSettings() {
 		</FormContainer>
 	);
 }
+
 export default NotificationSettings;

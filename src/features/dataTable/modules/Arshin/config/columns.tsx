@@ -1,5 +1,4 @@
 import { GridColDef } from '@mui/x-data-grid-pro';
-import { parseISO } from 'date-fns';
 
 import { ArshinStatus } from 'constant/arshinStatus';
 import { ColumnNames } from 'constant/columnsName';
@@ -9,6 +8,7 @@ import {
 	RenderCellExpandedRegister,
 } from 'features/dataTable/components/RenderCellExpand';
 import { formatDateCallback } from 'features/dataTable/utils/formatDateCallback';
+import { quickFilterDateFormat } from 'features/dataTable/utils/quickFilterDateFormat';
 import { IDataItemArshin } from 'types/arshinIntegration';
 
 export const columnsArshin: GridColDef<IDataItemArshin>[] = [
@@ -86,8 +86,9 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 		headerAlign: 'center',
 		type: 'date',
 		valueFormatter: formatDateCallback,
-		valueGetter: ({ row }) => parseISO(row.verificationDate),
+		getApplyQuickFilterFn: quickFilterDateFormat,
 	},
+
 	{
 		field: 'interVerificationInterval',
 		sortable: false,
@@ -105,7 +106,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 		headerAlign: 'center',
 		type: 'date',
 		valueFormatter: formatDateCallback,
-		valueGetter: ({ row }) => parseISO(row.dateOfTheNextVerification),
+		getApplyQuickFilterFn: quickFilterDateFormat,
 	},
 	{
 		field: 'typeOfWork',
@@ -164,7 +165,6 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 		headerAlign: 'center',
 		type: 'date',
 		valueFormatter: formatDateCallback,
-		valueGetter: ({ row }) => parseISO(row.productionDate),
 	},
 	{
 		field: 'organization',

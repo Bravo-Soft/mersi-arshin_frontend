@@ -1,11 +1,11 @@
 import type { GridRowId } from '@mui/x-data-grid-pro';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
-import { format } from 'date-fns';
+import dayjs from 'dayjs';
 import { enqueueSnackbar } from 'notistack';
 
 import { API } from 'app/api';
 import { apiSlice } from 'app/apiSlice';
-import { formatVariant } from 'constant/dateFormat';
+import { dayjsFormatVariant } from 'constant/dateFormat';
 import { HttpCodes } from 'constant/httpCodes';
 import { Messages } from 'constant/messages';
 import type { IDataItem } from 'types/dataItem';
@@ -101,8 +101,7 @@ const filesApiSlice = apiSlice.injectEndpoints({
 				}
 
 				if (result.data instanceof Blob)
-					saveAs(result.data, `Архив от ${format(new Date(), formatVariant)}.zip`);
-
+					saveAs(result.data, `Архив от ${dayjs().format(dayjsFormatVariant)}.zip`);
 				return { data: null };
 			},
 		}),

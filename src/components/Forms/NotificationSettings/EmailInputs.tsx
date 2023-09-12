@@ -14,7 +14,6 @@ import { useFieldArray, useFormContext } from 'react-hook-form';
 import NotificationAddButton from './components/NotificationAddButton';
 import NotificationPopover from './components/NotificationPopover';
 
-import { validationRules } from 'features/auth/validationRules';
 import type { INotificationSettings } from 'types/notification';
 
 const MAX_EMAILS_COUNTS = 15;
@@ -24,7 +23,6 @@ function EmailInputs() {
 		control,
 		register,
 		formState: { errors },
-		getValues,
 		watch,
 	} = useFormContext<INotificationSettings>();
 
@@ -52,12 +50,6 @@ function EmailInputs() {
 
 	const removeEmail = (index: number) => () => remove(index);
 
-	const validateUniqueValue = (value: string, idx: number) => {
-		return !getValues('subscribedEmails').some(
-			(subValue, index) => value === subValue.email && idx !== index
-		);
-	};
-
 	const handleClickFilters = (index: number) => (event: React.MouseEvent<HTMLButtonElement>) => {
 		setPopoverIndex(index);
 		setAnchorEl(event.currentTarget);
@@ -83,7 +75,13 @@ function EmailInputs() {
 			</Box>
 			{fields.length ? (
 				fields.map((field, index) => (
-					<Stack key={field.id} direction='row' alignItems='center' columnGap={2} flexGrow={1}>
+					<Stack
+						key={field.id}
+						direction='row'
+						alignItems={errors?.subscribedEmails?.[index] ? 'flex-start' : 'center'}
+						columnGap={2}
+						flexGrow={1}
+					>
 						<NotificationAddButton
 							watchEmailFilters={watchEmailFilters[index].emailFilters.length}
 							handleClickFilters={handleClickFilters}
@@ -94,11 +92,7 @@ function EmailInputs() {
 							variant='filled'
 							size='small'
 							label='Введите адрес'
-							{...register(`subscribedEmails.${index}.email` as const, {
-								...validationRules.email,
-								validate: value =>
-									validateUniqueValue(value, index) || 'Введите разные адреса почт',
-							})}
+							{...register(`subscribedEmails.${index}.email` as const)}
 							helperText={
 								errors.subscribedEmails?.length &&
 								errors.subscribedEmails[index]?.email?.message

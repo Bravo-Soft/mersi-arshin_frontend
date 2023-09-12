@@ -1,9 +1,9 @@
 import type { GridSelectionModel, GridStateColDef } from '@mui/x-data-grid-pro';
 import type { GridApiPro } from '@mui/x-data-grid-pro/models/gridApiPro';
-import { format, parseISO } from 'date-fns';
+import dayjs from 'dayjs';
 import { enqueueSnackbar } from 'notistack';
-import { useState } from 'react';
 import type { MouseEvent } from 'react';
+import { useState } from 'react';
 
 import {
 	pinManyRows,
@@ -22,7 +22,7 @@ import {
 import { useAddItemsMutation } from '../modules/Arshin/arshinTableApiSlice';
 
 import type { ColumnNames } from 'constant/columnsName';
-import { formatVariant } from 'constant/dateFormat';
+import { dayjsFormatVariant } from 'constant/dateFormat';
 import { Messages } from 'constant/messages';
 import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
 import { isValueDefined } from 'guards/isValueDefined';
@@ -170,11 +170,10 @@ export const useContextMenuActions = (
 						// eslint-disable-next-line @typescript-eslint/no-unused-vars
 						({ userIds, documents, ...item }: IDataItem): CopyData => ({
 							...item,
-							productionDate: format(parseISO(item.productionDate), formatVariant),
-							verificationDate: format(parseISO(item.verificationDate), formatVariant),
-							dateOfTheNextVerification: format(
-								parseISO(item.dateOfTheNextVerification),
-								formatVariant
+							productionDate: dayjs(item.productionDate).format(dayjsFormatVariant),
+							verificationDate: dayjs(item.verificationDate).format(dayjsFormatVariant),
+							dateOfTheNextVerification: dayjs(item.dateOfTheNextVerification).format(
+								dayjsFormatVariant
 							),
 						})
 					)
@@ -241,7 +240,7 @@ interface IVisibleField {
 }
 
 /**
- *	Метод преобразующий массив объектов в одну строку, в человеко-читаемом формате
+ *  Метод преобразующий массив объектов в одну строку, в человеко-читаемом формате
  * @param visibleColumns колонки, получаемые из метода `apiRef.current.getVisibleColumns`
  * @param data массив данных, которые необходимо скопировать
  * @return итоговая строка, со всеми данными

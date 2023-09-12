@@ -1,4 +1,6 @@
-import { addYears, compareAsc, getMonth, isSameYear, isThisYear, parseISO } from 'date-fns';
+import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import { useMemo } from 'react';
 
 import { selectCurrentChipFilterVariant } from '../dataTableSlice';
@@ -6,43 +8,43 @@ import { selectCurrentChipFilterVariant } from '../dataTableSlice';
 import { selectUserId } from 'features/user/userSlice';
 import { useAppSelector } from 'hooks/redux';
 import type { IDataItem } from 'types/dataItem';
-import { createDateISO } from 'utils/createDateISO';
+
+dayjs.extend(duration);
 
 const useChipFilter = (data: IDataItem[] = []) => {
 	const currentChipFilterOption = useAppSelector(selectCurrentChipFilterVariant);
 	const userId = useAppSelector(selectUserId);
 
 	return useMemo(() => {
-		const today = parseISO(createDateISO(new Date()));
-
+		dayjs.extend(isSameOrAfter);
 		switch (currentChipFilterOption) {
 			case 'Все':
 				return data;
 
 			case 'Просроченные':
 				return data.filter(
-					row => compareAsc(today, parseISO(row.dateOfTheNextVerification)) !== -1
+					row => !dayjs().startOf('date').isBefore(row.dateOfTheNextVerification)
 				);
-
 			case 'Избранное': {
 				return data.filter(row => (userId ? row.userIds.includes(userId) : false));
 			}
 
 			default:
 				return data.filter(row => {
-					const parsedDate = parseISO(row.dateOfTheNextVerification);
-					const currentMonth = getMonth(parsedDate) === currentChipFilterOption;
-					const monthIsPast = getMonth(parsedDate) < getMonth(new Date());
-					const nextYear = addYears(new Date(), 1);
+					const parsedDate = row.dateOfTheNextVerification;
+					const currentMonth = dayjs(parsedDate).month() === currentChipFilterOption;
+
+					const monthIsPast = dayjs(parsedDate).month() < dayjs().month();
+					const nextYear = dayjs().add(1, 'year');
 
 					if (!currentMonth) {
 						return false;
 					}
 
 					if (monthIsPast) {
-						return isSameYear(parsedDate, nextYear);
+						return dayjs(parsedDate).isSameOrAfter(nextYear, 'year');
 					} else {
-						return isThisYear(parsedDate);
+						return dayjs().isSame(parsedDate, 'year');
 					}
 				});
 		}

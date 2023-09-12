@@ -8,6 +8,7 @@
 
 # testing
 /coverage
+/thunder-tests
 
 # production
 /build
@@ -25,4 +26,5 @@ yarn-error.log*
 
 # IDE
 /.idea/
+
 /client.code-workspace

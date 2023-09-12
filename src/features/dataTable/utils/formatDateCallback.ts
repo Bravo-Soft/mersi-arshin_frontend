@@ -1,7 +1,6 @@
 import { GridValueFormatterParams } from '@mui/x-data-grid-pro';
-import { format } from 'date-fns';
+import dayjs from 'dayjs';
 
-import { formatVariant } from 'constant/dateFormat';
-
-export const formatDateCallback = (params: GridValueFormatterParams<string>) =>
-	format(new Date(params.value), formatVariant);
+export const formatDateCallback = (params: GridValueFormatterParams<string>) => {
+	return dayjs(params.value).format('DD.MM.YYYY');
+};

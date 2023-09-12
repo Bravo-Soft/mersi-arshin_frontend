@@ -4,11 +4,14 @@ import Divider from '@mui/material/Divider';
 import InputAdornment from '@mui/material/InputAdornment';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
+import dayjs from 'dayjs';
 import { Fragment, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { allInputFields } from './fields';
 import { useFilterAutocomplete } from './hooks/useAutocomplete';
+import { createResolver } from './utils/dataItemResolvers';
+import { dateFormTransform } from './utils/dateFormTransform';
 
 import AutocompleteField from 'components/AutocompleteField';
 import DateField from 'components/DateField';
@@ -23,14 +26,13 @@ import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
 import { selectUserPermissions } from 'features/user/userSlice';
 import { isValueDefined } from 'guards/isValueDefined';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { useDateValidate } from 'hooks/useDateValidate';
 import ButtonContainer from 'styled/ButtonContainer';
 import FormContainer from 'styled/FormContainer';
-import type { IDataItem, IDataItemWithDates } from 'types/dataItem';
-import { createDateISO } from 'utils/createDateISO';
-import { getCostRules, getExtendedIntervalRules } from 'utils/getExtendedIntervalRules';
+import { IDataItemWithDates } from 'types/dataItem';
+import { formTrimming } from 'utils/formTrimming';
+import { getCostRules } from 'utils/getExtendedIntervalRules';
 
-const today = new Date();
+const today = dayjs(new Date());
 
 const defaultValues = {
 	size: Tag.SMALL,
@@ -67,14 +69,11 @@ function CreateDataItem(): JSX.Element {
 	const { data } = useGetAllDataQuery();
 	const [createNewItem, { isLoading, isSuccess }] = useCreateNewDataItemMutation();
 
-	const methods = useForm<Omit<IDataItemWithDates, 'id'>>({
+	const methods = useForm<Omit<IDataItemWithDates, 'id' | 'userIds' | 'documents'>>({
 		defaultValues,
+		resolver: createResolver,
 	});
-	const validation = useDateValidate({
-		productionDateValue: methods.watch('productionDate'),
-		verificationDateValue: methods.watch('verificationDate'),
-		dateOfNextVerificationValue: methods.watch('dateOfTheNextVerification'),
-	});
+
 	const { handleSubmit, reset } = methods;
 
 	const rowCount = data?.length ?? 0;
@@ -84,19 +83,11 @@ function CreateDataItem(): JSX.Element {
 		if (isSuccess) {
 			reset();
 		}
+		return reset();
 	}, [isSuccess, reset]);
 
 	const onSubmit = handleSubmit(async newItem => {
-		const { productionDate, verificationDate, dateOfTheNextVerification, ...othen } = newItem;
-
-		const prepearedDataItem: Omit<IDataItem, 'id'> = {
-			...othen,
-			productionDate: createDateISO(productionDate),
-			verificationDate: createDateISO(verificationDate),
-			dateOfTheNextVerification: createDateISO(dateOfTheNextVerification),
-		};
-
-		await createNewItem(prepearedDataItem);
+		await createNewItem(dateFormTransform(formTrimming(newItem)));
 	});
 
 	const handleResetForm = () => {
@@ -118,39 +109,23 @@ function CreateDataItem(): JSX.Element {
 	const createRenderedField = allInputFields.map(({ key, label }) => {
 		switch (key) {
 			case 'size':
-				return (
-					<FormProvider {...methods} key={key}>
-						<SizeSelect />
-					</FormProvider>
-				);
-
+				return <SizeSelect key={key} />;
 			case 'productionDate':
 			case 'dateOfTheNextVerification':
-				return (
-					<FormProvider {...methods} key={key}>
-						<DateField nameOfKey={key} label={label} validation={validation[key]} />
-					</FormProvider>
-				);
-
+				return <DateField key={key} nameOfKey={key} label={label} />;
 			case 'verificationDate':
 				return (
 					<Fragment key={key}>
 						<Box my={2}>
 							<Divider sx={{ color: 'text.secondary', fontWeight: 500 }}>Поверка СИ</Divider>
 						</Box>
-						<FormProvider {...methods}>
-							<DateField
-								nameOfKey={key}
-								label={label}
-								validation={validation.verificationDate}
-							/>
-						</FormProvider>
+						<DateField nameOfKey={key} label={label} />
 					</Fragment>
 				);
 			case 'interVerificationInterval':
 				return (
 					<TextField
-						{...methods.register('interVerificationInterval', getExtendedIntervalRules())}
+						{...methods.register(key)}
 						label={label}
 						key={key}
 						error={Boolean(methods.formState.errors.interVerificationInterval)}
@@ -159,7 +134,7 @@ function CreateDataItem(): JSX.Element {
 						type='number'
 					/>
 				);
-
+			//FIX
 			case 'cost':
 				return (
 					<TextField
@@ -189,41 +164,42 @@ function CreateDataItem(): JSX.Element {
 				);
 			default:
 				return (
-					<FormProvider {...methods} key={key}>
-						<AutocompleteField
-							name={key}
-							label={label}
-							required={key === 'name'}
-							autocompleteParams={parametrs[key]}
-						/>
-					</FormProvider>
+					<AutocompleteField
+						key={key}
+						name={key}
+						label={label}
+						required={key === 'name'}
+						autocompleteParams={parametrs[key]}
+					/>
 				);
 		}
 	});
 
 	return (
-		<FormContainer onSubmit={onSubmit} noValidate>
-			<Stack px={3.5} rowGap={1}>
-				{createRenderedField}
-			</Stack>
-			<ButtonContainer sx={{ mt: 4 }}>
-				<Button
-					variant='contained'
-					fullWidth
-					type={maxRowsIsReached ? 'button' : 'submit'}
-					disabled={isLoading}
-					onClick={maxRowsIsReached ? handleShowPaymentDialog : undefined}
-				>
-					Сохранить
-				</Button>
-				<Button
-					fullWidth
-					onClick={handleResetForm}
-					disabled={!methods.formState.isDirty || isLoading}
-				>
-					Очистить
-				</Button>
-			</ButtonContainer>
+		<FormContainer onSubmit={onSubmit}>
+			<FormProvider {...methods}>
+				<Stack px={3.5} rowGap={1}>
+					{createRenderedField}
+				</Stack>
+				<ButtonContainer sx={{ mt: 4 }}>
+					<Button
+						variant='contained'
+						fullWidth
+						type={maxRowsIsReached ? 'button' : 'submit'}
+						disabled={isLoading}
+						onClick={maxRowsIsReached ? handleShowPaymentDialog : undefined}
+					>
+						Сохранить
+					</Button>
+					<Button
+						fullWidth
+						onClick={handleResetForm}
+						disabled={!methods.formState.isDirty || isLoading}
+					>
+						Очистить
+					</Button>
+				</ButtonContainer>
+			</FormProvider>
 		</FormContainer>
 	);
 }

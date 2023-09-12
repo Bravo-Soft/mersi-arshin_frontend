@@ -4,15 +4,17 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import Button from '@mui/material/Button';
 import InputAdornment from '@mui/material/InputAdornment';
 import Stack from '@mui/material/Stack';
-import { useTheme } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
+import { enqueueSnackbar } from 'notistack';
+import { KeyboardEvent, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import type { IAuthFormRequest } from '../authApiSlice';
+import { authResolver } from '../authResolver';
 import AuthPaper from '../styled/AuthPaper';
-import { validationRules } from '../validationRules';
+
+import { Messages } from 'constant/messages';
 
 interface IAuthFormProps {
 	submitCallback: (data: IAuthFormRequest) => void;
@@ -26,13 +28,21 @@ function AuthForm({ submitCallback, isLoading, isError }: IAuthFormProps): JSX.E
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<IAuthFormRequest>({});
-	const theme = useTheme();
+	} = useForm<IAuthFormRequest>({
+		resolver: authResolver,
+	});
 
 	const onSubmit = handleSubmit(submitCallback);
 
 	const handleTogglePasswordVisibility = () => {
 		setPasswordIsVisible(prev => !prev);
+	};
+
+	const handleKeyDownSpace = (event: KeyboardEvent<HTMLDivElement>) => {
+		if (event.code === 'Space') {
+			event.preventDefault();
+			enqueueSnackbar(Messages.SPACE_CLICK, { preventDuplicate: true });
+		}
 	};
 
 	return (
@@ -42,7 +52,7 @@ function AuthForm({ submitCallback, isLoading, isError }: IAuthFormProps): JSX.E
 			</Typography>
 			<Stack gap={3}>
 				<TextField
-					{...register('email', validationRules.email)}
+					{...register('email')}
 					label='Почта'
 					error={Boolean(errors.email)}
 					helperText={errors.email?.message}
@@ -55,11 +65,12 @@ function AuthForm({ submitCallback, isLoading, isError }: IAuthFormProps): JSX.E
 					}}
 				/>
 				<TextField
-					{...register('password', validationRules.password)}
+					{...register('password')}
 					label='Пароль'
 					type={passwordIsVisible ? 'text' : 'password'}
 					error={Boolean(errors.password)}
 					helperText={errors.password?.message}
+					onKeyDown={handleKeyDownSpace}
 					InputProps={{
 						endAdornment: (
 							<InputAdornment
@@ -67,14 +78,13 @@ function AuthForm({ submitCallback, isLoading, isError }: IAuthFormProps): JSX.E
 								onClick={handleTogglePasswordVisibility}
 								sx={{
 									cursor: 'pointer',
-									'& .MuiSvgIcon-root': {
-										color: errors.password
-											? theme.palette.error.main
-											: 'inherit',
-									},
 								}}
 							>
-								{passwordIsVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
+								{passwordIsVisible ? (
+									<VisibilityIcon color={errors.password ? 'error' : 'inherit'} />
+								) : (
+									<VisibilityOffIcon color={errors.password ? 'error' : 'inherit'} />
+								)}
 							</InputAdornment>
 						),
 					}}

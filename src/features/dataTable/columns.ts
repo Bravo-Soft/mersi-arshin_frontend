@@ -1,6 +1,6 @@
 import type { GridCellParams, GridColDef } from '@mui/x-data-grid-pro';
 import cn from 'classnames';
-import { compareAsc, formatISO, parseISO } from 'date-fns';
+import dayjs from 'dayjs';
 
 import { RenderCellExpand, RenderCellExpandedRegister } from './components/RenderCellExpand';
 import { formatDateCallback } from './utils/formatDateCallback';
@@ -14,12 +14,8 @@ const initialWidth = 200;
 
 const getCellClasses = ({ value = '' }: GridCellParams<string>) => {
 	//TODO: При необходимости включить стили для ячеек, срок поверки которых меньше 2 недель
-	const parsedItemDate = parseISO(formatISO(new Date(value)));
-	const today = parseISO(formatISO(new Date(), { representation: 'date' }));
-	// const result = differenceInDays(parsedItemDate, today);
-
 	return cn({
-		overdueItem: compareAsc(today, parsedItemDate) !== -1,
+		overdueItem: Boolean(!dayjs().isBefore(dayjs(value))),
 		// twoWeeksToGo: result <= 14 && result >= 0,
 	});
 };
@@ -90,7 +86,6 @@ export const columns: GridColDef<IDataItem>[] = [
 		headerAlign: 'center',
 		type: 'date',
 		valueFormatter: formatDateCallback,
-		valueGetter: ({ row }) => parseISO(row.verificationDate),
 		getApplyQuickFilterFn: quickFilterDateFormat,
 	},
 	{
@@ -109,7 +104,6 @@ export const columns: GridColDef<IDataItem>[] = [
 		type: 'date',
 		valueFormatter: formatDateCallback,
 		cellClassName: getCellClasses,
-		valueGetter: ({ row }) => parseISO(row.dateOfTheNextVerification),
 		getApplyQuickFilterFn: quickFilterDateFormat,
 	},
 	{
@@ -162,7 +156,6 @@ export const columns: GridColDef<IDataItem>[] = [
 		headerAlign: 'center',
 		type: 'date',
 		valueFormatter: formatDateCallback,
-		valueGetter: ({ row }) => parseISO(row.productionDate),
 		getApplyQuickFilterFn: quickFilterDateFormat,
 	},
 	{
