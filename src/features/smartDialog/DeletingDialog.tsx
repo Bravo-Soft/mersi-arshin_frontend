@@ -1,6 +1,6 @@
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import { GridRowId } from '@mui/x-data-grid';
+import { GridRowId } from '@mui/x-data-grid-pro';
 
 import { changeSmartDialogState, selectDeletingVariant } from './smartDialogSlice';
 

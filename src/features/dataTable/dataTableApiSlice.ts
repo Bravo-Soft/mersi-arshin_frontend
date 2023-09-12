@@ -1,4 +1,4 @@
-import { GridRowId } from '@mui/x-data-grid';
+import { GridRowId } from '@mui/x-data-grid-pro';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
 import { enqueueSnackbar } from 'notistack';
 
