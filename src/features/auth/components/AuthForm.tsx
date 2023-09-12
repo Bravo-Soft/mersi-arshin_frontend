@@ -6,15 +6,12 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import { enqueueSnackbar } from 'notistack';
-import { KeyboardEvent, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useState } from 'react';
+import { useForm, Controller } from 'react-hook-form';
 
 import type { IAuthFormRequest } from '../authApiSlice';
 import { authResolver } from '../authResolver';
 import AuthPaper from '../styled/AuthPaper';
-
-import { Messages } from 'constant/messages';
 
 interface IAuthFormProps {
 	submitCallback: (data: IAuthFormRequest) => void;
@@ -25,11 +22,15 @@ interface IAuthFormProps {
 function AuthForm({ submitCallback, isLoading, isError }: IAuthFormProps): JSX.Element {
 	const [passwordIsVisible, setPasswordIsVisible] = useState(false);
 	const {
-		register,
 		handleSubmit,
+		control,
 		formState: { errors },
 	} = useForm<IAuthFormRequest>({
 		resolver: authResolver,
+		defaultValues: {
+			email: '',
+			password: '',
+		},
 	});
 
 	const onSubmit = handleSubmit(submitCallback);
@@ -38,56 +39,63 @@ function AuthForm({ submitCallback, isLoading, isError }: IAuthFormProps): JSX.E
 		setPasswordIsVisible(prev => !prev);
 	};
 
-	const handleKeyDownSpace = (event: KeyboardEvent<HTMLDivElement>) => {
-		if (event.code === 'Space') {
-			event.preventDefault();
-			enqueueSnackbar(Messages.SPACE_CLICK, { preventDuplicate: true });
-		}
-	};
-
 	return (
 		<AuthPaper onSubmit={onSubmit} isError={isError}>
 			<Typography textAlign='center' color='text.secondary' variant='h6'>
 				Авторизация
 			</Typography>
 			<Stack gap={3}>
-				<TextField
-					{...register('email')}
-					label='Почта'
-					error={Boolean(errors.email)}
-					helperText={errors.email?.message}
-					InputProps={{
-						endAdornment: (
-							<InputAdornment position='start'>
-								<EmailIcon color={errors.email ? 'error' : 'inherit'} />
-							</InputAdornment>
-						),
-					}}
+				<Controller
+					control={control}
+					name={'email'}
+					render={({ field }) => (
+						<TextField
+							{...field}
+							label='Почта'
+							error={Boolean(errors.email)}
+							helperText={errors.email?.message}
+							value={field?.value?.replace(/\s/g, '')}
+							InputProps={{
+								endAdornment: (
+									<InputAdornment position='start'>
+										<EmailIcon color={errors.email ? 'error' : 'inherit'} />
+									</InputAdornment>
+								),
+							}}
+						/>
+					)}
 				/>
-				<TextField
-					{...register('password')}
-					label='Пароль'
-					type={passwordIsVisible ? 'text' : 'password'}
-					error={Boolean(errors.password)}
-					helperText={errors.password?.message}
-					onKeyDown={handleKeyDownSpace}
-					InputProps={{
-						endAdornment: (
-							<InputAdornment
-								position='start'
-								onClick={handleTogglePasswordVisibility}
-								sx={{
-									cursor: 'pointer',
-								}}
-							>
-								{passwordIsVisible ? (
-									<VisibilityIcon color={errors.password ? 'error' : 'inherit'} />
-								) : (
-									<VisibilityOffIcon color={errors.password ? 'error' : 'inherit'} />
-								)}
-							</InputAdornment>
-						),
-					}}
+
+				<Controller
+					control={control}
+					name={'password'}
+					render={({ field }) => (
+						<TextField
+							{...field}
+							label='Пароль'
+							error={Boolean(errors.password)}
+							helperText={errors.password?.message}
+							value={field?.value?.replace(/\s/g, '')}
+							type={passwordIsVisible ? 'text' : 'password'}
+							InputProps={{
+								endAdornment: (
+									<InputAdornment
+										position='start'
+										onClick={handleTogglePasswordVisibility}
+										sx={{
+											cursor: 'pointer',
+										}}
+									>
+										{passwordIsVisible ? (
+											<VisibilityIcon color={errors.password ? 'error' : 'inherit'} />
+										) : (
+											<VisibilityOffIcon color={errors.password ? 'error' : 'inherit'} />
+										)}
+									</InputAdornment>
+								),
+							}}
+						/>
+					)}
 				/>
 			</Stack>
 			<Button variant='contained' fullWidth disabled={isLoading} type='submit'>
