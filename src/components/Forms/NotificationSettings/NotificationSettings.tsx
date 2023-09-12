@@ -9,6 +9,7 @@ import { useCallback } from 'react';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 
 import EmailInputs from './EmailInputs';
+import { notificationResolver } from './notificationResolver';
 import SelectInputs from './SelectInputs';
 
 import { Messages } from 'constant/messages';
