@@ -33,7 +33,7 @@ function NotificationSettings() {
 
 	const methods = useForm<INotificationSettings>({
 		values: settings,
-		// resolver: notificationResolver,
+		resolver: notificationResolver,
 	});
 
 	const { handleSubmit, watch, control } = methods;
