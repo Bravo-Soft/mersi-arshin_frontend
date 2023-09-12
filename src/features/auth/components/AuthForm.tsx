@@ -47,7 +47,7 @@ function AuthForm({ submitCallback, isLoading, isError }: IAuthFormProps): JSX.E
 			<Stack gap={3}>
 				<Controller
 					control={control}
-					name={'email'}
+					name='email'
 					render={({ field }) => (
 						<TextField
 							{...field}
@@ -68,7 +68,7 @@ function AuthForm({ submitCallback, isLoading, isError }: IAuthFormProps): JSX.E
 
 				<Controller
 					control={control}
-					name={'password'}
+					name='password'
 					render={({ field }) => (
 						<TextField
 							{...field}
