@@ -1,4 +1,9 @@
-const setNames = new Set(['verificationDate', 'productionDate', 'dateOfTheNextVerification']);
+const setNames = new Set([
+	'verificationDate',
+	'productionDate',
+	'dateOfTheNextVerification',
+	'fieldsDate',
+]);
 
 export const formTrimming = <T>(obj: T): T => {
 	return typeof obj === 'object' && obj !== null && !Array.isArray(obj)
