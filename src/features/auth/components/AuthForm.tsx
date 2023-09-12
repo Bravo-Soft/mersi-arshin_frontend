@@ -6,7 +6,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import { ClipboardEvent, KeyboardEvent, useState } from 'react';
+import { KeyboardEvent, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import type { IAuthFormRequest } from '../authApiSlice';
@@ -24,8 +24,6 @@ function AuthForm({ submitCallback, isLoading, isError }: IAuthFormProps): JSX.E
 	const {
 		register,
 		handleSubmit,
-		setValue,
-
 		formState: { errors },
 	} = useForm<IAuthFormRequest>({
 		resolver: authResolver,
@@ -40,12 +38,6 @@ function AuthForm({ submitCallback, isLoading, isError }: IAuthFormProps): JSX.E
 	const handleKeyDownSpace = (event: KeyboardEvent<HTMLDivElement>) =>
 		event.code === 'Space' && event.preventDefault();
 
-	const handlePasteEmail = (event: ClipboardEvent<HTMLDivElement>) => {
-		event.preventDefault();
-		const pasteEmail = event.clipboardData.getData('text').trim();
-		setValue('email', pasteEmail);
-	};
-
 	return (
 		<AuthPaper onSubmit={onSubmit} isError={isError}>
 			<Typography textAlign='center' color='text.secondary' variant='h6'>
@@ -57,7 +49,6 @@ function AuthForm({ submitCallback, isLoading, isError }: IAuthFormProps): JSX.E
 					label='Почта'
 					error={Boolean(errors.email)}
 					helperText={errors.email?.message}
-					onPaste={handlePasteEmail}
 					InputProps={{
 						endAdornment: (
 							<InputAdornment position='start'>

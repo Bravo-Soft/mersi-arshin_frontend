@@ -1,7 +1,13 @@
+const setNames = new Set(['verificationDate', 'productionDate', 'dateOfTheNextVerification']);
+
 export const formTrimming = <T>(obj: T): T => {
 	return typeof obj === 'object' && obj !== null && !Array.isArray(obj)
 		? (Object.fromEntries(
 				Object.entries(obj).map(([key, value]) => {
+					if (setNames.has(key)) {
+						return [key, value];
+					}
+
 					if (Array.isArray(value)) {
 						const formatValue = value.map(e => formTrimming(e));
 						return [key, formatValue];

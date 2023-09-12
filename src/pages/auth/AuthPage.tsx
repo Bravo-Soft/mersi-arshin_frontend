@@ -2,7 +2,6 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import { useNavigate } from 'react-router-dom';
 
-
 import { AppRoutes } from 'constant/appRoutes';
 import type { IAuthFormRequest } from 'features/auth/authApiSlice';
 import { useLoginMutation } from 'features/auth/authApiSlice';
