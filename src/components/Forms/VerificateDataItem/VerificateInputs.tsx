@@ -11,13 +11,10 @@ import DateField from 'components/DateField';
 import { selectedVisibleColumns } from 'features/dataTable/dataTableSlice';
 import { useAppSelector } from 'hooks/redux';
 import type { IDataItemWithDates } from 'types/dataItem';
-import { getCostRules } from 'utils/getExtendedIntervalRules';
 
 interface IVerificateFieldsProps {
 	isReader: boolean;
 }
-
-//FIX
 
 function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
 	const {
@@ -41,10 +38,10 @@ function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
 				) : key === 'interVerificationInterval' ? (
 					<Controller
 						name={key}
+						key={key}
 						control={control}
 						render={({ field: { ref, ...field }, fieldState: { error } }) => (
 							<TextField
-								key={key}
 								{...field}
 								label={label}
 								error={Boolean(error)}
@@ -58,7 +55,7 @@ function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
 				) : key === 'cost' ? (
 					<TextField
 						key={key}
-						{...register('cost', getCostRules())}
+						{...register('cost')}
 						label={label}
 						error={Boolean(errors.cost)}
 						helperText={errors?.cost?.message}

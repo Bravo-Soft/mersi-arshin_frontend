@@ -30,7 +30,6 @@ import ButtonContainer from 'styled/ButtonContainer';
 import FormContainer from 'styled/FormContainer';
 import { IDataItemWithDates } from 'types/dataItem';
 import { formTrimming } from 'utils/formTrimming';
-import { getCostRules } from 'utils/getExtendedIntervalRules';
 
 const today = dayjs(new Date());
 
@@ -59,7 +58,7 @@ const defaultValues = {
 	fgisUrl: '',
 	additionalData: '',
 	methodology: '',
-	cost: '',
+	cost: '0',
 };
 
 function CreateDataItem(): JSX.Element {
@@ -134,18 +133,17 @@ function CreateDataItem(): JSX.Element {
 						type='number'
 					/>
 				);
-			//FIX
 			case 'cost':
 				return (
 					<TextField
 						key={key}
-						{...methods.register('cost', getCostRules())}
+						{...methods.register('cost')}
 						label={label}
 						error={Boolean(methods.formState.errors.cost)}
 						helperText={methods.formState.errors?.cost?.message}
 						InputLabelProps={{ shrink: true }}
 						InputProps={{
-							startAdornment: <InputAdornment position='start'>₽</InputAdornment>,
+							startAdornment: <InputAdornment position='start'>&#x20bd;</InputAdornment>,
 						}}
 						type='number'
 					/>
@@ -176,7 +174,7 @@ function CreateDataItem(): JSX.Element {
 	});
 
 	return (
-		<FormContainer onSubmit={onSubmit}>
+		<FormContainer onSubmit={onSubmit} noValidate>
 			<FormProvider {...methods}>
 				<Stack px={3.5} rowGap={1}>
 					{createRenderedField}

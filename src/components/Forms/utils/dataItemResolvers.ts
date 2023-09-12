@@ -26,6 +26,17 @@ export const itemSchema = z.object({
 	organization: z.string().max(256, largeLengthField),
 	accuracyClass: z.string().max(256, largeLengthField),
 	measurementLimit: z.string().max(128, smallLengthField),
+	location: z.string().max(128, smallLengthField),
+	responsible: z.string().max(128, smallLengthField),
+	suitability: z.string().max(128, smallLengthField),
+	fgisUrl: z.string().max(256, largeLengthField),
+	additionalData: z.string().max(256, largeLengthField),
+	methodology: z.string().max(256, largeLengthField),
+	cost: z
+		.string()
+		.regex(new RegExp(/^-?[0-9]\d*(\.\d+)?$/), 'Округлите до сотых')
+		.transform(e => Math.floor(Number(e)))
+		.refine(e => e >= 0, 'Минимальное допустимое число 1'),
 	size: z.nativeEnum(Tag),
 	notes: z.string().max(256, largeLengthField),
 	interVerificationInterval: z
