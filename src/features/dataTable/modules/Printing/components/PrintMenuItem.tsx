@@ -23,7 +23,6 @@ import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { useSidebarAction } from 'hooks/useSidebarActions';
 import StyledMenuItem from 'styled/StyledMenuItem';
 
-
 function PrintMenuItem({
 	onCloseMenu,
 	openTourMenuItems = false,
@@ -31,14 +30,14 @@ function PrintMenuItem({
 }: IModuleMenuItemPropsAndOpenTourProps): JSX.Element {
 	const [open, setOpen] = useState(openTourMenuItems);
 	const dispatch = useAppDispatch();
-	const { printingLabels } = useAppSelector(selectUserPermissions);
+	const { isPrintLabel } = useAppSelector(selectUserPermissions);
 
 	const { openSidebarWith } = useSidebarAction('home');
 	const prefetchPrintingSettings = usePrefetch('getUserPrintSettings');
 	const visibleColumns = useVisibleColumns();
 
 	const handleToggleNestedMenu = () => {
-		printingLabels
+		isPrintLabel
 			? setOpen(prev => !prev)
 			: dispatch(
 					changeSmartDialogState({
@@ -60,12 +59,8 @@ function PrintMenuItem({
 
 	return (
 		<>
-			<StyledMenuItem
-				moduleIsActive={printingLabels}
-				onClick={handleToggleNestedMenu}
-				{...othen}
-			>
-				<ListItemIcon>{printingLabels ? <PrintIcon /> : <LockIcon />}</ListItemIcon>
+			<StyledMenuItem moduleIsActive={isPrintLabel} onClick={handleToggleNestedMenu} {...othen}>
+				<ListItemIcon>{isPrintLabel ? <PrintIcon /> : <LockIcon />}</ListItemIcon>
 				<ListItemText>Печать бирок</ListItemText>
 				<ExpandIcon
 					color='action'

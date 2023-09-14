@@ -1,3 +1,5 @@
+import { Dayjs } from 'dayjs';
+
 import type { Tag } from 'constant/tag';
 
 export interface IDataItem {
@@ -84,7 +86,7 @@ export interface IDataItem {
 	/**
 	 * Межповерочный интервал
 	 */
-	interVerificationinterval: string;
+	interVerificationInterval: string;
 }
 
 export interface IDocument {
@@ -108,13 +110,13 @@ export interface IDataItemWithDates
 	/**
 	 * Дата поверки
 	 */
-	verificationDate: Date;
+	verificationDate: Dayjs;
 	/**
 	 * Дата производства
 	 */
-	productionDate: Date;
+	productionDate: Dayjs;
 	/**
 	 * Дата следующией поверки
 	 */
-	dateOfTheNextVerification: Date;
+	dateOfTheNextVerification: Dayjs;
 }

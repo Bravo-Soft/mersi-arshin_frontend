@@ -1,6 +1,6 @@
-import { format, isValid, parseISO } from 'date-fns';
+import dayjs from 'dayjs';
 
-import { formatVariant } from 'constant/dateFormat';
+import { dayjsFormatVariant } from 'constant/dateFormat';
 import type { ITag, ITagParameters } from 'types/tag';
 
 export interface ISortedTagItems {
@@ -22,8 +22,8 @@ export const printingManySort = (tags: ITag[]): ISortedTagItems[] => {
 		id,
 		size,
 		tagsPrint: [...Object.values(el)].map(e => {
-			return isValid(parseISO(e.value))
-				? { ...e, value: format(parseISO(e.value), formatVariant) }
+			return dayjs(e.value).isValid()
+				? { ...e, value: dayjs(e.value).format(dayjsFormatVariant) }
 				: e;
 		}),
 	}));

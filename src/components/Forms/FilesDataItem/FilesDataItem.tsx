@@ -1,4 +1,3 @@
-
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -27,7 +26,7 @@ function FilesDataItem(): JSX.Element {
 
 	/* Селекторы */
 	const selectedDataItem = useAppSelector(selectSelectedDataItem);
-	const { maxSizeOfSpacePerPosition = 0 } = useAppSelector(selectUserPermissions);
+	const { isFileStorage } = useAppSelector(selectUserPermissions);
 	const { isWriter, isAdmin } = useAppSelector(selectUserRoles);
 	const { open } = useAppSelector(selectSidebarStateOfHomePage);
 
@@ -45,7 +44,7 @@ function FilesDataItem(): JSX.Element {
 		files,
 		setFiles,
 		documents,
-		maxSizeOfSpacePerPosition,
+		maxSizeOfSpacePerPosition: isFileStorage.maxSizePerRow,
 	});
 
 	/* Обработка ошибки недопустимого типа файла */
@@ -104,7 +103,7 @@ function FilesDataItem(): JSX.Element {
 				)}
 
 				<SpaceNotification
-					maxSizeOfSpacePerPosition={maxSizeOfSpacePerPosition}
+					maxSizeOfSpacePerPosition={isFileStorage.maxSizePerRow}
 					occupiedSpace={occupiedSpace}
 				/>
 				<FilesList documents={documents} itemId={selectedDataItem?.id} />

@@ -1,3 +1,4 @@
+import { GridRowId } from '@mui/x-data-grid-pro';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
 import { enqueueSnackbar } from 'notistack';
 
@@ -7,20 +8,11 @@ import { HttpCodes } from 'constant/httpCodes';
 import { Messages } from 'constant/messages';
 import type { IDataItem } from 'types/dataItem';
 
-export interface IGetAllDataResponse {
-	pagesCount: number;
-	page: number;
-	pageSize: number;
-	totalCount: number;
-	items: IDataItem[];
-}
-
 export const dataTableApiSlice = apiSlice.injectEndpoints({
 	overrideExisting: false,
 	endpoints: builder => ({
 		getAllData: builder.query<IDataItem[], void>({
 			query: () => API.data.default,
-			transformResponse: (response: IGetAllDataResponse) => response.items,
 			providesTags: result =>
 				result
 					? [
@@ -39,7 +31,10 @@ export const dataTableApiSlice = apiSlice.injectEndpoints({
 			providesTags: (_result, _error, id) => [{ type: 'Data', id }],
 		}),
 
-		createNewDataItem: builder.mutation<IDataItem, Omit<IDataItem, 'id' | 'userIds'>>({
+		createNewDataItem: builder.mutation<
+			IDataItem,
+			Omit<IDataItem, 'id' | 'userIds' | 'documents'>
+		>({
 			query: body => ({
 				url: API.data.default,
 				method: 'POST',
@@ -60,7 +55,7 @@ export const dataTableApiSlice = apiSlice.injectEndpoints({
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			query: ({ id, documents, ...body }) => ({
 				url: `${API.data.default}/${id}`,
-				method: 'PUT',
+				method: 'PATCH',
 				body,
 			}),
 			invalidatesTags: (_result, _error, { id }) => [{ type: 'Data', id }],
@@ -95,10 +90,11 @@ export const dataTableApiSlice = apiSlice.injectEndpoints({
 			},
 		}),
 
-		deleteDataItem: builder.mutation<void, IDataItem['id']>({
-			query: id => ({
-				url: `${API.data.default}/${id}`,
+		deleteDataItem: builder.mutation<void, GridRowId[]>({
+			query: deleteItems => ({
+				url: API.data.default,
 				method: 'DELETE',
+				body: deleteItems,
 			}),
 			invalidatesTags: [{ type: 'Data', id: 'DELETE_ITEM' }],
 			onQueryStarted: async (_arg, { queryFulfilled }) => {

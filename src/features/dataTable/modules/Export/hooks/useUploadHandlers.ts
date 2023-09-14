@@ -1,36 +1,22 @@
 import { useGridApiContext } from '@mui/x-data-grid-pro';
-import { format } from 'date-fns';
+import dayjs from 'dayjs';
 import { enqueueSnackbar } from 'notistack';
 
 import { useConvertColumns } from './useConvertColumns';
 import { useFiltredSortedData } from './useFiltredSortedData';
 
-import { formatVariant } from 'constant/dateFormat';
+import { dayjsFormatVariant } from 'constant/dateFormat';
 import { Messages } from 'constant/messages';
-import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
 import { useGetUserProfileQuery } from 'features/user/userApiSlice';
-import { useAppDispatch } from 'hooks/redux';
-import { createWorkbook } from 'utils/excel';
 import type { IExcelConfig } from 'utils/excel';
+import { createWorkbook } from 'utils/excel';
 import { saveAs } from 'utils/saveAs';
-
-
-
-
-
 
 interface IUseUploadHandlers {
 	onCloseMenu: () => void;
-	isXLSXEnabled?: boolean;
-	isCSVEnabled?: boolean;
 }
 
-export const useUploadHandlers = ({
-	isCSVEnabled,
-	isXLSXEnabled,
-	onCloseMenu,
-}: IUseUploadHandlers) => {
-	const dispatch = useAppDispatch();
+export const useUploadHandlers = ({ onCloseMenu }: IUseUploadHandlers) => {
 	const apiRef = useGridApiContext();
 
 	/* Подготовка данных и колонок для них */
@@ -38,16 +24,6 @@ export const useUploadHandlers = ({
 	const columns = useConvertColumns(apiRef);
 
 	const { data: userData } = useGetUserProfileQuery();
-
-	const showPaymentDialog = () => {
-		dispatch(
-			changeSmartDialogState({
-				variant: 'payment',
-				isOpen: true,
-				content: Messages.MODULE_IS_NOT_PAID,
-			})
-		);
-	};
 
 	const showHiddenMessage = () => {
 		enqueueSnackbar(Messages.ALL_COLUMNS_IS_HIDDEN, { variant: 'warning' });
@@ -62,7 +38,7 @@ export const useUploadHandlers = ({
 		apiRef.current.exportDataAsCsv({
 			delimiter: ';',
 			utf8WithBom: true,
-			fileName: `Файл от ${format(new Date(), formatVariant)}`,
+			fileName: `Файл от ${dayjs().format(dayjsFormatVariant)}`,
 		});
 	};
 
@@ -93,7 +69,7 @@ export const useUploadHandlers = ({
 			});
 
 			/* Задаем название и сохраняем файл */
-			const filename = `Книга от ${format(new Date(), formatVariant)}.xlsx`;
+			const filename = `Книга от ${dayjs().format(dayjsFormatVariant)}.xlsx`;
 			saveAs(blob, filename);
 		} catch {
 			enqueueSnackbar(Messages.FAILED_TO_SAVE_WORKBOOK, { variant: 'error' });
@@ -103,12 +79,12 @@ export const useUploadHandlers = ({
 	/* Обработчики с готовыми функциями экспорта, работают в зависимости от статуса права в пакете */
 	const handleUploadToCSV = () => {
 		onCloseMenu();
-		isCSVEnabled ? exportDataAsCSV() : showPaymentDialog();
+		exportDataAsCSV();
 	};
 
 	const handleUploadToXLSX = async () => {
 		onCloseMenu();
-		isXLSXEnabled ? await exportDataAsXLSX() : showPaymentDialog();
+		await exportDataAsXLSX();
 	};
 
 	return { handleUploadToCSV, handleUploadToXLSX };

@@ -21,6 +21,7 @@ export enum Messages {
 	PHOTO_RESET = 'Фотография сброшена',
 	FILES_SUCCESSFULLY_UPLOADED = 'Файл(ы) успешно загружен(ы)',
 	DATA_COPY_TO_CLIPBOARD = 'Скопировано в буфер обмена',
+	SPACE_CLICK = 'Пробел недоступен при вводе пароля',
 
 	// Уведомления – Успешные
 	WELCOME = 'Добро пожаловать',

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import { months } from '../components/Toolbar/components/DataTableToolbarFilter/toolBarFilters';
 import type { ChipFilterOptions } from '../components/Toolbar/components/DataTableToolbarFilter/toolBarFilters';
+import { months } from '../components/Toolbar/components/DataTableToolbarFilter/toolBarFilters';
 import {
 	changeChipFilterOption,
 	resetDataTableState,
@@ -9,13 +9,7 @@ import {
 	unpinManyRows,
 } from '../dataTableSlice';
 
-import { Messages } from 'constant/messages';
-import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
-import { selectUserPermissions } from 'features/user/userSlice';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
-
-
-
 
 export const useChipFilterActions = () => {
 	const dispatch = useAppDispatch();
@@ -26,42 +20,13 @@ export const useChipFilterActions = () => {
 	const selectedOptionIsMonth = typeof currentFilteringOption === 'number';
 	const currentBadgeContent = selectedOptionIsMonth && months[currentFilteringOption];
 
-	const { hasFavorites, hasChoiceMonth, hasChooseExpiredValue } =
-		useAppSelector(selectUserPermissions);
-
-	const openPaymentDialog = () => {
-		dispatch(
-			changeSmartDialogState({
-				variant: 'payment',
-				isOpen: true,
-				content: Messages.MODULE_IS_NOT_PAID,
-			})
-		);
-	};
-
 	const checkHasChoiceMonth = () => {
-		hasChoiceMonth ? setIsExpanded(prev => !prev) : openPaymentDialog();
-	};
-
-	const currentChipIsPayd = (option: ChipFilterOptions) => {
-		switch (option) {
-			case 'Избранное':
-				return hasFavorites;
-			case 'Месяц':
-				return hasChoiceMonth;
-			case 'Просроченные':
-				return hasChooseExpiredValue;
-			default:
-				return true;
-		}
+		setIsExpanded(prev => !prev);
 	};
 
 	const handleSelectChipFilterOption = (newOption: ChipFilterOptions) => () => {
 		dispatch(unpinManyRows());
 
-		if (!currentChipIsPayd(newOption)) {
-			return openPaymentDialog();
-		}
 		if (newOption === currentFilteringOption) {
 			isExpanded && checkHasChoiceMonth();
 			dispatch(resetDataTableState());
@@ -87,7 +52,7 @@ export const useChipFilterActions = () => {
 		},
 		actions: {
 			checkHasChoiceMonth,
-			currentChipIsPayd,
+
 			handleSelectChipFilterOption,
 			currentChipIsFavorite,
 			currentChipIsOverdue,

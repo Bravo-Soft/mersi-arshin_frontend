@@ -1,8 +1,8 @@
 import { gridFilteredSortedRowEntriesSelector, useGridSelector } from '@mui/x-data-grid-pro';
 import type { GridApiPro } from '@mui/x-data-grid-pro/models/gridApiPro';
-import { format, parseISO } from 'date-fns';
+import dayjs from 'dayjs';
 
-import { formatVariant } from 'constant/dateFormat';
+import { dayjsFormatVariant } from 'constant/dateFormat';
 import { selectSelectionModel } from 'features/dataTable/dataTableSlice';
 import { useAppSelector } from 'hooks/redux';
 import type { IDataItem } from 'types/dataItem';
@@ -21,15 +21,13 @@ export const useFiltredSortedData = (apiRef: React.MutableRefObject<GridApiPro>)
 		({ model }) =>
 			({
 				...model,
-				productionDate: format(parseISO(model.productionDate), formatVariant),
-				verificationDate: format(parseISO(model.verificationDate), formatVariant),
-				dateOfTheNextVerification: format(
-					parseISO(model.dateOfTheNextVerification),
-					formatVariant
+				productionDate: dayjs(model.productionDate).format(dayjsFormatVariant),
+				verificationDate: dayjs(model.verificationDate).format(dayjsFormatVariant),
+				dateOfTheNextVerification: dayjs(model.dateOfTheNextVerification).format(
+					dayjsFormatVariant
 				),
 			} as IDataItem)
 	);
-
 	/* Проверка на наличие отмеченных позиций */
 	if (ids.length) {
 		/* Находим только отмеченные */

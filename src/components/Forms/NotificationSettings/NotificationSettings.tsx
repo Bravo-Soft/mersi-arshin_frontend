@@ -9,6 +9,7 @@ import { useCallback } from 'react';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 
 import EmailInputs from './EmailInputs';
+import { notificationResolver } from './notificationResolver';
 import SelectInputs from './SelectInputs';
 
 import { Messages } from 'constant/messages';
@@ -20,9 +21,9 @@ import {
 import ButtonContainer from 'styled/ButtonContainer';
 import FormContainer from 'styled/FormContainer';
 import type { INotificationSettings } from 'types/notification';
+import { formTrimming } from 'utils/formTrimming';
 
 function NotificationSettings() {
-	const [sendUpdatedItem] = useUpdateUserNotificationMutation();
 	const { settings, isGetDataFetching, isLoading } = useGetUserNotificationQuery(undefined, {
 		selectFromResult: ({ data, isFetching, isLoading }) => ({
 			settings: data,
@@ -33,16 +34,18 @@ function NotificationSettings() {
 
 	const methods = useForm<INotificationSettings>({
 		values: settings,
+		resolver: notificationResolver,
 	});
 
-	const { watch, control, handleSubmit } = methods;
-
+	const { handleSubmit, watch, control } = methods;
 	const switchNotification = watch('isNotificationEnabled');
 
-	const onSubmit = useCallback(
+	const [sendUpdatedItem] = useUpdateUserNotificationMutation();
+
+	const submitNotificationValue = useCallback(
 		async (data: INotificationSettings) => {
 			try {
-				await sendUpdatedItem(data).unwrap();
+				await sendUpdatedItem(formTrimming(data)).unwrap();
 				enqueueSnackbar(Messages.NOTIFICATION_SUCCESSFULLY_UPDATED, { variant: 'success' });
 			} catch {
 				enqueueSnackbar(Messages.FAILED_TO_UPDATE_NOTIFICATION, { variant: 'error' });
@@ -52,7 +55,7 @@ function NotificationSettings() {
 	);
 
 	return (
-		<FormContainer onSubmit={handleSubmit(onSubmit)}>
+		<FormContainer onSubmit={handleSubmit(submitNotificationValue)}>
 			<FetchingProgress isFetching={isGetDataFetching} />
 			{!isGetDataFetching && (
 				<Stack
@@ -98,4 +101,5 @@ function NotificationSettings() {
 		</FormContainer>
 	);
 }
+
 export default NotificationSettings;

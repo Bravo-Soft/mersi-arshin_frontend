@@ -3,6 +3,9 @@ import Badge from '@mui/material/Badge';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import { useEffect, useState } from 'react';
+import { useFormContext } from 'react-hook-form';
+
+import { INotificationSettings } from 'types/notification';
 
 interface INotificationAddButtonProps {
 	index: number;
@@ -15,18 +18,29 @@ function NotificationAddButton({
 	watchEmailFilters,
 	handleClickFilters,
 }: INotificationAddButtonProps) {
-	const [length, setlength] = useState(watchEmailFilters);
+	const [length, setLength] = useState(watchEmailFilters);
+
+	const {
+		formState: { errors },
+	} = useFormContext<INotificationSettings>();
 
 	useEffect(() => {
-		setlength(watchEmailFilters);
+		setLength(watchEmailFilters);
 	}, [index, watchEmailFilters]);
 
 	return (
-		<Tooltip title='Добавить Фильтр'>
-			<IconButton aria-describedby='id' size='small' onClick={handleClickFilters(index)}>
+		<Tooltip title='Добавить фильтр'>
+			<IconButton
+				aria-describedby='id'
+				size='small'
+				onClick={handleClickFilters(index)}
+				sx={errors?.subscribedEmails?.[index] ? { mt: '10px' } : undefined}
+			>
 				{length ? (
 					<Badge color='primary' badgeContent={length}>
-						<FilterListIcon />
+						<FilterListIcon
+							sx={errors?.subscribedEmails?.[index]?.emailFilters && { color: 'red' }}
+						/>
 					</Badge>
 				) : (
 					<FilterListIcon />

@@ -5,20 +5,17 @@ import Stack from '@mui/material/Stack';
 import { months } from './toolBarFilters';
 import type { ChipFilterOptions } from './toolBarFilters';
 
-
 import StyledChip from 'features/dataTable/styled/StyledChip';
 
 export interface IMonthsChipsProps {
 	isExpanded: boolean;
 	handleSelectChipFilterOption: (newOption: ChipFilterOptions) => () => void;
-	currentChipIsPayd: (option: ChipFilterOptions) => boolean | undefined;
 	currentBadgeContent: string | false;
 }
 
 function MonthsChips({
 	isExpanded,
 	handleSelectChipFilterOption,
-	currentChipIsPayd,
 	currentBadgeContent,
 }: IMonthsChipsProps) {
 	return (
@@ -31,7 +28,6 @@ function MonthsChips({
 							clickable
 							key={month}
 							label={month}
-							isPaydChip={currentChipIsPayd('Месяц')}
 							onClick={handleSelectChipFilterOption(index)}
 							monthPanelIsActivated={month === currentBadgeContent}
 						/>

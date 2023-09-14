@@ -7,10 +7,12 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { FormProvider, useForm } from 'react-hook-form';
 
+
 import ContentCreateReview from './ContentCreateReview';
+import { reviewResolver } from './reviewResover';
 
 import { usePostNewReviewMutation } from 'features/review/reviewApiSlice';
-
+import { formTrimming } from 'utils/formTrimming';
 
 interface ICreateReviewProps {
 	isOpen: boolean;
@@ -30,10 +32,11 @@ function CreateReview({ isOpen, handleModalReview }: ICreateReviewProps) {
 			rating: 0,
 			message: '',
 		},
+		resolver: reviewResolver,
 	});
 
 	const onSubmit = methods.handleSubmit(async data => {
-		await postNewReview(data);
+		await postNewReview(formTrimming(data));
 		methods.reset();
 		handleModalReview();
 	});

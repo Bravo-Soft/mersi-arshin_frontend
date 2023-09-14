@@ -9,9 +9,7 @@ function EighthStep() {
 		<>
 			{eighthStepContent.map(({ title, content }) => (
 				<Box marginBottom={1} key={title}>
-					<StyledTourDescription>Кнопка</StyledTourDescription>
-					<span>&#32;</span>
-					<StyledTourTitle>"{title}"</StyledTourTitle>
+					<StyledTourTitle>{title}</StyledTourTitle>
 					<span>&#32;&#8212;&#32;</span>
 					<StyledTourDescription>{content}</StyledTourDescription>
 				</Box>

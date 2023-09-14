@@ -6,7 +6,6 @@ import { API } from 'app/api';
 import { apiSlice } from 'app/apiSlice';
 import { Messages } from 'constant/messages';
 
-
 export interface IAuthResponse {
 	accessToken: string;
 }

@@ -12,7 +12,7 @@ import { useDebounce } from 'hooks/useDebounce';
 
 export const useUpdateTemplate = (apiRef: MutableRefObject<GridApiPro>) => {
 	const [updateSelectedConfig] = useUpdateSelectedTemplateMutation();
-	const { data: currentConfig } = useFetchSelectedTemplateQuery();
+	const { data: currentConfig } = useFetchSelectedTemplateQuery()
 
 	const handleUpdateTemplate = useDebounce(async () => {
 		if (currentConfig) {

@@ -1,6 +1,9 @@
 import Button from '@mui/material/Button';
 import { FormProvider, useForm } from 'react-hook-form';
 
+import { formResolver } from '../utils/dataItemResolvers';
+import { dateFormTransform } from '../utils/dateFormTransform';
+
 import VerificateInputs from './VerificateInputs';
 
 import FetchingProgress from 'features/dataTable/components/FetchingProgress';
@@ -12,8 +15,8 @@ import { useAppSelector } from 'hooks/redux';
 import { useUpdateSelectedDataItem } from 'hooks/useUpdateSelectedDataItem';
 import ButtonContainer from 'styled/ButtonContainer';
 import FormContainer from 'styled/FormContainer';
-import type { IDataItem, IDataItemWithDates } from 'types/dataItem';
-import { createDateISO } from 'utils/createDateISO';
+import type { IDataItemWithDates } from 'types/dataItem';
+import { formTrimming } from 'utils/formTrimming';
 import { setDefaultValue } from 'utils/setDefaultValue';
 
 function VerificateDataItem(): JSX.Element {
@@ -23,24 +26,15 @@ function VerificateDataItem(): JSX.Element {
 	const [sendUpdatedItem, { isLoading: isUpdateLoading }] = useUpdateDataItemMutation();
 	const methods = useForm<IDataItemWithDates>({
 		values: setDefaultValue(selectedDataItem),
+		resolver: formResolver,
+		mode: 'onChange',
 	});
 
 	useUpdateSelectedDataItem(selectedDataItem);
 	useUpdateInputValues(selectedDataItem, methods.setValue);
 
 	const onSubmit = methods.handleSubmit(async data => {
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		const { productionDate, verificationDate, dateOfTheNextVerification, userIds, ...other } =
-			data;
-
-		const preparedDataItem: Omit<IDataItem, 'userIds'> = {
-			...other,
-			productionDate: createDateISO(productionDate),
-			verificationDate: createDateISO(verificationDate),
-			dateOfTheNextVerification: createDateISO(dateOfTheNextVerification),
-		};
-
-		await sendUpdatedItem(preparedDataItem).unwrap();
+		await sendUpdatedItem(dateFormTransform(formTrimming(data))).unwrap();
 	});
 
 	return (
@@ -53,7 +47,12 @@ function VerificateDataItem(): JSX.Element {
 			)}
 			{(isWriter || isAdmin) && (
 				<ButtonContainer>
-					<Button variant='contained' fullWidth type='submit' disabled={isUpdateLoading}>
+					<Button
+						variant='contained'
+						fullWidth
+						type='submit'
+						disabled={isUpdateLoading || !methods.formState.isDirty}
+					>
 						Сохранить
 					</Button>
 				</ButtonContainer>

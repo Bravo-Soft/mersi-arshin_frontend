@@ -9,7 +9,7 @@ import AuthForm from 'features/auth/components/AuthForm';
 import ErrorTip from 'features/auth/components/ErrorTip';
 import HelpDialog from 'features/auth/components/HelpDialog';
 import { useErrorMessage } from 'features/auth/hooks/useErrorMessage';
-
+import { formTrimming } from 'utils/formTrimming';
 
 function AuthPage(): JSX.Element {
 	/* Метод авторизации */
@@ -20,7 +20,7 @@ function AuthPage(): JSX.Element {
 
 	/* Обработчики */
 	const handleLogin = async (data: IAuthFormRequest) => {
-		await login(data).unwrap();
+		await login(formTrimming(data)).unwrap();
 		navigate(AppRoutes.HOME, { replace: true });
 	};
 

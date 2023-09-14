@@ -4,7 +4,7 @@
 			"path": "."
 		},
 		{
-			"path": "../mersi_server_3.0"
+			"path": "../mersi_manager"
 		}
 	],
 	"extensions": {
@@ -23,16 +23,13 @@
 		]
 	},
 	"settings": {
-		"editor.fontSize": 13,
 		"editor.fontLigatures": true,
 		"editor.lineHeight": 1.4,
-		"editor.glyphMargin": true,
-		"editor.fontFamily": " 'Jetbrains Mono', SFMono-Medium,  'Fira Code',  Consolas, 'Courier New', monospace",
+
 		"editor.formatOnPaste": true,
 		"editor.formatOnSave": true,
 		"editor.insertSpaces": false,
 		"editor.detectIndentation": true,
-		"editor.bracketPairColorization.enabled": true,
 		"[typescript]": {
 			"editor.defaultFormatter": "esbenp.prettier-vscode"
 		},
@@ -46,15 +43,20 @@
 			"editor.defaultFormatter": "esbenp.prettier-vscode"
 		},
 		"files.eol": "\n",
-		"inline-parameters.border": "1px solid #f2f2f230",
-		"inline-parameters.borderRadius": "0.5em",
-		"inline-parameters.fontSize": "0.8em",
-		"inline-parameters.fontWeight": "600",
-		"inline-parameters.margin": "0.4em",
-		"inline-parameters.padding": "3px 3px",
 		"thunder-client.saveToWorkspace": true,
-		"cSpell.words": ["Браво", "булевого", "сайдбара", "Софт", "чекбоксы", "notistack"],
-		"cSpell.language": "en,ru"
+		"cSpell.words": [
+			"Браво",
+			"булевого",
+			"Лайт",
+			"сайдбара",
+			"Софт",
+			"Триал",
+			"чекбоксы",
+			"minio",
+			"notistack"
+		],
+		"cSpell.language": "en,ru",
+		"thunder-client.multiRootWorkspaceName": "mersi_client_3.0"
 	},
 	"launch": {
 		"version": "0.2.0",
@@ -63,7 +65,7 @@
 				"type": "chrome",
 				"request": "launch",
 				"name": "Default debugger",
-				"url": "http://localhost:3000",
+				"url": "http://localhost:4200",
 				"webRoot": "${workspaceFolder}"
 			}
 		],
