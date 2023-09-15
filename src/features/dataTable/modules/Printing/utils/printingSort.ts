@@ -17,12 +17,14 @@ export const printingSort = (tag: ITag) => {
 		.map(e => copy[e]);
 };
 
+const dateArray = ['Дата производства', 'Дата следующей поверки', 'Дата поверки'];
+
 export const printingManySort = (tags: ITag[]): ISortedTagItems[] => {
 	return tags.map(({ id, size, ...el }) => ({
 		id,
 		size,
 		tagsPrint: [...Object.values(el)].map(e => {
-			return dayjs(e.value).isValid()
+			return dateArray.includes(e.translatedKey)
 				? { ...e, value: dayjs(e.value).format(dayjsFormatVariant) }
 				: e;
 		}),

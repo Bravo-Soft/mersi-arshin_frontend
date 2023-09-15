@@ -9,8 +9,6 @@ import TagContextMenu from './TagContextMenu';
 
 import type { ITag } from 'types/tag';
 
-
-
 interface IPrintingTagsProps {
 	tags: ITag[];
 }
