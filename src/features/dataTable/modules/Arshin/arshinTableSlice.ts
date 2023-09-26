@@ -8,10 +8,12 @@ import { IDataItemArshin } from 'types/arshinIntegration';
 
 interface IArshinTableState {
 	selectedDataItems: IDataItemArshin[] | null;
+	selectedDataArshinItem: string | null;
 }
 
 const initialState: IArshinTableState = {
 	selectedDataItems: null,
+	selectedDataArshinItem: null,
 };
 
 const arshinTableSlice = createSlice({
@@ -22,6 +24,14 @@ const arshinTableSlice = createSlice({
 			state.selectedDataItems = action.payload;
 		},
 		resetSelectedDataItem: () => initialState,
+
+		setSelectedDataArshinItem: (state, action: PayloadAction<string>) => {
+			state.selectedDataArshinItem = action.payload;
+		},
+
+		resetSelectedDataArshinItem: state => {
+			state.selectedDataArshinItem = initialState.selectedDataArshinItem;
+		},
 	},
 });
 
@@ -35,7 +45,11 @@ export const selectSelectedDataIds = (state: RootState) =>
 export const selectArshinData = (state: RootState) =>
 	arshinTableApiSlice.endpoints.getData.select()(state).data ?? [];
 
-export const { setSelectedDataItems, resetSelectedDataItem } = arshinTableSlice.actions;
+export const selectSelectedArshinData = (state: RootState) =>
+	state.arshinTable.selectedDataArshinItem;
+
+export const { setSelectedDataItems, resetSelectedDataItem, setSelectedDataArshinItem } =
+	arshinTableSlice.actions;
 
 export const arshinTablePath = arshinTableSlice.name;
 export const arshinTableReducer = arshinTableSlice.reducer;

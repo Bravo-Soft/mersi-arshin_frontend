@@ -53,7 +53,7 @@ function MenuActionsArshin() {
 			title: 'Удалить',
 			Icon: DeleteIcon,
 			isActive: Boolean(selectionIds.length),
-			action: () => handleDeleteItems(selectionIds),
+			action: handleDeleteItems,
 		},
 	];
 

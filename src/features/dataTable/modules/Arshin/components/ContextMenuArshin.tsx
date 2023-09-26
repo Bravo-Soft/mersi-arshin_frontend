@@ -42,7 +42,7 @@ function ContextMenuArshin({ contextMenu, handleClose }: IContextMenuProps) {
 			title: 'Удалить',
 			Icon: DeleteIcon,
 			isDisabled: Boolean(selectionIds?.length),
-			action: () => handleDeleteItems(selectionIds),
+			action: handleDeleteItems,
 		},
 	];
 

@@ -31,7 +31,8 @@ function DataTableArshin() {
 
 	const { selectionIds, handleSelectItems } = useTableActions();
 
-	const { contextMenu, handleOpenContextMenu, handleCloseContextMenu } = useContextMenuActions();
+	const { contextMenu, handleOpenContextMenu, handleCloseContextMenu } =
+		useContextMenuActions(data);
 
 	return (
 		<DataTableBox>
