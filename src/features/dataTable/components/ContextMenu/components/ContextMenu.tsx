@@ -125,7 +125,7 @@ function ContextMenu({ contextMenu, actionsOfContextMenu }: IContextMenuProps): 
 			//TODO: необходимо добавить права
 			isActive: isArshin ?? false,
 			//TODO: необходимо добавить права
-			action: isArshin ? () => handleAddToArshin(selectionModel) : handleOpenFilesOfDataItem,
+			action: isArshin ? handleAddToArshin : handleOpenFilesOfDataItem,
 		},
 	];
 

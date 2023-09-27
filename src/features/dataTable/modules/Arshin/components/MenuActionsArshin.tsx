@@ -50,10 +50,10 @@ function MenuActionsArshin() {
 			action: handleOpenFilter,
 		},
 		{
-			title: 'Удалить',
+			title: 'Удалить выделенное',
 			Icon: DeleteIcon,
 			isActive: Boolean(selectionIds.length),
-			action: () => handleDeleteItems(selectionIds),
+			action: handleDeleteItems,
 		},
 	];
 

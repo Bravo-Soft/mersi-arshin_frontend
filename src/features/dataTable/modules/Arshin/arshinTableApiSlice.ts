@@ -14,9 +14,7 @@ export const arshinTableApiSlice = apiSlice.injectEndpoints({
 			query: ids => ({
 				url: API.arshin.addItems,
 				method: 'POST',
-				body: {
-					dataIds: ids,
-				},
+				body: ids,
 			}),
 			invalidatesTags: ['ArshinData'],
 		}),
@@ -24,9 +22,7 @@ export const arshinTableApiSlice = apiSlice.injectEndpoints({
 			query: ids => ({
 				url: API.arshin.deleteItems,
 				method: 'DELETE',
-				body: {
-					dataIds: ids,
-				},
+				body: ids,
 			}),
 			invalidatesTags: ['ArshinData'],
 		}),

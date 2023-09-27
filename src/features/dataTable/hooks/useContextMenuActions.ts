@@ -198,10 +198,14 @@ export const useContextMenuActions = (
 		}
 	};
 
-	const handleAddToArshin = async (selectionModel: GridSelectionModel) => {
-		if (selectionModel.length) {
+	const handleAddToArshin = async () => {
+		const addingValue = isValueDefined(selectedDataItem)
+			? getArrayWithoutDuplicates(...selectionModel, selectedDataItem.id)
+			: selectionModel;
+
+		if (addingValue.length) {
 			try {
-				await addToArshin(selectionModel).unwrap();
+				await addToArshin(addingValue).unwrap();
 				enqueueSnackbar(Messages.ARSHIN_ITEMS_SUCCESSFULLY_ADDED, { variant: 'success' });
 			} catch {
 				enqueueSnackbar(Messages.FAILED_ARSHIN_ITEMS_ADDED, { variant: 'error' });

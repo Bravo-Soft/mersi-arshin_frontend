@@ -5,9 +5,12 @@ import { useDeleteItemsMutation, useSynchronizeItemsMutation } from '../arshinTa
 import {
 	resetSelectedDataItem,
 	selectArshinData,
+	selectSelectedArshin,
 	selectSelectedDataItems,
 } from '../arshinTableSlice';
 import { changeDialogState, openFilterDialogArshin } from '../dialogArshinSlice';
+
+import useTableActions from './useTableActions';
 
 import { ArshinStatus } from 'constant/arshinStatus';
 import { Messages } from 'constant/messages';
@@ -21,8 +24,12 @@ export const useMenuActions = () => {
 
 	const selectedData = useAppSelector(selectSelectedDataItems);
 
+	const selectedDataIds = useAppSelector(selectSelectedArshin);
+
 	const [deleteFromArshin] = useDeleteItemsMutation();
 	const [synchronizeItemsArshin] = useSynchronizeItemsMutation();
+
+	const { selectionIds } = useTableActions();
 
 	const handleOpenMenu = (event: MouseEvent<HTMLButtonElement>) => {
 		setAnchorEl(event.currentTarget);
@@ -72,9 +79,10 @@ export const useMenuActions = () => {
 		console.log('Запросить данные из ФГИС');
 	};
 
-	const handleDeleteItems = async (selectionIds: string[]) => {
+	const handleDeleteItems = async () => {
+		//test
 		if (selectedData?.some(el => el.status === ArshinStatus.DONE)) {
-			dispatch(
+			return dispatch(
 				changeDialogState({
 					isOpen: true,
 					variant: 'deleting',
@@ -83,16 +91,15 @@ export const useMenuActions = () => {
 					} будут потеряны все данные, полученные из ФГИС “Аршин”`,
 				})
 			);
-		} else {
-			try {
-				await deleteFromArshin(selectionIds).unwrap();
-				enqueueSnackbar(Messages.ITEM_SUCCESSFULLY_DELETED, { variant: 'success' });
-			} catch {
-				enqueueSnackbar(Messages.FAILED_DELETE_ITEM, { variant: 'error' });
-			}
+		}
+
+		try {
+			await deleteFromArshin(selectedDataIds).unwrap();
+			enqueueSnackbar(Messages.ITEM_SUCCESSFULLY_DELETED, { variant: 'success' });
+		} catch {
+			enqueueSnackbar(Messages.FAILED_DELETE_ITEM, { variant: 'error' });
 		}
 	};
-
 	return {
 		anchorEl,
 		open,
