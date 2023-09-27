@@ -9,11 +9,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Menu from '@mui/material/Menu';
 
-import {
-	selectSelectedArshin,
-	selectSelectedDataIds,
-	selectSelectedItemsDone,
-} from '../arshinTableSlice';
+import { selectSelectedDataIds, selectSelectedItemsDone } from '../arshinTableSlice';
 import { useMenuActions } from '../hooks/useMenuActions';
 
 import { useAppSelector } from 'hooks/redux';
@@ -29,7 +25,6 @@ interface IMenuItem {
 function MenuActionsArshin() {
 	const selectionIds = useAppSelector(selectSelectedDataIds);
 	const selectionItemsDone = useAppSelector(selectSelectedItemsDone);
-	const selectedDataIds = useAppSelector(selectSelectedArshin);
 
 	const {
 		anchorEl,
@@ -57,7 +52,7 @@ function MenuActionsArshin() {
 		{
 			title: 'Удалить выделенное',
 			Icon: DeleteIcon,
-			isActive: Boolean(selectedDataIds.length),
+			isActive: Boolean(selectionIds.length),
 			action: handleDeleteItems,
 		},
 	];
