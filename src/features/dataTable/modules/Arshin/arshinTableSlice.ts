@@ -1,10 +1,12 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSelector, createSlice } from '@reduxjs/toolkit';
 
 import { arshinTableApiSlice } from './arshinTableApiSlice';
 
 import { RootState } from 'app/store';
 import { ArshinStatus } from 'constant/arshinStatus';
+import { isValueDefined } from 'guards/isValueDefined';
 import { IDataItemArshin } from 'types/arshinIntegration';
+import { getArrayWithoutDuplicates } from 'utils/getArrayWithoutDuplicates';
 
 interface IArshinTableState {
 	selectedDataItems: IDataItemArshin[] | null;
@@ -48,6 +50,13 @@ export const selectArshinData = (state: RootState) =>
 export const selectSelectedArshinData = (state: RootState) =>
 	state.arshinTable.selectedDataArshinItem;
 
+export const selectSelectedArshin = createSelector(
+	selectSelectedArshinData,
+	selectSelectedDataIds,
+	(selected, modelIds) => {
+		return isValueDefined(selected) ? getArrayWithoutDuplicates(...modelIds, selected) : modelIds;
+	}
+);
 export const { setSelectedDataItems, resetSelectedDataItem, setSelectedDataArshinItem } =
 	arshinTableSlice.actions;
 

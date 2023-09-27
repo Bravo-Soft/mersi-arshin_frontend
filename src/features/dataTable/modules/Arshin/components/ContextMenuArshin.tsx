@@ -6,7 +6,11 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Menu from '@mui/material/Menu';
 
-import { selectSelectedDataIds, selectSelectedItemsDone } from '../arshinTableSlice';
+import {
+	selectSelectedArshin,
+	selectSelectedDataIds,
+	selectSelectedItemsDone,
+} from '../arshinTableSlice';
 import { useMenuActions } from '../hooks/useMenuActions';
 
 import { ICoordinates } from 'features/dataTable/hooks/useContextMenuActions';
@@ -30,6 +34,7 @@ function ContextMenuArshin({ contextMenu, handleClose }: IContextMenuProps) {
 
 	const selectionIds = useAppSelector(selectSelectedDataIds);
 	const selectionItemsDone = useAppSelector(selectSelectedItemsDone);
+	const selectedDataIds = useAppSelector(selectSelectedArshin);
 
 	const menuItems: IMenuItem[] = [
 		{
@@ -39,9 +44,9 @@ function ContextMenuArshin({ contextMenu, handleClose }: IContextMenuProps) {
 			action: () => handleSynchronizeItems(selectionIds),
 		},
 		{
-			title: 'Удалить',
+			title: 'Удалить выделенное',
 			Icon: DeleteIcon,
-			isDisabled: Boolean(selectionIds?.length),
+			isDisabled: Boolean(selectedDataIds?.length),
 			action: handleDeleteItems,
 		},
 	];
@@ -80,15 +85,17 @@ function ContextMenuArshin({ contextMenu, handleClose }: IContextMenuProps) {
 					key={title}
 					onClick={handleClick(action, isDisabled)}
 					sx={{
-						...(title === 'Удалить выделенное' && {
-							':hover': {
-								backgroundColor: red[50],
-								color: red[700],
-								'& .MuiSvgIcon-root': {
-									color: red[700],
-								},
-							},
-						}),
+						...(title === 'Удалить выделенное'
+							? {
+									':hover': {
+										backgroundColor: red[50],
+										color: red[700],
+										'& .MuiSvgIcon-root': {
+											color: red[700],
+										},
+									},
+							  }
+							: {}),
 					}}
 				>
 					<ListItemIcon>

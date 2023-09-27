@@ -5,7 +5,7 @@ import { useDeleteItemsMutation, useSynchronizeItemsMutation } from '../arshinTa
 import {
 	resetSelectedDataItem,
 	selectArshinData,
-	selectSelectedArshinData,
+	selectSelectedArshin,
 	selectSelectedDataItems,
 } from '../arshinTableSlice';
 import { changeDialogState, openFilterDialogArshin } from '../dialogArshinSlice';
@@ -14,9 +14,7 @@ import useTableActions from './useTableActions';
 
 import { ArshinStatus } from 'constant/arshinStatus';
 import { Messages } from 'constant/messages';
-import { isValueDefined } from 'guards/isValueDefined';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { getArrayWithoutDuplicates } from 'utils/getArrayWithoutDuplicates';
 
 export const useMenuActions = () => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -25,7 +23,8 @@ export const useMenuActions = () => {
 	const dataArshin = useAppSelector(selectArshinData);
 
 	const selectedData = useAppSelector(selectSelectedDataItems);
-	const selectedDataArshin = useAppSelector(selectSelectedArshinData);
+
+	const selectedDataIds = useAppSelector(selectSelectedArshin);
 
 	const [deleteFromArshin] = useDeleteItemsMutation();
 	const [synchronizeItemsArshin] = useSynchronizeItemsMutation();
@@ -81,8 +80,9 @@ export const useMenuActions = () => {
 	};
 
 	const handleDeleteItems = async () => {
+		//test
 		if (selectedData?.some(el => el.status === ArshinStatus.DONE)) {
-			dispatch(
+			return dispatch(
 				changeDialogState({
 					isOpen: true,
 					variant: 'deleting',
@@ -91,20 +91,15 @@ export const useMenuActions = () => {
 					} будут потеряны все данные, полученные из ФГИС “Аршин”`,
 				})
 			);
-		} else {
-			try {
-				await deleteFromArshin(
-					isValueDefined(selectedDataArshin)
-						? getArrayWithoutDuplicates(...selectionIds, selectedDataArshin)
-						: selectionIds
-				).unwrap();
-				enqueueSnackbar(Messages.ITEM_SUCCESSFULLY_DELETED, { variant: 'success' });
-			} catch {
-				enqueueSnackbar(Messages.FAILED_DELETE_ITEM, { variant: 'error' });
-			}
+		}
+
+		try {
+			await deleteFromArshin(selectedDataIds).unwrap();
+			enqueueSnackbar(Messages.ITEM_SUCCESSFULLY_DELETED, { variant: 'success' });
+		} catch {
+			enqueueSnackbar(Messages.FAILED_DELETE_ITEM, { variant: 'error' });
 		}
 	};
-	selectedDataArshin;
 	return {
 		anchorEl,
 		open,
