@@ -199,13 +199,13 @@ export const useContextMenuActions = (
 	};
 
 	const handleAddToArshin = async () => {
-		if (selectionModel.length) {
+		const addingValue = isValueDefined(selectedDataItem)
+			? getArrayWithoutDuplicates(...selectionModel, selectedDataItem.id)
+			: selectionModel;
+
+		if (addingValue.length) {
 			try {
-				await addToArshin(
-					isValueDefined(selectedDataItem)
-						? getArrayWithoutDuplicates(...selectionModel, selectedDataItem.id)
-						: selectionModel
-				).unwrap();
+				await addToArshin(addingValue).unwrap();
 				enqueueSnackbar(Messages.ARSHIN_ITEMS_SUCCESSFULLY_ADDED, { variant: 'success' });
 			} catch {
 				enqueueSnackbar(Messages.FAILED_ARSHIN_ITEMS_ADDED, { variant: 'error' });
