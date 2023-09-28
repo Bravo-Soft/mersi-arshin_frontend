@@ -38,9 +38,9 @@ export const API = {
 	},
 	arshin: {
 		getData: `${PREFIX}/user/modules/arshin`,
-		getFilters: `${PREFIX}/user/fgis/settings`,
-		editFilters: `${PREFIX}/user/fgis/settings`,
-		resetFilters: `${PREFIX}/user/fgis/settings/reset`,
+		getFilters: `${PREFIX}/user/settings/arshin`,
+		editFilters: `${PREFIX}/user/settings/arshin`,
+		resetFilters: `${PREFIX}/user/settings/arshin/reset`,
 		addItems: `${PREFIX}/user/modules/arshin`,
 		deleteItems: `${PREFIX}/user/modules/arshin`,
 		synchronizeItems: `${PREFIX}/user/fgis/synchronize`,
