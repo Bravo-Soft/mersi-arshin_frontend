@@ -28,6 +28,9 @@ export const useMenuActions = () => {
 
 	const [deleteFromArshin] = useDeleteItemsMutation();
 	const [synchronizeItemsArshin] = useSynchronizeItemsMutation();
+	
+
+
 
 	const { selectionIds } = useTableActions();
 
