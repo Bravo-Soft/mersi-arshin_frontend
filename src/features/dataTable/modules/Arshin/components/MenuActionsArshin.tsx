@@ -10,6 +10,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Menu from '@mui/material/Menu';
 
 import { selectSelectedDataIds, selectSelectedItemsDone } from '../arshinTableSlice';
+import { useArshinActions } from '../hooks/useArshinActions';
 import { useMenuActions } from '../hooks/useMenuActions';
 
 import { useAppSelector } from 'hooks/redux';
@@ -26,22 +27,15 @@ function MenuActionsArshin() {
 	const selectionIds = useAppSelector(selectSelectedDataIds);
 	const selectionItemsDone = useAppSelector(selectSelectedItemsDone);
 
-	const {
-		anchorEl,
-		open,
-		handleOpenFilter,
-		handleSynchronizeItems,
-		handleDeleteItems,
-		handleCloseMenu,
-		handleOpenMenu,
-	} = useMenuActions();
+	const { anchorEl, open, handleOpenFilter, handleCloseMenu, handleOpenMenu } = useMenuActions();
+	const { handleSynchronizeItems, handleDeleteItems } = useArshinActions();
 
 	const menuItems: IMenuItem[] = [
 		{
 			title: 'Обновить',
 			Icon: CachedIcon,
 			isActive: Boolean(selectionItemsDone.length),
-			action: () => handleSynchronizeItems(selectionIds),
+			action: handleSynchronizeItems,
 		},
 		{
 			title: 'Настроить фильтра',

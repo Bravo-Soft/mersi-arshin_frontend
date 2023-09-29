@@ -10,7 +10,7 @@ import { getArrayWithoutDuplicates } from 'utils/getArrayWithoutDuplicates';
 
 interface IArshinTableState {
 	selectedDataItems: IDataItemArshin[] | null;
-	selectedDataArshinItem: string | null;
+	selectedDataArshinItem: IDataItemArshin | null;
 }
 
 const initialState: IArshinTableState = {
@@ -27,7 +27,7 @@ const arshinTableSlice = createSlice({
 		},
 		resetSelectedDataItem: () => initialState,
 
-		setSelectedDataArshinItem: (state, action: PayloadAction<string>) => {
+		setSelectedDataArshinItem: (state, action: PayloadAction<IDataItemArshin>) => {
 			state.selectedDataArshinItem = action.payload;
 		},
 
@@ -37,29 +37,56 @@ const arshinTableSlice = createSlice({
 	},
 });
 
-export const selectSelectedDataItems = (state: RootState) => state.arshinTable.selectedDataItems;
-export const selectSelectedItemsDone = (state: RootState) =>
-	state.arshinTable.selectedDataItems?.filter(el => el.status === ArshinStatus.DONE) ?? [];
+//Selected model (Модель выбора)
+export const selectSelectedDataItems = (state: RootState) =>
+	state.arshinTable.selectedDataItems ?? [];
 
+//Id items in a selected  model (массив id каждого элемента модели)
 export const selectSelectedDataIds = (state: RootState) =>
 	state.arshinTable.selectedDataItems?.map(el => el.id) ?? [];
 
+//Arshin all data (все позиции для аршин)
 export const selectArshinData = (state: RootState) =>
 	arshinTableApiSlice.endpoints.getData.select()(state).data ?? [];
 
+//hovered element id (айди элемента на котором курсор наведен)
 export const selectSelectedArshinData = (state: RootState) =>
 	state.arshinTable.selectedDataArshinItem;
 
+//model array ids and hovered element id (модель выбранных айдишников и айди наведенного элемента)
 export const selectSelectedArshin = (state: RootState) => {
 	const selectedItem = selectSelectedArshinData(state);
 	const selectedIds = selectSelectedDataIds(state);
 	return isValueDefined(selectedItem)
-		? getArrayWithoutDuplicates(...selectedIds, selectedItem)
+		? getArrayWithoutDuplicates(...selectedIds, selectedItem.id)
 		: selectedIds;
 };
 
-export const { setSelectedDataItems, resetSelectedDataItem, setSelectedDataArshinItem } =
-	arshinTableSlice.actions;
+//Массива данных из таблицы по выделенным id
+export const selectSelectedModelArshin = (state: RootState) => {
+	const selectedModel = selectSelectedArshin(state);
+	const data = selectArshinData(state);
+
+	return data.filter(({ id }) => selectedModel.includes(id));
+};
+
+//Массив элементов у которых статус выполнен
+export const selectSelectedItemsDone = (state: RootState) => {
+	const selectedModelById = selectSelectedModelArshin(state);
+	return selectedModelById?.filter(el => el.status === ArshinStatus.DONE) ?? [];
+};
+//массив id isDone
+export const selectIdsIsDone = (state: RootState) => {
+	const doneItems = selectSelectedItemsDone(state);
+	return doneItems.map(({ id }) => id);
+};
+
+export const {
+	setSelectedDataItems,
+	resetSelectedDataItem,
+	setSelectedDataArshinItem,
+	resetSelectedDataArshinItem,
+} = arshinTableSlice.actions;
 
 export const arshinTablePath = arshinTableSlice.name;
 export const arshinTableReducer = arshinTableSlice.reducer;

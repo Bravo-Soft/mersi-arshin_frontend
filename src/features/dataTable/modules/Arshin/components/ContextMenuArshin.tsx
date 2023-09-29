@@ -6,21 +6,13 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Menu from '@mui/material/Menu';
 
-import {
-	selectSelectedArshin,
-	selectSelectedDataIds,
-	selectSelectedItemsDone,
-} from '../arshinTableSlice';
+import { selectSelectedArshin, selectSelectedItemsDone } from '../arshinTableSlice';
+import { useArshinActions } from '../hooks/useArshinActions';
+import { UseArshinContextMenuActionsReturned } from '../hooks/useContextMenuActions';
 import { useMenuActions } from '../hooks/useMenuActions';
 
-import { ICoordinates } from 'features/dataTable/hooks/useContextMenuActions';
 import { useAppSelector } from 'hooks/redux';
 import StyledMenuItem from 'styled/StyledMenuItem';
-
-interface IContextMenuProps {
-	contextMenu: ICoordinates | null;
-	handleClose: VoidFunction;
-}
 
 interface IMenuItem {
 	title: string;
@@ -29,19 +21,20 @@ interface IMenuItem {
 	action: VoidFunction;
 }
 
-function ContextMenuArshin({ contextMenu, handleClose }: IContextMenuProps) {
-	const { handleSynchronizeItems, handleDeleteItems } = useMenuActions();
+function ContextMenuArshin({ contextMenu, actions }: UseArshinContextMenuActionsReturned) {
+	const { handleSynchronizeItems, handleDeleteItems } = useArshinActions();
 
-	const selectionIds = useAppSelector(selectSelectedDataIds);
 	const selectionItemsDone = useAppSelector(selectSelectedItemsDone);
 	const selectedDataIds = useAppSelector(selectSelectedArshin);
+
+	const { handleCloseContextMenu } = actions;
 
 	const menuItems: IMenuItem[] = [
 		{
 			title: 'Обновить',
 			Icon: CachedIcon,
 			isDisabled: Boolean(selectionItemsDone?.length),
-			action: () => handleSynchronizeItems(selectionIds),
+			action: handleSynchronizeItems,
 		},
 		{
 			title: 'Удалить выделенное',
@@ -52,7 +45,7 @@ function ContextMenuArshin({ contextMenu, handleClose }: IContextMenuProps) {
 	];
 
 	const handleClick = (action: VoidFunction, isActive: boolean) => () => {
-		handleClose();
+		handleCloseContextMenu();
 		isActive && action();
 	};
 
@@ -63,7 +56,7 @@ function ContextMenuArshin({ contextMenu, handleClose }: IContextMenuProps) {
 	return (
 		<Menu
 			open={Boolean(contextMenu)}
-			onClose={handleClose}
+			onClose={handleCloseContextMenu}
 			anchorReference='anchorPosition'
 			anchorPosition={openContextMenu}
 			PaperProps={{
@@ -73,7 +66,7 @@ function ContextMenuArshin({ contextMenu, handleClose }: IContextMenuProps) {
 				root: {
 					onContextMenu: e => {
 						e.preventDefault();
-						handleClose();
+						handleCloseContextMenu();
 					},
 				},
 			}}
