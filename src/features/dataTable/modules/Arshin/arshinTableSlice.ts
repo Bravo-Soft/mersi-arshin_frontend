@@ -80,7 +80,16 @@ export const selectIdsIsDone = (state: RootState) => {
 	const doneItems = selectSelectedItemsDone(state);
 	return doneItems.map(({ id }) => id);
 };
-
+//все данные массивы idDone
+export const selectIsDone = (state: RootState) => {
+	const doneItems = selectSelectedModelArshin(state);
+	return doneItems.every(({ status }) => status === ArshinStatus.DONE);
+};
+//все данные массивы не содержат idDone
+export const selectNotIsDone = (state: RootState) => {
+	const doneItems = selectSelectedModelArshin(state);
+	return doneItems.every(({ status }) => status !== ArshinStatus.DONE);
+};
 export const {
 	setSelectedDataItems,
 	resetSelectedDataItem,

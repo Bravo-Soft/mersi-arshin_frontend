@@ -4,6 +4,8 @@ import { useDeleteItemsMutation, useSynchronizeItemsMutation } from '../arshinTa
 import {
 	resetSelectedDataItem,
 	selectIdsIsDone,
+	selectIsDone,
+	selectNotIsDone,
 	selectSelectedArshin,
 	selectSelectedDataIds,
 	selectSelectedDataItems,
@@ -36,8 +38,16 @@ export const useArshinActions = () => {
 	//массив id позиций которые имеют статус DONE
 	const arshinIdIsDone = useAppSelector(selectIdsIsDone);
 
+	//все данные массивы не содержат idDone
+	const doesNotContainIsDone = useAppSelector(selectNotIsDone);
+
+	//все данные массивы не содержат idDone
+	const containIsDone = useAppSelector(selectIsDone);
+
+	const dataLength = arshinIdIsDone.length < selectedFullModelArshin.length;
+
 	const handleSynchronizeItems = async () => {
-		if (arshinIdIsDone.length < selectedFullModelArshin.length && !isOpen) {
+		if (dataLength && !isOpen && !containIsDone) {
 			return handleDiaologOpener('synchronize');
 		}
 		try {
@@ -61,15 +71,14 @@ export const useArshinActions = () => {
 	};
 
 	const handleDeleteItems = async () => {
-		if (arshinIdIsDone.length < selectedFullModelArshin.length && !isOpen) {
-			console.log('isOpen', isOpen);
+		if (dataLength && !isOpen && !doesNotContainIsDone) {
 			return handleDiaologOpener('deleting');
 		}
 		try {
 			await deleteFromArshin(selectedDataIds).unwrap();
 			enqueueSnackbar(Messages.ITEM_SUCCESSFULLY_DELETED, { variant: 'success' });
 		} catch {
-			enqueueSnackbar(Messages.FAILED_DELETE_ITEM, { variant: 'error' });
+		enqueueSnackbar(Messages.FAILED_DELETE_ITEM, { variant: 'error' });
 		} finally {
 			dispatch(resetSelectedDataItem());
 		}
