@@ -48,7 +48,7 @@ export const useArshinActions = () => {
 
 	const handleSynchronizeItems = async () => {
 		if (dataLength && !isOpen && !containIsDone) {
-			return handleDiaologOpener('synchronize');
+			return handleDialogOpener('synchronize');
 		}
 		try {
 			await synchronizeItemsArshin(arshinIdIsDone);
@@ -72,19 +72,19 @@ export const useArshinActions = () => {
 
 	const handleDeleteItems = async () => {
 		if (dataLength && !isOpen && !doesNotContainIsDone) {
-			return handleDiaologOpener('deleting');
+			return handleDialogOpener('deleting');
 		}
 		try {
 			await deleteFromArshin(selectedDataIds).unwrap();
 			enqueueSnackbar(Messages.ITEM_SUCCESSFULLY_DELETED, { variant: 'success' });
 		} catch {
-		enqueueSnackbar(Messages.FAILED_DELETE_ITEM, { variant: 'error' });
+			enqueueSnackbar(Messages.FAILED_DELETE_ITEM, { variant: 'error' });
 		} finally {
 			dispatch(resetSelectedDataItem());
 		}
 	};
 
-	const handleDiaologOpener = (variant: DialogVariants) => {
+	const handleDialogOpener = (variant: DialogVariants) => {
 		dispatch(
 			changeDialogState({
 				isOpen: true,
