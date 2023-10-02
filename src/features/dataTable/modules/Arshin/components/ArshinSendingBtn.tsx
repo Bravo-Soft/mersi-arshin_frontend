@@ -1,12 +1,12 @@
 import GetAppIcon from '@mui/icons-material/GetApp';
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import CircularProgress from '@mui/material/CircularProgress';
 import { useEffect, useRef, useState } from 'react';
 
 import { useArshinActions } from '../hooks/useArshinActions';
 
-function ProgressCircular() {
+import CircularCLoseProgress from './CircularCLoseProgress';
+
+function ArshinSendingBtn() {
 	const { handleGetDataFromFgis } = useArshinActions();
 	const [progress, setProgress] = useState(0);
 	const intervalRef = useRef<NodeJS.Timer | null>(null);
@@ -41,26 +41,18 @@ function ProgressCircular() {
 	};
 
 	return (
-		<Box sx={{ position: 'relative', display: 'inline-flex' }}>
-			{progress > 0 && progress <= 100 ? (
-				<CircularProgress size={30} variant='determinate' value={progress} />
-			) : (
-				<Box height='30px' width='30px' />
-			)}
-			<Box
-				sx={{
-					top: '5px',
-					left: '5px',
-					position: 'absolute',
-				}}
-			>
-				<GetAppIcon color='primary' />
-			</Box>
-			<Button disabled={progress > 0 && progress < 100} onClick={handleUpdateNow}>
+		<>
+			<Button startIcon={<GetAppIcon color='primary' />} onClick={handleUpdateNow}>
 				Получить сейчас
 			</Button>
-		</Box>
+			<Button
+				startIcon={<CircularCLoseProgress progress={progress} />}
+				onClick={handleUpdateNow}
+			>
+				Отмена
+			</Button>
+		</>
 	);
 }
 
-export default ProgressCircular;
+export default ArshinSendingBtn;

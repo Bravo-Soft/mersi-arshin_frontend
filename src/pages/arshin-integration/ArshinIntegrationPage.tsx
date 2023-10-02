@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 
+import { BASE_URL } from 'constant/baseUrl';
 import DataTableArshin from 'features/dataTable/modules/Arshin/components/DataTableArshin';
 import DeletingDialog from 'features/dataTable/modules/Arshin/components/Dialog/DeletingDialog';
 import FiltersDialog from 'features/dataTable/modules/Arshin/components/Dialog/FiltersDialog';
@@ -12,7 +13,7 @@ function ArshinIntegrationPage() {
 		console.log('event', JSON.parse(event.data));
 	}, []);
 
-	// useServerSentEvent('', callBack);
+	useServerSentEvent(`${BASE_URL}/api/user/modules/arshin/notification`, callBack);
 
 	return (
 		<PageBox>

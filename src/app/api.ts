@@ -42,7 +42,7 @@ export const API = {
 		editFilters: `${PREFIX}/user/settings/arshin`,
 		resetFilters: `${PREFIX}/user/settings/arshin/reset`,
 		addItems: `${PREFIX}/user/modules/arshin`,
-		deleteItems: `${PREFIX}/user/modules/arshin`,
+		deleteItems: `${PREFIX}/user/modules/arshin/process/start`,
 		synchronizeItems: `${PREFIX}/user/modules/arshin/process/synchronize`,
 		checkItems: `${PREFIX}/user/fgis/check`,
 	},

@@ -10,8 +10,8 @@ import { Link } from 'react-router-dom';
 
 import { useFilterArshin } from '../hooks/useFilterArshin';
 
+import ArshinSendingBtn from './ArshinSendingBtn';
 import MenuActionsArshin from './MenuActionsArshin';
-import ProgressCircular from './ProgressCircular';
 
 import { AppRoutes } from 'constant/appRoutes';
 import StyledChip from 'features/dataTable/styled/StyledChip';
@@ -55,7 +55,7 @@ function DataTableArshinToolbar(): JSX.Element {
 						/>
 					</Stack>
 					<Stack direction='row' gap={4}>
-						<ProgressCircular />
+						<ArshinSendingBtn />
 						<MenuActionsArshin />
 					</Stack>
 				</Toolbar>

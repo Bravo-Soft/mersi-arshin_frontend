@@ -21,7 +21,7 @@ export const arshinTableApiSlice = apiSlice.injectEndpoints({
 		deleteItems: builder.mutation<void, GridSelectionModel>({
 			query: ids => ({
 				url: API.arshin.deleteItems,
-				method: 'DELETE',
+				method: 'POST',
 				body: ids,
 			}),
 			invalidatesTags: ['ArshinData'],

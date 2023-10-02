@@ -7,8 +7,6 @@ import {
 	selectIsDone,
 	selectNotIsDone,
 	selectSelectedArshin,
-	selectSelectedDataIds,
-	selectSelectedDataItems,
 	selectSelectedModelArshin,
 } from '../arshinTableSlice';
 import { DialogVariants, changeDialogState, selectIsOpenDialog } from '../dialogArshinSlice';
@@ -22,12 +20,6 @@ export const useArshinActions = () => {
 	const [synchronizeItemsArshin] = useSynchronizeItemsMutation();
 
 	const { isOpen } = useAppSelector(selectIsOpenDialog);
-
-	//Массив id выделенной модели
-	const selectionIds = useAppSelector(selectSelectedDataIds);
-
-	//Выделенная модель
-	const selectedData = useAppSelector(selectSelectedDataItems);
 
 	//Массив id позиций (модель + выбранная позиция вне модели)
 	const selectedDataIds = useAppSelector(selectSelectedArshin);
