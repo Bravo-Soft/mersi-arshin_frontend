@@ -34,10 +34,16 @@ export const arshinTableApiSlice = apiSlice.injectEndpoints({
 			}),
 			invalidatesTags: ['ArshinData'],
 		}),
-		checkItems: builder.mutation<IDataItemArshin[], void>({
+		startArshin: builder.mutation<void, string[]>({
 			query: () => ({
-				url: API.arshin.checkItems,
+				url: API.arshin.startArshin,
 				method: 'POST',
+			}),
+		}),
+		cancelArshin: builder.mutation<void, void>({
+			query: () => ({
+				url: API.arshin.cancelArshin,
+				method: 'PATCH',
 			}),
 		}),
 		getFilters: builder.query<IFormFilterArshin, void>({
@@ -70,5 +76,6 @@ export const {
 	useAddItemsMutation,
 	useDeleteItemsMutation,
 	useSynchronizeItemsMutation,
-	useCheckItemsMutation,
+	useStartArshinMutation,
+	useCancelArshinMutation,
 } = arshinTableApiSlice;
