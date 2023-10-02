@@ -13,7 +13,7 @@ function ArshinIntegrationPage() {
 		console.log('event', JSON.parse(event.data));
 	}, []);
 
-	useServerSentEvent(`${BASE_URL}/api/user/modules/arshin/notification`, callBack);
+	useServerSentEvent(`${BASE_URL}/api/user/modules/arshin/notifications`, callBack);
 
 	return (
 		<PageBox>
