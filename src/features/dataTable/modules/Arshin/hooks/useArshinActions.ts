@@ -46,7 +46,7 @@ export const useArshinActions = () => {
 	//все данные массивы не содержат idDone
 	const doesNotContainIsDone = useAppSelector(selectNotIsDone);
 
-	//все данные массива не содержат idDone
+	//все данные массива содержат idDone
 	const containIsDone = useAppSelector(selectIsDone);
 
 	const dataLength = arshinIdIsDone.length < selectedFullModelArshin.length;
