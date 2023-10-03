@@ -14,11 +14,6 @@ function DeletingDialog(): JSX.Element {
 
 	const { handleDeleteItems, handleCloseDialog } = useArshinActions();
 
-	const handleDeleteSelectedDataItem = async () => {
-		await handleDeleteItems();
-		handleCloseDialog();
-	};
-
 	const contentDialog = `При удалении ${
 		selectionIds.length > 1 ? 'данных строк' : 'данной строки'
 	} будут потеряны все данные, полученные из ФГИС “Аршин”`;
@@ -31,7 +26,7 @@ function DeletingDialog(): JSX.Element {
 			action={
 				<Stack direction='row' columnGap={1}>
 					<Button onClick={handleCloseDialog}>Отмена</Button>
-					<Button onClick={handleDeleteSelectedDataItem}>Удалить</Button>
+					<Button onClick={handleDeleteItems}>Удалить</Button>
 				</Stack>
 			}
 			onClose={handleCloseDialog}

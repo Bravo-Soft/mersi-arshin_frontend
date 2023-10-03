@@ -18,11 +18,6 @@ function SynchronizeDialog() {
 
 	const content = `Будут обновлены только строки, по которым получены данные с ФГИС “Аршин”, ${selectedItemsDone.length} из ${selectedFullModelArshin.length}`;
 
-	const handleSynchronizeData = async () => {
-		await handleSynchronizeItems();
-		handleCloseDialog();
-	};
-
 	return (
 		<Dialog
 			title='Внимание'
@@ -31,7 +26,7 @@ function SynchronizeDialog() {
 			action={
 				<Stack direction='row' columnGap={1}>
 					<Button onClick={handleCloseDialog}>Отмена</Button>
-					<Button onClick={handleSynchronizeData}>Обновить</Button>
+					<Button onClick={handleSynchronizeItems}>Обновить</Button>
 				</Stack>
 			}
 			onClose={handleCloseDialog}

@@ -66,6 +66,7 @@ export const useArshinActions = () => {
 			});
 		} finally {
 			dispatch(resetSelectedDataItem());
+			dispatch(resetDialogState());
 		}
 	};
 
@@ -86,6 +87,7 @@ export const useArshinActions = () => {
 			enqueueSnackbar(Messages.FAILED_DELETE_ITEM, { variant: 'error' });
 		} finally {
 			dispatch(resetSelectedDataItem());
+			dispatch(resetDialogState());
 		}
 	};
 
