@@ -11,7 +11,12 @@ import {
 	selectSelectedDataItems,
 	selectSelectedModelArshin,
 } from '../arshinTableSlice';
-import { DialogVariants, changeDialogState, selectIsOpenDialog } from '../dialogArshinSlice';
+import {
+	DialogVariants,
+	changeDialogState,
+	resetDialogState,
+	selectIsOpenDialog,
+} from '../dialogArshinSlice';
 
 import { Messages } from 'constant/messages';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
@@ -93,5 +98,14 @@ export const useArshinActions = () => {
 		);
 	};
 
-	return { handleSynchronizeItems, handleGetDataFromFgis, handleDeleteItems };
+	const handleCloseDialog = () => {
+		dispatch(resetDialogState());
+	};
+
+	return {
+		handleSynchronizeItems,
+		handleGetDataFromFgis,
+		handleDeleteItems,
+		handleCloseDialog,
+	};
 };
