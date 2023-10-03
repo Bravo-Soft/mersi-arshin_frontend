@@ -22,16 +22,28 @@ function ArshinSendingBtn() {
 	const callBack = useCallback(
 		(event: MessageEvent) => {
 			const { total, current } = JSON.parse(event.data);
-
+			localStorage.setItem('total', total);
+			localStorage.setItem('current', current);
 			dispatch(setEventSourceData({ total, current }));
 		},
 		[dispatch]
 	);
 
+	useEffect(() => {
+		const total = Number(localStorage.getItem('total')) ?? 0;
+		const current = Number(localStorage.getItem('current')) ?? 0;
+
+		dispatch(setEventSourceData({ total, current }));
+	}, [dispatch]);
+
 	useServerSentEvent(`${BASE_URL}/api/user/modules/arshin/notifications`, callBack);
 
 	useEffect(() => {
-		if (progressArshin === 100) dispatch(resetState());
+		if (progressArshin === 100) {
+			dispatch(resetState());
+			localStorage.setItem('total', '0');
+			localStorage.setItem('current', '0');
+		}
 	}, [dispatch, progressArshin]);
 
 	return (

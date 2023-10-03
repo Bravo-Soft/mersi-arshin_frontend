@@ -14,6 +14,8 @@ export const useSendingArshin = () => {
 	const handleStart = async () => await arshinStart(selectedDataIds).unwrap();
 	const handleCancel = async () => {
 		await arshinCancel().unwrap();
+		localStorage.setItem('total', '0');
+		localStorage.setItem('current', '0');
 		dispatch(resetState());
 	};
 
