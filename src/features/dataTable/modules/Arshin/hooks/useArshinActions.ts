@@ -9,7 +9,12 @@ import {
 	selectSelectedArshin,
 	selectSelectedModelArshin,
 } from '../arshinTableSlice';
-import { DialogVariants, changeDialogState, selectIsOpenDialog } from '../dialogArshinSlice';
+import {
+	DialogVariants,
+	changeDialogState,
+	resetDialogState,
+	selectIsOpenDialog,
+} from '../dialogArshinSlice';
 
 import { Messages } from 'constant/messages';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
@@ -33,7 +38,7 @@ export const useArshinActions = () => {
 	//все данные массивы не содержат idDone
 	const doesNotContainIsDone = useAppSelector(selectNotIsDone);
 
-	//все данные массивы не содержат idDone
+	//все данные массива содержат idDone
 	const containIsDone = useAppSelector(selectIsDone);
 
 	const dataLength = arshinIdIsDone.length < selectedFullModelArshin.length;
@@ -53,6 +58,7 @@ export const useArshinActions = () => {
 			});
 		} finally {
 			dispatch(resetSelectedDataItem());
+			dispatch(resetDialogState());
 		}
 	};
 
@@ -73,6 +79,7 @@ export const useArshinActions = () => {
 			enqueueSnackbar(Messages.FAILED_DELETE_ITEM, { variant: 'error' });
 		} finally {
 			dispatch(resetSelectedDataItem());
+			dispatch(resetDialogState());
 		}
 	};
 
@@ -85,5 +92,14 @@ export const useArshinActions = () => {
 		);
 	};
 
-	return { handleSynchronizeItems, handleGetDataFromFgis, handleDeleteItems };
+	const handleCloseDialog = () => {
+		dispatch(resetDialogState());
+	};
+
+	return {
+		handleSynchronizeItems,
+		handleGetDataFromFgis,
+		handleDeleteItems,
+		handleCloseDialog,
+	};
 };
