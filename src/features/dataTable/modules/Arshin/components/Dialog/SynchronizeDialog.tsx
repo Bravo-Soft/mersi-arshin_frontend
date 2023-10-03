@@ -23,8 +23,8 @@ function SynchronizeDialog() {
 
 	const content = `Будут обновлены только строки, по которым получены данные с ФГИС “Аршин”, ${selectedItemsDone.length} из ${selectedFullModelArshin.length}`;
 
-	const handleSynchronizeData = () => {
-		handleSynchronizeItems();
+	const handleSynchronizeData = async () => {
+		await handleSynchronizeItems();
 		handleCloseSynchronizeDialog();
 	};
 
