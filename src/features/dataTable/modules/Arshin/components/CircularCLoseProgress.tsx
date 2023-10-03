@@ -11,7 +11,7 @@ function CircularCLoseProgress({ progress }: Props) {
 			<CloseIcon color='primary' sx={{ position: 'relative' }} />
 			<CircularProgress
 				sx={{
-					top: '3px',
+					top: '0',
 					left: '0',
 					position: 'absolute',
 				}}

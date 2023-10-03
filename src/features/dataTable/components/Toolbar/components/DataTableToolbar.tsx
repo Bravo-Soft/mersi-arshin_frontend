@@ -83,7 +83,6 @@ function DataTableToolbar(): JSX.Element {
 								/>
 							</IconButton>
 						</Tooltip>
-						<ArshinButton />
 					</Box>
 					<Stack
 						direction='row'
@@ -91,6 +90,8 @@ function DataTableToolbar(): JSX.Element {
 						alignItems='center'
 						sx={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
 					>
+						<ArshinButton />
+
 						<div id='column'>
 							<DataTableColumnButton />
 						</div>

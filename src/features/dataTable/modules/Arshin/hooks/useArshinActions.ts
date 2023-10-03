@@ -62,12 +62,6 @@ export const useArshinActions = () => {
 		}
 	};
 
-	const handleGetDataFromFgis = () => {
-		// пока еще не работает
-		// checkItemsArshin();
-		console.log('Запросить данные из ФГИС');
-	};
-
 	const handleDeleteItems = async () => {
 		if (dataLength && !isOpen && !doesNotContainIsDone) {
 			return handleDialogOpener('deleting');
@@ -98,7 +92,6 @@ export const useArshinActions = () => {
 
 	return {
 		handleSynchronizeItems,
-		handleGetDataFromFgis,
 		handleDeleteItems,
 		handleCloseDialog,
 	};

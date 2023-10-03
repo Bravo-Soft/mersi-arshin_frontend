@@ -29,4 +29,3 @@ export const useMenuActions = () => {
 		handleOpenFilter,
 	};
 };
-//Проверка в Госреестре

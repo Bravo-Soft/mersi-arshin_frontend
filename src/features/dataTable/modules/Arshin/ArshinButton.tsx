@@ -2,6 +2,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 
+import { ArshinIcon } from './ArshinIcon';
+
 import { AppRoutes } from 'constant/appRoutes';
 import { Messages } from 'constant/messages';
 import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
@@ -36,9 +38,10 @@ function ArshinButton() {
 			sx={{ p: 0, textTransform: 'none' }}
 			onClick={handleRouteToArshin}
 			disabled={!isArshin}
+			startIcon={<ArshinIcon />}
 		>
-			<Typography variant='h6' textOverflow='ellipsis' noWrap>
-				Контроль поверки в Госреестре
+			<Typography variant='body1' textOverflow='ellipsis' noWrap>
+				Проверка в Госреестре
 			</Typography>
 		</Button>
 	);
