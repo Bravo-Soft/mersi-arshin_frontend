@@ -4,10 +4,10 @@ import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useEffect, useRef, useState } from 'react';
 
-import { useMenuActions } from '../hooks/useMenuActions';
+import { useArshinActions } from '../hooks/useArshinActions';
 
 function ProgressCircular() {
-	const { handleGetDataFromFgis } = useMenuActions();
+	const { handleGetDataFromFgis } = useArshinActions();
 	const [progress, setProgress] = useState(0);
 	const intervalRef = useRef<NodeJS.Timer | null>(null);
 

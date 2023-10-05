@@ -1,11 +1,13 @@
 import { useState, MouseEvent } from 'react';
 
-import { setSelectedDataArshinItem } from '../arshinTableSlice';
+import { resetSelectedDataArshinItem, setSelectedDataArshinItem } from '../arshinTableSlice';
 
 import { ICoordinates } from 'features/dataTable/hooks/useContextMenuActions';
 import { isValueDefined } from 'guards/isValueDefined';
 import { useAppDispatch } from 'hooks/redux';
 import { IDataItemArshin } from 'types/arshinIntegration';
+
+export type UseArshinContextMenuActionsReturned = ReturnType<typeof useContextMenuActions>;
 
 export const useContextMenuActions = (data: IDataItemArshin[]) => {
 	const [contextMenu, setContextMenu] = useState<ICoordinates | null>(null);
@@ -13,6 +15,7 @@ export const useContextMenuActions = (data: IDataItemArshin[]) => {
 	const dispatch = useAppDispatch();
 
 	const handleCloseContextMenu = () => {
+		dispatch(resetSelectedDataArshinItem());
 		setContextMenu(null);
 	};
 
@@ -22,7 +25,7 @@ export const useContextMenuActions = (data: IDataItemArshin[]) => {
 		if (currentId !== null) {
 			const fondedDataItem = data.find(({ id }) => id === currentId);
 			if (isValueDefined(fondedDataItem)) {
-				dispatch(setSelectedDataArshinItem(fondedDataItem.id));
+				dispatch(setSelectedDataArshinItem(fondedDataItem));
 				setContextMenu(
 					contextMenu === null
 						? { mouseX: event.clientX - 2, mouseY: event.clientY - 4 }
@@ -34,7 +37,9 @@ export const useContextMenuActions = (data: IDataItemArshin[]) => {
 
 	return {
 		contextMenu,
-		handleCloseContextMenu,
-		handleOpenContextMenu,
+		actions: {
+			handleCloseContextMenu,
+			handleOpenContextMenu,
+		},
 	};
 };

@@ -31,8 +31,7 @@ function DataTableArshin() {
 
 	const { selectionIds, handleSelectItems } = useTableActions();
 
-	const { contextMenu, handleOpenContextMenu, handleCloseContextMenu } =
-		useContextMenuActions(data);
+	const { contextMenu, actions } = useContextMenuActions(data);
 
 	return (
 		<DataTableBox>
@@ -61,12 +60,12 @@ function DataTableArshin() {
 				selectionModel={selectionIds}
 				componentsProps={{
 					row: {
-						onContextMenu: handleOpenContextMenu,
+						onContextMenu: actions.handleOpenContextMenu,
 						style: { cursor: 'pointer' },
 					},
 				}}
 			/>
-			<ContextMenuArshin contextMenu={contextMenu} handleClose={handleCloseContextMenu} />
+			<ContextMenuArshin contextMenu={contextMenu} actions={actions} />
 		</DataTableBox>
 	);
 }

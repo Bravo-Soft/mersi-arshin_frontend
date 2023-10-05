@@ -1,52 +1,35 @@
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import { enqueueSnackbar } from 'notistack';
 
-import { useDeleteItemsMutation } from '../../arshinTableApiSlice';
-import { selectSelectedDataIds } from '../../arshinTableSlice';
-import { resetDialogState, selectDeletingDialog } from '../../dialogArshinSlice';
+import { selectDeletingDialog } from '../../dialogArshinSlice';
+import { useArshinActions } from '../../hooks/useArshinActions';
+import useTableActions from '../../hooks/useTableActions';
 
 import Dialog from 'components/Dialog';
-import { Messages } from 'constant/messages';
-import { isValueDefined } from 'guards/isValueDefined';
-import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import { useAppSelector } from 'hooks/redux';
 
 function DeletingDialog(): JSX.Element {
-	const dispatch = useAppDispatch();
-	const { content, isOpen } = useAppSelector(selectDeletingDialog);
-	const selectionIds = useAppSelector(selectSelectedDataIds);
+	const { isOpen } = useAppSelector(selectDeletingDialog);
+	const { selectionIds } = useTableActions();
 
-	const [deleteFromArshin] = useDeleteItemsMutation();
+	const { handleDeleteItems, handleCloseDialog } = useArshinActions();
 
-	const handleCloseDeletingDialog = () => {
-		dispatch(resetDialogState());
-	};
-
-	const handleDeleteSelectedDataItem = () => {
-		if (isValueDefined(selectionIds)) {
-			try {
-				deleteFromArshin(selectionIds).unwrap();
-				enqueueSnackbar(Messages.ITEM_SUCCESSFULLY_DELETED, { variant: 'success' });
-			} catch {
-				enqueueSnackbar(Messages.FAILED_DELETE_ITEM, { variant: 'error' });
-			} finally {
-				handleCloseDeletingDialog();
-			}
-		}
-	};
+	const contentDialog = `При удалении ${
+		selectionIds.length > 1 ? 'данных строк' : 'данной строки'
+	} будут потеряны все данные, полученные из ФГИС “Аршин”`;
 
 	return (
 		<Dialog
 			title='Внимание'
-			content={content}
+			content={contentDialog}
 			open={isOpen}
 			action={
 				<Stack direction='row' columnGap={1}>
-					<Button onClick={handleCloseDeletingDialog}>Отмена</Button>
-					<Button onClick={handleDeleteSelectedDataItem}>Удалить</Button>
+					<Button onClick={handleCloseDialog}>Отмена</Button>
+					<Button onClick={handleDeleteItems}>Удалить</Button>
 				</Stack>
 			}
-			onClose={handleCloseDeletingDialog}
+			onClose={handleCloseDialog}
 		/>
 	);
 }
