@@ -62,6 +62,21 @@ export const useArshinActions = () => {
 		}
 	};
 
+	const handleSynchronizeItemsIsDone = async () => {
+		try {
+			await synchronizeItemsArshin(arshinIdIsDone);
+			enqueueSnackbar(Messages.ARSHIN_ITEM_SUCCESSFULLY_UPDATED, {
+				variant: 'success',
+			});
+		} catch {
+			enqueueSnackbar(Messages.FAILED_ARSHIN_ITEM_UPDATED, {
+				variant: 'error',
+			});
+		} finally {
+			dispatch(resetDialogState());
+		}
+	};
+
 	const handleDeleteItems = async () => {
 		if (dataLength && !isOpen && !doesNotContainIsDone) {
 			return handleDialogOpener('deleting');
@@ -92,6 +107,7 @@ export const useArshinActions = () => {
 
 	return {
 		handleSynchronizeItems,
+		handleSynchronizeItemsIsDone,
 		handleDeleteItems,
 		handleCloseDialog,
 	};

@@ -2,16 +2,18 @@ import CachedIcon from '@mui/icons-material/Cached';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ExpandIcon from '@mui/icons-material/ExpandMore';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { SvgIconProps } from '@mui/material';
+import { Collapse, MenuItem, SvgIconProps } from '@mui/material';
 import Button from '@mui/material/Button';
 import red from '@mui/material/colors/red';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Menu from '@mui/material/Menu';
 
-import { selectSelectedDataIds, selectSelectedItemsDone } from '../arshinTableSlice';
+import { selectSelectedDataIds } from '../arshinTableSlice';
 import { useArshinActions } from '../hooks/useArshinActions';
 import { useMenuActions } from '../hooks/useMenuActions';
+
+import UpdateMenuItem from './UpdateMenuItem';
 
 import { useAppSelector } from 'hooks/redux';
 import StyledMenuItem from 'styled/StyledMenuItem';
@@ -25,18 +27,11 @@ interface IMenuItem {
 
 function MenuActionsArshin() {
 	const selectionIds = useAppSelector(selectSelectedDataIds);
-	const selectionItemsDone = useAppSelector(selectSelectedItemsDone);
 
 	const { anchorEl, open, handleOpenFilter, handleCloseMenu, handleOpenMenu } = useMenuActions();
-	const { handleSynchronizeItems, handleDeleteItems } = useArshinActions();
+	const { handleDeleteItems } = useArshinActions();
 
 	const menuItems: IMenuItem[] = [
-		{
-			title: 'Обновить',
-			Icon: CachedIcon,
-			isActive: Boolean(selectionItemsDone.length),
-			action: handleSynchronizeItems,
-		},
 		{
 			title: 'Настроить фильтра',
 			Icon: SettingsIcon,
@@ -72,6 +67,7 @@ function MenuActionsArshin() {
 				Действия
 			</Button>
 			<Menu open={open} onClose={handleCloseMenu} anchorEl={anchorEl}>
+				<UpdateMenuItem />
 				{menuItems.map(({ action, title, Icon, isActive }) => (
 					<StyledMenuItem
 						moduleIsActive={true}

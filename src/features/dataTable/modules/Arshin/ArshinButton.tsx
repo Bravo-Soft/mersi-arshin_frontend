@@ -35,14 +35,13 @@ function ArshinButton() {
 
 	return (
 		<Button
-			sx={{ p: 0, textTransform: 'none' }}
+			sx={{ textTransform: 'uppercase' }}
 			onClick={handleRouteToArshin}
 			disabled={!isArshin}
 			startIcon={<ArshinIcon />}
+			disableRipple
 		>
-			<Typography variant='body1' textOverflow='ellipsis' noWrap>
-				Проверка в Госреестре
-			</Typography>
+			Проверка в Госреестре
 		</Button>
 	);
 }

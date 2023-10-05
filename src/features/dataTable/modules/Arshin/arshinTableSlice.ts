@@ -70,6 +70,12 @@ export const selectSelectedModelArshin = (state: RootState) => {
 	return data.filter(({ id }) => selectedModel.includes(id));
 };
 
+//Массив всех id  аршина в таблице с состоянием is Done
+export const selectAllDoneArshin = (state: RootState) => {
+	const data = selectArshinData(state);
+	return data.filter(({ status }) => status === ArshinStatus.DONE).map(({ id }) => id);
+};
+
 //Массив элементов у которых статус выполнен
 export const selectSelectedItemsDone = (state: RootState) => {
 	const selectedModelById = selectSelectedModelArshin(state);

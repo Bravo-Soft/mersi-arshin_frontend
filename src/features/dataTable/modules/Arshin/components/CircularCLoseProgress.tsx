@@ -1,4 +1,4 @@
-import CloseIcon from '@mui/icons-material/Close';
+import { Box, Stack, Typography } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 
 interface Props {
@@ -7,19 +7,24 @@ interface Props {
 
 function CircularCLoseProgress({ progress }: Props) {
 	return (
-		<>
-			<CloseIcon color='primary' sx={{ position: 'relative' }} />
+		<Box sx={{ position: 'relative' }}>
+			<Stack flexDirection='row' alignItems='flex-end'>
+				<Typography variant='body1' textOverflow='ellipsis' fontSize='12px'>
+					{/* {Math.floor(progress)} */}40
+				</Typography>
+				<Typography fontSize='9px'>%</Typography>
+			</Stack>
 			<CircularProgress
 				sx={{
-					top: '0',
-					left: '0',
+					top: '-5px',
+					left: '-2px',
 					position: 'absolute',
 				}}
-				size={24}
+				size={29}
 				variant='determinate'
 				value={progress}
 			/>
-		</>
+		</Box>
 	);
 }
 

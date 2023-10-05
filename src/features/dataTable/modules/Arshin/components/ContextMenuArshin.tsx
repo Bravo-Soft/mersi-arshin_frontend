@@ -1,4 +1,3 @@
-import CachedIcon from '@mui/icons-material/Cached';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { SvgIconProps } from '@mui/material';
 import { red } from '@mui/material/colors';
@@ -6,9 +5,11 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Menu from '@mui/material/Menu';
 
-import { selectSelectedArshin, selectSelectedItemsDone } from '../arshinTableSlice';
+import { selectSelectedArshin } from '../arshinTableSlice';
 import { useArshinActions } from '../hooks/useArshinActions';
 import { UseArshinContextMenuActionsReturned } from '../hooks/useContextMenuActions';
+
+import UpdateMenuItem from './UpdateMenuItem';
 
 import { useAppSelector } from 'hooks/redux';
 import StyledMenuItem from 'styled/StyledMenuItem';
@@ -21,20 +22,13 @@ interface IMenuItem {
 }
 
 function ContextMenuArshin({ contextMenu, actions }: UseArshinContextMenuActionsReturned) {
-	const { handleSynchronizeItems, handleDeleteItems } = useArshinActions();
+	const { handleDeleteItems } = useArshinActions();
 
-	const selectionItemsDone = useAppSelector(selectSelectedItemsDone);
 	const selectedDataIds = useAppSelector(selectSelectedArshin);
 
 	const { handleCloseContextMenu } = actions;
 
 	const menuItems: IMenuItem[] = [
-		{
-			title: 'Обновить',
-			Icon: CachedIcon,
-			isDisabled: Boolean(selectionItemsDone?.length),
-			action: handleSynchronizeItems,
-		},
 		{
 			title: 'Удалить выделенное',
 			Icon: DeleteIcon,
@@ -70,6 +64,7 @@ function ContextMenuArshin({ contextMenu, actions }: UseArshinContextMenuActions
 				},
 			}}
 		>
+			<UpdateMenuItem />
 			{menuItems.map(({ action, title, Icon, isDisabled }) => (
 				<StyledMenuItem
 					moduleIsActive={true}
