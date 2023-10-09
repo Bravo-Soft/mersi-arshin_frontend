@@ -66,32 +66,52 @@ export const selectSelectedArshin = (state: RootState) => {
 export const selectSelectedModelArshin = (state: RootState) => {
 	const selectedModel = selectSelectedArshin(state);
 	const data = selectArshinData(state);
-
 	return data.filter(({ id }) => selectedModel.includes(id));
 };
 
-//Массив всех id  аршина в таблице с состоянием is Done
-export const selectAllDoneArshin = (state: RootState) => {
-	const data = selectArshinData(state);
-	return data.filter(({ status }) => status === ArshinStatus.DONE).map(({ id }) => id);
-};
+//--- ids по статусу
 
 //Массив всех id  аршина в таблице которые не содержат is Done
 export const selectNotIsDoneArshin = (state: RootState) => {
 	const data = selectArshinData(state);
 	return data.filter(({ status }) => status !== ArshinStatus.DONE).map(({ id }) => id);
 };
+//Массив всех id  аршина в таблице которые не содержат is AWAITING_SHIPMENT
+export const selectAwaitingShipmentArshin = (state: RootState) => {
+	const data = selectArshinData(state);
+	return data
+		.filter(({ status }) => status !== ArshinStatus.AWAITING_SHIPMENT)
+		.map(({ id }) => id);
+};
 
-//Массив элементов у которых статус выполнен
+//--- Массив выделенных элементов  по статусу
+
+// статус выполнен
 export const selectSelectedItemsDone = (state: RootState) => {
 	const selectedModelById = selectSelectedModelArshin(state);
-	return selectedModelById?.filter(el => el.status === ArshinStatus.DONE) ?? [];
+	return selectedModelById?.filter(({ status }) => status === ArshinStatus.DONE);
 };
-//массив id isDone
+// статус AWAITING_SHIPMENT
+export const selectSelectedAwaitingShipment = (state: RootState) => {
+	const selectedModelById = selectSelectedModelArshin(state);
+	return selectedModelById?.filter(({ status }) => status === ArshinStatus.AWAITING_SHIPMENT);
+};
+
+//---  ids по статусу
+
+//isDone
 export const selectIdsIsDone = (state: RootState) => {
 	const doneItems = selectSelectedItemsDone(state);
 	return doneItems.map(({ id }) => id);
 };
+
+//AWAITING_SHIPMENT
+export const selectSelectedAwaitingShipmentIds = (state: RootState) => {
+	const awaitingShipment = selectSelectedAwaitingShipment(state);
+	return awaitingShipment.map(({ id }) => id);
+};
+
+//--- every
 //все данные массивы idDone
 export const selectIsDone = (state: RootState) => {
 	const doneItems = selectSelectedModelArshin(state);

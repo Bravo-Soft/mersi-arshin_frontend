@@ -2,9 +2,12 @@ import DataTableArshin from 'features/dataTable/modules/Arshin/components/DataTa
 import DeletingDialog from 'features/dataTable/modules/Arshin/components/Dialog/DeletingDialog';
 import FiltersDialog from 'features/dataTable/modules/Arshin/components/Dialog/FiltersDialog';
 import SynchronizeDialog from 'features/dataTable/modules/Arshin/components/Dialog/SynchronizeDialog';
+import { useSendingAction } from 'features/dataTable/modules/Arshin/hooks/useSendingAction';
 import PageBox from 'styled/PageBox';
 
 function ArshinIntegrationPage() {
+	useSendingAction();
+
 	return (
 		<PageBox>
 			<DataTableArshin />

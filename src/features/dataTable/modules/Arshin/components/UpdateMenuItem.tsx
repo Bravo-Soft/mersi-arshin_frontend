@@ -3,7 +3,7 @@ import ExpandIcon from '@mui/icons-material/ExpandMore';
 import { Collapse, ListItemIcon, ListItemText, MenuItem } from '@mui/material';
 import { useState } from 'react';
 
-import { selectAllDoneArshin, selectSelectedItemsDone } from '../arshinTableSlice';
+import { selectSelectedItemsDone } from '../arshinTableSlice';
 import { useArshinActions } from '../hooks/useArshinActions';
 
 import StyledMenuList from 'features/dataTable/styled/StyledMenuList';
@@ -12,7 +12,6 @@ import { useAppSelector } from 'hooks/redux';
 function UpdateMenuItem() {
 	const [updateOpen, setUpdateOpen] = useState(false);
 
-	const selectDoneArshin = useAppSelector(selectAllDoneArshin);
 	const selectionItemsDone = useAppSelector(selectSelectedItemsDone);
 
 	const { handleSynchronizeItems, handleSynchronizeItemsIsDone } = useArshinActions();
@@ -23,7 +22,7 @@ function UpdateMenuItem() {
 
 	return (
 		<>
-			<MenuItem disabled={!selectDoneArshin.length} onClick={handleUpdateOpen}>
+			<MenuItem disabled={!selectionItemsDone.length} onClick={handleUpdateOpen}>
 				<ListItemIcon>
 					<CachedIcon />
 				</ListItemIcon>

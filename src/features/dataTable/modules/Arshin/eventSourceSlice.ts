@@ -6,21 +6,25 @@ interface IEventSourceState {
 	processed: number;
 	total: number;
 	isStart: boolean;
+	isAlive: boolean;
 }
 
 const initialState: IEventSourceState = {
 	processed: 0,
 	total: 0,
 	isStart: false,
+	isAlive: true,
 };
 
 const eventSource = createSlice({
 	name: 'eventSource',
 	initialState,
 	reducers: {
-		setEventSourceData: (state, action: PayloadAction<Omit<IEventSourceState, 'isStart'>>) => {
+		setEventSourceData: (state, action: PayloadAction<IEventSourceState>) => {
 			state.processed = action.payload.processed;
 			state.total = action.payload.total;
+			state.isAlive = action.payload.isAlive;
+			state.isStart = action.payload.isStart;
 		},
 		setStartProcess: (state, action: PayloadAction<boolean>) => {
 			state.isStart = action.payload;
