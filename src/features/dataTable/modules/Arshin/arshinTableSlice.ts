@@ -76,6 +76,12 @@ export const selectAllDoneArshin = (state: RootState) => {
 	return data.filter(({ status }) => status === ArshinStatus.DONE).map(({ id }) => id);
 };
 
+//Массив всех id  аршина в таблице которые не содержат is Done
+export const selectNotIsDoneArshin = (state: RootState) => {
+	const data = selectArshinData(state);
+	return data.filter(({ status }) => status !== ArshinStatus.DONE).map(({ id }) => id);
+};
+
 //Массив элементов у которых статус выполнен
 export const selectSelectedItemsDone = (state: RootState) => {
 	const selectedModelById = selectSelectedModelArshin(state);
@@ -96,6 +102,7 @@ export const selectNotIsDone = (state: RootState) => {
 	const doneItems = selectSelectedModelArshin(state);
 	return doneItems.every(({ status }) => status !== ArshinStatus.DONE);
 };
+
 export const {
 	setSelectedDataItems,
 	resetSelectedDataItem,

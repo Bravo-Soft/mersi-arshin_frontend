@@ -12,5 +12,5 @@ export const useServerSentEvent = (url: string, callBack: (event: MessageEvent) 
 			eventSource.close();
 		}
 		return () => eventSource.close();
-	}, []);
+	}, [callBack, url]);
 };

@@ -24,7 +24,7 @@ export const useArshinActions = () => {
 	const [deleteFromArshin] = useDeleteItemsMutation();
 	const [synchronizeItemsArshin] = useSynchronizeItemsMutation();
 
-	const { isOpen } = useAppSelector(selectIsOpenDialog);
+	const isOpen = useAppSelector(selectIsOpenDialog);
 
 	//Массив id позиций (модель + выбранная позиция вне модели)
 	const selectedDataIds = useAppSelector(selectSelectedArshin);
@@ -78,7 +78,7 @@ export const useArshinActions = () => {
 	};
 
 	const handleDeleteItems = async () => {
-		if (dataLength && !isOpen && !doesNotContainIsDone) {
+		if (Boolean(arshinIdIsDone.length) && !isOpen) {
 			return handleDialogOpener('deleting');
 		}
 		try {

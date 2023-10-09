@@ -13,17 +13,17 @@ export const useSendingArshin = () => {
 
 	const handleStart = async () => {
 		try {
-			await arshinStart(selectedDataIds).unwrap();
 			dispatch(setStartProcess(true));
+			await arshinStart(selectedDataIds);
 		} catch {
-			setStartProcess(false);
+			console.log('Баг');
+			dispatch(setStartProcess(false));
 		}
 	};
 	const handleCancel = async () => {
-		await arshinCancel().unwrap();
+		await arshinCancel();
 		localStorage.setItem('total', '0');
 		localStorage.setItem('processed', '0');
-		dispatch(setStartProcess(false));
 		dispatch(resetState());
 	};
 

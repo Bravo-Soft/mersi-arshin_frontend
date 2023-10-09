@@ -63,7 +63,7 @@ export const selectOpenFilterDialogArshin = (state: RootState) =>
 	state.dialogArshin.openFilterDialog;
 
 export const selectIsOpenDialog = (state: RootState) =>
-	state.dialogArshin.synchronize || state.dialogArshin.deleting;
+	state.dialogArshin.deleting.isOpen || state.dialogArshin.synchronize.isOpen;
 
 export const dialogArshinPath = dialogArshinSlice.name;
 export const dialogArshinReducer = dialogArshinSlice.reducer;

@@ -31,14 +31,19 @@ const eventSource = createSlice({
 
 export const selectProgressArshin = (state: RootState) => {
 	const { processed, total } = state.eventSource;
-	if (Boolean(processed) && Boolean(total)) {
+	if (processed === total) {
 		return 0;
 	}
-	return (state.eventSource.processed / state.eventSource.total) * 100;
+	return 100 - (processed / total) * 100;
 };
 
 export const selectIsStartArshin = (state: RootState) => state.eventSource.isStart;
 
+export const selectProcess = (state: RootState) => {
+	const { processed, total } = state.eventSource;
+
+	return { processed, total };
+};
 export const { resetState, setEventSourceData, setStartProcess } = eventSource.actions;
 export const eventSourcePatch = eventSource.name;
 export const eventSourceReducer = eventSource.reducer;

@@ -42,10 +42,10 @@ function UpdateMenuItem() {
 						disabled={!selectionItemsDone.length}
 						onClick={handleSynchronizeItemsIsDone}
 					>
-						<ListItemText primary='Обновить все' />
+						<ListItemText primary='Все' />
 					</MenuItem>
 					<MenuItem disabled={!selectionItemsDone.length} onClick={handleSynchronizeItems}>
-						<ListItemText primary='Обновить выделенное' />
+						<ListItemText primary='Выделенное' />
 					</MenuItem>
 				</StyledMenuList>
 			</Collapse>

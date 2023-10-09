@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 
 interface Props {
@@ -7,23 +7,24 @@ interface Props {
 
 function CircularCLoseProgress({ progress }: Props) {
 	return (
-		<Box sx={{ position: 'relative' }}>
-			<Stack flexDirection='row' alignItems='flex-end'>
-				<Typography variant='body1' textOverflow='ellipsis' fontSize='12px'>
-					{/* {Math.floor(progress)} */}40
-				</Typography>
-				<Typography fontSize='9px'>%</Typography>
-			</Stack>
-			<CircularProgress
+		<Box sx={{ position: 'relative', display: 'inline-flex' }}>
+			<CircularProgress variant='determinate' value={progress} />
+			<Box
 				sx={{
-					top: '-5px',
-					left: '-2px',
+					top: 0,
+					left: 0,
+					bottom: 0,
+					right: 0,
 					position: 'absolute',
+					display: 'flex',
+					alignItems: 'center',
+					justifyContent: 'center',
 				}}
-				size={29}
-				variant='determinate'
-				value={progress}
-			/>
+			>
+				<Typography variant='caption' component='div' color='text.secondary'>{`${Math.round(
+					progress
+				)}%`}</Typography>
+			</Box>
 		</Box>
 	);
 }
