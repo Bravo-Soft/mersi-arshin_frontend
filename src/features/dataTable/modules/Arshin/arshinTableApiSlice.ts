@@ -8,7 +8,7 @@ export const arshinTableApiSlice = apiSlice.injectEndpoints({
 	endpoints: builder => ({
 		getData: builder.query<IDataItemArshin[], void>({
 			query: () => API.arshin.getData,
-			providesTags: ['ArshinData'],
+			providesTags: ['ArshinData', 'ArshinStart'],
 		}),
 		addItems: builder.mutation<void, GridSelectionModel>({
 			query: ids => ({
@@ -40,6 +40,7 @@ export const arshinTableApiSlice = apiSlice.injectEndpoints({
 				method: 'POST',
 				body,
 			}),
+			invalidatesTags: ['ArshinStart'],
 		}),
 		cancelArshin: builder.mutation<void, void>({
 			query: () => ({

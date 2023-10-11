@@ -119,6 +119,7 @@ export const columns: GridColDef<IDataItem>[] = [
 		width: initialWidth,
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
+		valueGetter: params => (params.row.suitability ? 'Да' : 'Нет'),
 	},
 	{
 		field: 'condition',

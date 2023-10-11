@@ -42,6 +42,7 @@ export const selectProgressArshin = (state: RootState) => {
 };
 
 export const selectIsStartArshin = (state: RootState) => state.eventSource.isStart;
+export const selectIsAliveArshin = (state: RootState) => state.eventSource.isAlive;
 
 export const selectProcess = (state: RootState) => {
 	const { processed, total } = state.eventSource;
