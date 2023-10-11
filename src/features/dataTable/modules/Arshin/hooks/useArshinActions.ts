@@ -8,6 +8,7 @@ import {
 	selectNotIsDone,
 	selectSelectedArshin,
 	selectSelectedModelArshin,
+	selectTableIsDone,
 } from '../arshinTableSlice';
 import {
 	DialogVariants,
@@ -41,6 +42,9 @@ export const useArshinActions = () => {
 	//все данные массива содержат idDone
 	const containIsDone = useAppSelector(selectIsDone);
 
+	//Все готовые в таблице
+	const tableIsDone = useAppSelector(selectTableIsDone);
+
 	const dataLength = arshinIdIsDone.length < selectedFullModelArshin.length;
 
 	const handleSynchronizeItems = async () => {
@@ -64,7 +68,7 @@ export const useArshinActions = () => {
 
 	const handleSynchronizeItemsIsDone = async () => {
 		try {
-			await synchronizeItemsArshin(arshinIdIsDone);
+			await synchronizeItemsArshin(tableIsDone);
 			enqueueSnackbar(Messages.ARSHIN_ITEM_SUCCESSFULLY_UPDATED, {
 				variant: 'success',
 			});

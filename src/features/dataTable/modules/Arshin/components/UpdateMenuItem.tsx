@@ -9,7 +9,11 @@ import { useArshinActions } from '../hooks/useArshinActions';
 import StyledMenuList from 'features/dataTable/styled/StyledMenuList';
 import { useAppSelector } from 'hooks/redux';
 
-function UpdateMenuItem() {
+interface Props {
+	onClose: VoidFunction;
+}
+
+function UpdateMenuItem({ onClose }: Props) {
 	const [updateOpen, setUpdateOpen] = useState(false);
 
 	const selectionItemsDone = useAppSelector(selectSelectedItemsDone);
@@ -20,13 +24,22 @@ function UpdateMenuItem() {
 		setUpdateOpen(prev => !prev);
 	};
 
+	const handleAllSynchronize = () => {
+		onClose();
+		handleSynchronizeItemsIsDone();
+	};
+	const handleModelSynchronise = () => {
+		handleSynchronizeItems();
+		onClose();
+	};
+
 	return (
 		<>
 			<MenuItem disabled={!selectionItemsDone.length} onClick={handleUpdateOpen}>
 				<ListItemIcon>
 					<CachedIcon />
 				</ListItemIcon>
-				<ListItemText primary='Обновить' />
+				<ListItemText primary='Перезаписать данные в МерСИ' />
 				<ExpandIcon
 					color='action'
 					sx={{
@@ -37,13 +50,10 @@ function UpdateMenuItem() {
 			</MenuItem>
 			<Collapse in={updateOpen}>
 				<StyledMenuList disablePadding>
-					<MenuItem
-						disabled={!selectionItemsDone.length}
-						onClick={handleSynchronizeItemsIsDone}
-					>
+					<MenuItem disabled={!selectionItemsDone.length} onClick={handleAllSynchronize}>
 						<ListItemText primary='Все' />
 					</MenuItem>
-					<MenuItem disabled={!selectionItemsDone.length} onClick={handleSynchronizeItems}>
+					<MenuItem disabled={!selectionItemsDone.length} onClick={handleModelSynchronise}>
 						<ListItemText primary='Выделенное' />
 					</MenuItem>
 				</StyledMenuList>

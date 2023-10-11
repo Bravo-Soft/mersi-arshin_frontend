@@ -28,7 +28,7 @@ export const itemSchema = z.object({
 	measurementLimit: z.string().max(128, smallLengthField),
 	location: z.string().max(128, smallLengthField),
 	responsible: z.string().max(128, smallLengthField),
-	suitability: z.boolean(),
+	suitability: z.string(),
 	fgisUrl: z.string().max(256, largeLengthField),
 	additionalData: z.string().max(256, largeLengthField),
 	methodology: z.string().max(256, largeLengthField),

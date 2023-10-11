@@ -55,7 +55,7 @@ const defaultValues = {
 	typeOfWork: '',
 	location: '',
 	responsible: '',
-	suitability: false,
+	suitability: 'false',
 	fgisUrl: '',
 	additionalData: '',
 	methodology: '',

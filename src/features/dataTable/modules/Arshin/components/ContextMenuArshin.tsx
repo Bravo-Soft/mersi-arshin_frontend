@@ -64,7 +64,7 @@ function ContextMenuArshin({ contextMenu, actions }: UseArshinContextMenuActions
 				},
 			}}
 		>
-			<UpdateMenuItem />
+			<UpdateMenuItem onClose={handleCloseContextMenu} />
 			{menuItems.map(({ action, title, Icon, isDisabled }) => (
 				<StyledMenuItem
 					moduleIsActive={true}

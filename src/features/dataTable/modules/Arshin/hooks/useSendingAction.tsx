@@ -27,7 +27,7 @@ export const useSendingAction = () => {
 		[dispatch]
 	);
 
-	useServerSentEvent(`${BASE_URL}/api/user/modules/arshin/notifications`, callBack);
+	useServerSentEvent(`${BASE_URL}/api/user/modules/arshin/loading-process`, callBack);
 
 	useEffect(() => {
 		!alive &&

@@ -67,7 +67,7 @@ function MenuActionsArshin() {
 				Действия
 			</Button>
 			<Menu open={open} onClose={handleCloseMenu} anchorEl={anchorEl}>
-				<UpdateMenuItem />
+				<UpdateMenuItem onClose={handleCloseMenu} />
 				{menuItems.map(({ action, title, Icon, isActive }) => (
 					<StyledMenuItem
 						moduleIsActive={true}

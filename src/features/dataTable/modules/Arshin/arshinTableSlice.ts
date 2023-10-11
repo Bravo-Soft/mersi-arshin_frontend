@@ -117,6 +117,11 @@ export const selectIsDone = (state: RootState) => {
 	const doneItems = selectSelectedModelArshin(state);
 	return doneItems.every(({ status }) => status === ArshinStatus.DONE);
 };
+//Все данные в таблице idDone
+export const selectTableIsDone = (state: RootState) => {
+	const data = selectArshinData(state);
+	return data?.filter(({ status }) => status === ArshinStatus.DONE).map(({ id }) => id);
+};
 //все данные массивы не содержат idDone
 export const selectNotIsDone = (state: RootState) => {
 	const doneItems = selectSelectedModelArshin(state);
