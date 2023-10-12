@@ -45,6 +45,7 @@ function DataTableToolbar(): JSX.Element {
 			setExpanded(false);
 		}
 	}, [actualStep, startIsMenu]);
+	
 
 	return (
 		<>

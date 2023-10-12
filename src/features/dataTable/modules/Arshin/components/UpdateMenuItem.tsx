@@ -3,7 +3,7 @@ import ExpandIcon from '@mui/icons-material/ExpandMore';
 import { Collapse, ListItemIcon, ListItemText, MenuItem } from '@mui/material';
 import { useState } from 'react';
 
-import { selectSelectedItemsDone } from '../arshinTableSlice';
+import { selectSelectedItemsDone, selectTableDoneArshin } from '../arshinTableSlice';
 import { useArshinActions } from '../hooks/useArshinActions';
 
 import StyledMenuList from 'features/dataTable/styled/StyledMenuList';
@@ -17,6 +17,7 @@ function UpdateMenuItem({ onClose }: Props) {
 	const [updateOpen, setUpdateOpen] = useState(false);
 
 	const selectionItemsDone = useAppSelector(selectSelectedItemsDone);
+	const selectedTableDoneArshin = useAppSelector(selectTableDoneArshin);
 
 	const { handleSynchronizeItems, handleSynchronizeItemsIsDone } = useArshinActions();
 
@@ -35,7 +36,7 @@ function UpdateMenuItem({ onClose }: Props) {
 
 	return (
 		<>
-			<MenuItem disabled={!selectionItemsDone.length} onClick={handleUpdateOpen}>
+			<MenuItem disabled={!selectedTableDoneArshin.length} onClick={handleUpdateOpen}>
 				<ListItemIcon>
 					<CachedIcon />
 				</ListItemIcon>
@@ -50,7 +51,7 @@ function UpdateMenuItem({ onClose }: Props) {
 			</MenuItem>
 			<Collapse in={updateOpen}>
 				<StyledMenuList disablePadding>
-					<MenuItem disabled={!selectionItemsDone.length} onClick={handleAllSynchronize}>
+					<MenuItem disabled={!selectedTableDoneArshin.length} onClick={handleAllSynchronize}>
 						<ListItemText primary='Все' />
 					</MenuItem>
 					<MenuItem disabled={!selectionItemsDone.length} onClick={handleModelSynchronise}>

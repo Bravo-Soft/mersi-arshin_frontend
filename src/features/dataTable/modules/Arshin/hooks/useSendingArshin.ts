@@ -16,7 +16,6 @@ export const useSendingArshin = () => {
 			dispatch(setStartProcess(true));
 			await arshinStart(selectedDataIds);
 		} catch {
-			console.log('Баг');
 			dispatch(setStartProcess(false));
 		}
 	};
@@ -29,3 +28,5 @@ export const useSendingArshin = () => {
 
 	return { handleStart, handleCancel };
 };
+
+//

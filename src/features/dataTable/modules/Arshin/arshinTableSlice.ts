@@ -76,6 +76,11 @@ export const selectNotIsDoneArshin = (state: RootState) => {
 	const data = selectArshinData(state);
 	return data.filter(({ status }) => status !== ArshinStatus.DONE).map(({ id }) => id);
 };
+//Массив всех id  аршина в таблице которые  содержат is Done
+export const selectTableDoneArshin = (state: RootState) => {
+	const data = selectArshinData(state);
+	return data.filter(({ status }) => status === ArshinStatus.DONE).map(({ id }) => id);
+};
 //Массив всех id  аршина в таблице которые не содержат is AWAITING_SHIPMENT
 export const selectAwaitingShipmentArshin = (state: RootState) => {
 	const data = selectArshinData(state);
@@ -126,6 +131,75 @@ export const selectTableIsDone = (state: RootState) => {
 export const selectNotIsDone = (state: RootState) => {
 	const doneItems = selectSelectedModelArshin(state);
 	return doneItems.every(({ status }) => status !== ArshinStatus.DONE);
+};
+
+//Массив данных модели которые можно отправить на проверку
+
+export const selectSendingModel = (state: RootState) => {
+	const model = selectSelectedModelArshin(state);
+	return model.filter(
+		({ status }) =>
+			status === ArshinStatus.AWAITING_SHIPMENT ||
+			status === ArshinStatus.FAILED_TO_RETRIEVE_DATA
+	);
+};
+
+//--- new Model-----------
+
+//---- Модель данных для удаления данных
+
+//Модель для удаления
+export const selectDeleteModel = (state: RootState) => {
+	const model = selectSelectedModelArshin(state);
+	return model.filter(({ status }) => status !== ArshinStatus.PROCESS);
+};
+
+//Модель id  для удаления
+export const selectDeleteModelIds = (state: RootState) => {
+	const deleteModel = selectDeleteModel(state);
+	return deleteModel.map(({ id }) => id);
+};
+
+//---- Модель данных для синхронизации данных
+
+//Модель для синхронизации
+export const selectSynchronizeModel = (state: RootState) => {
+	const model = selectSelectedModelArshin(state);
+	return model.filter(({ status }) => status === ArshinStatus.DONE);
+};
+
+//Модель id  для синхронизации
+export const selectSynchronizeModelIds = (state: RootState) => {
+	const synchronizeModel = selectDeleteModel(state);
+	return synchronizeModel.map(({ id }) => id);
+};
+
+//Все данные таблицы для синхронизации
+export const selectSynchronizeAllItemsModel = (state: RootState) => {
+	const data = selectArshinData(state);
+	return data.filter(({ status }) => status === ArshinStatus.DONE);
+};
+
+//Все id таблицы для синхронизации
+export const selectSynchronizeAllItemsModelIds = (state: RootState) => {
+	const synchronizeAllItemsModel = selectSynchronizeAllItemsModel(state);
+	return synchronizeAllItemsModel.map(({ id }) => id);
+};
+
+//---- Модель данных для отправки данных
+
+//Модель для отправки
+export const selectUploadModel = (state: RootState) => {
+	const model = selectSelectedModelArshin(state);
+	return model.filter(
+		({ status }) => status !== ArshinStatus.DONE && status !== ArshinStatus.PROCESS
+	);
+};
+
+//Модель id  для отправки
+export const selectUploadModelIds = (state: RootState) => {
+	const uploadModel = selectDeleteModel(state);
+	return uploadModel.map(({ id }) => id);
 };
 
 export const {

@@ -1,7 +1,10 @@
 export const enum ArshinStatus {
-	DONE = 'Готово',
-	FAILED_TO_RETRIEVE_DATA = 'Не удалось получить данные',
-	AWAITING_SHIPMENT = 'Ожидание отправки',
+	DONE = 'Готово', // dell + sinc
+	FAILED_TO_RETRIEVE_DATA = 'Не удалось получить данные', // dell + отправка
+	AWAITING_SHIPMENT = 'Ожидание отправки', // dell + отправка
+	PROCESS = 'Данные в обработке',
+	CANCELED = 'Проверка данных отменена пользователем', // dell + отправка
+	NOT_FOUND = 'Данные не обнаружены', // dell + отправка
 }
 
 export const arshinFilterStatusDone = {
@@ -9,3 +12,6 @@ export const arshinFilterStatusDone = {
 	operatorValue: 'is',
 	value: ArshinStatus.DONE,
 };
+
+
+

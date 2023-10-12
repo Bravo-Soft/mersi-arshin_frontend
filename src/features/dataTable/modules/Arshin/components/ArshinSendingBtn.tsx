@@ -1,8 +1,8 @@
 import GetAppIcon from '@mui/icons-material/GetApp';
-import { Stack } from '@mui/material';
 import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
 
-import { selectNotIsDoneArshin } from '../arshinTableSlice';
+import { selectSendingModel } from '../arshinTableSlice';
 import { selectIsStartArshin, selectProgressArshin } from '../eventSourceSlice';
 import { useSendingArshin } from '../hooks/useSendingArshin';
 
@@ -15,15 +15,12 @@ function ArshinSendingBtn() {
 	const isStart = useAppSelector(selectIsStartArshin);
 	const progressArshin = useAppSelector(selectProgressArshin);
 
-	const processData = useAppSelector(selectNotIsDoneArshin);
+	const processData = useAppSelector(selectSendingModel);
+
 	return (
 		<>
 			{!isStart ? (
-				<Button
-					disabled={!processData.length}
-					startIcon={<GetAppIcon color='primary' />}
-					onClick={handleStart}
-				>
+				<Button disabled={!processData.length} startIcon={<GetAppIcon />} onClick={handleStart}>
 					Получить сейчас
 				</Button>
 			) : (
