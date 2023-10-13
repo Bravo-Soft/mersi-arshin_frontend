@@ -9,6 +9,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Menu from '@mui/material/Menu';
 
 import { selectSelectedDataIds } from '../arshinTableSlice';
+import { selectIsStartArshin, setStartProcess } from '../eventSourceSlice';
 import { useArshinActions } from '../hooks/useArshinActions';
 import { useMenuActions } from '../hooks/useMenuActions';
 
@@ -29,6 +30,8 @@ function MenuActionsArshin() {
 
 	const { anchorEl, open, handleOpenFilter, handleCloseMenu, handleOpenMenu } = useMenuActions();
 	const { handleDeleteItems } = useArshinActions();
+
+	const isStart = useAppSelector(selectIsStartArshin);
 
 	const menuItems: IMenuItem[] = [
 		{
@@ -53,6 +56,7 @@ function MenuActionsArshin() {
 	return (
 		<>
 			<Button
+				disabled={isStart}
 				startIcon={
 					<ExpandIcon
 						sx={{
