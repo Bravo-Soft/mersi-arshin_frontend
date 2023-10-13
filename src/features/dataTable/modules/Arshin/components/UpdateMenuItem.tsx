@@ -1,6 +1,9 @@
 import CachedIcon from '@mui/icons-material/Cached';
 import ExpandIcon from '@mui/icons-material/ExpandMore';
-import { Collapse, ListItemIcon, ListItemText, MenuItem } from '@mui/material';
+import Collapse from '@mui/material/Collapse';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import MenuItem from '@mui/material/MenuItem';
 import { useState } from 'react';
 
 import { selectModelSynchronizeIds, selectSynchronizeIds } from '../arshinTableSlice';

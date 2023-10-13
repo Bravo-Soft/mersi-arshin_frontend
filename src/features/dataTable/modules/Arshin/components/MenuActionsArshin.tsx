@@ -1,8 +1,7 @@
-import CachedIcon from '@mui/icons-material/Cached';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ExpandIcon from '@mui/icons-material/ExpandMore';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { Collapse, MenuItem, SvgIconProps } from '@mui/material';
+import { SvgIconProps } from '@mui/material';
 import Button from '@mui/material/Button';
 import red from '@mui/material/colors/red';
 import ListItemIcon from '@mui/material/ListItemIcon';

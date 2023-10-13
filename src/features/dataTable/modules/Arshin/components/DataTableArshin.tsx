@@ -3,7 +3,6 @@ import { DataGridPro, GridSelectionModel, useGridApiRef } from '@mui/x-data-grid
 
 import { useGetDataQuery } from '../arshinTableApiSlice';
 import { columnsArshin } from '../config/columns';
-import { selectIsStartArshin } from '../eventSourceSlice';
 import { useApplyTemplate } from '../hooks/useApplyTemplate';
 import { useContextMenuActions } from '../hooks/useContextMenuActions';
 import useTableActions from '../hooks/useTableActions';
@@ -13,7 +12,6 @@ import DataTableArshinToolbar from './DataTableArshinToolbar';
 
 import { NoResultsOverlay } from 'features/dataTable/components/NoResultsOverlay';
 import { NoRowsOverlay } from 'features/dataTable/components/NoRowsOverlay';
-import { useAppSelector } from 'hooks/redux';
 import DataTableBox from 'styled/DataTableBox';
 import { IDataItemArshin } from 'types/arshinIntegration';
 
@@ -30,7 +28,7 @@ function DataTableArshin() {
 			data: data ?? emptyData,
 			isFetching,
 		}),
-		
+
 		pollingInterval: 15000,
 	});
 
