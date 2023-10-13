@@ -2,7 +2,7 @@ import GetAppIcon from '@mui/icons-material/GetApp';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 
-import { selectSendingModel } from '../arshinTableSlice';
+import { selectUploadModelIds } from '../arshinTableSlice';
 import { selectIsStartArshin, selectProgressArshin } from '../eventSourceSlice';
 import { useSendingArshin } from '../hooks/useSendingArshin';
 
@@ -15,7 +15,7 @@ function ArshinSendingBtn() {
 	const isStart = useAppSelector(selectIsStartArshin);
 	const progressArshin = useAppSelector(selectProgressArshin);
 
-	const processData = useAppSelector(selectSendingModel);
+	const processData = useAppSelector(selectUploadModelIds);
 
 	return (
 		<>

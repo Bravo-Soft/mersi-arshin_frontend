@@ -3,12 +3,10 @@ import { enqueueSnackbar } from 'notistack';
 import { useDeleteItemsMutation, useSynchronizeItemsMutation } from '../arshinTableApiSlice';
 import {
 	resetSelectedDataItem,
-	selectIdsIsDone,
-	selectIsDone,
-	selectNotIsDone,
-	selectSelectedArshin,
-	selectSelectedModelArshin,
-	selectTableIsDone,
+	selectDeleteModelIds,
+	selectIsOpenSynchronizeDialog,
+	selectModelSynchronizeIds,
+	selectSynchronizeIds,
 } from '../arshinTableSlice';
 import {
 	DialogVariants,
@@ -27,32 +25,35 @@ export const useArshinActions = () => {
 
 	const isOpen = useAppSelector(selectIsOpenDialog);
 
-	//Массив id позиций (модель + выбранная позиция вне модели)
-	const selectedDataIds = useAppSelector(selectSelectedArshin);
+	const deleteData = useAppSelector(selectDeleteModelIds);
 
-	//Массива данных из таблицы по выделенным id
-	const selectedFullModelArshin = useAppSelector(selectSelectedModelArshin);
+	const synchronizeData = useAppSelector(selectSynchronizeIds);
 
-	//массив id позиций которые имеют статус DONE
-	const arshinIdIsDone = useAppSelector(selectIdsIsDone);
+	const synchronizeModelData = useAppSelector(selectModelSynchronizeIds);
 
-	//все данные массивы не содержат idDone
-	const doesNotContainIsDone = useAppSelector(selectNotIsDone);
+	const isOpenerSyncDialog = useAppSelector(selectIsOpenSynchronizeDialog);
 
-	//все данные массива содержат idDone
-	const containIsDone = useAppSelector(selectIsDone);
+	const handleSynchronize = async () => {
+		try {
+			await synchronizeItemsArshin(synchronizeData);
+			enqueueSnackbar(Messages.ARSHIN_ITEM_SUCCESSFULLY_UPDATED, {
+				variant: 'success',
+			});
+		} catch {
+			enqueueSnackbar(Messages.FAILED_ARSHIN_ITEM_UPDATED, {
+				variant: 'error',
+			});
+		} finally {
+			dispatch(resetDialogState());
+		}
+	};
 
-	//Все готовые в таблице
-	const tableIsDone = useAppSelector(selectTableIsDone);
-
-	const dataLength = arshinIdIsDone.length < selectedFullModelArshin.length;
-
-	const handleSynchronizeItems = async () => {
-		if (dataLength && !isOpen && !containIsDone) {
+	const handleModelSynchronize = async () => {
+		if (!isOpenerSyncDialog && !isOpen) {
 			return handleDialogOpener('synchronize');
 		}
 		try {
-			await synchronizeItemsArshin(arshinIdIsDone);
+			await synchronizeItemsArshin(synchronizeModelData);
 			enqueueSnackbar(Messages.ARSHIN_ITEM_SUCCESSFULLY_UPDATED, {
 				variant: 'success',
 			});
@@ -66,27 +67,12 @@ export const useArshinActions = () => {
 		}
 	};
 
-	const handleSynchronizeItemsIsDone = async () => {
-		try {
-			await synchronizeItemsArshin(tableIsDone);
-			enqueueSnackbar(Messages.ARSHIN_ITEM_SUCCESSFULLY_UPDATED, {
-				variant: 'success',
-			});
-		} catch {
-			enqueueSnackbar(Messages.FAILED_ARSHIN_ITEM_UPDATED, {
-				variant: 'error',
-			});
-		} finally {
-			dispatch(resetDialogState());
-		}
-	};
-
 	const handleDeleteItems = async () => {
-		if (Boolean(arshinIdIsDone.length) && !isOpen) {
+		if (Boolean(synchronizeModelData.length) && !isOpen) {
 			return handleDialogOpener('deleting');
 		}
 		try {
-			await deleteFromArshin(selectedDataIds).unwrap();
+			await deleteFromArshin(deleteData).unwrap();
 			enqueueSnackbar(Messages.ITEM_SUCCESSFULLY_DELETED, { variant: 'success' });
 		} catch {
 			enqueueSnackbar(Messages.FAILED_DELETE_ITEM, { variant: 'error' });
@@ -110,8 +96,8 @@ export const useArshinActions = () => {
 	};
 
 	return {
-		handleSynchronizeItems,
-		handleSynchronizeItemsIsDone,
+		handleModelSynchronize,
+		handleSynchronize,
 		handleDeleteItems,
 		handleCloseDialog,
 	};

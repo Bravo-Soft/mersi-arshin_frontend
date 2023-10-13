@@ -3,7 +3,7 @@ import ExpandIcon from '@mui/icons-material/ExpandMore';
 import { Collapse, ListItemIcon, ListItemText, MenuItem } from '@mui/material';
 import { useState } from 'react';
 
-import { selectSelectedItemsDone, selectTableDoneArshin } from '../arshinTableSlice';
+import { selectModelSynchronizeIds, selectSynchronizeIds } from '../arshinTableSlice';
 import { useArshinActions } from '../hooks/useArshinActions';
 
 import StyledMenuList from 'features/dataTable/styled/StyledMenuList';
@@ -16,10 +16,11 @@ interface Props {
 function UpdateMenuItem({ onClose }: Props) {
 	const [updateOpen, setUpdateOpen] = useState(false);
 
-	const selectionItemsDone = useAppSelector(selectSelectedItemsDone);
-	const selectedTableDoneArshin = useAppSelector(selectTableDoneArshin);
+	const synchronizeModelData = useAppSelector(selectModelSynchronizeIds);
 
-	const { handleSynchronizeItems, handleSynchronizeItemsIsDone } = useArshinActions();
+	const synchronizeTableData = useAppSelector(selectSynchronizeIds);
+
+	const { handleModelSynchronize, handleSynchronize } = useArshinActions();
 
 	const handleUpdateOpen = () => {
 		setUpdateOpen(prev => !prev);
@@ -27,16 +28,16 @@ function UpdateMenuItem({ onClose }: Props) {
 
 	const handleAllSynchronize = () => {
 		onClose();
-		handleSynchronizeItemsIsDone();
+		handleSynchronize();
 	};
 	const handleModelSynchronise = () => {
-		handleSynchronizeItems();
+		handleModelSynchronize();
 		onClose();
 	};
 
 	return (
 		<>
-			<MenuItem disabled={!selectedTableDoneArshin.length} onClick={handleUpdateOpen}>
+			<MenuItem disabled={!synchronizeTableData.length} onClick={handleUpdateOpen}>
 				<ListItemIcon>
 					<CachedIcon />
 				</ListItemIcon>
@@ -51,10 +52,10 @@ function UpdateMenuItem({ onClose }: Props) {
 			</MenuItem>
 			<Collapse in={updateOpen}>
 				<StyledMenuList disablePadding>
-					<MenuItem disabled={!selectedTableDoneArshin.length} onClick={handleAllSynchronize}>
+					<MenuItem disabled={!synchronizeTableData.length} onClick={handleAllSynchronize}>
 						<ListItemText primary='Все' />
 					</MenuItem>
-					<MenuItem disabled={!selectionItemsDone.length} onClick={handleModelSynchronise}>
+					<MenuItem disabled={!synchronizeModelData.length} onClick={handleModelSynchronise}>
 						<ListItemText primary='Выделенное' />
 					</MenuItem>
 				</StyledMenuList>
