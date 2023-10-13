@@ -19,12 +19,12 @@ export const API = {
 				`${PREFIX}/user/templates/${templateId}/select`,
 		},
 		profile: {
-			default: `${PREFIX}/user/profile`,
-			photo: `${PREFIX}/user/profile/photo`,
+			default: `${PREFIX}/account/profile`,
+			photo: `${PREFIX}/account/profile/photo`,
 		},
-		notification: `${PREFIX}/user/notification`,
+		notification: `${PREFIX}/user/settings/notification`,
 		favoritesData: `${PREFIX}/user/favorites/data`,
-		printSettings: `${PREFIX}/user/print-settings`,
+		printSettings: `${PREFIX}/user/settings/print`,
 		reviews: `${PREFIX}/user/reviews`,
 	},
 	data: {
