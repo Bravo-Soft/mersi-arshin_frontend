@@ -46,5 +46,6 @@ export const API = {
 		synchronizeItems: `${PREFIX}/user/modules/arshin/process/synchronize`,
 		startArshin: `${PREFIX}/user/modules/arshin/process/start`,
 		cancelArshin: `${PREFIX}/user/modules/arshin/process/cancel`,
+		validateArshin: `${PREFIX}/user/modules/arshin/validate`,
 	},
 };

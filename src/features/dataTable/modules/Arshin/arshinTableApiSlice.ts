@@ -3,6 +3,21 @@ import { GridSelectionModel } from '@mui/x-data-grid-pro';
 import { API } from 'app/api';
 import { apiSlice } from 'app/apiSlice';
 import { IDataItemArshin, IFormFilterArshin } from 'types/arshinIntegration';
+import { IDataItem } from 'types/dataItem';
+
+export interface ApiErrorResponse {
+	status: number;
+	data: { message: string; statusCode: number; response: IDataItem[] };
+}
+
+export function isApiResponse(error: unknown): error is ApiErrorResponse {
+	return (
+		typeof error === 'object' &&
+		error != null &&
+		'status' in error &&
+		typeof (error as any).status === 'number'
+	);
+}
 
 export const arshinTableApiSlice = apiSlice.injectEndpoints({
 	endpoints: builder => ({
@@ -24,6 +39,7 @@ export const arshinTableApiSlice = apiSlice.injectEndpoints({
 				method: 'DELETE',
 				body: ids,
 			}),
+
 			invalidatesTags: ['ArshinData'],
 		}),
 		synchronizeItems: builder.mutation<void, GridSelectionModel>({
@@ -67,6 +83,20 @@ export const arshinTableApiSlice = apiSlice.injectEndpoints({
 			}),
 			invalidatesTags: ['ArshinFilters'],
 		}),
+		validateArshin: builder.mutation<void, string[]>({
+			query: body => ({
+				url: API.arshin.validateArshin,
+				method: 'POST',
+				body,
+			}),
+			onQueryStarted: async (_, { queryFulfilled }) => {
+				queryFulfilled.catch(({ error }) => {
+					if (isApiResponse(error) && error.status === 409) {
+						console.log('err.data', error);
+					}
+				});
+			},
+		}),
 	}),
 });
 
@@ -80,4 +110,5 @@ export const {
 	useSynchronizeItemsMutation,
 	useStartArshinMutation,
 	useCancelArshinMutation,
+	useValidateArshinMutation,
 } = arshinTableApiSlice;

@@ -1,4 +1,8 @@
-import { useCancelArshinMutation, useStartArshinMutation } from '../arshinTableApiSlice';
+import {
+	useCancelArshinMutation,
+	useStartArshinMutation,
+	useValidateArshinMutation,
+} from '../arshinTableApiSlice';
 import { selectSelectedArshin } from '../arshinTableSlice';
 import { resetState, setStartProcess } from '../eventSourceSlice';
 
@@ -7,6 +11,7 @@ import { useAppDispatch, useAppSelector } from 'hooks/redux';
 export const useSendingArshin = () => {
 	const [arshinStart] = useStartArshinMutation();
 	const [arshinCancel] = useCancelArshinMutation();
+	const [arshinValidate, { error }] = useValidateArshinMutation();
 	const dispatch = useAppDispatch();
 	//Массив id позиций (модель + выбранная позиция вне модели)
 	const selectedDataIds = useAppSelector(selectSelectedArshin);
@@ -14,8 +19,11 @@ export const useSendingArshin = () => {
 	const handleStart = async () => {
 		try {
 			dispatch(setStartProcess(true));
-			await arshinStart(selectedDataIds);
-		} catch {
+			await arshinValidate(selectedDataIds).unwrap();
+			// await arshinStart(selectedDataIds);
+		} catch (error) {
+			// console.log('error', error);
+			// console.log('isError', isError);
 			dispatch(setStartProcess(false));
 		}
 	};
