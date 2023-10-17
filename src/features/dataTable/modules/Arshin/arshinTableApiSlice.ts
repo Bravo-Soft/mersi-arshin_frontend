@@ -1,5 +1,8 @@
 import { GridSelectionModel } from '@mui/x-data-grid-pro';
 
+import { setNotValidArshinItem } from './arshinTableSlice';
+import { changeDialogState } from './dialogArshinSlice';
+
 import { API } from 'app/api';
 import { apiSlice } from 'app/apiSlice';
 import { IDataItemArshin, IFormFilterArshin } from 'types/arshinIntegration';
@@ -89,10 +92,11 @@ export const arshinTableApiSlice = apiSlice.injectEndpoints({
 				method: 'POST',
 				body,
 			}),
-			onQueryStarted: async (_, { queryFulfilled }) => {
+			onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
 				queryFulfilled.catch(({ error }) => {
 					if (isApiResponse(error) && error.status === 409) {
-						console.log('err.data', error);
+						dispatch(setNotValidArshinItem(error.data.response));
+						dispatch(changeDialogState('validate'));
 					}
 				});
 			},

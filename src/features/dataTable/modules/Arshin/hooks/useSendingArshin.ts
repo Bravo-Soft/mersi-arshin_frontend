@@ -1,3 +1,5 @@
+import { enqueueSnackbar } from 'notistack';
+
 import {
 	useCancelArshinMutation,
 	useStartArshinMutation,
@@ -18,12 +20,10 @@ export const useSendingArshin = () => {
 
 	const handleStart = async () => {
 		try {
-			dispatch(setStartProcess(true));
 			await arshinValidate(selectedDataIds).unwrap();
-			// await arshinStart(selectedDataIds);
+			dispatch(setStartProcess(true));
+			await arshinStart(selectedDataIds);
 		} catch (error) {
-			// console.log('error', error);
-			// console.log('isError', isError);
 			dispatch(setStartProcess(false));
 		}
 	};

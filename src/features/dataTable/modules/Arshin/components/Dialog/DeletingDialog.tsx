@@ -9,7 +9,7 @@ import Dialog from 'components/Dialog';
 import { useAppSelector } from 'hooks/redux';
 
 function DeletingDialog(): JSX.Element {
-	const { isOpen } = useAppSelector(selectDeletingDialog);
+	const isOpen = useAppSelector(selectDeletingDialog);
 	const deleteItems = useAppSelector(selectDeleteModelIds);
 
 	const { handleDeleteItems, handleCloseDialog } = useArshinActions();

@@ -5,17 +5,19 @@ import { arshinTableApiSlice } from './arshinTableApiSlice';
 import { RootState } from 'app/store';
 import { ArshinStatus } from 'constant/arshinStatus';
 import { isValueDefined } from 'guards/isValueDefined';
-import { IDataItemArshin } from 'types/arshinIntegration';
+import { IDataItemArshin, INotValidArshinItem } from 'types/arshinIntegration';
 import { getArrayWithoutDuplicates } from 'utils/getArrayWithoutDuplicates';
 
 interface IArshinTableState {
 	selectedDataItems: IDataItemArshin[] | null;
 	selectedDataArshinItem: IDataItemArshin | null;
+	notValidArshinItem: INotValidArshinItem[];
 }
 
 const initialState: IArshinTableState = {
-	selectedDataItems: null,
+	selectedDataItems: [],
 	selectedDataArshinItem: null,
+	notValidArshinItem: [],
 };
 
 const arshinTableSlice = createSlice({
@@ -30,7 +32,9 @@ const arshinTableSlice = createSlice({
 		setSelectedDataArshinItem: (state, action: PayloadAction<IDataItemArshin>) => {
 			state.selectedDataArshinItem = action.payload;
 		},
-
+		setNotValidArshinItem: (state, action: PayloadAction<any>) => {
+			state.notValidArshinItem = action.payload;
+		},
 		resetSelectedDataArshinItem: state => {
 			state.selectedDataArshinItem = initialState.selectedDataArshinItem;
 		},
@@ -132,10 +136,12 @@ export const selectUploadModelIds = (state: RootState) => {
 };
 
 // ---
+export const selectNotValidArshinItem = (state: RootState) => state.arshinTable.notValidArshinItem;
 
 export const {
 	setSelectedDataItems,
 	resetSelectedDataItem,
+	setNotValidArshinItem,
 	setSelectedDataArshinItem,
 	resetSelectedDataArshinItem,
 } = arshinTableSlice.actions;

@@ -30,3 +30,10 @@ export interface IConfigAdditionalFiltersArshin {
 export interface IDataItemArshin extends IDataItem {
 	status: ArshinStatus;
 }
+
+type KeyofDataItemArshin = keyof IFormFilterArshin;
+export interface INotValidArshinItem {
+	id: string;
+	originId: string;
+	keys: KeyofDataItemArshin[];
+}

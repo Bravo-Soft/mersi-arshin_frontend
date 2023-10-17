@@ -1,4 +1,5 @@
-import { GridColDef } from '@mui/x-data-grid-pro';
+import { GridCellParams, GridColDef } from '@mui/x-data-grid-pro';
+import cn from 'classnames';
 
 import { ArshinStatus } from 'constant/arshinStatus';
 import { ColumnNames } from 'constant/columnsName';
@@ -11,12 +12,22 @@ import { formatDateCallback } from 'features/dataTable/utils/formatDateCallback'
 import { quickFilterDateFormat } from 'features/dataTable/utils/quickFilterDateFormat';
 import { IDataItemArshin } from 'types/arshinIntegration';
 
+const getCellClasses = ({ value = '' }: GridCellParams<string>) => {
+	//TODO: При необходимости включить стили для ячеек, срок поверки которых меньше 2 недель
+	return cn({
+		// overdueItem: Boolean(!dayjs().isBefore(dayjs(value))),
+		// notVali
+		// twoWeeksToGo: result <= 14 && result >= 0,
+	});
+};
+
 export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	{
 		field: 'name',
 		sortable: false,
 		headerName: ColumnNames.NAME,
 		width: 200,
+		cellClassName: getCellClasses,
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
 	},

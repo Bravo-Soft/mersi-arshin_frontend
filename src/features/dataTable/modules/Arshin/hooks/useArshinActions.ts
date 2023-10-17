@@ -1,12 +1,20 @@
 import { enqueueSnackbar } from 'notistack';
 
-import { useDeleteItemsMutation, useSynchronizeItemsMutation } from '../arshinTableApiSlice';
+import {
+	useDeleteItemsMutation,
+	useStartArshinMutation,
+	useSynchronizeItemsMutation,
+} from '../arshinTableApiSlice';
 import {
 	resetSelectedDataItem,
 	selectDeleteModelIds,
 	selectIsOpenSynchronizeDialog,
 	selectModelSynchronizeIds,
+	selectNotValidArshinItem,
+	selectSelectedArshin,
+	selectSelectedDataItems,
 	selectSynchronizeIds,
+	setSelectedDataItems,
 } from '../arshinTableSlice';
 import {
 	DialogVariants,
@@ -17,11 +25,17 @@ import {
 
 import { Messages } from 'constant/messages';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import { usePage } from 'hooks/usePage';
+import { useSidebarAction } from 'hooks/useSidebarActions';
 
 export const useArshinActions = () => {
 	const dispatch = useAppDispatch();
+
+	const { openSidebarWith } = useSidebarAction('arshin');
+
 	const [deleteFromArshin] = useDeleteItemsMutation();
 	const [synchronizeItemsArshin] = useSynchronizeItemsMutation();
+	const [arshinStart] = useStartArshinMutation();
 
 	const isOpen = useAppSelector(selectIsOpenDialog);
 
@@ -29,9 +43,15 @@ export const useArshinActions = () => {
 
 	const synchronizeData = useAppSelector(selectSynchronizeIds);
 
+	const tableItemsModel = useAppSelector(selectSelectedDataItems);
+
+	const tableItemsNotValidateModel = useAppSelector(selectNotValidArshinItem);
+
 	const synchronizeModelData = useAppSelector(selectModelSynchronizeIds);
 
 	const isOpenerSyncDialog = useAppSelector(selectIsOpenSynchronizeDialog);
+
+	const selectedDataIds = useAppSelector(selectSelectedArshin);
 
 	const handleSynchronize = async () => {
 		try {
@@ -50,7 +70,7 @@ export const useArshinActions = () => {
 
 	const handleModelSynchronize = async () => {
 		if (!isOpenerSyncDialog && !isOpen) {
-			return handleDialogOpener('synchronize');
+			return dispatch(changeDialogState('synchronize'));
 		}
 		try {
 			await synchronizeItemsArshin(synchronizeModelData);
@@ -69,7 +89,7 @@ export const useArshinActions = () => {
 
 	const handleDeleteItems = async () => {
 		if (Boolean(synchronizeModelData.length) && !isOpen) {
-			return handleDialogOpener('deleting');
+			return dispatch(changeDialogState('deleting'));
 		}
 		try {
 			await deleteFromArshin(deleteData).unwrap();
@@ -82,17 +102,20 @@ export const useArshinActions = () => {
 		}
 	};
 
-	const handleDialogOpener = (variant: DialogVariants) => {
-		dispatch(
-			changeDialogState({
-				isOpen: true,
-				variant,
-			})
-		);
-	};
-
 	const handleCloseDialog = () => {
 		dispatch(resetDialogState());
+	};
+
+	const handleCancelSending = async () => {
+		const validate = tableItemsNotValidateModel.map(({ id }) => id);
+		const sendArray = selectedDataIds.filter(id => !validate.includes(id));
+		handleCloseDialog();
+		await arshinStart(sendArray);
+	};
+
+	const handleEditArshinItem = () => {
+		openSidebarWith('EditArshinItem');
+		handleCloseDialog();
 	};
 
 	return {
@@ -100,5 +123,7 @@ export const useArshinActions = () => {
 		handleSynchronize,
 		handleDeleteItems,
 		handleCloseDialog,
+		handleCancelSending,
+		handleEditArshinItem,
 	};
 };

@@ -9,7 +9,7 @@ import Dialog from 'components/Dialog';
 import { useAppSelector } from 'hooks/redux';
 
 function SynchronizeDialog() {
-	const { isOpen } = useAppSelector(selectSynchronizeDialog);
+	const isOpen = useAppSelector(selectSynchronizeDialog);
 
 	const dataIsDone = useAppSelector(selectModelSynchronizeIds);
 

@@ -3,73 +3,38 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 
 import type { RootState } from 'app/store';
 
-export type DialogVariants = 'synchronize' | 'deleting';
-
-interface IDialogOptions {
-	isOpen: boolean;
-	content: string;
-}
+export type DialogVariants = 'synchronize' | 'deleting' | 'validate' | 'filter' | null;
 
 type ISmartDialogState = {
-	synchronize: IDialogOptions;
-	deleting: IDialogOptions;
-	openFilterDialog: boolean;
+	variant: DialogVariants;
 };
 
-interface IChangeDialogAction extends Omit<IDialogOptions, 'content'> {
-	content?: string;
-	variant: DialogVariants;
-}
-
 const initialState: ISmartDialogState = {
-	synchronize: {
-		isOpen: false,
-		content: 'Будут обновлены только строки, по которым получены данные с ФГИС “Аршин”, 1 из 1',
-	},
-	deleting: {
-		isOpen: false,
-		content: 'При удалении данных строк будут потеряны все данные, полученные из ФГИС “Аршин”',
-	},
-	openFilterDialog: false,
+	variant: null,
 };
 
 const dialogArshinSlice = createSlice({
 	name: 'dialogArshin',
 	initialState,
 	reducers: {
-		changeDialogState: (state, action: PayloadAction<IChangeDialogAction>) => {
-			const { variant, isOpen, content } = action.payload;
-			state[variant].isOpen = isOpen;
-
-			if (content) {
-				state[variant].content = content;
-			}
+		changeDialogState: (state, action: PayloadAction<DialogVariants>) => {
+			state.variant = action.payload;
 		},
 
 		resetDialogState: () => initialState,
-
-		openFilterDialogArshin: state => {
-			state.openFilterDialog = true;
-		},
-		closeFilterDialogArshin: state => {
-			state.openFilterDialog = false;
-		},
 	},
 });
 
-export const selectSynchronizeDialog = (state: RootState) => state.dialogArshin.synchronize;
-export const selectDeletingDialog = (state: RootState) => state.dialogArshin.deleting;
-export const selectOpenFilterDialogArshin = (state: RootState) =>
-	state.dialogArshin.openFilterDialog;
+export const selectSynchronizeDialog = (state: RootState) =>
+	state.dialogArshin.variant === 'synchronize';
+export const selectValidateDialog = (state: RootState) => state.dialogArshin.variant === 'validate';
+export const selectDeletingDialog = (state: RootState) => state.dialogArshin.variant === 'deleting';
 
-export const selectIsOpenDialog = (state: RootState) =>
-	state.dialogArshin.deleting.isOpen || state.dialogArshin.synchronize.isOpen;
+export const selectOpenFilterDialogArshin = (state: RootState) =>
+	state.dialogArshin.variant === 'filter';
+
+export const selectIsOpenDialog = (state: RootState) => Boolean(state.dialogArshin.variant);
 
 export const dialogArshinPath = dialogArshinSlice.name;
 export const dialogArshinReducer = dialogArshinSlice.reducer;
-export const {
-	changeDialogState,
-	resetDialogState,
-	openFilterDialogArshin,
-	closeFilterDialogArshin,
-} = dialogArshinSlice.actions;
+export const { changeDialogState, resetDialogState } = dialogArshinSlice.actions;

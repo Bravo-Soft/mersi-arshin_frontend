@@ -12,6 +12,8 @@ import DataTableArshinToolbar from './DataTableArshinToolbar';
 
 import { NoResultsOverlay } from 'features/dataTable/components/NoResultsOverlay';
 import { NoRowsOverlay } from 'features/dataTable/components/NoRowsOverlay';
+import { selectSidebarStateOfArshinPage } from 'features/sidebar/sidebarSlice';
+import { useAppSelector } from 'hooks/redux';
 import DataTableBox from 'styled/DataTableBox';
 import { IDataItemArshin } from 'types/arshinIntegration';
 
@@ -33,11 +35,12 @@ function DataTableArshin() {
 	});
 
 	const { selectionIds, handleSelectItems, handleDisabledSelectedRow } = useTableActions();
+	const { open: sidebarIsOpen } = useAppSelector(selectSidebarStateOfArshinPage);
 
 	const { contextMenu, actions } = useContextMenuActions(data);
 
 	return (
-		<DataTableBox>
+		<DataTableBox sidebarIsOpen={sidebarIsOpen}>
 			<DataGridPro
 				apiRef={apiRef}
 				columns={columnsArshin}
