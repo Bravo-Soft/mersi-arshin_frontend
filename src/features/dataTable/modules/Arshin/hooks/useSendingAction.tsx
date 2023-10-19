@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from 'hooks/redux';
 export const useSendingAction = () => {
 	const dispatch = useAppDispatch();
 	const alive = useAppSelector(selectIsAliveArshin);
+	
 	const callBack = useCallback(
 		(event: MessageEvent) => {
 			const { total, processed, alive } = schema.parse(JSON.parse(event.data));

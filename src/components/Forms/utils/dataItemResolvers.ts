@@ -155,3 +155,4 @@ export const createSchema = itemSchema
 
 export const formResolver = zodResolver(schema);
 export const createResolver = zodResolver(createSchema);
+export const dateResolver = zodResolver(dateSchema);

@@ -9,7 +9,9 @@ function SuitabilitySelect() {
 
 	return (
 		<FormControl fullWidth variant='standard'>
-			<InputLabel id='suitability-id'>{ColumnNames.SUITABILITY}</InputLabel>
+			<InputLabel shrink={true} id='suitability-id'>
+				{ColumnNames.SUITABILITY}
+			</InputLabel>
 			<Controller
 				name='suitability'
 				control={control}
