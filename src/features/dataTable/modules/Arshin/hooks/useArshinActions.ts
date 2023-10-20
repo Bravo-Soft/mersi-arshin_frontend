@@ -12,20 +12,12 @@ import {
 	selectModelSynchronizeIds,
 	selectNotValidArshinItem,
 	selectSelectedArshin,
-	selectSelectedDataItems,
 	selectSynchronizeIds,
-	setSelectedDataItems,
 } from '../arshinTableSlice';
-import {
-	DialogVariants,
-	changeDialogState,
-	resetDialogState,
-	selectIsOpenDialog,
-} from '../dialogArshinSlice';
+import { changeDialogState, resetDialogState, selectIsOpenDialog } from '../dialogArshinSlice';
 
 import { Messages } from 'constant/messages';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { usePage } from 'hooks/usePage';
 import { useSidebarAction } from 'hooks/useSidebarActions';
 
 export const useArshinActions = () => {
@@ -42,8 +34,6 @@ export const useArshinActions = () => {
 	const deleteData = useAppSelector(selectDeleteModelIds);
 
 	const synchronizeData = useAppSelector(selectSynchronizeIds);
-
-	const tableItemsModel = useAppSelector(selectSelectedDataItems);
 
 	const tableItemsNotValidateModel = useAppSelector(selectNotValidArshinItem);
 

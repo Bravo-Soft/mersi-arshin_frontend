@@ -1,4 +1,5 @@
 import { GridSelectionModel } from '@mui/x-data-grid-pro';
+import { enqueueSnackbar } from 'notistack';
 
 import { setNotValidArshinItem } from './arshinTableSlice';
 import { changeDialogState } from './dialogArshinSlice';
@@ -60,6 +61,14 @@ export const arshinTableApiSlice = apiSlice.injectEndpoints({
 				body,
 			}),
 			invalidatesTags: ['ArshinStart'],
+			onQueryStarted: async (_, { queryFulfilled }) => {
+				try {
+					await queryFulfilled;
+					enqueueSnackbar('Данные отправленные на проверку', { variant: 'success' });
+				} catch {
+					enqueueSnackbar('Не удалось отправить данные на проверку', { variant: 'error' });
+				}
+			},
 		}),
 		cancelArshin: builder.mutation<void, void>({
 			query: () => ({

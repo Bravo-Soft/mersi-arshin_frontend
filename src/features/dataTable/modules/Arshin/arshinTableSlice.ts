@@ -27,6 +27,7 @@ const arshinTableSlice = createSlice({
 		setSelectedDataItems: (state, action: PayloadAction<IDataItemArshin[]>) => {
 			state.selectedDataItems = action.payload;
 		},
+
 		resetSelectedDataItem: () => initialState,
 
 		setSelectedDataArshinItem: (state, action: PayloadAction<IDataItemArshin>) => {

@@ -1,28 +1,23 @@
-import { enqueueSnackbar } from 'notistack';
-
 import {
 	useCancelArshinMutation,
 	useStartArshinMutation,
 	useValidateArshinMutation,
 } from '../arshinTableApiSlice';
-import { selectSelectedArshin } from '../arshinTableSlice';
 import { resetState, setStartProcess } from '../eventSourceSlice';
 
-import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import { useAppDispatch } from 'hooks/redux';
 
 export const useSendingArshin = () => {
 	const [arshinStart] = useStartArshinMutation();
 	const [arshinCancel] = useCancelArshinMutation();
-	const [arshinValidate, { error }] = useValidateArshinMutation();
+	const [arshinValidate] = useValidateArshinMutation();
 	const dispatch = useAppDispatch();
-	//Массив id позиций (модель + выбранная позиция вне модели)
-	const selectedDataIds = useAppSelector(selectSelectedArshin);
 
-	const handleStart = async () => {
+	const handleStart = async (data: string[]) => {
 		try {
-			await arshinValidate(selectedDataIds).unwrap();
+			await arshinValidate(data).unwrap();
 			dispatch(setStartProcess(true));
-			await arshinStart(selectedDataIds);
+			await arshinStart(data).unwrap();
 		} catch (error) {
 			dispatch(setStartProcess(false));
 		}

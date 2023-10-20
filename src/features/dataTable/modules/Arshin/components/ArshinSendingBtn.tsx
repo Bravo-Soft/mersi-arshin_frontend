@@ -16,11 +16,12 @@ function ArshinSendingBtn() {
 	const progressArshin = useAppSelector(selectProgressArshin);
 
 	const processData = useAppSelector(selectUploadModelIds);
+	const handleSend = () => handleStart(processData);
 
 	return (
 		<>
 			{!isStart ? (
-				<Button disabled={!processData.length} startIcon={<GetAppIcon />} onClick={handleStart}>
+				<Button disabled={!processData.length} startIcon={<GetAppIcon />} onClick={handleSend}>
 					Получить сейчас
 				</Button>
 			) : (

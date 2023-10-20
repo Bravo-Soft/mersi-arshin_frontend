@@ -27,7 +27,7 @@ export interface IConfigAdditionalFiltersArshin {
 	disabled: boolean;
 }
 
-export interface IDataItemArshin extends IDataItem {
+export interface IDataItemArshin extends Omit<IDataItem, 'suitability'> {
 	status: ArshinStatus;
 }
 

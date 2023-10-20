@@ -127,14 +127,20 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
 	},
+
 	{
 		field: 'suitability',
-		sortable: false,
 		headerName: ColumnNames.SUITABILITY,
 		width: 200,
 		headerAlign: 'center',
-		renderCell: RenderCellExpand,
+		type: 'singleSelect',
+		renderCell: params => (params.value ? 'Да' : 'Нет'),
+		valueOptions: [
+			{ label: 'Да', value: true },
+			{ label: 'Нет', value: false },
+		],
 	},
+
 	{
 		field: 'condition',
 		sortable: false,
