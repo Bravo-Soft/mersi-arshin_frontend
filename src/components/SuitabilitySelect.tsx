@@ -17,8 +17,8 @@ function SuitabilitySelect() {
 				control={control}
 				render={({ field }) => (
 					<Select {...field} labelId='suitability-id'>
-						<MenuItem value={'false'}>Нет</MenuItem>
-						<MenuItem value={'true'}>Да</MenuItem>
+						<MenuItem value='false'>Нет</MenuItem>
+						<MenuItem value='true'>Да</MenuItem>
 					</Select>
 				)}
 			/>

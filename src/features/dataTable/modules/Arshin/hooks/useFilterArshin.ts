@@ -10,7 +10,7 @@ import { arshinFilterStatusDone } from 'constant/arshinStatus';
  * @function handleSelectItems => функция обработки модели
  * @function handleDisabledSelectedRow => функция блокирующая возможность изменения выбранной модели
  * @argument selectionIds => выбранная модель
- * @returns возвращает [selectionIds , handleSelectItems , handleDisabledSelectedRow ]
+ * @returns возвращает [updateArshinFilter, completeDone]
  */
 
 export const useFilterArshin = (): [VoidFunction, boolean] => {

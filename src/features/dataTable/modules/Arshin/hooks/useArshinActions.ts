@@ -45,7 +45,7 @@ export const useArshinActions = () => {
 
 	const handleSynchronize = async () => {
 		try {
-			await synchronizeItemsArshin(synchronizeData);
+			await synchronizeItemsArshin(synchronizeData).unwrap();
 			enqueueSnackbar(Messages.ARSHIN_ITEM_SUCCESSFULLY_UPDATED, {
 				variant: 'success',
 			});
@@ -63,7 +63,7 @@ export const useArshinActions = () => {
 			return dispatch(changeDialogState('synchronize'));
 		}
 		try {
-			await synchronizeItemsArshin(synchronizeModelData);
+			await synchronizeItemsArshin(synchronizeModelData).unwrap();
 			enqueueSnackbar(Messages.ARSHIN_ITEM_SUCCESSFULLY_UPDATED, {
 				variant: 'success',
 			});

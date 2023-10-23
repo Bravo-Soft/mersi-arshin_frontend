@@ -1,5 +1,7 @@
 import CloseIcon from '@mui/icons-material/Close';
-import { Box, Button, MobileStepper } from '@mui/material';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import MobileStepper from '@mui/material/MobileStepper';
 import dayjs from 'dayjs';
 import { FormProvider, useForm } from 'react-hook-form';
 

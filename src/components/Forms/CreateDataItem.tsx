@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import dayjs from 'dayjs';
 import { Fragment, useEffect } from 'react';
-import { Controller, FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 
 import { allInputFields } from './fields';
 import { useFilterAutocomplete } from './hooks/useAutocomplete';
@@ -44,7 +44,7 @@ const defaultValues = {
 	condition: '',
 	division: '',
 	factoryNumber: '',
-	interVerificationInterval: '',
+	interVerificationInterval: 0,
 	inventoryNumber: '',
 	measurementLimit: '',
 	name: '',

@@ -20,15 +20,15 @@ function ArshinSendingBtn() {
 
 	return (
 		<>
-			{!isStart ? (
-				<Button disabled={!processData.length} startIcon={<GetAppIcon />} onClick={handleSend}>
-					Получить сейчас
-				</Button>
-			) : (
+			{isStart ? (
 				<Stack flexDirection='row' alignItems='center' gap={1}>
 					<CircularCLoseProgress progress={progressArshin} />
 					<Button onClick={handleCancel}>Отмена</Button>
 				</Stack>
+			) : (
+				<Button disabled={!processData.length} startIcon={<GetAppIcon />} onClick={handleSend}>
+					Получить сейчас
+				</Button>
 			)}
 		</>
 	);

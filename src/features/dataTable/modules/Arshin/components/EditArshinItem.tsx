@@ -1,4 +1,5 @@
-import { Stack, TextField } from '@mui/material';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
 import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 import { Controller, useFormContext } from 'react-hook-form';

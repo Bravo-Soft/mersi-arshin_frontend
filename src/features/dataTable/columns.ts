@@ -93,7 +93,9 @@ export const columns: GridColDef<IDataItem>[] = [
 		headerName: ColumnNames.VERIFICATION_INTERVAL,
 		width: initialWidth,
 		headerAlign: 'center',
+		type: 'number',
 		renderCell: RenderCellExpand,
+		valueGetter: params => `${params.value}`,
 	},
 	{
 		field: 'dateOfTheNextVerification',
