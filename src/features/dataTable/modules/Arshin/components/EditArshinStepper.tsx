@@ -1,7 +1,6 @@
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, Button, MobileStepper } from '@mui/material';
 import dayjs from 'dayjs';
-import { enqueueSnackbar } from 'notistack';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { useArshinStepper } from '../hooks/useArshinStepper';

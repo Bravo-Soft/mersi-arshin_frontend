@@ -3,6 +3,16 @@ import { useState } from 'react';
 
 import { arshinFilterStatusDone } from 'constant/arshinStatus';
 
+/**
+ * @package хук отправления данных на проверку в Arshin
+ * @props url => url для коннекта к каналу SSE
+ * @props callBack
+ * @function handleSelectItems => функция обработки модели
+ * @function handleDisabledSelectedRow => функция блокирующая возможность изменения выбранной модели
+ * @argument selectionIds => выбранная модель
+ * @returns возвращает [selectionIds , handleSelectItems , handleDisabledSelectedRow ]
+ */
+
 export const useFilterArshin = (): [VoidFunction, boolean] => {
 	const apiRef = useGridApiContext();
 

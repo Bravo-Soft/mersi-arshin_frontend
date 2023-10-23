@@ -30,7 +30,7 @@ export const useArshinStepper = () => {
 
 	const handleSendAction = async () => {
 		handleNext();
-		closeSidebar();
+		isLastStep || closeSidebar();
 		await handleStart(model.map(({ id }) => id));
 	};
 

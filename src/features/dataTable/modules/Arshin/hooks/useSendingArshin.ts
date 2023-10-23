@@ -7,6 +7,13 @@ import { resetState, setStartProcess } from '../eventSourceSlice';
 
 import { useAppDispatch } from 'hooks/redux';
 
+/**
+ * @package хук отправления данных на проверку в Arshin
+ * @function handleStart => функция отправляет выбранную модель id на валидацию , в случае успеха данные пойдут на отправку
+ * @function handleCancel => функция отмены проверки позиции
+ * @returns возвращает  { handleStart, handleCancel }
+ */
+
 export const useSendingArshin = () => {
 	const [arshinStart] = useStartArshinMutation();
 	const [arshinCancel] = useCancelArshinMutation();
@@ -24,12 +31,9 @@ export const useSendingArshin = () => {
 	};
 	const handleCancel = async () => {
 		await arshinCancel();
-		localStorage.setItem('total', '0');
-		localStorage.setItem('processed', '0');
+		localStorage.removeItem('setEventSourceData');
 		dispatch(resetState());
 	};
 
 	return { handleStart, handleCancel };
 };
-
-//

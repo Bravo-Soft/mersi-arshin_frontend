@@ -5,6 +5,14 @@ import { selectIsStartArshin } from '../eventSourceSlice';
 
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 
+/**
+ * @package хук для обработки выбранных позиций в модели
+ * @function handleSelectItems => функция обработки модели
+ * @function handleDisabledSelectedRow => функция блокирующая возможность изменения выбранной модели
+ * @argument selectionIds => выбранная модель
+ * @returns возвращает [selectionIds , handleSelectItems , handleDisabledSelectedRow ]
+ */
+
 const useTableActions = () => {
 	const dispatch = useAppDispatch();
 

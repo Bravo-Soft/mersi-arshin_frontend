@@ -30,8 +30,7 @@ function DataTableArshin() {
 			data: data ?? emptyData,
 			isFetching,
 		}),
-
-		pollingInterval: 15000,
+		pollingInterval: 20000,
 	});
 
 	const { selectionIds, handleSelectItems, handleDisabledSelectedRow } = useTableActions();
