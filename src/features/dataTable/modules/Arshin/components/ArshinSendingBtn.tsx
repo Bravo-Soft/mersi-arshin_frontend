@@ -6,7 +6,7 @@ import { selectUploadModelIds } from '../arshinTableSlice';
 import { selectIsStartArshin, selectProgressArshin } from '../eventSourceSlice';
 import { useSendingArshin } from '../hooks/useSendingArshin';
 
-import CircularCLoseProgress from './CircularCLoseProgress';
+import CircularCloseProgress from './CircularCloseProgress';
 
 import { useAppSelector } from 'hooks/redux';
 
@@ -22,7 +22,7 @@ function ArshinSendingBtn() {
 		<>
 			{isStart ? (
 				<Stack flexDirection='row' alignItems='center' gap={1}>
-					<CircularCLoseProgress progress={progressArshin} />
+					<CircularCloseProgress progress={progressArshin} />
 					<Button onClick={handleCancel}>Отмена</Button>
 				</Stack>
 			) : (

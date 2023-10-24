@@ -29,6 +29,7 @@ export interface IConfigAdditionalFiltersArshin {
 
 export interface IDataItemArshin extends Omit<IDataItem, 'suitability'> {
 	status: ArshinStatus;
+	originId: string;
 }
 
 type KeyofDataItemArshin = keyof IFormFilterArshin;
@@ -37,3 +38,4 @@ export interface INotValidArshinItem {
 	originId: string;
 	keys: KeyofDataItemArshin[];
 }
+export type IResponseValidateArshin = INotValidArshinItem;

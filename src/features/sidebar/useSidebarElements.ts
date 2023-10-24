@@ -9,6 +9,7 @@ import PrintSettings from 'components/Forms/PrintSettings';
 import VerificateDataItem from 'components/Forms/VerificateDataItem';
 import { SidebarTitles } from 'constant/sidebarTitles';
 import EditArshinStepper from 'features/dataTable/modules/Arshin/components/EditArshinStepper';
+import EditSidebarArshinItem from 'features/dataTable/modules/Arshin/components/EditSidebarArshinItem.1';
 import UserProfile from 'features/user/UserProfile';
 import { selectUserPermissions, selectUserRoles } from 'features/user/userSlice';
 import { useAppSelector } from 'hooks/redux';
@@ -90,6 +91,11 @@ export const useSidebarElements = (page: SidebarPages): ISidebarElement<SidebarS
 				{
 					Component: EditArshinStepper,
 					selector: 'EditArshinItem',
+					headerTitle: SidebarTitles.EDIT_ITEM,
+				},
+				{
+					Component: EditSidebarArshinItem,
+					selector: 'EditSidebarArshinItem',
 					headerTitle: SidebarTitles.EDIT_ITEM,
 				},
 			];

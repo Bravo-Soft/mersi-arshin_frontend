@@ -6,6 +6,7 @@ import type { RootState } from 'app/store';
 
 export type SidebarSelectors =
 	| 'EditArshinItem'
+	| 'EditSidebarArshinItem'
 	| 'CreateDataItem'
 	| 'EditDataItem'
 	| 'VerificateDataItem'

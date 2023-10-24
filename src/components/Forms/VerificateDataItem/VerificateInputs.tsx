@@ -50,7 +50,7 @@ function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
 								helperText={error?.message ?? ' '}
 								inputRef={ref}
 								InputLabelProps={{ shrink: true }}
-								type='number'
+								// type='number'
 							/>
 						)}
 					/>

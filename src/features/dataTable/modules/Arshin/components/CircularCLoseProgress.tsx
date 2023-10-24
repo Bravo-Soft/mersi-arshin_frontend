@@ -8,7 +8,7 @@ interface Props {
 	progress: number;
 }
 
-function CircularCLoseProgress({ progress }: Props) {
+function CircularCloseProgress({ progress }: Props) {
 	return (
 		<Box sx={{ position: 'relative', display: 'inline-flex' }}>
 			<CircularProgress variant='determinate' value={progress} />
@@ -21,4 +21,4 @@ function CircularCLoseProgress({ progress }: Props) {
 	);
 }
 
-export default CircularCLoseProgress;
+export default CircularCloseProgress;

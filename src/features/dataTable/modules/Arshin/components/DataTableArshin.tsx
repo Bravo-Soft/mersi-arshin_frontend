@@ -33,7 +33,8 @@ function DataTableArshin() {
 		pollingInterval: 20000,
 	});
 
-	const { selectionIds, handleSelectItems, handleDisabledSelectedRow } = useTableActions();
+	const { selectionIds, handleSelectItems, handleDisabledSelectedRow, handleDoubleClick } =
+		useTableActions();
 	const { open: sidebarIsOpen } = useAppSelector(selectSidebarStateOfArshinPage);
 
 	const { contextMenu, actions } = useContextMenuActions(data);
@@ -63,6 +64,7 @@ function DataTableArshin() {
 				onSelectionModelChange={(newSelectionModel: GridSelectionModel) => {
 					handleSelectItems(newSelectionModel);
 				}}
+				onRowDoubleClick={handleDoubleClick}
 				selectionModel={selectionIds}
 				componentsProps={{
 					row: {

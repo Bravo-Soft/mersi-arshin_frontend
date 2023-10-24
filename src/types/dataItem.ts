@@ -86,7 +86,7 @@ export interface IDataItem {
 	/**
 	 * Межповерочный интервал
 	 */
-	interVerificationInterval: number;
+	interVerificationInterval: string;
 	/**
 	 * Контроль поверки в Госреестр
 	 */

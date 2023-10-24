@@ -2,6 +2,7 @@ import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
+import { useEffect } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 
 import { useGetFiltersQuery } from '../arshinTableApiSlice';
@@ -9,10 +10,11 @@ import { useGetFiltersQuery } from '../arshinTableApiSlice';
 import SuitabilitySelect from 'components/SuitabilitySelect';
 import { ColumnNames } from 'constant/columnsName';
 import { dayjsFormatVariant } from 'constant/dateFormat';
+import { IFormFilterArshin } from 'types/arshinIntegration';
 import { IDataItemWithDates } from 'types/dataItem';
 
 const requiredValidate = (bool?: boolean) => ({
-	value: Boolean(bool),
+	value: !bool,
 	message: 'Это обязательное поле',
 });
 
@@ -24,7 +26,7 @@ function EditArshinItem() {
 		watch,
 	} = useFormContext<Omit<IDataItemWithDates, 'document'>>();
 
-	const { data } = useGetFiltersQuery();
+	const { data: filterConfig = {} as IFormFilterArshin } = useGetFiltersQuery();
 
 	const { verificationDate, dateOfTheNextVerification } = watch();
 
@@ -32,7 +34,7 @@ function EditArshinItem() {
 		<>
 			<Stack direction='column' px={3} pb={3.5} rowGap={1} flexGrow={1}>
 				<TextField
-					{...register('name', { required: requiredValidate(true) })}
+					{...register('name')}
 					label={ColumnNames.TYPE}
 					type='text'
 					InputLabelProps={{ shrink: true }}
@@ -40,7 +42,7 @@ function EditArshinItem() {
 					helperText={errors.name?.message ?? ' '}
 				/>
 				<TextField
-					{...register('type', { required: requiredValidate(data?.type) })}
+					{...register('type', { required: requiredValidate(filterConfig?.type) })}
 					label={ColumnNames.TYPE}
 					type='text'
 					InputLabelProps={{ shrink: true }}
@@ -48,7 +50,7 @@ function EditArshinItem() {
 					helperText={errors.type?.message ?? ' '}
 				/>
 				<TextField
-					{...register('factoryNumber', { required: requiredValidate(data?.factoryNumber) })}
+					{...register('factoryNumber')}
 					label={ColumnNames.FACTORY_NUMBER}
 					type='text'
 					InputLabelProps={{ shrink: true }}
@@ -84,7 +86,7 @@ function EditArshinItem() {
 					)}
 				/>
 				<TextField
-					{...register('organization', { required: requiredValidate(data?.organization) })}
+					{...register('organization')}
 					label={ColumnNames.ORGANIZATION}
 					type='text'
 					required
@@ -121,7 +123,11 @@ function EditArshinItem() {
 					)}
 				/>
 				<TextField
-					{...register('certificate', { required: requiredValidate(data?.organization) })}
+					{...register('certificate', {
+						validate: {
+							test: value => Boolean(value.length) || ';ox',
+						},
+					})}
 					label={ColumnNames.CERTIFICATE}
 					type='text'
 					InputLabelProps={{ shrink: true }}

@@ -1,4 +1,6 @@
 import { GridSelectionModel } from '@mui/x-data-grid-pro';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
+import { QueryReturnValue } from '@reduxjs/toolkit/dist/query/baseQueryTypes';
 import { enqueueSnackbar } from 'notistack';
 
 import { setNotValidArshinItem } from './arshinTableSlice';
@@ -6,22 +8,13 @@ import { changeDialogState } from './dialogArshinSlice';
 
 import { API } from 'app/api';
 import { apiSlice } from 'app/apiSlice';
-import { IDataItemArshin, IFormFilterArshin } from 'types/arshinIntegration';
-import { IDataItem } from 'types/dataItem';
+import {
+	IDataItemArshin,
+	IFormFilterArshin,
+	IResponseValidateArshin,
+} from 'types/arshinIntegration';
 
-export interface ApiErrorResponse {
-	status: number;
-	data: { message: string; statusCode: number; response: IDataItem[] };
-}
-
-export function isApiResponse(error: unknown): error is ApiErrorResponse {
-	return (
-		typeof error === 'object' &&
-		error != null &&
-		'status' in error &&
-		typeof (error as any).status === 'number'
-	);
-}
+type test = QueryReturnValue<IResponseValidateArshin[], unknown, unknown>;
 
 export const arshinTableApiSlice = apiSlice.injectEndpoints({
 	endpoints: builder => ({
@@ -95,19 +88,22 @@ export const arshinTableApiSlice = apiSlice.injectEndpoints({
 			}),
 			invalidatesTags: ['ArshinFilters'],
 		}),
-		validateArshin: builder.mutation<void, string[]>({
-			query: body => ({
-				url: API.arshin.validateArshin,
-				method: 'POST',
-				body,
-			}),
-			onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
-				queryFulfilled.catch(({ error }) => {
-					if (isApiResponse(error) && error.status === 409) {
-						dispatch(setNotValidArshinItem(error.data.response));
-						dispatch(changeDialogState('validate'));
-					}
+		validateArshin: builder.mutation<IResponseValidateArshin[], string[]>({
+			queryFn: async (body, { dispatch }, _extraOptions, baseQuery) => {
+				const response = await baseQuery({
+					url: API.arshin.validateArshin,
+					method: 'POST',
+					body,
 				});
+
+				if (Array.isArray(response.data) && response.data.length) {
+					dispatch(setNotValidArshinItem(response.data));
+					dispatch(changeDialogState('validate'));
+					return { error: { status: 'CUSTOM_ERROR', error: 'List of tags is empty' } };
+				}
+				return {
+					data: response.data as IResponseValidateArshin[],
+				};
 			},
 		}),
 	}),

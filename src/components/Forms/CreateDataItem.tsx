@@ -44,7 +44,7 @@ const defaultValues = {
 	condition: '',
 	division: '',
 	factoryNumber: '',
-	interVerificationInterval: 0,
+	interVerificationInterval: '',
 	inventoryNumber: '',
 	measurementLimit: '',
 	name: '',
@@ -69,7 +69,7 @@ function CreateDataItem(): JSX.Element {
 	const { data } = useGetAllDataQuery();
 	const [createNewItem, { isLoading, isSuccess }] = useCreateNewDataItemMutation();
 
-	const methods = useForm<Omit<IDataItemWithDates, 'id' | 'userIds' | 'documents'>>({
+	const methods = useForm<Omit<IDataItemWithDates, 'id' | 'documents'>>({
 		defaultValues,
 		resolver: createResolver,
 	});
