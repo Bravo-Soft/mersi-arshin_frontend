@@ -125,7 +125,7 @@ function EditArshinItem() {
 				<TextField
 					{...register('certificate', {
 						validate: {
-							test: value => Boolean(value.length) || ';ox',
+							test: value => Boolean(value.length) || 'Обязательное поле',
 						},
 					})}
 					label={ColumnNames.CERTIFICATE}

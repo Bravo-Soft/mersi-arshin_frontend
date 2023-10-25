@@ -1,6 +1,5 @@
 import { Box } from '@mui/material';
 import Button from '@mui/material/Button';
-import { useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { selectSelectedDoubleClickId } from '../arshinTableSlice';
