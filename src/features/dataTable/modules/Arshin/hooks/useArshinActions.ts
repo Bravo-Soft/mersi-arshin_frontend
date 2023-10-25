@@ -1,62 +1,69 @@
 import { enqueueSnackbar } from 'notistack';
 
-import { useDeleteItemsMutation, useSynchronizeItemsMutation } from '../arshinTableApiSlice';
+import {
+	useDeleteItemsMutation,
+	useStartArshinMutation,
+	useSynchronizeItemsMutation,
+} from '../arshinTableApiSlice';
 import {
 	resetSelectedDataItem,
-	selectIdsIsDone,
-	selectIsDone,
-	selectNotIsDone,
+	selectDeleteModelIds,
+	selectIsOpenSynchronizeDialog,
+	selectModelSynchronizeIds,
+	selectNotValidArshinItem,
 	selectSelectedArshin,
-	selectSelectedDataIds,
-	selectSelectedDataItems,
-	selectSelectedModelArshin,
+	selectSynchronizeIds,
 } from '../arshinTableSlice';
-import {
-	DialogVariants,
-	changeDialogState,
-	resetDialogState,
-	selectIsOpenDialog,
-} from '../dialogArshinSlice';
+import { changeDialogState, resetDialogState, selectIsOpenDialog } from '../dialogArshinSlice';
 
 import { Messages } from 'constant/messages';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import { useSidebarAction } from 'hooks/useSidebarActions';
 
 export const useArshinActions = () => {
 	const dispatch = useAppDispatch();
+
+	const { openSidebarWith } = useSidebarAction('arshin');
+
 	const [deleteFromArshin] = useDeleteItemsMutation();
 	const [synchronizeItemsArshin] = useSynchronizeItemsMutation();
+	const [arshinStart] = useStartArshinMutation();
 
-	const { isOpen } = useAppSelector(selectIsOpenDialog);
+	const isOpen = useAppSelector(selectIsOpenDialog);
 
-	//Массив id выделенной модели
-	const selectionIds = useAppSelector(selectSelectedDataIds);
+	const deleteData = useAppSelector(selectDeleteModelIds);
 
-	//Выделенная модель
-	const selectedData = useAppSelector(selectSelectedDataItems);
+	const synchronizeData = useAppSelector(selectSynchronizeIds);
 
-	//Массив id позиций (модель + выбранная позиция вне модели)
+	const tableItemsNotValidateModel = useAppSelector(selectNotValidArshinItem);
+
+	const synchronizeModelData = useAppSelector(selectModelSynchronizeIds);
+
+	const isOpenerSyncDialog = useAppSelector(selectIsOpenSynchronizeDialog);
+
 	const selectedDataIds = useAppSelector(selectSelectedArshin);
 
-	//Массива данных из таблицы по выделенным id
-	const selectedFullModelArshin = useAppSelector(selectSelectedModelArshin);
+	const handleSynchronize = async () => {
+		try {
+			await synchronizeItemsArshin(synchronizeData).unwrap();
+			enqueueSnackbar(Messages.ARSHIN_ITEM_SUCCESSFULLY_UPDATED, {
+				variant: 'success',
+			});
+		} catch {
+			enqueueSnackbar(Messages.FAILED_ARSHIN_ITEM_UPDATED, {
+				variant: 'error',
+			});
+		} finally {
+			dispatch(resetDialogState());
+		}
+	};
 
-	//массив id позиций которые имеют статус DONE
-	const arshinIdIsDone = useAppSelector(selectIdsIsDone);
-
-	//все данные массивы не содержат idDone
-	const doesNotContainIsDone = useAppSelector(selectNotIsDone);
-
-	//все данные массива содержат idDone
-	const containIsDone = useAppSelector(selectIsDone);
-
-	const dataLength = arshinIdIsDone.length < selectedFullModelArshin.length;
-
-	const handleSynchronizeItems = async () => {
-		if (dataLength && !isOpen && !containIsDone) {
-			return handleDialogOpener('synchronize');
+	const handleModelSynchronize = async () => {
+		if (!isOpenerSyncDialog && !isOpen) {
+			return dispatch(changeDialogState('synchronize'));
 		}
 		try {
-			await synchronizeItemsArshin(arshinIdIsDone);
+			await synchronizeItemsArshin(synchronizeModelData).unwrap();
 			enqueueSnackbar(Messages.ARSHIN_ITEM_SUCCESSFULLY_UPDATED, {
 				variant: 'success',
 			});
@@ -70,18 +77,12 @@ export const useArshinActions = () => {
 		}
 	};
 
-	const handleGetDataFromFgis = () => {
-		// пока еще не работает
-		// checkItemsArshin();
-		console.log('Запросить данные из ФГИС');
-	};
-
 	const handleDeleteItems = async () => {
-		if (dataLength && !isOpen && !doesNotContainIsDone) {
-			return handleDialogOpener('deleting');
+		if (Boolean(synchronizeModelData.length) && !isOpen) {
+			return dispatch(changeDialogState('deleting'));
 		}
 		try {
-			await deleteFromArshin(selectedDataIds).unwrap();
+			await deleteFromArshin(deleteData).unwrap();
 			enqueueSnackbar(Messages.ITEM_SUCCESSFULLY_DELETED, { variant: 'success' });
 		} catch {
 			enqueueSnackbar(Messages.FAILED_DELETE_ITEM, { variant: 'error' });
@@ -91,23 +92,28 @@ export const useArshinActions = () => {
 		}
 	};
 
-	const handleDialogOpener = (variant: DialogVariants) => {
-		dispatch(
-			changeDialogState({
-				isOpen: true,
-				variant,
-			})
-		);
-	};
-
 	const handleCloseDialog = () => {
 		dispatch(resetDialogState());
 	};
 
+	const handleCancelSending = async () => {
+		const validate = tableItemsNotValidateModel.map(({ id }) => id);
+		const sendArray = selectedDataIds.filter(id => !validate.includes(id));
+		handleCloseDialog();
+		await arshinStart(sendArray);
+	};
+
+	const handleEditArshinItem = () => {
+		openSidebarWith('EditArshinItem');
+		handleCloseDialog();
+	};
+
 	return {
-		handleSynchronizeItems,
-		handleGetDataFromFgis,
+		handleModelSynchronize,
+		handleSynchronize,
 		handleDeleteItems,
 		handleCloseDialog,
+		handleCancelSending,
+		handleEditArshinItem,
 	};
 };

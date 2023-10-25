@@ -16,6 +16,7 @@ import { dateFormTransform } from './utils/dateFormTransform';
 import AutocompleteField from 'components/AutocompleteField';
 import DateField from 'components/DateField';
 import SizeSelect from 'components/SizeSelect';
+import SuitabilitySelect from 'components/SuitabilitySelect';
 import { Messages } from 'constant/messages';
 import { Tag } from 'constant/tag';
 import {
@@ -54,7 +55,7 @@ const defaultValues = {
 	typeOfWork: '',
 	location: '',
 	responsible: '',
-	suitability: '',
+	suitability: 'false',
 	fgisUrl: '',
 	additionalData: '',
 	methodology: '',
@@ -68,7 +69,7 @@ function CreateDataItem(): JSX.Element {
 	const { data } = useGetAllDataQuery();
 	const [createNewItem, { isLoading, isSuccess }] = useCreateNewDataItemMutation();
 
-	const methods = useForm<Omit<IDataItemWithDates, 'id' | 'userIds' | 'documents'>>({
+	const methods = useForm<Omit<IDataItemWithDates, 'id' | 'documents'>>({
 		defaultValues,
 		resolver: createResolver,
 	});
@@ -109,6 +110,8 @@ function CreateDataItem(): JSX.Element {
 		switch (key) {
 			case 'size':
 				return <SizeSelect key={key} />;
+			case 'suitability':
+				return <SuitabilitySelect key={key} />;
 			case 'productionDate':
 			case 'dateOfTheNextVerification':
 				return <DateField key={key} nameOfKey={key} label={label} />;
@@ -133,6 +136,7 @@ function CreateDataItem(): JSX.Element {
 						type='number'
 					/>
 				);
+
 			case 'cost':
 				return (
 					<TextField

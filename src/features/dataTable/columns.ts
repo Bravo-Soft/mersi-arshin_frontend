@@ -94,6 +94,7 @@ export const columns: GridColDef<IDataItem>[] = [
 		width: initialWidth,
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
+		valueGetter: params => `${params.value}`,
 	},
 	{
 		field: 'dateOfTheNextVerification',
@@ -118,7 +119,12 @@ export const columns: GridColDef<IDataItem>[] = [
 		headerName: ColumnNames.SUITABILITY,
 		width: initialWidth,
 		headerAlign: 'center',
-		renderCell: RenderCellExpand,
+		type: 'singleSelect',
+		renderCell: params => (params.value ? 'Да' : 'Нет'),
+		valueOptions: [
+			{ label: 'Да', value: true },
+			{ label: 'Нет', value: false },
+		],
 	},
 	{
 		field: 'condition',

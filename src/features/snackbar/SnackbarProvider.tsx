@@ -7,7 +7,6 @@ import type { PropsWithChildren } from 'react';
 import { StyledSnackbarProvider } from './StyledSnackbarProvider';
 import { useClosableSnackbar } from './useClosableSnackbar';
 
-
 export default function SnackbarProvider({ children }: PropsWithChildren) {
 	const [ref, onClick] = useClosableSnackbar();
 

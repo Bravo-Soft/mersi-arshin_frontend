@@ -14,7 +14,7 @@ import {
 	useGetFiltersQuery,
 	useResetFiltersMutation,
 } from '../../arshinTableApiSlice';
-import { closeFilterDialogArshin, selectOpenFilterDialogArshin } from '../../dialogArshinSlice';
+import { resetDialogState, selectOpenFilterDialogArshin } from '../../dialogArshinSlice';
 
 import FiltersDialogContent from './FiltersDialogContent';
 
@@ -35,7 +35,7 @@ function FiltersDialog() {
 	});
 
 	const handleClose = () => {
-		dispatch(closeFilterDialogArshin());
+		dispatch(resetDialogState());
 	};
 
 	const onSubmit = async (data: IFormFilterArshin) => {

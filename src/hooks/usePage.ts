@@ -2,7 +2,6 @@ import { useLocation } from 'react-router-dom';
 
 import type { SidebarPages } from 'features/sidebar/sidebarSlice';
 
-
 /**
  * Хук определяющий на какой странице на данный момент находится пользователь,
  * он необходим при совместном использовании с хуком [useSidebarActions](./useSidebarActions.ts)
@@ -10,5 +9,9 @@ import type { SidebarPages } from 'features/sidebar/sidebarSlice';
 export const usePage = (): SidebarPages => {
 	const { pathname } = useLocation();
 
-	return pathname.includes('home') ? 'home' : 'print';
+	const pageName = pathname.replace(/^\/|\/$/g, '');
+
+	const page = pageName === 'arshin-integration' ? 'arshin' : pageName;
+
+	return page as SidebarPages;
 };

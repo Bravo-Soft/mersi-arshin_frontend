@@ -9,6 +9,7 @@ export type AutocompleteKeysType = keyof Omit<
 	| 'size'
 	| 'userIds'
 	| 'documents'
+	| 'suitability'
 	| 'verificationDate'
 	| 'dateOfTheNextVerification'
 	| 'productionDate'
@@ -32,7 +33,6 @@ const defaultKeys: AutocompleteKeysType[] = [
 	'notes',
 	'location',
 	'responsible',
-	'suitability',
 	'fgisUrl',
 	'additionalData',
 	'methodology',

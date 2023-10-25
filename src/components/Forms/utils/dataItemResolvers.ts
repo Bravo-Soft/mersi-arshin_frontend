@@ -28,7 +28,7 @@ export const itemSchema = z.object({
 	measurementLimit: z.string().max(128, smallLengthField),
 	location: z.string().max(128, smallLengthField),
 	responsible: z.string().max(128, smallLengthField),
-	suitability: z.string().max(128, smallLengthField),
+	suitability: z.string(),
 	fgisUrl: z.string().max(256, largeLengthField),
 	additionalData: z.string().max(256, largeLengthField),
 	methodology: z.string().max(256, largeLengthField),
@@ -155,3 +155,4 @@ export const createSchema = itemSchema
 
 export const formResolver = zodResolver(schema);
 export const createResolver = zodResolver(createSchema);
+export const dateResolver = zodResolver(dateSchema);

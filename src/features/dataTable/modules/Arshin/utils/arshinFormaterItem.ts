@@ -1,7 +1,7 @@
-import type { IDataItemWithDates } from 'types/dataItem';
+import { IDataItemWithDates } from 'types/dataItem';
 import { createDateISO } from 'utils/createDateISO';
 
-export const dateFormTransform = <T extends Omit<IDataItemWithDates, 'id' | 'documents'>>(
+export const arshinFormaterItem = <T extends Omit<IDataItemWithDates, 'id' | 'documents'>>(
 	data: T
 ) => {
 	const {

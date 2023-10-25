@@ -88,6 +88,7 @@ export const apiSlice = createApi({
 		'PrintSettings',
 		'ArshinFilters',
 		'ArshinData',
+		'ArshinStart',
 	],
 	endpoints: () => ({}),
 });

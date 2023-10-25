@@ -1,6 +1,7 @@
 import InputAdornment from '@mui/material/InputAdornment';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
+import { useEffect } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 
 import { verificationFields } from '../fields';
@@ -8,6 +9,7 @@ import { useFilterAutocomplete } from '../hooks/useAutocomplete';
 
 import AutocompleteField from 'components/AutocompleteField';
 import DateField from 'components/DateField';
+import SuitabilitySelect from 'components/SuitabilitySelect';
 import { selectedVisibleColumns } from 'features/dataTable/dataTableSlice';
 import { useAppSelector } from 'hooks/redux';
 import type { IDataItemWithDates } from 'types/dataItem';
@@ -48,10 +50,12 @@ function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
 								helperText={error?.message ?? ' '}
 								inputRef={ref}
 								InputLabelProps={{ shrink: true }}
-								type='number'
+								// type='number'
 							/>
 						)}
 					/>
+				) : key === 'suitability' ? (
+					<SuitabilitySelect key={key} />
 				) : key === 'cost' ? (
 					<TextField
 						key={key}

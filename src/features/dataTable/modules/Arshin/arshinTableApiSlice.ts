@@ -1,14 +1,24 @@
 import { GridSelectionModel } from '@mui/x-data-grid-pro';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
+import { QueryReturnValue } from '@reduxjs/toolkit/dist/query/baseQueryTypes';
+import { enqueueSnackbar } from 'notistack';
+
+import { setNotValidArshinItem } from './arshinTableSlice';
+import { changeDialogState } from './dialogArshinSlice';
 
 import { API } from 'app/api';
 import { apiSlice } from 'app/apiSlice';
-import { IDataItemArshin, IFormFilterArshin } from 'types/arshinIntegration';
+import {
+	IDataItemArshin,
+	IFormFilterArshin,
+	IResponseValidateArshin,
+} from 'types/arshinIntegration';
 
 export const arshinTableApiSlice = apiSlice.injectEndpoints({
 	endpoints: builder => ({
 		getData: builder.query<IDataItemArshin[], void>({
 			query: () => API.arshin.getData,
-			providesTags: ['ArshinData'],
+			providesTags: ['ArshinData', 'ArshinStart'],
 		}),
 		addItems: builder.mutation<void, GridSelectionModel>({
 			query: ids => ({
@@ -24,6 +34,7 @@ export const arshinTableApiSlice = apiSlice.injectEndpoints({
 				method: 'DELETE',
 				body: ids,
 			}),
+
 			invalidatesTags: ['ArshinData'],
 		}),
 		synchronizeItems: builder.mutation<void, GridSelectionModel>({
@@ -34,10 +45,26 @@ export const arshinTableApiSlice = apiSlice.injectEndpoints({
 			}),
 			invalidatesTags: ['ArshinData'],
 		}),
-		checkItems: builder.mutation<IDataItemArshin[], void>({
-			query: () => ({
-				url: API.arshin.checkItems,
+		startArshin: builder.mutation<void, string[]>({
+			query: body => ({
+				url: API.arshin.startArshin,
 				method: 'POST',
+				body,
+			}),
+			invalidatesTags: ['ArshinStart'],
+			onQueryStarted: async (_, { queryFulfilled }) => {
+				try {
+					await queryFulfilled;
+					enqueueSnackbar('Данные отправленные на проверку', { variant: 'success' });
+				} catch {
+					enqueueSnackbar('Не удалось отправить данные на проверку', { variant: 'error' });
+				}
+			},
+		}),
+		cancelArshin: builder.mutation<void, void>({
+			query: () => ({
+				url: API.arshin.cancelArshin,
+				method: 'PATCH',
 			}),
 		}),
 		getFilters: builder.query<IFormFilterArshin, void>({
@@ -59,6 +86,24 @@ export const arshinTableApiSlice = apiSlice.injectEndpoints({
 			}),
 			invalidatesTags: ['ArshinFilters'],
 		}),
+		validateArshin: builder.mutation<IResponseValidateArshin[], string[]>({
+			queryFn: async (body, { dispatch }, _extraOptions, baseQuery) => {
+				const response = await baseQuery({
+					url: API.arshin.validateArshin,
+					method: 'POST',
+					body,
+				});
+
+				if (Array.isArray(response.data) && response.data.length) {
+					dispatch(setNotValidArshinItem(response.data));
+					dispatch(changeDialogState('validate'));
+					return { error: { status: 'CUSTOM_ERROR', error: 'List of tags is empty' } };
+				}
+				return {
+					data: response.data as IResponseValidateArshin[],
+				};
+			},
+		}),
 	}),
 });
 
@@ -70,5 +115,7 @@ export const {
 	useAddItemsMutation,
 	useDeleteItemsMutation,
 	useSynchronizeItemsMutation,
-	useCheckItemsMutation,
+	useStartArshinMutation,
+	useCancelArshinMutation,
+	useValidateArshinMutation,
 } = arshinTableApiSlice;

@@ -54,7 +54,7 @@ export const dataTableApiSlice = apiSlice.injectEndpoints({
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			query: ({ id, documents, ...body }) => ({
 				url: `${API.data.default}/${id}`,
-				method: 'PATCH',
+				method: 'PUT',
 				body,
 			}),
 			invalidatesTags: (_result, _error, { id }) => [{ type: 'Data', id }],

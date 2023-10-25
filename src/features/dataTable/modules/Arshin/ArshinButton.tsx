@@ -1,6 +1,7 @@
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
+
+import { ArshinIcon } from './ArshinIcon';
 
 import { AppRoutes } from 'constant/appRoutes';
 import { Messages } from 'constant/messages';
@@ -10,6 +11,7 @@ import { useAppDispatch } from 'hooks/redux';
 function ArshinButton() {
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
+
 	// const { isArshin } = useAppSelector(selectUserPermissions);
 
 	const isArshin = true;
@@ -33,13 +35,13 @@ function ArshinButton() {
 
 	return (
 		<Button
-			sx={{ p: 0, textTransform: 'none' }}
+			sx={{ textTransform: 'uppercase' }}
 			onClick={handleRouteToArshin}
 			disabled={!isArshin}
+			startIcon={<ArshinIcon />}
+			disableRipple
 		>
-			<Typography variant='h6' textOverflow='ellipsis' noWrap>
-				Контроль поверки в Госреестре
-			</Typography>
+			Проверка в Госреестре
 		</Button>
 	);
 }

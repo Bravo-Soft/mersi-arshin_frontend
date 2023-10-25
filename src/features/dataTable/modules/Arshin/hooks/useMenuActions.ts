@@ -1,8 +1,22 @@
 import { useState, MouseEvent } from 'react';
 
-import { openFilterDialogArshin } from '../dialogArshinSlice';
+import { changeDialogState } from '../dialogArshinSlice';
 
 import { useAppDispatch } from 'hooks/redux';
+
+/**
+ * @package хук открытия меню в тулбаре и открытия окна настройки фильтров
+ * @function handleOpenMenu => функция  открытия меню
+ * @function handleCloseMenu => функция закрытия меню
+ * @function handleOpenFilter => функция открытия окна настройки фильтров
+ * @returns возвращает {
+		anchorEl,
+		open,
+		handleOpenMenu,
+		handleCloseMenu,
+		handleOpenFilter,
+	};
+ */
 
 export const useMenuActions = () => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -18,7 +32,7 @@ export const useMenuActions = () => {
 	const dispatch = useAppDispatch();
 
 	const handleOpenFilter = () => {
-		dispatch(openFilterDialogArshin());
+		dispatch(changeDialogState('filter'));
 	};
 
 	return {
@@ -29,4 +43,3 @@ export const useMenuActions = () => {
 		handleOpenFilter,
 	};
 };
-//Проверка в Госреестре

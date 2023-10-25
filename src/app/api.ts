@@ -19,12 +19,12 @@ export const API = {
 				`${PREFIX}/user/templates/${templateId}/select`,
 		},
 		profile: {
-			default: `${PREFIX}/user/profile`,
-			photo: `${PREFIX}/user/profile/photo`,
+			default: `${PREFIX}/account/profile`,
+			photo: `${PREFIX}/account/profile/photo`,
 		},
-		notification: `${PREFIX}/user/notification`,
+		notification: `${PREFIX}/user/settings/notification`,
 		favoritesData: `${PREFIX}/user/favorites/data`,
-		printSettings: `${PREFIX}/user/print-settings`,
+		printSettings: `${PREFIX}/user/settings/print`,
 		reviews: `${PREFIX}/user/reviews`,
 	},
 	data: {
@@ -44,6 +44,8 @@ export const API = {
 		addItems: `${PREFIX}/user/modules/arshin`,
 		deleteItems: `${PREFIX}/user/modules/arshin`,
 		synchronizeItems: `${PREFIX}/user/modules/arshin/process/synchronize`,
-		checkItems: `${PREFIX}/user/fgis/check`,
+		startArshin: `${PREFIX}/user/modules/arshin/process/start`,
+		cancelArshin: `${PREFIX}/user/modules/arshin/process/cancel`,
+		validateArshin: `${PREFIX}/user/modules/arshin/validate`,
 	},
 };
