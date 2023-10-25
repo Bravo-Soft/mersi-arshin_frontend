@@ -30,13 +30,14 @@ export const useArshinStepper = () => {
 
 	const handleSendAction = async () => {
 		handleNext();
-		isLastStep || closeSidebar();
+		isLastStep && closeSidebar();
 		await handleStart(model.map(({ id }) => id));
 	};
 
 	const handleBack = async () => {
 		const modelFiltered = model.filter(({ id }) => id !== arshinItems[activeStep].id);
 		const modelIds = modelFiltered.map(({ id }) => id);
+
 		dispatch(setSelectedDataItems(modelFiltered));
 		handleNext();
 		if (isLastStep) {
