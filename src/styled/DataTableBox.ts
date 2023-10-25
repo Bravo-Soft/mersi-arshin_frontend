@@ -156,6 +156,10 @@ const DataTableBox = styled(Box, {
 		'& .twoWeeksToGo': {
 			backgroundColor: orange[100],
 		},
+
+		'& .notValid': {
+			color: red[700],
+		},
 	},
 }));
 

@@ -1,7 +1,13 @@
 import LinearProgress from '@mui/material/LinearProgress';
-import { DataGridPro, GridSelectionModel, useGridApiRef } from '@mui/x-data-grid-pro';
+import {
+	DataGridPro,
+	GridCellParams,
+	GridSelectionModel,
+	useGridApiRef,
+} from '@mui/x-data-grid-pro';
 
 import { useGetDataQuery } from '../arshinTableApiSlice';
+import { selectNotValidArshinItem } from '../arshinTableSlice';
 import { columnsArshin } from '../config/columns';
 import { useApplyTemplate } from '../hooks/useApplyTemplate';
 import { useContextMenuActions } from '../hooks/useContextMenuActions';
@@ -33,8 +39,13 @@ function DataTableArshin() {
 		pollingInterval: 20000,
 	});
 
-	const { selectionIds, handleSelectItems, handleDisabledSelectedRow, handleDoubleClick } =
-		useTableActions();
+	const {
+		selectionIds,
+		handleSelectItems,
+		handleDisabledSelectedRow,
+		handleDoubleClick,
+		handleGetCellClassName,
+	} = useTableActions();
 	const { open: sidebarIsOpen } = useAppSelector(selectSidebarStateOfArshinPage);
 
 	const { contextMenu, actions } = useContextMenuActions(data);
@@ -72,6 +83,7 @@ function DataTableArshin() {
 						style: { cursor: 'pointer' },
 					},
 				}}
+				getCellClassName={handleGetCellClassName}
 			/>
 			<ContextMenuArshin contextMenu={contextMenu} actions={actions} />
 		</DataTableBox>

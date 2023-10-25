@@ -1,7 +1,8 @@
-import { GridRowParams, GridSelectionModel } from '@mui/x-data-grid-pro';
+import { GridCellParams, GridRowParams, GridSelectionModel } from '@mui/x-data-grid-pro';
 
 import {
 	selectArshinData,
+	selectNotValidArshinItem,
 	selectSelectedDataIds,
 	setSelectedDataItems,
 	setSelectedDoubleClickIds,
@@ -28,6 +29,8 @@ const useTableActions = () => {
 	const selectionIds = useAppSelector(selectSelectedDataIds);
 	const isStart = useAppSelector(selectIsStartArshin);
 
+	const arshinItems = useAppSelector(selectNotValidArshinItem);
+
 	const { openSidebarWith } = useSidebarAction('arshin');
 
 	const handleSelectItems = (newSelectionModel: GridSelectionModel) => {
@@ -42,11 +45,20 @@ const useTableActions = () => {
 
 	const handleDisabledSelectedRow = () => !isStart;
 
+	const handleGetCellClassName = (params: GridCellParams<IDataItemArshin>) => {
+		const isNotValid = arshinItems.map(({ id }) => id).includes(params.row.id);
+		if (params.field === 'name' && isNotValid) {
+			return 'notValid';
+		}
+		return '';
+	};
+
 	return {
 		selectionIds,
 		handleSelectItems,
 		handleDisabledSelectedRow,
 		handleDoubleClick,
+		handleGetCellClassName,
 	};
 };
 
