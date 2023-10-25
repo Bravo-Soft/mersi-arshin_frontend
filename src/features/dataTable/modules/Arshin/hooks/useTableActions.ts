@@ -45,7 +45,7 @@ const useTableActions = () => {
 
 	const handleDisabledSelectedRow = () => !isStart;
 
-	const handleGetCellClassName = (params: GridCellParams<IDataItemArshin>) => {
+	const handleGetCellClassName = (params: GridCellParams<unknown, IDataItemArshin>) => {
 		const isNotValid = arshinItems.map(({ id }) => id).includes(params.row.id);
 		if (params.field === 'name' && isNotValid) {
 			return 'notValid';
