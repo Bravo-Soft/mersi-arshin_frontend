@@ -35,7 +35,7 @@ function EditArshinItem() {
 			<Stack direction='column' px={3} pb={3.5} rowGap={1} flexGrow={1}>
 				<TextField
 					{...register('name')}
-					label={ColumnNames.TYPE}
+					label={ColumnNames.NAME}
 					type='text'
 					InputLabelProps={{ shrink: true }}
 					error={Boolean(errors.name)}
