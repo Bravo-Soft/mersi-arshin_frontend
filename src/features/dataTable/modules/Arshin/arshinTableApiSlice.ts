@@ -14,8 +14,6 @@ import {
 	IResponseValidateArshin,
 } from 'types/arshinIntegration';
 
-type test = QueryReturnValue<IResponseValidateArshin[], unknown, unknown>;
-
 export const arshinTableApiSlice = apiSlice.injectEndpoints({
 	endpoints: builder => ({
 		getData: builder.query<IDataItemArshin[], void>({

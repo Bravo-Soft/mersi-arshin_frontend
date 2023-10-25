@@ -36,7 +36,6 @@ function EditSidebarArshinItem() {
 	const onSubmit = methods.handleSubmit(async data => {
 		await sendUpdatedItem(arshinFormaterItem(formTrimming(data))).unwrap();
 		closeSidebar();
-		EditSidebarArshinItem;
 	});
 
 	return (

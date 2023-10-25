@@ -15,7 +15,7 @@ import {
 	dialogArshinReducer,
 } from 'features/dataTable/modules/Arshin/dialogArshinSlice';
 import {
-	eventSourcePatch,
+	eventSourcePath,
 	eventSourceReducer,
 } from 'features/dataTable/modules/Arshin/eventSourceSlice';
 import { quickTourPath, quickTourReducer } from 'features/quickTour/components/quickTourSlice';
@@ -33,7 +33,7 @@ const rootReducer = combineReducers({
 	[quickTourPath]: quickTourReducer,
 	[arshinTablePath]: arshinTableReducer,
 	[dialogArshinPath]: dialogArshinReducer,
-	[eventSourcePatch]: eventSourceReducer,
+	[eventSourcePath]: eventSourceReducer,
 });
 
 export const store = configureStore({

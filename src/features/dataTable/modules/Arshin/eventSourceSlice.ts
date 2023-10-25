@@ -50,5 +50,5 @@ export const selectProcess = (state: RootState) => {
 	return { processed, total };
 };
 export const { resetState, setEventSourceData, setStartProcess } = eventSource.actions;
-export const eventSourcePatch = eventSource.name;
+export const eventSourcePath = eventSource.name;
 export const eventSourceReducer = eventSource.reducer;

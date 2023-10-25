@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 
-const StyledCircularCLoseProgressBox = styled(Box)(() => ({
+const StyledCircularCloseProgressBox = styled(Box)(() => ({
 	top: 0,
 	left: 0,
 	bottom: 0,
@@ -12,4 +12,4 @@ const StyledCircularCLoseProgressBox = styled(Box)(() => ({
 	justifyContent: 'center',
 }));
 
-export default StyledCircularCLoseProgressBox;
+export default StyledCircularCloseProgressBox;
