@@ -30,8 +30,8 @@ function EditSidebarArshinItem() {
 		skip: !ids,
 	});
 	const methods = useForm<Omit<IDataItemWithDates, 'document'>>({
-		defaultValues: setDefaultValue(data),
-		// values: setDefaultValue(data),
+		defaultValues: defaultValueSidebarArshin,
+		values: setDefaultValue(data),
 		mode: 'all',
 	});
 	const ttt = methods.trigger;
@@ -49,7 +49,7 @@ function EditSidebarArshinItem() {
 		<Box display='flex' flexDirection='column' flexGrow={1}>
 			<FormContainer onSubmit={onSubmit} style={{ flexGrow: 1 }}>
 				<FormProvider {...methods}>
-					{methods.formState. || <EditArshinItem />}
+					<EditArshinItem />
 					<Button type='submit'>Редактировать</Button>
 				</FormProvider>
 			</FormContainer>
