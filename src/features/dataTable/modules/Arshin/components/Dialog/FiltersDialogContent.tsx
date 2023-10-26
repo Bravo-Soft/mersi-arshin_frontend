@@ -79,12 +79,13 @@ function FiltersDialogContent() {
 				control={control}
 				name='period'
 				render={({ field }) => (
-					<FormControl fullWidth>
+					<FormControl fullWidth variant='standard'>
 						<InputLabel id='select-label'>
 							Периодичность отправки запроса в ФГИС «Аршин»
 						</InputLabel>
 						<Select
 							{...field}
+							size='small'
 							labelId='select-label'
 							label='Периодичность отправки запроса в ФГИС «Аршин»'
 						>
