@@ -6,7 +6,7 @@ import { PrivateRoute } from './PrivateRoute';
 import Layout from 'components/Layout';
 import { AppRoutes } from 'constant/appRoutes';
 import QuickTour from 'features/quickTour/components/QuickTour';
-import { ArshinIntegrationPage } from 'pages/arshin-integration';
+import ArshinIntegrationPage from 'pages/arshin-integration/ArshinIntegrationPage';
 import { AuthPage } from 'pages/auth';
 import ErrorPage from 'pages/error/ErrorPage';
 import { HomePage } from 'pages/home';

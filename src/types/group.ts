@@ -13,5 +13,6 @@ export interface IGroup {
 			enable: boolean;
 			maxSizePerRow: number;
 		};
+		hasArhinIntegration: boolean;
 	};
 }

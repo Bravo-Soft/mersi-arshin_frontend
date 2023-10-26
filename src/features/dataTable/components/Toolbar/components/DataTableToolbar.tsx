@@ -1,11 +1,10 @@
 import ExpandIcon from '@mui/icons-material/ExpandMore';
-import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
+import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
-import Typography from '@mui/material/Typography';
 import {
 	GridToolbarContainer,
 	GridToolbarDensitySelector,
@@ -13,11 +12,12 @@ import {
 } from '@mui/x-data-grid-pro';
 import { useEffect, useRef, useState } from 'react';
 
+import ButtonsNavigation from '../../ButtonsNavigation';
+
 import DataTableColumnButton from './DataTableColumnButton';
 import DataTableToolbarFilter from './DataTableToolbarFilter';
 import { scrollbarStyles } from './scrollbarStyles';
 
-import ArshinButton from 'features/dataTable/modules/Arshin/ArshinButton';
 import DataTableModulesButton from 'features/dataTable/modules/DataTableModulesButton';
 import { selectActualStep, selectMenuStart } from 'features/quickTour/components/quickTourSlice';
 import { useAppSelector } from 'hooks/redux';
@@ -45,29 +45,19 @@ function DataTableToolbar(): JSX.Element {
 			setExpanded(false);
 		}
 	}, [actualStep, startIsMenu]);
-	
 
 	return (
 		<>
 			<GridToolbarContainer sx={scrollbarStyles}>
 				<Toolbar sx={{ width: 1 }}>
-					<Box
-						display='flex'
-						flexDirection='row'
-						columnGap={3}
-						flexGrow={1}
-						minWidth={350}
+					<Stack
+						direction='row'
 						alignItems='center'
+						flexGrow={1}
+						spacing={2}
+						divider={<Divider orientation='vertical' flexItem />}
 					>
-						<Typography
-							color='primary.main'
-							variant='h6'
-							lineHeight={1.3}
-							textOverflow='ellipsis'
-							noWrap
-						>
-							Средства измерения
-						</Typography>
+						<ButtonsNavigation />
 						<Tooltip
 							title={
 								expanded
@@ -84,15 +74,13 @@ function DataTableToolbar(): JSX.Element {
 								/>
 							</IconButton>
 						</Tooltip>
-					</Box>
+					</Stack>
 					<Stack
 						direction='row'
 						gap={4}
 						alignItems='center'
 						sx={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
 					>
-						<ArshinButton />
-
 						<div id='column'>
 							<DataTableColumnButton />
 						</div>

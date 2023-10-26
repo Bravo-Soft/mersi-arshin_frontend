@@ -1,1 +1,1 @@
-export { ArshinIntegrationPage } from './ArshinIntegrationPageLazy';
+export { ArshinIntegrationPage as ArshinIntegrationPageLazy } from './ArshinIntegrationPageLazy';

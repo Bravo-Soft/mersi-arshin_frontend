@@ -47,12 +47,10 @@ function ContextMenu({ contextMenu, actionsOfContextMenu }: IContextMenuProps): 
 	const userId = useAppSelector(selectUserId);
 	const tourStartedIsMenu = useAppSelector(selectMenuStart);
 	// const { attachFiles, hasFavorites, hasClipboard } = useAppSelector(selectUserPermissions);
-	const { isFileStorage } = useAppSelector(selectUserPermissions);
+	const { isFileStorage, isArshin } = useAppSelector(selectUserPermissions);
 
 	const isFavoriteRow =
 		isValueDefined(selectedDataItem) && userId && selectedDataItem.userIds.includes(userId);
-
-	const isArshin = true;
 
 	const {
 		handleClose,
@@ -120,12 +118,9 @@ function ContextMenu({ contextMenu, actionsOfContextMenu }: IContextMenuProps): 
 		},
 		{
 			title: 'Контроль поверки в Госреестре',
-			//TODO: необходимо добавить права
 			Icon: isArshin ? ArshinIcon : LockIcon,
-			//TODO: необходимо добавить права
 			isActive: isArshin ?? false,
-			//TODO: необходимо добавить права
-			action: isArshin ? handleAddToArshin : handleOpenFilesOfDataItem,
+			action: handleAddToArshin,
 		},
 	];
 

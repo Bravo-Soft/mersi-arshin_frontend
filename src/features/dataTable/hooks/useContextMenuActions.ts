@@ -1,4 +1,4 @@
-import type { GridSelectionModel, GridStateColDef } from '@mui/x-data-grid-pro';
+import type { GridStateColDef } from '@mui/x-data-grid-pro';
 import type { GridApiPro } from '@mui/x-data-grid-pro/models/gridApiPro';
 import dayjs from 'dayjs';
 import { enqueueSnackbar } from 'notistack';
