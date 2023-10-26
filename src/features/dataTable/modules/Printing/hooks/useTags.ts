@@ -6,23 +6,23 @@ import { useGetSelectedTagsQuery } from 'features/dataTable/modules/Printing/pri
 import { convertColumnsToObjectView } from 'features/dataTable/modules/Printing/utils/convertColumnsToObjectView';
 import { useAppSelector } from 'hooks/redux';
 
-
-interface ILocationState {
-	visibleColumns: string[];
-}
-
 export const useTags = () => {
 	const selectedIds = useAppSelector(selectSelectionModel);
 
-	const { visibleColumns } = useLocation().state as ILocationState;
+	const { state } = useLocation();
 	const {
 		isFetching,
 		data: tags,
 		isError,
-	} = useGetSelectedTagsQuery({
-		selectedIds,
-		params: convertColumnsToObjectView(visibleColumns, columns),
-	});
+	} = useGetSelectedTagsQuery(
+		{
+			selectedIds,
+			params: convertColumnsToObjectView(state?.visibleColumns ?? [], columns),
+		},
+		{
+			skip: !selectedIds && Boolean(state?.visibleColumns.length),
+		}
+	);
 
 	return { isFetching, isError, tags };
 };
