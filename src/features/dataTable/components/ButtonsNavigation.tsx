@@ -3,6 +3,7 @@ import ToggleButton from '@mui/material/ToggleButton';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { AppRoutes } from 'constant/appRoutes';
 import { Messages } from 'constant/messages';
 import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
 import { useGetUserDataQuery } from 'features/user/userApiSlice';
@@ -22,7 +23,7 @@ function ButtonsNavigation() {
 	const { isLoading } = useGetUserDataQuery();
 
 	const handleChange = (event: React.MouseEvent<HTMLElement>, newAlignment: string) => {
-		if (!isArshin && newAlignment === '/arshin-integration') {
+		if (!isArshin && newAlignment === AppRoutes.ARSHIN) {
 			return dispatch(
 				changeSmartDialogState({
 					variant: 'payment',
@@ -43,8 +44,8 @@ function ButtonsNavigation() {
 			value={item}
 			onChange={handleChange}
 		>
-			<ToggleButton value='/home'>Средства Измерения</ToggleButton>
-			<StyledToggleButton moduleIsActive={isArshin} value='/arshin-integration'>
+			<ToggleButton value={AppRoutes.HOME}>Средства Измерения</ToggleButton>
+			<StyledToggleButton moduleIsActive={isArshin} value={AppRoutes.ARSHIN}>
 				Контроль поверки в госреестре
 				{!isArshin && !isLoading && <LockIcon sx={{ ml: 1 }} />}
 			</StyledToggleButton>
