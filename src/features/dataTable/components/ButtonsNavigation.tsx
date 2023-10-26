@@ -45,7 +45,7 @@ function ButtonsNavigation() {
 			onChange={handleChange}
 		>
 			<ToggleButton value={AppRoutes.HOME}>Средства Измерения</ToggleButton>
-			<StyledToggleButton moduleIsActive={isArshin} value={AppRoutes.ARSHIN}>
+			<StyledToggleButton moduleIsActive={isArshin || isLoading} value={AppRoutes.ARSHIN}>
 				Контроль поверки в госреестре
 				{!isArshin && !isLoading && <LockIcon sx={{ ml: 1 }} />}
 			</StyledToggleButton>
