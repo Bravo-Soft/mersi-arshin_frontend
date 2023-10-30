@@ -11,29 +11,13 @@ import ListItemText from '@mui/material/ListItemText';
 import Stack from '@mui/material/Stack';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import { enqueueSnackbar } from 'notistack';
-import { SyntheticEvent, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
 
-import {
-	useGetNotificationsQuery,
-	useReadAllNotificationMutation,
-	useReadNotificationMutation,
-} from './api/NotificationApiSLice';
+import { useGetNotificationsQuery } from './api/NotificationApiSLice';
 import { usePushNotification } from './hooks/usePushNotification';
 import StyledLayoutNotificationBtn from './styled/StyledLayoutNotificationBtn';
 import StyledLayoutNotificationListItem from './styled/StyledLayoutNotificationListItemBtn';
 import StyledLayoutNotificationPopover from './styled/StyledLayoutNotificationPopover';
 
-import { apiSlice } from 'app/apiSlice';
-import { AppRoutes } from 'constant/appRoutes';
-import { BASE_URL } from 'constant/baseUrl';
-import { Messages } from 'constant/messages';
-import { useServerSentEvent } from 'features/dataTable/modules/Arshin/hooks/useServerSentEvent';
-import { useAnchor } from 'features/dataTable/modules/CreateVerificationSchedule/components/utils/hooks';
-import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
-import { selectUserPermissions } from 'features/user/userSlice';
-import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { useAuth } from 'hooks/useAuth';
 import { hideScrollbar } from 'utils/hideScrollbar';
 
