@@ -1,7 +1,7 @@
 import { listItemTextClasses, styled, typographyClasses } from '@mui/material';
 import ListItem from '@mui/material/ListItem';
 
-const StyledLayoutNotificationListItem = styled(ListItem)(({ theme }) => ({
+const StyledLayoutNotificationBttn = styled(ListItem)(({ theme }) => ({
 	borderRadius: theme.shape.borderRadius,
 	backgroundColor: theme.palette.grey[50],
 	alignItems: 'end',
@@ -25,4 +25,4 @@ const StyledLayoutNotificationListItem = styled(ListItem)(({ theme }) => ({
 		fontSize: 13,
 	},
 }));
-export default StyledLayoutNotificationListItem;
+export default StyledLayoutNotificationBttn;

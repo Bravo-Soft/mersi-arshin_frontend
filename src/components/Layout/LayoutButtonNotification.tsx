@@ -12,7 +12,7 @@ import Stack from '@mui/material/Stack';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { enqueueSnackbar } from 'notistack';
-import { useCallback } from 'react';
+import { SyntheticEvent, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import {
@@ -20,69 +20,49 @@ import {
 	useReadAllNotificationMutation,
 	useReadNotificationMutation,
 } from './api/NotificationApiSLice';
+import { usePushNotification } from './hooks/usePushNotification';
+import StyledLayoutNotificationBtn from './styled/StyledLayoutNotificationBtn';
 import StyledLayoutNotificationListItem from './styled/StyledLayoutNotificationListItemBtn';
 import StyledLayoutNotificationPopover from './styled/StyledLayoutNotificationPopover';
 
 import { apiSlice } from 'app/apiSlice';
 import { AppRoutes } from 'constant/appRoutes';
 import { BASE_URL } from 'constant/baseUrl';
+import { Messages } from 'constant/messages';
 import { useServerSentEvent } from 'features/dataTable/modules/Arshin/hooks/useServerSentEvent';
 import { useAnchor } from 'features/dataTable/modules/CreateVerificationSchedule/components/utils/hooks';
-import { useAppDispatch } from 'hooks/redux';
+import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
+import { selectUserPermissions } from 'features/user/userSlice';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { useAuth } from 'hooks/useAuth';
 import { hideScrollbar } from 'utils/hideScrollbar';
 
 function LayoutButtonNotification() {
 	const isAuth = useAuth();
 
-	const navigate = useNavigate();
-
-	const dispatch = useAppDispatch();
-
-	const [anchorEl, handleOpen, handleClose] = useAnchor();
-
 	const { data: notification = [] } = useGetNotificationsQuery(undefined, { skip: !isAuth });
 
-	const [readMutation] = useReadNotificationMutation();
-	const [readAllMutation] = useReadAllNotificationMutation();
-
-	const handleNavigateToArshin = (id: string) => async () => {
-		readMutation(id);
-		navigate(AppRoutes.ARSHIN);
-		localStorage.setItem('Arshin-filter', 'Done');
-		handleClose();
-	};
-
-	const handleReadAllNotifications = async () => {
-		await readAllMutation();
-		handleClose();
-	};
-	const handleReadNotification = (id: string) => async () => {
-		await readMutation(id);
-		handleClose();
-	};
-
-	const callBack = useCallback(
-		(event: MessageEvent) => {
-			const { message } = JSON.parse(event.data);
-			dispatch(apiSlice.util.invalidateTags(['PushNotification']));
-			enqueueSnackbar(message, {
-				variant: 'info',
-			});
-		},
-		[dispatch]
-	);
-
-	useServerSentEvent(`${BASE_URL}/api/mersi/notifications/arshin `, callBack);
+	const {
+		isArshin,
+		anchorEl,
+		handleClose,
+		handleNavigateToArshin,
+		handleReadAllNotifications,
+		handleReadNotification,
+		handleClickIconNotification,
+	} = usePushNotification();
 
 	return (
 		<>
 			<Tooltip title='Уведомления'>
-				<IconButton onClick={handleOpen}>
+				<StyledLayoutNotificationBtn
+					onClick={handleClickIconNotification}
+					moduleIsActive={isArshin}
+				>
 					<Badge badgeContent={notification.length} color='info' variant='dot'>
 						<NotificationsIcon sx={{ color: '#ffffff' }} />
 					</Badge>
-				</IconButton>
+				</StyledLayoutNotificationBtn>
 			</Tooltip>
 			<StyledLayoutNotificationPopover
 				open={Boolean(anchorEl)}
