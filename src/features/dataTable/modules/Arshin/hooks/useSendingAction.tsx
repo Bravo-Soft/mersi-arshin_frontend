@@ -10,11 +10,6 @@ import { apiSlice } from 'app/apiSlice';
 import { BASE_URL } from 'constant/baseUrl';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 
-const localeDefaultValue = {
-	total: 0,
-	processed: 0,
-	alive: true,
-};
 
 /**
  * @package хук обработчик SSE канала Arshin

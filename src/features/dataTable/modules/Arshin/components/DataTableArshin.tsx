@@ -1,13 +1,7 @@
 import LinearProgress from '@mui/material/LinearProgress';
-import {
-	DataGridPro,
-	GridCellParams,
-	GridSelectionModel,
-	useGridApiRef,
-} from '@mui/x-data-grid-pro';
+import { DataGridPro, GridSelectionModel, useGridApiRef } from '@mui/x-data-grid-pro';
 
 import { useGetDataQuery } from '../arshinTableApiSlice';
-import { selectNotValidArshinItem } from '../arshinTableSlice';
 import { columnsArshin } from '../config/columns';
 import { useApplyTemplate } from '../hooks/useApplyTemplate';
 import { useContextMenuActions } from '../hooks/useContextMenuActions';

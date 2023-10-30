@@ -5,11 +5,7 @@ import { arshinTableApiSlice } from './arshinTableApiSlice';
 import { RootState } from 'app/store';
 import { ArshinStatus } from 'constant/arshinStatus';
 import { isValueDefined } from 'guards/isValueDefined';
-import {
-	IDataItemArshin,
-	INotValidArshinItem,
-	IResponseValidateArshin,
-} from 'types/arshinIntegration';
+import { IDataItemArshin, INotValidArshinItem } from 'types/arshinIntegration';
 import { getArrayWithoutDuplicates } from 'utils/getArrayWithoutDuplicates';
 
 interface IArshinTableState {
