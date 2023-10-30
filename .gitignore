@@ -26,5 +26,6 @@ yarn-error.log*
 
 # IDE
 /.idea/
+/.vscode
 
 /*.code-workspace
