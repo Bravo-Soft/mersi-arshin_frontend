@@ -47,7 +47,7 @@ export const selectUserPermissions = ({ user }: RootState) => ({
 	isFileStorage: {
 		enable: user.groupInfo?.groupModules.isFileStorage.enable ?? false,
 		maxSizePerRow: user.groupInfo?.groupModules.isFileStorage.maxSizePerRow
-			? user.groupInfo.groupModules.isFileStorage.maxSizePerRow * 1_048_576
+			? user.groupInfo.groupModules.isFileStorage.maxSizePerRow
 			: 0,
 	},
 	isArshin: user.groupInfo?.groupModules.hasArhinIntegration ?? false,
