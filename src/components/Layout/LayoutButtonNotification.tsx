@@ -12,7 +12,7 @@ import Stack from '@mui/material/Stack';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
-import { useGetNotificationsQuery } from './api/NotificationApiSLice';
+import { useGetNotificationsQuery } from './api/NotificationApiSlice';
 import { usePushNotification } from './hooks/usePushNotification';
 import StyledLayoutNotificationBtn from './styled/StyledLayoutNotificationBtn';
 import StyledLayoutNotificationListItem from './styled/StyledLayoutNotificationListItemBtn';

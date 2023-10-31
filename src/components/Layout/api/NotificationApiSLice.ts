@@ -7,7 +7,7 @@ type GetNotificationsType = {
 	message: string;
 };
 
-export const NotificationApiSLice = apiSlice.injectEndpoints({
+export const NotificationApiSlice = apiSlice.injectEndpoints({
 	endpoints: builder => ({
 		getNotifications: builder.query<GetNotificationsType[], void>({
 			query: () => API.notification.getNotifications,
@@ -35,4 +35,4 @@ export const {
 	useGetNotificationsQuery,
 	useReadNotificationMutation,
 	useReadAllNotificationMutation,
-} = NotificationApiSLice;
+} = NotificationApiSlice;

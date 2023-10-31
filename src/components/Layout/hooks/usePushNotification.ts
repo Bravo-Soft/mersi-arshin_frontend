@@ -3,10 +3,9 @@ import { SyntheticEvent, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import {
-	useGetNotificationsQuery,
 	useReadAllNotificationMutation,
 	useReadNotificationMutation,
-} from '../api/NotificationApiSLice';
+} from '../api/NotificationApiSlice';
 
 import { apiSlice } from 'app/apiSlice';
 import { AppRoutes } from 'constant/appRoutes';
@@ -17,7 +16,6 @@ import { useAnchor } from 'features/dataTable/modules/CreateVerificationSchedule
 import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
 import { selectUserPermissions } from 'features/user/userSlice';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { useAuth } from 'hooks/useAuth';
 
 export const usePushNotification = () => {
 	const navigate = useNavigate();
