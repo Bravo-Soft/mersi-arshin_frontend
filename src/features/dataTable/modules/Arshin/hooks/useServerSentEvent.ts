@@ -6,7 +6,11 @@ import { useEffect } from 'react';
  * @props callBack => callBack которые будет принимать и обрабатывать ответ от SSE канала
  */
 
-export const useServerSentEvent = (url: string, callBack: (event: MessageEvent) => void) => {
+export const useServerSentEvent = (
+	url: string,
+	callBack: (event: MessageEvent) => void,
+	disabled?: boolean
+) => {
 	useEffect(() => {
 		const eventSource = new EventSource(url, {
 			withCredentials: true,
@@ -18,5 +22,5 @@ export const useServerSentEvent = (url: string, callBack: (event: MessageEvent) 
 			eventSource.close();
 		}
 		return () => eventSource.close();
-	}, [callBack, url]);
+	}, [callBack, disabled, url]);
 };

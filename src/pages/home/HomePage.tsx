@@ -11,7 +11,9 @@ import PageBox from 'styled/PageBox';
 function HomePage(): JSX.Element {
 	/* Селектор */
 	const { open, selector } = useAppSelector(selectSidebarStateOfHomePage);
-	useGetUserDataQuery();
+	// const { data } = useGetUserDataQuery();
+
+	// console.log('data', data);
 
 	/* Хук для сброса выбранного id, см. ниже условие работы */
 	useResetSelectedId(selector, open);

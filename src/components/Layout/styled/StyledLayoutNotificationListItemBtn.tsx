@@ -1,7 +1,7 @@
 import { listItemTextClasses, styled, typographyClasses } from '@mui/material';
-import ListItemButton from '@mui/material/ListItemButton';
+import ListItem from '@mui/material/ListItem';
 
-const StyledLayoutNotificationListItemBtn = styled(ListItemButton)(({ theme }) => ({
+const StyledLayoutNotificationBttn = styled(ListItem)(({ theme }) => ({
 	borderRadius: theme.shape.borderRadius,
 	backgroundColor: theme.palette.grey[50],
 	alignItems: 'end',
@@ -25,4 +25,4 @@ const StyledLayoutNotificationListItemBtn = styled(ListItemButton)(({ theme }) =
 		fontSize: 13,
 	},
 }));
-export default StyledLayoutNotificationListItemBtn;
+export default StyledLayoutNotificationBttn;

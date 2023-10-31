@@ -89,6 +89,7 @@ export const apiSlice = createApi({
 		'ArshinFilters',
 		'ArshinData',
 		'ArshinStart',
+		'PushNotification',
 	],
 	endpoints: () => ({}),
 });

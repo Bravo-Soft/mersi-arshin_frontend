@@ -1,6 +1,4 @@
 import { GridSelectionModel } from '@mui/x-data-grid-pro';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
-import { QueryReturnValue } from '@reduxjs/toolkit/dist/query/baseQueryTypes';
 import { enqueueSnackbar } from 'notistack';
 
 import { setNotValidArshinItem } from './arshinTableSlice';
