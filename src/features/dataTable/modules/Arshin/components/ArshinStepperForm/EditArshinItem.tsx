@@ -1,14 +1,13 @@
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import { DatePicker } from '@mui/x-date-pickers';
-import dayjs from 'dayjs';
 import { Controller, useFormContext } from 'react-hook-form';
 
-import { useGetFiltersQuery } from '../arshinTableApiSlice';
+import { useGetFiltersQuery } from '../../arshinTableApiSlice';
+import { useValidateArshin } from '../../hooks/useValidateArshin';
 
 import SuitabilitySelect from 'components/SuitabilitySelect';
 import { ColumnNames } from 'constant/columnsName';
-import { dayjsFormatVariant } from 'constant/dateFormat';
 import { IFormFilterArshin } from 'types/arshinIntegration';
 import { IDataItemWithDates } from 'types/dataItem';
 
@@ -22,12 +21,17 @@ function EditArshinItem() {
 		register,
 		control,
 		formState: { errors },
-		watch,
 	} = useFormContext<Omit<IDataItemWithDates, 'document'>>();
 
 	const { data: filterConfig = {} as IFormFilterArshin } = useGetFiltersQuery();
 
-	const { verificationDate, dateOfTheNextVerification } = watch();
+	const [
+		handleValidateDate,
+		verificationDateBefore,
+		dateOfTheNextVerificationBefore,
+		isBeforeCreateOfDateOfTheNextVerification,
+		isBeforeCreateOfVerificationDate,
+	] = useValidateArshin();
 
 	return (
 		<>
@@ -62,12 +66,9 @@ function EditArshinItem() {
 					name='verificationDate'
 					rules={{
 						validate: {
-							valid: v => v.isValid() || 'Неверный формат даты',
-							p: date =>
-								dayjs(date).isBefore(dayjs(dateOfTheNextVerification)) ||
-								`Дата поверки должна идти раньше даты следующей поверки, либо быть равной ей (${dayjs(
-									dateOfTheNextVerification
-								).format(dayjsFormatVariant)})`,
+							valid: handleValidateDate,
+							isBefore: verificationDateBefore,
+							isBeforeCreate: isBeforeCreateOfVerificationDate,
 						},
 					}}
 					render={({ field: { ref, ...field }, fieldState: { error } }) => (
@@ -99,12 +100,9 @@ function EditArshinItem() {
 					name='dateOfTheNextVerification'
 					rules={{
 						validate: {
-							valid: v => v.isValid() || 'Неверный формат даты',
-							p: date =>
-								dayjs(verificationDate).isBefore(dayjs(date)) ||
-								`Дата следующей поверки должна идти после даты поверки, либо быть равной ей (${dayjs(
-									verificationDate
-								).format(dayjsFormatVariant)})`,
+							valid: handleValidateDate,
+							isBefore: dateOfTheNextVerificationBefore,
+							isBeforeCreate: isBeforeCreateOfDateOfTheNextVerification,
 						},
 					}}
 					render={({ field: { ref, ...field }, fieldState: { error } }) => (
