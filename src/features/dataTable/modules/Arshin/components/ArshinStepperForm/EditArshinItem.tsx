@@ -1,33 +1,27 @@
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import { DatePicker } from '@mui/x-date-pickers';
-import dayjs from 'dayjs';
 import { Controller, useFormContext } from 'react-hook-form';
 
-import { useGetFiltersQuery } from '../arshinTableApiSlice';
+import { useGetFiltersQuery } from '../../arshinTableApiSlice';
+import { useValidateArshin } from '../../hooks/useValidateArshin';
 
 import SuitabilitySelect from 'components/SuitabilitySelect';
 import { ColumnNames } from 'constant/columnsName';
-import { dayjsFormatVariant } from 'constant/dateFormat';
 import { IFormFilterArshin } from 'types/arshinIntegration';
 import { IDataItemWithDates } from 'types/dataItem';
-
-const requiredValidate = (bool?: boolean) => ({
-	value: !bool,
-	message: 'Это обязательное поле',
-});
 
 function EditArshinItem() {
 	const {
 		register,
 		control,
 		formState: { errors },
-		watch,
-	} = useFormContext<Omit<IDataItemWithDates, 'document'>>();
+	} = useFormContext<Omit<IDataItemWithDates, 'document' | 'userIds'>>();
 
 	const { data: filterConfig = {} as IFormFilterArshin } = useGetFiltersQuery();
 
-	const { verificationDate, dateOfTheNextVerification } = watch();
+	const { requiredValidation, verificationDateValidate, dateOfTheNextVerificationValidate } =
+		useValidateArshin();
 
 	return (
 		<>
@@ -35,23 +29,27 @@ function EditArshinItem() {
 				<TextField
 					{...register('name')}
 					label={ColumnNames.NAME}
+					disabled
 					type='text'
+					helperText={' '}
 					InputLabelProps={{ shrink: true }}
-					error={Boolean(errors.name)}
-					helperText={errors.name?.message ?? ' '}
 				/>
 				<TextField
-					{...register('type', { required: requiredValidate(filterConfig?.type) })}
+					{...register('type', { required: requiredValidation(filterConfig?.type) })}
 					label={ColumnNames.TYPE}
 					type='text'
+					required={filterConfig?.type}
 					InputLabelProps={{ shrink: true }}
 					error={Boolean(errors.type)}
 					helperText={errors.type?.message ?? ' '}
 				/>
 				<TextField
-					{...register('factoryNumber')}
-					label={ColumnNames.FACTORY_NUMBER}
+					{...register('factoryNumber', {
+						required: requiredValidation(filterConfig?.factoryNumber),
+					})}
 					type='text'
+					required={filterConfig?.factoryNumber}
+					label={ColumnNames.FACTORY_NUMBER}
 					InputLabelProps={{ shrink: true }}
 					error={Boolean(errors.factoryNumber)}
 					helperText={errors.factoryNumber?.message ?? ' '}
@@ -61,14 +59,7 @@ function EditArshinItem() {
 					control={control}
 					name='verificationDate'
 					rules={{
-						validate: {
-							valid: v => v.isValid() || 'Неверный формат даты',
-							p: date =>
-								dayjs(date).isBefore(dayjs(dateOfTheNextVerification)) ||
-								`Дата поверки должна идти раньше даты следующей поверки, либо быть равной ей (${dayjs(
-									dateOfTheNextVerification
-								).format(dayjsFormatVariant)})`,
-						},
+						validate: verificationDateValidate,
 					}}
 					render={({ field: { ref, ...field }, fieldState: { error } }) => (
 						<DatePicker
@@ -85,10 +76,12 @@ function EditArshinItem() {
 					)}
 				/>
 				<TextField
-					{...register('organization')}
+					{...register('organization', {
+						required: requiredValidation(filterConfig?.organization),
+					})}
 					label={ColumnNames.ORGANIZATION}
 					type='text'
-					required
+					required={filterConfig?.organization}
 					InputLabelProps={{ shrink: true }}
 					error={Boolean(errors.organization)}
 					helperText={errors.organization?.message ?? ' '}
@@ -98,14 +91,7 @@ function EditArshinItem() {
 					control={control}
 					name='dateOfTheNextVerification'
 					rules={{
-						validate: {
-							valid: v => v.isValid() || 'Неверный формат даты',
-							p: date =>
-								dayjs(verificationDate).isBefore(dayjs(date)) ||
-								`Дата следующей поверки должна идти после даты поверки, либо быть равной ей (${dayjs(
-									verificationDate
-								).format(dayjsFormatVariant)})`,
-						},
+						validate: dateOfTheNextVerificationValidate,
 					}}
 					render={({ field: { ref, ...field }, fieldState: { error } }) => (
 						<DatePicker
@@ -123,12 +109,11 @@ function EditArshinItem() {
 				/>
 				<TextField
 					{...register('certificate', {
-						validate: {
-							test: value => Boolean(value.length) || 'Обязательное поле',
-						},
+						required: requiredValidation(filterConfig?.certificate),
 					})}
 					label={ColumnNames.CERTIFICATE}
 					type='text'
+					required={filterConfig?.certificate}
 					InputLabelProps={{ shrink: true }}
 					error={Boolean(errors.certificate)}
 					helperText={errors.certificate?.message ?? ' '}

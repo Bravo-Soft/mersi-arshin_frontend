@@ -1,7 +1,7 @@
 import { useState, MouseEvent } from 'react';
 
 import { resetSelectedDataArshinItem, setSelectedDataArshinItem } from '../arshinTableSlice';
-import { selectIsStartArshin } from '../eventSourceSlice';
+import { selectIsAliveArshin, selectIsStartArshin } from '../eventSourceSlice';
 
 import { ICoordinates } from 'features/dataTable/hooks/useContextMenuActions';
 import { isValueDefined } from 'guards/isValueDefined';
@@ -16,6 +16,7 @@ export const useContextMenuActions = (data: IDataItemArshin[]) => {
 	const dispatch = useAppDispatch();
 
 	const isStart = useAppSelector(selectIsStartArshin);
+	const isAlive = useAppSelector(selectIsAliveArshin);
 
 	const handleCloseContextMenu = () => {
 		dispatch(resetSelectedDataArshinItem());
@@ -25,7 +26,7 @@ export const useContextMenuActions = (data: IDataItemArshin[]) => {
 	const handleOpenContextMenu = (event: MouseEvent<HTMLDivElement>) => {
 		event.preventDefault();
 
-		if (isStart) return;
+		if (isStart || !isAlive) return;
 
 		const currentId = event.currentTarget.getAttribute('data-id');
 		if (currentId !== null) {

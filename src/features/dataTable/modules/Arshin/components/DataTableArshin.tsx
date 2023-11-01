@@ -23,7 +23,6 @@ function DataTableArshin() {
 	const apiRef = useGridApiRef();
 
 	useApplyTemplate(apiRef);
-	// const isStart = useAppSelector(selectIsStartArshin);
 
 	const { data, isFetching } = useGetDataQuery(undefined, {
 		selectFromResult: ({ data, isFetching }) => ({

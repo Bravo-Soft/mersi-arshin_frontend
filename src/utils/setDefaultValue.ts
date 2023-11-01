@@ -5,12 +5,24 @@ import type { IDataItem } from 'types/dataItem';
 
 export const setDefaultValue = (data?: IDataItem | null) => {
 	if (data) {
+		const {
+			suitability,
+			productionDate,
+			verificationDate,
+			dateOfTheNextVerification,
+			interVerificationInterval,
+			documents,
+			userIds,
+			...other
+		} = data;
+
 		return {
-			...data,
-			suitability: data.suitability.toString(),
-			productionDate: dayjs(data.productionDate),
-			verificationDate: dayjs(data.verificationDate),
-			dateOfTheNextVerification: dayjs(data.dateOfTheNextVerification),
+			...other,
+			interVerificationInterval: Number(interVerificationInterval),
+			suitability: suitability.toString(),
+			productionDate: dayjs(productionDate),
+			verificationDate: dayjs(verificationDate),
+			dateOfTheNextVerification: dayjs(dateOfTheNextVerification),
 			size: Tag.SMALL,
 		};
 	}

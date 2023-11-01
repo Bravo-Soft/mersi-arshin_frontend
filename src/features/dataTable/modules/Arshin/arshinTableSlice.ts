@@ -80,6 +80,13 @@ export const selectSelectedModelArshin = (state: RootState) => {
 	return data.filter(({ id }) => selectedModel.includes(id));
 };
 
+//Массива данных из таблицы по выделенным id без наведенного элемента
+export const selectSelectedModelArshinNotSelectedItem = (state: RootState) => {
+	const selectedModel = selectSelectedDataIds(state);
+	const data = selectArshinData(state);
+	return data.filter(({ id }) => selectedModel.includes(id));
+};
+
 //---- Модель данных для удаления данных
 
 //Модель для удаления
@@ -130,7 +137,7 @@ export const selectIsOpenSynchronizeDialog = (state: RootState) => {
 
 //Модель для отправки
 export const selectUploadModel = (state: RootState) => {
-	const model = selectSelectedModelArshin(state);
+	const model = selectSelectedModelArshinNotSelectedItem(state);
 	return model.filter(
 		({ status }) => status !== ArshinStatus.DONE && status !== ArshinStatus.PROCESS
 	);
@@ -138,7 +145,7 @@ export const selectUploadModel = (state: RootState) => {
 
 //Модель id  для отправки
 export const selectUploadModelIds = (state: RootState) => {
-	const uploadModel = selectDeleteModel(state);
+	const uploadModel = selectUploadModel(state);
 	return uploadModel.map(({ id }) => id);
 };
 

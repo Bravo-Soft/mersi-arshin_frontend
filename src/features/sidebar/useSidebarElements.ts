@@ -8,7 +8,7 @@ import NotificationSettings from 'components/Forms/NotificationSettings';
 import PrintSettings from 'components/Forms/PrintSettings';
 import VerificateDataItem from 'components/Forms/VerificateDataItem';
 import { SidebarTitles } from 'constant/sidebarTitles';
-import EditArshinStepper from 'features/dataTable/modules/Arshin/components/EditArshinStepper';
+import EditArshinStepper from 'features/dataTable/modules/Arshin/components/ArshinStepperForm/EditArshinStepper';
 import EditSidebarArshinItem from 'features/dataTable/modules/Arshin/components/EditSidebarArshinItem';
 import UserProfile from 'features/user/UserProfile';
 import { selectUserPermissions, selectUserRoles } from 'features/user/userSlice';
