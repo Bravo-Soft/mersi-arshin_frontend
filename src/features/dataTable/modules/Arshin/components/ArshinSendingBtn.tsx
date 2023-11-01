@@ -9,6 +9,7 @@ import { useSendingArshin } from '../hooks/useSendingArshin';
 import CircularCloseProgress from './CircularCloseProgress';
 
 import { useAppSelector } from 'hooks/redux';
+import { useSidebarAction } from 'hooks/useSidebarActions';
 
 function ArshinSendingBtn() {
 	const { handleCancel, handleStart } = useSendingArshin();
@@ -16,8 +17,12 @@ function ArshinSendingBtn() {
 	const progressArshin = useAppSelector(selectProgressArshin);
 
 	const processData = useAppSelector(selectUploadModelIds);
-	const handleSend = () => handleStart(processData);
-	console.log('progressArshin', processData);
+	const { closeSidebar } = useSidebarAction('arshin');
+
+	const handleSend = async () => {
+		closeSidebar();
+		await handleStart(processData);
+	};
 
 	return (
 		<>
