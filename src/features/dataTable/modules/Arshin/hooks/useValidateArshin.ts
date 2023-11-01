@@ -4,7 +4,7 @@ import { Validate, useFormContext } from 'react-hook-form';
 import { dayjsFormatVariant } from 'constant/dateFormat';
 import { IDataItemWithDates } from 'types/dataItem';
 
-type Test = Omit<IDataItemWithDates, 'document'>;
+type FormType = Omit<IDataItemWithDates, 'document'>;
 
 type ValidateType =
 	| Validate<Dayjs, Omit<IDataItemWithDates, 'document'>>
@@ -18,13 +18,13 @@ export const useValidateArshin = () => {
 
 	const { productionDate } = watches;
 
-	const verificationDateBefore = (date: Dayjs, obj: Test) =>
+	const verificationDateBefore = (date: Dayjs, obj: FormType) =>
 		!dayjs(obj.dateOfTheNextVerification).isBefore(dayjs(date)) ||
 		`Дата поверки должна идти раньше даты следующей поверки, либо быть равной ей (${dayjs(
 			obj.dateOfTheNextVerification
 		).format(dayjsFormatVariant)})`;
 
-	const dateOfTheNextVerificationBefore = (date: Dayjs, obj: Test) =>
+	const dateOfTheNextVerificationBefore = (date: Dayjs, obj: FormType) =>
 		!dayjs(date).isBefore(dayjs(obj.verificationDate)) ||
 		`Дата следующей поверки должна идти после даты поверки, либо быть равной ей (${dayjs(
 			obj.verificationDate

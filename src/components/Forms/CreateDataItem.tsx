@@ -60,6 +60,7 @@ const defaultValues = {
 	additionalData: '',
 	methodology: '',
 	cost: '0',
+	verificationControlInStateRegister: true,
 };
 
 function CreateDataItem(): JSX.Element {

@@ -48,9 +48,7 @@ export const itemSchema = z.object({
 				.number()
 				.gte(0, 'Число не может быть менее 0')
 				.lte(9999, 'Число не может быть больше чем 9999')
-		)
-		.transform(e => String(e)),
-
+		),
 	id: z.string(),
 });
 
@@ -152,6 +150,7 @@ export const createSchema = itemSchema
 	.omit({
 		id: true,
 	})
+	.and(z.object({ verificationControlInStateRegister: z.boolean() }))
 	.and(dateSchema);
 
 export const formResolver = zodResolver(schema);
