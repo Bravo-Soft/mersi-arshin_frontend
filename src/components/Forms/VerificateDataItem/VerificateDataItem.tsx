@@ -1,4 +1,5 @@
 import Button from '@mui/material/Button';
+import { useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { formResolver } from '../utils/dataItemResolvers';
@@ -26,14 +27,21 @@ function VerificateDataItem(): JSX.Element {
 	const [sendUpdatedItem, { isLoading: isUpdateLoading }] = useUpdateDataItemMutation();
 	const methods = useForm<IDataItemWithDates>({
 		values: setDefaultValue(selectedDataItem),
-		// resolver: formResolver,
+		resolver: formResolver,
 		mode: 'onSubmit',
 	});
 
 	useUpdateSelectedDataItem(selectedDataItem);
 	useUpdateInputValues(selectedDataItem, methods.setValue);
 
+	const www = methods.watch();
+
+	useEffect(() => {
+		console.log(www);
+	}, [www]);
+
 	const onSubmit = methods.handleSubmit(async data => {
+		console.log('ddata', data);
 		await sendUpdatedItem(dateFormTransform(formTrimming(data))).unwrap();
 	});
 

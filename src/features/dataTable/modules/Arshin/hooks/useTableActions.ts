@@ -8,7 +8,7 @@ import {
 	setSelectedDataItems,
 	setSelectedDoubleClickIds,
 } from '../arshinTableSlice';
-import { selectIsStartArshin } from '../eventSourceSlice';
+import { selectIsAliveArshin, selectIsStartArshin } from '../eventSourceSlice';
 
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { useSidebarAction } from 'hooks/useSidebarActions';
@@ -29,6 +29,7 @@ const useTableActions = () => {
 
 	const selectionIds = useAppSelector(selectSelectedDataIds);
 	const isStart = useAppSelector(selectIsStartArshin);
+	const isAlive = useAppSelector(selectIsAliveArshin);
 
 	const arshinItems = useAppSelector(selectNotValidArshinItem);
 
@@ -40,11 +41,12 @@ const useTableActions = () => {
 	};
 
 	const handleDoubleClick = (params: GridRowParams<IDataItemArshin>) => {
+		if (!isAlive || isStart) return;
 		dispatch(setSelectedDoubleClickIds(params.row.originId));
 		openSidebarWith('EditSidebarArshinItem');
 	};
 
-	const handleDisabledSelectedRow = () => !isStart;
+	const handleDisabledSelectedRow = () => !isStart && isAlive;
 
 	const handleGetCellClassName = (params: GridCellParams<unknown, IDataItemArshin>) => {
 		const isNotValid = arshinItems.map(({ id }) => id).includes(params.row.id);

@@ -31,10 +31,8 @@ function EditArshinStepperForm() {
 		defaultValues: defaultValueSidebarArshin,
 		values: setDefaultValue(data),
 		mode: 'all',
-		reValidateMode: 'onChange',
 		resetOptions: {
 			keepErrors: true,
-			keepIsValid: true,
 			keepDirtyValues: true,
 		},
 	});

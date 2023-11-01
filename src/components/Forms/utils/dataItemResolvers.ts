@@ -36,7 +36,8 @@ export const itemSchema = z.object({
 		.string()
 		.regex(new RegExp(/^-?[0-9]\d*(\.\d+)?$/), 'Округлите до сотых')
 		.transform(e => Math.floor(Number(e)))
-		.refine(e => e >= 0, 'Минимальное допустимое число 1'),
+		.refine(e => e >= 0, 'Минимальное допустимое число 1')
+		.transform(e => e.toString()),
 	size: z.nativeEnum(Tag),
 	notes: z.string().max(256, largeLengthField),
 	interVerificationInterval: z

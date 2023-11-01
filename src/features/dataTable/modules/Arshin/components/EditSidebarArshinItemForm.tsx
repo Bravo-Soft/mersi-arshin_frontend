@@ -47,13 +47,7 @@ function EditSidebarArshinItemForm() {
 		closeSidebar();
 	});
 
-	const [
-		handleValidateDate,
-		verificationDateBefore,
-		dateOfTheNextVerificationBefore,
-		isBeforeCreateOfDateOfTheNextVerification,
-		isBeforeCreateOfVerificationDate,
-	] = useValidateArshin();
+	const { verificationDateValidate, dateOfTheNextVerificationValidate } = useValidateArshin();
 
 	return (
 		<FormContainer onSubmit={onSubmit} style={{ flexGrow: 1 }}>
@@ -88,11 +82,7 @@ function EditSidebarArshinItemForm() {
 						control={control}
 						name='verificationDate'
 						rules={{
-							validate: {
-								valid: handleValidateDate,
-								isBefore: verificationDateBefore,
-								isBeforeCreate: isBeforeCreateOfVerificationDate,
-							},
+							validate: verificationDateValidate,
 						}}
 						render={({ field: { ref, ...field }, fieldState: { error } }) => (
 							<DatePicker
@@ -122,11 +112,7 @@ function EditSidebarArshinItemForm() {
 						control={control}
 						name='dateOfTheNextVerification'
 						rules={{
-							validate: {
-								valid: handleValidateDate,
-								isBefore: dateOfTheNextVerificationBefore,
-								isBeforeCreate: isBeforeCreateOfDateOfTheNextVerification,
-							},
+							validate: dateOfTheNextVerificationValidate,
 						}}
 						render={({ field: { ref, ...field }, fieldState: { error } }) => (
 							<DatePicker

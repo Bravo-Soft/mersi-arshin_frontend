@@ -12,6 +12,7 @@ export const dateFormTransform = <T extends Omit<IDataItemWithDates, 'id' | 'doc
 		userIds,
 		...other
 	} = data;
+	console.log('suitability', suitability);
 	return {
 		...other,
 		suitability: JSON.parse(suitability),

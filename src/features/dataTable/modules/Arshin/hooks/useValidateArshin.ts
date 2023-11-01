@@ -1,10 +1,16 @@
 import dayjs, { Dayjs } from 'dayjs';
-import { useFormContext } from 'react-hook-form';
+import { Validate, useFormContext } from 'react-hook-form';
 
 import { dayjsFormatVariant } from 'constant/dateFormat';
 import { IDataItemWithDates } from 'types/dataItem';
 
 type Test = Omit<IDataItemWithDates, 'document'>;
+
+type ValidateType =
+	| Validate<Dayjs, Omit<IDataItemWithDates, 'document'>>
+	| Record<string, Validate<Dayjs, Omit<IDataItemWithDates, 'document'>>>
+	| undefined;
+
 export const useValidateArshin = () => {
 	const { watch } = useFormContext<Omit<IDataItemWithDates, 'document'>>();
 
@@ -24,8 +30,8 @@ export const useValidateArshin = () => {
 			obj.verificationDate
 		).format(dayjsFormatVariant)})`;
 
-	const isBeforeCreateOfDateOfTheNextVerification = (date: Dayjs, obj: Test) =>
-		dayjs(date).isAfter(dayjs(obj.productionDate)) ||
+	const isBeforeCreateOfDateOfTheNextVerification = (date: Dayjs) =>
+		dayjs(date).isAfter(dayjs(productionDate)) ||
 		`Дата следующей поверки должна идти после даты производства, либо быть равной ей (${dayjs(
 			productionDate
 		).format(dayjsFormatVariant)})`;
@@ -37,12 +43,26 @@ export const useValidateArshin = () => {
 		).format(dayjsFormatVariant)})`;
 
 	const handleValidateDate = (date: Dayjs) => date.isValid() || 'Неверный формат даты';
-	
-	return [
-		verificationDateBefore,
-		dateOfTheNextVerificationBefore,
-		isBeforeCreateOfDateOfTheNextVerification,
-		isBeforeCreateOfVerificationDate,
-		handleValidateDate,
-	];
+
+	const requiredValidation = (bool?: boolean) => {
+		return Boolean(!bool) || 'Обязательное поле';
+	};
+
+	const verificationDateValidate: ValidateType = {
+		valid: handleValidateDate,
+		isBefore: verificationDateBefore,
+		isBeforeCreate: isBeforeCreateOfVerificationDate,
+	};
+
+	const dateOfTheNextVerificationValidate = {
+		valid: handleValidateDate,
+		isBefore: dateOfTheNextVerificationBefore,
+		isBeforeCreate: isBeforeCreateOfDateOfTheNextVerification,
+	};
+
+	return {
+		requiredValidation,
+		verificationDateValidate,
+		dateOfTheNextVerificationValidate,
+	};
 };

@@ -17,6 +17,7 @@ function ArshinSendingBtn() {
 
 	const processData = useAppSelector(selectUploadModelIds);
 	const handleSend = () => handleStart(processData);
+	console.log('progressArshin', processData);
 
 	return (
 		<>
