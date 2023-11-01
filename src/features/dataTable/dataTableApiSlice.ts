@@ -51,9 +51,8 @@ export const dataTableApiSlice = apiSlice.injectEndpoints({
 			},
 		}),
 
-		updateDataItem: builder.mutation<void, Omit<IDataItem, 'userIds'>>({
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			query: ({ id, documents, ...body }) => ({
+		updateDataItem: builder.mutation<void, Omit<IDataItem, 'documents' | 'userIds'>>({
+			query: ({ id, ...body }) => ({
 				url: `${API.data.default}/${id}`,
 				method: 'PUT',
 				body,

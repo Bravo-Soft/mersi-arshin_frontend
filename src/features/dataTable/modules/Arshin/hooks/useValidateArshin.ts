@@ -4,15 +4,10 @@ import { Validate, useFormContext } from 'react-hook-form';
 import { dayjsFormatVariant } from 'constant/dateFormat';
 import { IDataItemWithDates } from 'types/dataItem';
 
-type FormType = Omit<IDataItemWithDates, 'document'>;
-
-type ValidateType =
-	| Validate<Dayjs, Omit<IDataItemWithDates, 'document'>>
-	| Record<string, Validate<Dayjs, Omit<IDataItemWithDates, 'document'>>>
-	| undefined;
+type FormType = Omit<IDataItemWithDates, 'document' | 'userIds'>;
 
 export const useValidateArshin = () => {
-	const { watch } = useFormContext<Omit<IDataItemWithDates, 'document'>>();
+	const { watch } = useFormContext<Omit<IDataItemWithDates, 'documents' | 'userIds'>>();
 
 	const watches = watch();
 
@@ -48,7 +43,7 @@ export const useValidateArshin = () => {
 		return Boolean(!bool) || 'Обязательное поле';
 	};
 
-	const verificationDateValidate: ValidateType = {
+	const verificationDateValidate = {
 		valid: handleValidateDate,
 		isBefore: verificationDateBefore,
 		isBeforeCreate: isBeforeCreateOfVerificationDate,

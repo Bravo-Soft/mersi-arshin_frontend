@@ -16,7 +16,7 @@ function EditArshinItem() {
 		register,
 		control,
 		formState: { errors },
-	} = useFormContext<Omit<IDataItemWithDates, 'document'>>();
+	} = useFormContext<Omit<IDataItemWithDates, 'document' | 'userIds'>>();
 
 	const { data: filterConfig = {} as IFormFilterArshin } = useGetFiltersQuery();
 

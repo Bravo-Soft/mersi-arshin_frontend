@@ -27,7 +27,7 @@ function EditArshinStepperForm() {
 
 	const [sendUpdatedItem] = useUpdateDataItemMutation();
 
-	const methods = useForm<Omit<IDataItemWithDates, 'document'>>({
+	const methods = useForm<Omit<IDataItemWithDates, 'documents' | 'userIds'>>({
 		defaultValues: defaultValueSidebarArshin,
 		values: setDefaultValue(data),
 		mode: 'all',

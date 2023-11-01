@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import dayjs from 'dayjs';
 import { Fragment, useEffect } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { Controller, FormProvider, useForm } from 'react-hook-form';
 
 import { allInputFields } from './fields';
 import { useFilterAutocomplete } from './hooks/useAutocomplete';
@@ -44,7 +44,7 @@ const defaultValues = {
 	condition: '',
 	division: '',
 	factoryNumber: '',
-	interVerificationInterval: '',
+	interVerificationInterval: 0,
 	inventoryNumber: '',
 	measurementLimit: '',
 	name: '',
@@ -70,12 +70,12 @@ function CreateDataItem(): JSX.Element {
 	const { data } = useGetAllDataQuery();
 	const [createNewItem, { isLoading, isSuccess }] = useCreateNewDataItemMutation();
 
-	const methods = useForm<Omit<IDataItemWithDates, 'id' | 'documents'>>({
+	const methods = useForm<Omit<IDataItemWithDates, 'id' | 'documents' | 'userIds'>>({
 		defaultValues,
 		resolver: createResolver,
 	});
 
-	const { handleSubmit, reset } = methods;
+	const { handleSubmit, reset, control } = methods;
 
 	const rowCount = data?.length ?? 0;
 	const maxRowsIsReached = isValueDefined(maxRowsPerTable) && rowCount >= maxRowsPerTable;
@@ -127,14 +127,22 @@ function CreateDataItem(): JSX.Element {
 				);
 			case 'interVerificationInterval':
 				return (
-					<TextField
-						{...methods.register(key)}
-						label={label}
+					<Controller
+						name={key}
 						key={key}
-						error={Boolean(methods.formState.errors.interVerificationInterval)}
-						helperText={methods.formState.errors?.interVerificationInterval?.message}
-						InputLabelProps={{ shrink: true }}
-						type='number'
+						control={control}
+						render={({ field: { ref, onChange, ...field }, fieldState: { error } }) => (
+							<TextField
+								{...field}
+								label={label}
+								error={Boolean(error)}
+								helperText={error?.message ?? ' '}
+								inputRef={ref}
+								onChange={e => onChange(Number(e.target.value))}
+								InputLabelProps={{ shrink: true }}
+								type='number'
+							/>
+						)}
 					/>
 				);
 

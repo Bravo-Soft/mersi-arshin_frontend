@@ -42,15 +42,16 @@ function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
 						name={key}
 						key={key}
 						control={control}
-						render={({ field: { ref, ...field }, fieldState: { error } }) => (
+						render={({ field: { ref, onChange, ...field }, fieldState: { error } }) => (
 							<TextField
 								{...field}
 								label={label}
 								error={Boolean(error)}
 								helperText={error?.message ?? ' '}
 								inputRef={ref}
+								onChange={e => onChange(Number(e.target.value))}
 								InputLabelProps={{ shrink: true }}
-								// type='number'
+								type='number'
 							/>
 						)}
 					/>
@@ -66,6 +67,9 @@ function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
 						InputLabelProps={{ shrink: true }}
 						InputProps={{
 							startAdornment: <InputAdornment position='start'>₽</InputAdornment>,
+						}}
+						inputProps={{
+							step: 0.01,
 						}}
 						type='number'
 					/>

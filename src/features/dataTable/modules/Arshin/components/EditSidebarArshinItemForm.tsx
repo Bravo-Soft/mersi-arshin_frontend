@@ -1,14 +1,12 @@
-import { Button, Stack, TextField } from '@mui/material';
-import { DatePicker } from '@mui/x-date-pickers';
-import { Controller, FormProvider, useForm } from 'react-hook-form';
+import Button from '@mui/material/Button';
+import { FormProvider, useForm } from 'react-hook-form';
 
 import { selectSelectedDoubleClickId } from '../arshinTableSlice';
 import { defaultValueSidebarArshin } from '../config/defaultValueSidebarArshin';
-import { useValidateArshin } from '../hooks/useValidateArshin';
 import { arshinFormaterItem } from '../utils/arshinFormaterItem';
 
-import SuitabilitySelect from 'components/SuitabilitySelect';
-import { ColumnNames } from 'constant/columnsName';
+import EditSideBarArshinItemFields from './EditSideBarArshinItemFields';
+
 import {
 	useGetDataByIdQuery,
 	useUpdateDataItemMutation,
@@ -31,113 +29,21 @@ function EditSidebarArshinItemForm() {
 		skip: !ids,
 	});
 
-	const methods = useForm<Omit<IDataItemWithDates, 'document'>>({
+	const methods = useForm<Omit<IDataItemWithDates, 'documents' | 'userIds'>>({
 		defaultValues: defaultValueSidebarArshin,
 		values: setDefaultValue(data),
 		mode: 'onSubmit',
 	});
-	const {
-		handleSubmit,
-		register,
-		control,
-		formState: { errors },
-	} = methods;
-	const onSubmit = handleSubmit(async data => {
+
+	const onSubmit = methods.handleSubmit(async data => {
 		await sendUpdatedItem(arshinFormaterItem(formTrimming(data))).unwrap();
 		closeSidebar();
 	});
 
-	const { verificationDateValidate, dateOfTheNextVerificationValidate } = useValidateArshin();
-
 	return (
 		<FormContainer onSubmit={onSubmit} style={{ flexGrow: 1 }}>
 			<FormProvider {...methods}>
-				<Stack direction='column' px={3} pb={3.5} rowGap={1} flexGrow={1}>
-					<TextField
-						{...register('name')}
-						label={ColumnNames.NAME}
-						type='text'
-						InputLabelProps={{ shrink: true }}
-						error={Boolean(errors.name)}
-						helperText={errors.name?.message ?? ' '}
-					/>
-					<TextField
-						{...register('type')}
-						label={ColumnNames.TYPE}
-						type='text'
-						InputLabelProps={{ shrink: true }}
-						error={Boolean(errors.type)}
-						helperText={errors.type?.message ?? ' '}
-					/>
-					<TextField
-						{...register('factoryNumber')}
-						label={ColumnNames.FACTORY_NUMBER}
-						type='text'
-						InputLabelProps={{ shrink: true }}
-						error={Boolean(errors.factoryNumber)}
-						helperText={errors.factoryNumber?.message ?? ' '}
-					/>
-
-					<Controller
-						control={control}
-						name='verificationDate'
-						rules={{
-							validate: verificationDateValidate,
-						}}
-						render={({ field: { ref, ...field }, fieldState: { error } }) => (
-							<DatePicker
-								{...field}
-								label={ColumnNames.VERIFICATION_DATE}
-								slotProps={{
-									textField: {
-										inputRef: ref,
-										error: Boolean(error),
-										helperText: error?.message ?? ' ',
-									},
-								}}
-							/>
-						)}
-					/>
-					<TextField
-						{...register('organization')}
-						label={ColumnNames.ORGANIZATION}
-						type='text'
-						required
-						InputLabelProps={{ shrink: true }}
-						error={Boolean(errors.organization)}
-						helperText={errors.organization?.message ?? ' '}
-					/>
-
-					<Controller
-						control={control}
-						name='dateOfTheNextVerification'
-						rules={{
-							validate: dateOfTheNextVerificationValidate,
-						}}
-						render={({ field: { ref, ...field }, fieldState: { error } }) => (
-							<DatePicker
-								{...field}
-								label={ColumnNames.DATE_OF_THE_NEXT_VERIFICATION}
-								slotProps={{
-									textField: {
-										inputRef: ref,
-										error: Boolean(error),
-										helperText: error?.message ?? ' ',
-									},
-								}}
-							/>
-						)}
-					/>
-					<TextField
-						{...register('certificate')}
-						label={ColumnNames.CERTIFICATE}
-						type='text'
-						InputLabelProps={{ shrink: true }}
-						error={Boolean(errors.certificate)}
-						helperText={errors.certificate?.message ?? ' '}
-					/>
-					<SuitabilitySelect key='suitability' />
-				</Stack>
+				<EditSideBarArshinItemFields />
 				<ButtonContainer>
 					<Button variant='contained' fullWidth type='submit'>
 						Редактировать

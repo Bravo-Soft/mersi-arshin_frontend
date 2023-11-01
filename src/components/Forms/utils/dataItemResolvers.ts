@@ -35,20 +35,16 @@ export const itemSchema = z.object({
 	cost: z
 		.string()
 		.regex(new RegExp(/^-?[0-9]\d*(\.\d+)?$/), 'Округлите до сотых')
-		.transform(e => Math.floor(Number(e)))
+		.transform(e => Number(e))
 		.refine(e => e >= 0, 'Минимальное допустимое число 1')
 		.transform(e => e.toString()),
 	size: z.nativeEnum(Tag),
 	notes: z.string().max(256, largeLengthField),
 	interVerificationInterval: z
-		.string()
-		.transform(e => Number(e))
-		.pipe(
-			z
-				.number()
-				.gte(0, 'Число не может быть менее 0')
-				.lte(9999, 'Число не может быть больше чем 9999')
-		),
+		.number()
+		.positive('Число не может быть менее 0')
+		.lte(9999, 'Число не может быть больше чем 9999'),
+	verificationControlInStateRegister: z.boolean(),
 	id: z.string(),
 });
 
