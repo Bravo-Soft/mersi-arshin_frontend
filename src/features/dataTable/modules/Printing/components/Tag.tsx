@@ -10,7 +10,6 @@ import { useGetUserPrintSettingsQuery } from 'features/user/userApiSlice';
 import StyledPrintingTag from 'styled/StyledPrintingTag';
 import type { IPrintSettings } from 'types/printSettings';
 
-
 interface IPrintingTagProps {
 	tag: ISortedTagItems;
 	onOpenClick: (id: string) => (event: React.MouseEvent<HTMLElement>) => void;
