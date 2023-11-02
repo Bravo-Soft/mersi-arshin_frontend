@@ -18,12 +18,12 @@ type Props = {
 function ArshinEditInputs({ arshinItems, activeStep, handleBack, isLastStep }: Props) {
 	const {
 		trigger,
-		formState: { isDirty },
+		formState: { isDirty, isValidating },
 	} = useFormContext();
 
 	useEffect(() => {
-		if (!isDirty) trigger();
-	}, [isDirty, trigger]);
+		if (!isDirty || !isValidating) trigger();
+	}, [isDirty, trigger, isValidating]);
 
 	return (
 		<>

@@ -14,25 +14,25 @@ export const useValidateArshin = () => {
 	const { productionDate } = watches;
 
 	const verificationDateBefore = (date: Dayjs, obj: FormType) =>
-		!dayjs(obj.dateOfTheNextVerification).isBefore(dayjs(date)) ||
+		!dayjs(date).isAfter(dayjs(obj.dateOfTheNextVerification)) ||
 		`Дата поверки должна идти раньше даты следующей поверки, либо быть равной ей (${dayjs(
 			obj.dateOfTheNextVerification
 		).format(dayjsFormatVariant)})`;
 
 	const dateOfTheNextVerificationBefore = (date: Dayjs, obj: FormType) =>
-		!dayjs(date).isBefore(dayjs(obj.verificationDate)) ||
+		!dayjs(obj.verificationDate).isAfter(dayjs(date)) ||
 		`Дата следующей поверки должна идти после даты поверки, либо быть равной ей (${dayjs(
 			obj.verificationDate
 		).format(dayjsFormatVariant)})`;
 
 	const isBeforeCreateOfDateOfTheNextVerification = (date: Dayjs) =>
-		dayjs(date).isAfter(dayjs(productionDate)) ||
+		!dayjs(productionDate).isAfter(dayjs(date)) ||
 		`Дата следующей поверки должна идти после даты производства, либо быть равной ей (${dayjs(
 			productionDate
 		).format(dayjsFormatVariant)})`;
 
 	const isBeforeCreateOfVerificationDate = (date: Dayjs) =>
-		dayjs(date).isAfter(dayjs(productionDate)) ||
+		!dayjs(productionDate).isAfter(dayjs(date)) ||
 		`Дата поверки должна идти позже даты производства, либо быть равной ей (${dayjs(
 			productionDate
 		).format(dayjsFormatVariant)})`;
