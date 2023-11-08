@@ -1,4 +1,3 @@
-
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -56,7 +55,7 @@ function PrintBlock({ data, nameControl }: IPrintBlockProps) {
 						required: 'Это поле обязательное',
 					})}
 					error={Boolean(errors[generatorNameControl(nameControl, el)])}
-					helperText={errors[generatorNameControl(nameControl, el)]?.message}
+					helperText={errors[generatorNameControl(nameControl, el)]?.message ?? ' '}
 					label={PRINTING_LABEL[el]}
 					type='number'
 					fullWidth

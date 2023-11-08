@@ -3,7 +3,6 @@ import Button from '@mui/material/Button';
 import { enqueueSnackbar } from 'notistack';
 import { FormProvider, useForm } from 'react-hook-form';
 
-
 import { DEFAULT_SETTINGS } from './constants/defaultSettings';
 import PrintBlock from './PrintBlock';
 import { printSettingsResolver } from './utils/printSettingsResolver';
@@ -61,7 +60,7 @@ function PrintSettings() {
 
 	return (
 		<FormContainer onSubmit={onSubmit}>
-			<Box px={3.5} display='flex' flexDirection='column' flexGrow={1} rowGap={2}>
+			<Box px={3.5} display='flex' flexDirection='column' flexGrow={1}>
 				<FormProvider {...methods}>
 					<PrintBlock data={data?.small} nameControl='small-' />
 					<PrintBlock data={data?.medium} nameControl='medium-' />

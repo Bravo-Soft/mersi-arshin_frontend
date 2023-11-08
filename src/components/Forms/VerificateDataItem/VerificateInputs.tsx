@@ -33,7 +33,7 @@ function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
 	const params = useFilterAutocomplete();
 
 	return (
-		<Stack direction='column' px={3.5} pb={3.5} rowGap={1} flexGrow={1}>
+		<Stack direction='column' px={3.5} pb={3.5} flexGrow={1}>
 			{renderColumns.map(({ key, label }) =>
 				key === 'verificationDate' || key === 'dateOfTheNextVerification' ? (
 					<DateField key={key} readOnly={isReader} nameOfKey={key} label={label} />
@@ -63,7 +63,7 @@ function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
 						{...register('cost')}
 						label={label}
 						error={Boolean(errors.cost)}
-						helperText={errors?.cost?.message}
+						helperText={errors?.cost?.message ?? ' '}
 						InputLabelProps={{ shrink: true }}
 						InputProps={{
 							startAdornment: <InputAdornment position='start'>₽</InputAdornment>,
@@ -79,7 +79,7 @@ function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
 						{...register('fgisUrl')}
 						label={label}
 						error={Boolean(errors.fgisUrl)}
-						helperText={errors?.fgisUrl?.message}
+						helperText={errors?.fgisUrl?.message ?? ' '}
 						InputLabelProps={{ shrink: true }}
 						type='text'
 					/>
