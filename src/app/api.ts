@@ -23,7 +23,7 @@ export const API = {
 			photo: `${PREFIX}/account/profile/photo`,
 		},
 		notification: `${PREFIX}/user/settings/notification`,
-		favoritesData: `${PREFIX}/user/favorites/data`,
+		favoritesData: `${PREFIX}/user/list-data/favorites`,
 		printSettings: `${PREFIX}/user/settings/print`,
 		reviews: `${PREFIX}/user/reviews`,
 	},
