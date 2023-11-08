@@ -44,7 +44,7 @@ const defaultValues = {
 	condition: '',
 	division: '',
 	factoryNumber: '',
-	interVerificationInterval: 0,
+	interVerificationInterval: 1,
 	inventoryNumber: '',
 	measurementLimit: '',
 	name: '',
@@ -60,7 +60,7 @@ const defaultValues = {
 	additionalData: '',
 	methodology: '',
 	cost: '0',
-	verificationControlInStateRegister: true,
+	verificationControlInStateRegister: false,
 };
 
 function CreateDataItem(): JSX.Element {
