@@ -1,12 +1,13 @@
 import Button from '@mui/material/Button';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { selectSelectedDoubleClickId } from '../arshinTableSlice';
+import { selectSelectedEditItemIds } from '../arshinTableSlice';
 import { defaultValueSidebarArshin } from '../config/defaultValueSidebarArshin';
 import { arshinFormaterItem } from '../utils/arshinFormaterItem';
 
 import EditSideBarArshinItemFields from './EditSideBarArshinItemFields';
 
+import FetchingProgress from 'features/dataTable/components/FetchingProgress';
 import {
 	useGetDataByIdQuery,
 	useUpdateDataItemMutation,
@@ -20,12 +21,12 @@ import { formTrimming } from 'utils/formTrimming';
 import { setDefaultValue } from 'utils/setDefaultValue';
 
 function EditSidebarArshinItemForm() {
-	const ids = useAppSelector(selectSelectedDoubleClickId);
+	const ids = useAppSelector(selectSelectedEditItemIds);
 	const [sendUpdatedItem] = useUpdateDataItemMutation();
 
 	const { closeSidebar } = useSidebarAction('arshin');
 
-	const { data } = useGetDataByIdQuery(ids, {
+	const { data, isLoading: isUpdateLoading } = useGetDataByIdQuery(ids, {
 		skip: !ids,
 	});
 
@@ -43,7 +44,12 @@ function EditSidebarArshinItemForm() {
 	return (
 		<FormContainer onSubmit={onSubmit} style={{ flexGrow: 1 }}>
 			<FormProvider {...methods}>
-				<EditSideBarArshinItemFields />
+				{isUpdateLoading ? (
+					<FetchingProgress isFetching={isUpdateLoading} />
+				) : (
+					<EditSideBarArshinItemFields />
+				)}
+
 				<ButtonContainer>
 					<Button variant='contained' fullWidth type='submit'>
 						Редактировать

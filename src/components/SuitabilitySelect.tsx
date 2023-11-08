@@ -1,4 +1,8 @@
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 import { Controller, useFormContext } from 'react-hook-form';
 
 import { ColumnNames } from 'constant/columnsName';
@@ -15,11 +19,14 @@ function SuitabilitySelect() {
 			<Controller
 				name='suitability'
 				control={control}
-				render={({ field }) => (
-					<Select {...field} labelId='suitability-id'>
-						<MenuItem value='false'>Нет</MenuItem>
-						<MenuItem value='true'>Да</MenuItem>
-					</Select>
+				render={({ field, fieldState: { error } }) => (
+					<>
+						<Select {...field} labelId='suitability-id'>
+							<MenuItem value='false'>Нет</MenuItem>
+							<MenuItem value='true'>Да</MenuItem>
+						</Select>
+						<FormHelperText>{error?.message ?? ' '}</FormHelperText>
+					</>
 				)}
 			/>
 		</FormControl>

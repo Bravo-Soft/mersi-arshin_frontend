@@ -11,7 +11,7 @@ import { getArrayWithoutDuplicates } from 'utils/getArrayWithoutDuplicates';
 interface IArshinTableState {
 	selectedDataItems: IDataItemArshin[] | null;
 	selectedDataArshinItem: IDataItemArshin | null;
-	selectedDoubleClickIds?: string;
+	selectedEditItemIds?: string;
 	notValidArshinItem: INotValidArshinItem[];
 }
 
@@ -19,6 +19,7 @@ const initialState: IArshinTableState = {
 	selectedDataItems: [],
 	selectedDataArshinItem: null,
 	notValidArshinItem: [],
+	selectedEditItemIds: '',
 };
 
 const arshinTableSlice = createSlice({
@@ -27,12 +28,6 @@ const arshinTableSlice = createSlice({
 	reducers: {
 		setSelectedDataItems: (state, action: PayloadAction<IDataItemArshin[]>) => {
 			state.selectedDataItems = action.payload;
-		},
-		setSelectedDoubleClickIds: (state, action: PayloadAction<string>) => {
-			state.selectedDoubleClickIds = action.payload;
-		},
-		resetSelectedDoubleClickIds: state => {
-			state.selectedDoubleClickIds = initialState.selectedDoubleClickIds;
 		},
 		resetSelectedDataItem: () => initialState,
 
@@ -44,6 +39,12 @@ const arshinTableSlice = createSlice({
 		},
 		resetSelectedDataArshinItem: state => {
 			state.selectedDataArshinItem = initialState.selectedDataArshinItem;
+		},
+		setSelectedEditItemIds: (state, action: PayloadAction<string>) => {
+			state.selectedEditItemIds = action.payload;
+		},
+		resetSelectedEditItemIds: state => {
+			state.selectedEditItemIds = initialState.selectedEditItemIds;
 		},
 	},
 });
@@ -153,16 +154,17 @@ export const selectUploadModelIds = (state: RootState) => {
 export const selectNotValidArshinItem = (state: RootState) => state.arshinTable.notValidArshinItem;
 
 //--
-export const selectSelectedDoubleClickId = (state: RootState) =>
-	state.arshinTable.selectedDoubleClickIds;
+export const selectSelectedEditItemIds = (state: RootState) =>
+	state.arshinTable.selectedEditItemIds;
+
 export const {
 	setSelectedDataItems,
 	resetSelectedDataItem,
 	setNotValidArshinItem,
 	setSelectedDataArshinItem,
 	resetSelectedDataArshinItem,
-	resetSelectedDoubleClickIds,
-	setSelectedDoubleClickIds,
+	resetSelectedEditItemIds,
+	setSelectedEditItemIds,
 } = arshinTableSlice.actions;
 
 export const arshinTablePath = arshinTableSlice.name;

@@ -1,4 +1,5 @@
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import { SvgIconProps } from '@mui/material';
 import { red } from '@mui/material/colors';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -11,6 +12,7 @@ import { UseArshinContextMenuActionsReturned } from '../hooks/useContextMenuActi
 
 import UpdateMenuItem from './UpdateMenuItem';
 
+import { SidebarTitles } from 'constant/sidebarTitles';
 import { useAppSelector } from 'hooks/redux';
 import StyledMenuItem from 'styled/StyledMenuItem';
 
@@ -22,13 +24,19 @@ interface IMenuItem {
 }
 
 function ContextMenuArshin({ contextMenu, actions }: UseArshinContextMenuActionsReturned) {
-	const { handleDeleteItems } = useArshinActions();
+	const { handleDeleteItems, handleContextMenuEditArshinItem } = useArshinActions();
 
 	const selectedDataIds = useAppSelector(selectSelectedArshin);
 
 	const { handleCloseContextMenu } = actions;
 
 	const menuItems: IMenuItem[] = [
+		{
+			title: SidebarTitles.EDIT_ITEM,
+			Icon: EditIcon,
+			isDisabled: true,
+			action: handleContextMenuEditArshinItem,
+		},
 		{
 			title: 'Удалить выделенное',
 			Icon: DeleteIcon,
@@ -38,8 +46,8 @@ function ContextMenuArshin({ contextMenu, actions }: UseArshinContextMenuActions
 	];
 
 	const handleClick = (action: VoidFunction, isActive: boolean) => () => {
-		handleCloseContextMenu();
 		isActive && action();
+		handleCloseContextMenu();
 	};
 
 	const openContextMenu = contextMenu

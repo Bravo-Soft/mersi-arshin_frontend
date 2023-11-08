@@ -153,7 +153,7 @@ function CreateDataItem(): JSX.Element {
 						{...methods.register('cost')}
 						label={label}
 						error={Boolean(methods.formState.errors.cost)}
-						helperText={methods.formState.errors?.cost?.message}
+						helperText={methods.formState.errors?.cost?.message ?? ' '}
 						InputLabelProps={{ shrink: true }}
 						InputProps={{
 							startAdornment: <InputAdornment position='start'>&#x20bd;</InputAdornment>,
@@ -168,7 +168,7 @@ function CreateDataItem(): JSX.Element {
 						{...methods.register('fgisUrl')}
 						label={label}
 						error={Boolean(methods.formState.errors.fgisUrl)}
-						helperText={methods.formState.errors?.fgisUrl?.message}
+						helperText={methods.formState.errors?.fgisUrl?.message ?? ' '}
 						InputLabelProps={{ shrink: true }}
 						type='text'
 					/>
@@ -189,9 +189,7 @@ function CreateDataItem(): JSX.Element {
 	return (
 		<FormContainer onSubmit={onSubmit} noValidate>
 			<FormProvider {...methods}>
-				<Stack px={3.5} rowGap={1}>
-					{createRenderedField}
-				</Stack>
+				<Stack px={3.5}>{createRenderedField}</Stack>
 				<ButtonContainer sx={{ mt: 4 }}>
 					<Button
 						variant='contained'

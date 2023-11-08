@@ -42,7 +42,7 @@ function AutocompleteField({
 							label={label}
 							onChange={onChange}
 							error={Boolean(error)}
-							helperText={error?.message}
+							helperText={error?.message ?? ' '}
 							inputRef={ref}
 							InputLabelProps={{ shrink: true, required: required }}
 						/>

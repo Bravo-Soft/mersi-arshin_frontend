@@ -1,6 +1,10 @@
 import { useState, MouseEvent } from 'react';
 
-import { resetSelectedDataArshinItem, setSelectedDataArshinItem } from '../arshinTableSlice';
+import {
+	resetSelectedDataArshinItem,
+	setSelectedDataArshinItem,
+	setSelectedEditItemIds,
+} from '../arshinTableSlice';
 import { selectIsAliveArshin, selectIsStartArshin } from '../eventSourceSlice';
 
 import { ICoordinates } from 'features/dataTable/hooks/useContextMenuActions';
@@ -33,6 +37,7 @@ export const useContextMenuActions = (data: IDataItemArshin[]) => {
 			const fondedDataItem = data.find(({ id }) => id === currentId);
 			if (isValueDefined(fondedDataItem)) {
 				dispatch(setSelectedDataArshinItem(fondedDataItem));
+				dispatch(setSelectedEditItemIds(fondedDataItem.originId));
 				setContextMenu(
 					contextMenu === null
 						? { mouseX: event.clientX - 2, mouseY: event.clientY - 4 }

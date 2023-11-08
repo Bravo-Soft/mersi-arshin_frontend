@@ -1,12 +1,10 @@
-import { GridCellParams, GridRowParams, GridSelectionModel } from '@mui/x-data-grid-pro';
-import { Dayjs } from 'dayjs';
+import { GridCellParams, GridSelectionModel } from '@mui/x-data-grid-pro';
 
 import {
 	selectArshinData,
 	selectNotValidArshinItem,
 	selectSelectedDataIds,
 	setSelectedDataItems,
-	setSelectedDoubleClickIds,
 } from '../arshinTableSlice';
 import { selectIsAliveArshin, selectIsStartArshin } from '../eventSourceSlice';
 
@@ -33,17 +31,9 @@ const useTableActions = () => {
 
 	const arshinItems = useAppSelector(selectNotValidArshinItem);
 
-	const { openSidebarWith } = useSidebarAction('arshin');
-
 	const handleSelectItems = (newSelectionModel: GridSelectionModel) => {
 		const selectedItems = dataArshin.filter(el => newSelectionModel.includes(el.id));
 		dispatch(setSelectedDataItems(selectedItems));
-	};
-
-	const handleDoubleClick = (params: GridRowParams<IDataItemArshin>) => {
-		if (!isAlive || isStart) return;
-		dispatch(setSelectedDoubleClickIds(params.row.originId));
-		openSidebarWith('EditSidebarArshinItem');
 	};
 
 	const handleDisabledSelectedRow = () => !isStart && isAlive;
@@ -60,7 +50,6 @@ const useTableActions = () => {
 		selectionIds,
 		handleSelectItems,
 		handleDisabledSelectedRow,
-		handleDoubleClick,
 		handleGetCellClassName,
 	};
 };
