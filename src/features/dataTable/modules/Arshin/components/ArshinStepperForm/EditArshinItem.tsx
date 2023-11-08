@@ -25,7 +25,7 @@ function EditArshinItem() {
 
 	return (
 		<>
-			<Stack direction='column' px={3} pb={3.5} rowGap={1} flexGrow={1}>
+			<Stack direction='column' px={3} pb={3.5} flexGrow={1}>
 				<TextField
 					{...register('name')}
 					label={ColumnNames.NAME}
