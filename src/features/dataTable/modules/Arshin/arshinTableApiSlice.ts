@@ -33,7 +33,7 @@ export const arshinTableApiSlice = apiSlice.injectEndpoints({
 				body: ids,
 			}),
 
-			invalidatesTags: ['ArshinData'],
+			invalidatesTags: ['ArshinData', 'Data'],
 		}),
 		synchronizeItems: builder.mutation<void, GridSelectionModel>({
 			query: ids => ({
