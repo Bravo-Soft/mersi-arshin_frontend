@@ -171,5 +171,5 @@ export function RenderCellExpand(params: GridRenderCellParams<string>): JSX.Elem
 export function RenderCellExpandedRegister(
 	params: GridRenderCellParams<boolean>
 ): JSX.Element | string {
-	return params.value ? <ArshinIcon /> : '-';
+	return params.value ? <ArshinIcon /> : '–';
 }
