@@ -45,7 +45,7 @@ function ArshinEditInputs({ arshinItems, activeStep, handleBack, isLastStep }: P
 						startIcon={<CloseIcon />}
 						onClick={handleBack}
 					>
-						Убрать
+						Пропустить
 					</Button>
 				}
 			/>

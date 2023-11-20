@@ -89,52 +89,48 @@ const dateSchema = z
 	})
 
 	.superRefine(({ dateOfTheNextVerification, verificationDate, productionDate }, ctx) => {
-		if (dayjs(productionDate).isAfter(dayjs(verificationDate))) {
+		const productionDateObj = dayjs(productionDate);
+		const verificationDateObj = dayjs(verificationDate);
+		const dateOfTheNextVerificationObj = dayjs(dateOfTheNextVerification);
+
+		const isProductionDateValid =
+			productionDateObj.isSame(verificationDateObj) ||
+			productionDateObj.isBefore(verificationDateObj);
+
+		const isVerificationDateValid =
+			verificationDateObj.isSame(dateOfTheNextVerificationObj) ||
+			verificationDateObj.isBefore(dateOfTheNextVerificationObj);
+
+		const isDateOfTheNextVerificationValid =
+			dateOfTheNextVerificationObj.isSame(verificationDateObj) ||
+			dateOfTheNextVerificationObj.isAfter(verificationDateObj);
+
+		if (!isProductionDateValid) {
 			ctx.addIssue({
 				code: 'invalid_date',
-				message: `Дата производства должна идти раньше или быть равной дате поверки (${dayjs(
-					verificationDate
-				).format(dayjsFormatVariant)})`,
+				message: `Дата производства должна идти раньше или быть равной дате поверки (${verificationDateObj.format(
+					dayjsFormatVariant
+				)})`,
 				path: ['productionDate'],
-			});
-			ctx.addIssue({
-				code: 'invalid_date',
-				message: `Дата поверки должна идти позже даты производства, либо быть равной ей (${dayjs(
-					productionDate
-				).format(dayjsFormatVariant)})`,
-				path: ['verificationDate'],
-			});
-		}
-		if (dayjs(productionDate).isAfter(dayjs(dateOfTheNextVerification))) {
-			ctx.addIssue({
-				code: 'invalid_date',
-				message: `Дата производства должна идти раньше даты следующей поверки, либо быть равной ей (${dayjs(
-					dateOfTheNextVerification
-				).format(dayjsFormatVariant)})`,
-				path: ['productionDate'],
-			});
-			ctx.addIssue({
-				code: 'invalid_date',
-				message: `Дата следующей поверки должна идти после даты производства, либо быть равной ей (${dayjs(
-					productionDate
-				).format(dayjsFormatVariant)})`,
-				path: ['dateOfTheNextVerification'],
 			});
 		}
 
-		if (dayjs(verificationDate).isAfter(dayjs(dateOfTheNextVerification))) {
+		if (!isVerificationDateValid) {
 			ctx.addIssue({
 				code: 'invalid_date',
-				message: `Дата поверки должна идти раньше даты следующей поверки, либо быть равной ей (${dayjs(
-					dateOfTheNextVerification
-				).format(dayjsFormatVariant)})`,
+				message: `Дата поверки должна идти позже даты производства, либо быть равной ей (${productionDateObj.format(
+					dayjsFormatVariant
+				)})`,
 				path: ['verificationDate'],
 			});
+		}
+
+		if (!isDateOfTheNextVerificationValid) {
 			ctx.addIssue({
 				code: 'invalid_date',
-				message: `Дата следующей поверки должна идти после даты поверки, либо быть равной ей (${dayjs(
-					verificationDate
-				).format(dayjsFormatVariant)})`,
+				message: `Дата следующей поверки должна идти после даты поверки, либо быть равной ей (${verificationDateObj.format(
+					dayjsFormatVariant
+				)})`,
 				path: ['dateOfTheNextVerification'],
 			});
 		}
