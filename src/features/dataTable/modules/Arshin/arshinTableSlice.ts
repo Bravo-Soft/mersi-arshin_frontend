@@ -13,12 +13,14 @@ interface IArshinTableState {
 	selectedDataArshinItem: IDataItemArshin | null;
 	selectedEditItemIds?: string;
 	notValidArshinItem: INotValidArshinItem[];
+	notValidArshinClassesItem: INotValidArshinItem[];
 }
 
 const initialState: IArshinTableState = {
 	selectedDataItems: [],
 	selectedDataArshinItem: null,
 	notValidArshinItem: [],
+	notValidArshinClassesItem: [],
 	selectedEditItemIds: '',
 };
 
@@ -36,6 +38,12 @@ const arshinTableSlice = createSlice({
 		},
 		setNotValidArshinItem: (state, action: PayloadAction<INotValidArshinItem[]>) => {
 			state.notValidArshinItem = action.payload;
+			state.notValidArshinClassesItem = action.payload;
+		},
+		deleteNotValidArshinItem: (state, action: PayloadAction<string>) => {
+			state.notValidArshinClassesItem = state.notValidArshinClassesItem.filter(
+				({ originId }) => originId !== action.payload
+			);
 		},
 		resetSelectedDataArshinItem: state => {
 			state.selectedDataArshinItem = initialState.selectedDataArshinItem;
@@ -157,6 +165,9 @@ export const selectNotValidArshinItem = (state: RootState) => state.arshinTable.
 export const selectSelectedEditItemIds = (state: RootState) =>
 	state.arshinTable.selectedEditItemIds;
 
+export const selectNotValidArshinClassesItem = (state: RootState) =>
+	state.arshinTable.notValidArshinClassesItem;
+	
 export const {
 	setSelectedDataItems,
 	resetSelectedDataItem,
@@ -165,6 +176,7 @@ export const {
 	resetSelectedDataArshinItem,
 	resetSelectedEditItemIds,
 	setSelectedEditItemIds,
+	deleteNotValidArshinItem,
 } = arshinTableSlice.actions;
 
 export const arshinTablePath = arshinTableSlice.name;

@@ -1,5 +1,5 @@
 import dayjs, { Dayjs } from 'dayjs';
-import { Validate, useFormContext } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 
 import { dayjsFormatVariant } from 'constant/dateFormat';
 import { IDataItemWithDates } from 'types/dataItem';
@@ -13,29 +13,51 @@ export const useValidateArshin = () => {
 
 	const { productionDate } = watches;
 
-	const verificationDateBefore = (date: Dayjs, obj: FormType) =>
-		!dayjs(date).isAfter(dayjs(obj.dateOfTheNextVerification)) ||
-		`Дата поверки должна идти раньше даты следующей поверки, либо быть равной ей (${dayjs(
-			obj.dateOfTheNextVerification
-		).format(dayjsFormatVariant)})`;
+	const verificationDateBefore = (
+		verificationDate: Dayjs,
+		{ dateOfTheNextVerification }: FormType
+	) => {
+		const verificationDateBeforeValid = !verificationDate.isAfter(dateOfTheNextVerification);
+		return (
+			verificationDateBeforeValid ||
+			`Дата поверки должна идти раньше даты следующей поверки, либо быть равной ей (${dateOfTheNextVerification.format(
+				dayjsFormatVariant
+			)})`
+		);
+	};
 
-	const dateOfTheNextVerificationBefore = (date: Dayjs, obj: FormType) =>
-		!dayjs(obj.verificationDate).isAfter(dayjs(date)) ||
-		`Дата следующей поверки должна идти после даты поверки, либо быть равной ей (${dayjs(
-			obj.verificationDate
-		).format(dayjsFormatVariant)})`;
+	const dateOfTheNextVerificationBefore = (
+		dateOfTheNextVerification: Dayjs,
+		{ verificationDate }: FormType
+	) => {
+		const nextVerificationDateBeforeValid = !verificationDate.isAfter(dateOfTheNextVerification);
+		return (
+			nextVerificationDateBeforeValid ||
+			`Дата следующей поверки должна идти после даты поверки, либо быть равной ей (${verificationDate.format(
+				dayjsFormatVariant
+			)})`
+		);
+	};
 
-	const isBeforeCreateOfDateOfTheNextVerification = (date: Dayjs) =>
-		!dayjs(productionDate).isAfter(dayjs(date)) ||
-		`Дата следующей поверки должна идти после даты производства, либо быть равной ей (${dayjs(
-			productionDate
-		).format(dayjsFormatVariant)})`;
+	const isBeforeCreateOfDateOfTheNextVerification = (nextVerification: Dayjs) => {
+		const productionDateFromNextVerificationValid = !productionDate.isAfter(nextVerification);
+		return (
+			productionDateFromNextVerificationValid ||
+			`Дата следующей поверки должна идти после даты производства, либо быть равной ей (${productionDate.format(
+				dayjsFormatVariant
+			)})`
+		);
+	};
 
-	const isBeforeCreateOfVerificationDate = (date: Dayjs) =>
-		!dayjs(productionDate).isAfter(dayjs(date)) ||
-		`Дата поверки должна идти позже даты производства, либо быть равной ей (${dayjs(
-			productionDate
-		).format(dayjsFormatVariant)})`;
+	const isBeforeCreateOfVerificationDate = (verificationDate: Dayjs) => {
+		const productionDateFromVerificationValid = !productionDate.isAfter(verificationDate);
+		return (
+			productionDateFromVerificationValid ||
+			`Дата поверки должна идти позже даты производства, либо быть равной ей (${dayjs(
+				productionDate
+			).format(dayjsFormatVariant)})`
+		);
+	};
 
 	const handleValidateDate = (date: Dayjs) => date.isValid() || 'Неверный формат даты';
 

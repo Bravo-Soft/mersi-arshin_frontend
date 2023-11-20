@@ -1,4 +1,5 @@
 import Button from '@mui/material/Button';
+import { useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { selectSelectedEditItemIds } from '../arshinTableSlice';
@@ -33,13 +34,23 @@ function EditSidebarArshinItemForm() {
 	const methods = useForm<Omit<IDataItemWithDates, 'documents' | 'userIds'>>({
 		defaultValues: defaultValueSidebarArshin,
 		values: setDefaultValue(data),
-		mode: 'onSubmit',
+		mode: 'all',
 	});
 
-	const onSubmit = methods.handleSubmit(async data => {
+	const {
+		handleSubmit,
+		trigger,
+		formState: { isDirty, isValidating },
+	} = methods;
+
+	const onSubmit = handleSubmit(async data => {
 		await sendUpdatedItem(arshinFormaterItem(formTrimming(data))).unwrap();
 		closeSidebar();
 	});
+
+	useEffect(() => {
+		if (!isDirty || !isValidating) trigger();
+	}, [isDirty, trigger, isValidating]);
 
 	return (
 		<FormContainer onSubmit={onSubmit} style={{ flexGrow: 1 }}>

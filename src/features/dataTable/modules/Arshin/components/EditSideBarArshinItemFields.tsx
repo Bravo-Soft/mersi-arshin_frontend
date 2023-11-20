@@ -22,6 +22,7 @@ function EditSideBarArshinItemFields() {
 			<TextField
 				{...register('name')}
 				label={ColumnNames.NAME}
+				required
 				type='text'
 				InputLabelProps={{ shrink: true }}
 				error={Boolean(errors.name)}
@@ -68,7 +69,6 @@ function EditSideBarArshinItemFields() {
 				{...register('organization')}
 				label={ColumnNames.ORGANIZATION}
 				type='text'
-				required
 				InputLabelProps={{ shrink: true }}
 				error={Boolean(errors.organization)}
 				helperText={errors.organization?.message ?? ' '}

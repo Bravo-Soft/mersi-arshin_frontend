@@ -2,14 +2,13 @@ import { GridCellParams, GridSelectionModel } from '@mui/x-data-grid-pro';
 
 import {
 	selectArshinData,
-	selectNotValidArshinItem,
+	selectNotValidArshinClassesItem,
 	selectSelectedDataIds,
 	setSelectedDataItems,
 } from '../arshinTableSlice';
 import { selectIsAliveArshin, selectIsStartArshin } from '../eventSourceSlice';
 
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { useSidebarAction } from 'hooks/useSidebarActions';
 import { IDataItemArshin } from 'types/arshinIntegration';
 
 /**
@@ -29,7 +28,7 @@ const useTableActions = () => {
 	const isStart = useAppSelector(selectIsStartArshin);
 	const isAlive = useAppSelector(selectIsAliveArshin);
 
-	const arshinItems = useAppSelector(selectNotValidArshinItem);
+	const arshinItems = useAppSelector(selectNotValidArshinClassesItem);
 
 	const handleSelectItems = (newSelectionModel: GridSelectionModel) => {
 		const selectedItems = dataArshin.filter(el => newSelectionModel.includes(el.id));
