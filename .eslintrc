@@ -3,6 +3,7 @@
 		"browser": true,
 		"es2020": true
 	},
+	"ignorePatterns": ["service-worker.js", "serviceWorkerRegistration.js"],
 	"extends": [
 		"eslint:recommended",
 		"plugin:@typescript-eslint/recommended",
@@ -14,10 +15,7 @@
 		"ecmaVersion": "latest",
 		"sourceType": "module"
 	},
-	"plugins": [
-		"react-refresh",
-		"import"
-	],
+	"plugins": ["react-refresh", "import"],
 	"settings": {
 		"react": {
 			"version": "detect"
@@ -29,15 +27,9 @@
 			"project": "./tsconfig.json"
 		},
 		"import/parsers": {
-			"@typescript-eslint/parser": [
-				".ts",
-				".tsx"
-			]
+			"@typescript-eslint/parser": [".ts", ".tsx"]
 		},
-		"import/extensions": [
-			".ts",
-			".tsx"
-		]
+		"import/extensions": [".ts", ".tsx"]
 	},
 	"rules": {
 		"react-refresh/only-export-components": "warn",

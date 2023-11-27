@@ -1,4 +1,4 @@
-import { enqueueSnackbar, closeSnackbar } from 'notistack';
+import { closeSnackbar, enqueueSnackbar } from 'notistack';
 import { useCallback, useEffect } from 'react';
 import { z } from 'zod';
 
@@ -7,9 +7,7 @@ import { selectIsAliveArshin, setEventSourceData } from '../eventSourceSlice';
 import { useServerSentEvent } from './useServerSentEvent';
 
 import { apiSlice } from 'app/apiSlice';
-import { BASE_URL } from 'constant/baseUrl';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
-
 
 /**
  * @package хук обработчик SSE канала Arshin
@@ -38,7 +36,7 @@ export const useSendingAction = () => {
 		},
 		[dispatch]
 	);
-	useServerSentEvent(`${BASE_URL}/api/mersi/user/arshin/loading-process`, callBack);
+	useServerSentEvent(`/api/mersi/user/arshin/loading-process`, callBack);
 
 	useEffect(() => {
 		!alive &&

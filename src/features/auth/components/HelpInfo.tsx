@@ -1,4 +1,3 @@
-
 import Avatar from '@mui/material/Avatar';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -6,11 +5,8 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 
-import { maxLength, minLength } from '../validationRules';
-
 const rulesList = [
-	`Минимальная длина ${minLength} символов`,
-	`Максимальная длина ${maxLength} символов`,
+	`Минимальная длина 8 символов`,
 	'Только латинский алфавит',
 	'Хотя бы одна строчная буква',
 	'Хотя бы одна заглавная буква',

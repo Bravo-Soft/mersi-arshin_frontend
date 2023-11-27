@@ -9,7 +9,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Menu from '@mui/material/Menu';
 
 import { selectSelectedDataIds } from '../arshinTableSlice';
-import { selectIsAliveArshin, selectIsStartArshin, setStartProcess } from '../eventSourceSlice';
+import { selectIsAliveArshin, selectIsStartArshin } from '../eventSourceSlice';
 import { useArshinActions } from '../hooks/useArshinActions';
 import { useMenuActions } from '../hooks/useMenuActions';
 

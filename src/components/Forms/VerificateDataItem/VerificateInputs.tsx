@@ -1,7 +1,6 @@
 import InputAdornment from '@mui/material/InputAdornment';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-import { useEffect } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 
 import { verificationFields } from '../fields';

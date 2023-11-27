@@ -9,7 +9,7 @@ export const useErrorMessage = (error?: FetchBaseQueryError | SerializedError) =
 
 	if (isFetchBaseQueryError(error)) {
 		switch (error.status) {
-			case HttpCodes.UNAUTHORZED:
+			case HttpCodes.UNAUTHORIZED:
 				return 'Неверный пароль';
 
 			case HttpCodes.FORBIDDEN:

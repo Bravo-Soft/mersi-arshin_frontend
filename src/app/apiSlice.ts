@@ -6,7 +6,6 @@ import { enqueueSnackbar } from 'notistack';
 import { API } from './api';
 import type { RootState } from './store';
 
-import { BASE_URL } from 'constant/baseUrl';
 import { HttpCodes } from 'constant/httpCodes';
 import { Messages } from 'constant/messages';
 import { resetCredentials, setCredentials } from 'features/auth/authSlice';
@@ -15,7 +14,7 @@ import type { IAuthResponse as IReauthResponse } from 'types/authResponse';
 const exceptionEndpoints = ['updatePhoto', 'uploadFile'];
 
 const baseQuery = fetchBaseQuery({
-	baseUrl: BASE_URL,
+	baseUrl: '/api',
 	mode: 'cors',
 	credentials: 'include',
 	prepareHeaders: (headers, { getState, endpoint }) => {
@@ -43,7 +42,7 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
 	// mutex позволяет предотвратить множественное обращение на обновление токена
 	await mutex.waitForUnlock();
 	let result = await baseQuery(args, api, extraOptions);
-	if (result.error && result.error.status === HttpCodes.UNAUTHORZED && api.endpoint !== 'login') {
+	if (result.error && result.error.status === HttpCodes.UNAUTHORIZED && api.endpoint !== 'login') {
 		if (!mutex.isLocked()) {
 			const release = await mutex.acquire();
 			try {
@@ -56,7 +55,7 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
 					api.dispatch(setCredentials(refreshResult.data as IReauthResponse));
 					result = await baseQuery(args, api, extraOptions);
 				} else {
-					if (refreshResult.error?.status === HttpCodes.UNAUTHORZED) {
+					if (refreshResult.error?.status === HttpCodes.UNAUTHORIZED) {
 						enqueueSnackbar(Messages.AUTHORIZATION_TIMEOUT, { variant: 'error' });
 					} else if (refreshResult.error?.status === 'FETCH_ERROR') {
 						enqueueSnackbar(Messages.ERROR_CONNECTION, { variant: 'error' });

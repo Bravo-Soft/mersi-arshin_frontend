@@ -6,6 +6,7 @@ export const setColumns = (apiRef: MutableRefObject<GridApiPro>) => {
 		.getAllColumns()
 		.map(el => ({
 			field: el.field,
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			headerName: el.headerName!,
 			type:
 				el.type === 'string'

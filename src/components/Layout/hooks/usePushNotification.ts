@@ -9,7 +9,6 @@ import {
 
 import { apiSlice } from 'app/apiSlice';
 import { AppRoutes } from 'constant/appRoutes';
-import { BASE_URL } from 'constant/baseUrl';
 import { Messages } from 'constant/messages';
 import { useServerSentEvent } from 'features/dataTable/modules/Arshin/hooks/useServerSentEvent';
 import { useAnchor } from 'features/dataTable/modules/CreateVerificationSchedule/components/utils/hooks';
@@ -77,7 +76,7 @@ export const usePushNotification = () => {
 		[dispatch]
 	);
 
-	useServerSentEvent(`${BASE_URL}/api/mersi/notifications/arshin `, callBack);
+	useServerSentEvent(`/api/mersi/notifications/arshin`, callBack);
 
 	return {
 		anchorEl,
