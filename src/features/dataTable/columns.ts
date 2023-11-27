@@ -2,7 +2,7 @@ import type { GridCellParams, GridColDef } from '@mui/x-data-grid-pro';
 import cn from 'classnames';
 import dayjs from 'dayjs';
 
-import { RenderCellExpand, RenderCellExpandedRegister } from './components/RenderCellExpand';
+import { RenderCellExpand /* RenderCellExpandedRegister */ } from './components/RenderCellExpand';
 import { formatDateCallback } from './utils/formatDateCallback';
 import { quickFilterDateFormat } from './utils/quickFilterDateFormat';
 
@@ -42,14 +42,14 @@ export const columns: GridColDef<IDataItem>[] = [
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
 	},
-	{
-		field: 'verificationControlInStateRegister',
-		headerName: ColumnNames.VERIFICATION_CONTROL_STATE_REGISTER,
-		width: initialWidth,
-		type: 'boolean',
-		headerAlign: 'center',
-		renderCell: RenderCellExpandedRegister,
-	},
+	// {
+	// 	field: 'verificationControlInStateRegister',
+	// 	headerName: ColumnNames.VERIFICATION_CONTROL_STATE_REGISTER,
+	// 	width: initialWidth,
+	// 	type: 'boolean',
+	// 	headerAlign: 'center',
+	// 	renderCell: RenderCellExpandedRegister,
+	// },
 	{
 		field: 'inventoryNumber',
 		headerName: ColumnNames.INVENTORY_NUMBER,
@@ -140,13 +140,13 @@ export const columns: GridColDef<IDataItem>[] = [
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
 	},
-	{
-		field: 'fgisUrl',
-		headerName: ColumnNames.FGIS_URL,
-		width: initialWidth,
-		headerAlign: 'center',
-		renderCell: RenderCellExpand,
-	},
+	// {
+	// 	field: 'fgisUrl',
+	// 	headerName: ColumnNames.FGIS_URL,
+	// 	width: initialWidth,
+	// 	headerAlign: 'center',
+	// 	renderCell: RenderCellExpand,
+	// },
 	{
 		field: 'certificate',
 		headerName: ColumnNames.CERTIFICATE,
