@@ -5,7 +5,15 @@ const authSchema = z.object({
 	email: z
 		.string()
 		.transform(e => e.trim())
-		.pipe(z.string().email('Введите email в верном формате').min(1, 'Введите почту')),
+		.pipe(
+			z
+				.string()
+				.regex(
+					new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$'),
+					'Введите email в верном формате'
+				)
+				.min(1, 'Введите почту')
+		),
 	password: z.string().min(8, 'Минимальная длина пароля 8 символов'),
 	// .regex(new RegExp('/[^A-Za-z0-9]/'), 'Пароль не соответствует правилам безопасности'),
 });
