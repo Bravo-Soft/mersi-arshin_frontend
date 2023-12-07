@@ -1,39 +1,36 @@
 import type { GridRowId } from '@mui/x-data-grid-pro';
 
-const PREFIX = '/api';
-
 export const API = {
 	auth: {
-		login: `${PREFIX}/auth/login`,
-		refresh: `${PREFIX}/auth/refresh-token`,
-		logout: `${PREFIX}/auth/logout`,
+		login: `/auth/login`,
+		refresh: `/auth/refresh-token`,
+		logout: `/auth/logout`,
 	},
 	user: {
-		default: `${PREFIX}/user`,
+		default: `/user`,
 		templates: {
-			default: `${PREFIX}/user/templates`,
-			selected: `${PREFIX}/user/templates/selected`,
-			resetSelected: `${PREFIX}/user/templates/selected/reset`,
-			templateById: (templateId: string) => `${PREFIX}/user/templates/${templateId}`,
-			selectTemplateById: (templateId: string) =>
-				`${PREFIX}/user/templates/${templateId}/select`,
+			default: `/user/templates`,
+			selected: `/user/templates/selected`,
+			resetSelected: `/user/templates/selected/reset`,
+			templateById: (templateId: string) => `/user/templates/${templateId}`,
+			selectTemplateById: (templateId: string) => `/user/templates/${templateId}/select`,
 		},
 		profile: {
-			default: `${PREFIX}/user/profile`,
-			photo: `${PREFIX}/user/profile/photo`,
+			default: `/user/profile`,
+			photo: `/user/profile/photo`,
 		},
-		notification: `${PREFIX}/user/notification`,
-		favoritesData: `${PREFIX}/user/favorites/data`,
-		printSettings: `${PREFIX}/user/print-settings`,
-		reviews: `${PREFIX}/user/reviews`,
+		notification: `/user/notification`,
+		favoritesData: `/user/favorites/data`,
+		printSettings: `/user/print-settings`,
+		reviews: `/user/reviews`,
 	},
 	data: {
-		default: `${PREFIX}/data`,
+		default: `/data`,
 		documents: {
-			documentsByItemId: (id: GridRowId) => `${PREFIX}/data/${id}/documents`,
+			documentsByItemId: (id: GridRowId) => `/data/${id}/documents`,
 			byDocumentId: (id: GridRowId, documentId: string | number) =>
-				`${PREFIX}/data/${id}/documents/${documentId}`,
+				`/data/${id}/documents/${documentId}`,
 		},
-		print: `${PREFIX}/print/data`,
+		print: `/print/data`,
 	},
 };

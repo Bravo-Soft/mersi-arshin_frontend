@@ -6,7 +6,6 @@ import { enqueueSnackbar } from 'notistack';
 import { API } from './api';
 import type { RootState } from './store';
 
-import { BASE_URL } from 'constant/baseUrl';
 import { HttpCodes } from 'constant/httpCodes';
 import { Messages } from 'constant/messages';
 import { resetCredentials, setCredentials } from 'features/auth/authSlice';
@@ -15,7 +14,7 @@ import type { IAuthResponse as IReauthResponse } from 'types/authResponse';
 const exceptionEndpoints = ['updatePhoto', 'uploadFile'];
 
 const baseQuery = fetchBaseQuery({
-	baseUrl: BASE_URL,
+	baseUrl: '/api',
 	mode: 'cors',
 	credentials: 'include',
 	prepareHeaders: (headers, { getState, endpoint }) => {
