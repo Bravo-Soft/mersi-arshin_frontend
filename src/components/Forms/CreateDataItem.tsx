@@ -70,7 +70,7 @@ function CreateDataItem(): JSX.Element {
 	const { data } = useGetAllDataQuery();
 	const [createNewItem, { isLoading, isSuccess }] = useCreateNewDataItemMutation();
 
-	const methods = useForm<Omit<IDataItemWithDates, 'id' | 'documents' | 'userIds'>>({
+	const methods = useForm<Omit<IDataItemWithDates, 'id' | 'userIds'>>({
 		defaultValues,
 		resolver: createResolver,
 	});

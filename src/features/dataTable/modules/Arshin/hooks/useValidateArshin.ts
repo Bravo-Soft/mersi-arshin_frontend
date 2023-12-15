@@ -4,10 +4,10 @@ import { useFormContext } from 'react-hook-form';
 import { dayjsFormatVariant } from 'constant/dateFormat';
 import { IDataItemWithDates } from 'types/dataItem';
 
-type FormType = Omit<IDataItemWithDates, 'document' | 'userIds'>;
+type FormType = Omit<IDataItemWithDates, 'userIds'>;
 
 export const useValidateArshin = () => {
-	const { watch } = useFormContext<Omit<IDataItemWithDates, 'documents' | 'userIds'>>();
+	const { watch } = useFormContext<Omit<IDataItemWithDates, 'userIds'>>();
 
 	const watches = watch();
 

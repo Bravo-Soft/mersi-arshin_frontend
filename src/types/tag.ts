@@ -2,10 +2,7 @@ import type { IDataItem } from './dataItem';
 
 import type { Tag } from 'constant/tag';
 
-export type DataItemKeys = keyof Omit<
-	IDataItem,
-	'id' | 'size' | 'suitability' | 'documents' | 'notes'
->;
+export type DataItemKeys = keyof Omit<IDataItem, 'id' | 'size' | 'suitability' | 'notes'>;
 
 export interface ITagParameters {
 	translatedKey: string;

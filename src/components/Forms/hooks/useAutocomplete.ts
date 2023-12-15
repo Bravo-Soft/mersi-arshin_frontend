@@ -8,7 +8,6 @@ export type AutocompleteKeysType = keyof Omit<
 	| 'id'
 	| 'size'
 	| 'userIds'
-	| 'documents'
 	| 'suitability'
 	| 'verificationDate'
 	| 'dateOfTheNextVerification'

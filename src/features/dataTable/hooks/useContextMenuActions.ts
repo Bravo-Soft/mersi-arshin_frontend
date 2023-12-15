@@ -36,7 +36,7 @@ export interface ICoordinates {
 	mouseY: number;
 }
 
-type CopyData = Omit<IDataItem, 'userIds' | 'documents'>;
+type CopyData = Omit<IDataItem, 'userIds'>;
 
 export type UseContextMenuActionsReturned = ReturnType<typeof useContextMenuActions>;
 
@@ -168,7 +168,7 @@ export const useContextMenuActions = (
 				const dataWithConvertedDates = data
 					.map(
 						// eslint-disable-next-line @typescript-eslint/no-unused-vars
-						({ userIds, documents, ...item }: IDataItem): CopyData => ({
+						({ userIds, ...item }: IDataItem): CopyData => ({
 							...item,
 							productionDate: dayjs(item.productionDate).format(dayjsFormatVariant),
 							verificationDate: dayjs(item.verificationDate).format(dayjsFormatVariant),

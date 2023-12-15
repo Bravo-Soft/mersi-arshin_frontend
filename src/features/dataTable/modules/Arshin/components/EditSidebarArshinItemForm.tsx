@@ -31,7 +31,7 @@ function EditSidebarArshinItemForm() {
 		skip: !ids,
 	});
 
-	const methods = useForm<Omit<IDataItemWithDates, 'documents' | 'userIds'>>({
+	const methods = useForm<Omit<IDataItemWithDates, 'userIds'>>({
 		defaultValues: defaultValueSidebarArshin,
 		values: setDefaultValue(data),
 		mode: 'all',

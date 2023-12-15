@@ -2,8 +2,8 @@ import type { IDataItemWithDates } from 'types/dataItem';
 import { createDateISO } from 'utils/createDateISO';
 
 export type UpdatePropsType =
-	| Omit<IDataItemWithDates, 'documents' | 'userIds'>
-	| Omit<IDataItemWithDates, 'documents' | 'userIds' | 'id'>;
+	| Omit<IDataItemWithDates, 'userIds'>
+	| Omit<IDataItemWithDates, 'userIds' | 'id'>;
 
 export const dateFormTransform = <T extends UpdatePropsType>(data: T) => {
 	const {
