@@ -12,7 +12,6 @@ export const setDefaultValue = (data?: IDataItem | null) => {
 			verificationDate,
 			dateOfTheNextVerification,
 			interVerificationInterval,
-			documents,
 			userIds,
 			...other
 		} = data;

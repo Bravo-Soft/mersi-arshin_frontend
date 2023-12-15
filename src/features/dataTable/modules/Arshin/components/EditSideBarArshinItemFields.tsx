@@ -13,7 +13,7 @@ function EditSideBarArshinItemFields() {
 		register,
 		control,
 		formState: { errors },
-	} = useFormContext<Omit<IDataItemWithDates, 'document' | 'userIds'>>();
+	} = useFormContext<Omit<IDataItemWithDates, 'userIds'>>();
 
 	const { verificationDateValidate, dateOfTheNextVerificationValidate } = useValidateArshin();
 

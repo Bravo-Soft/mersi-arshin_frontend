@@ -8,7 +8,5 @@ export const useVisibleColumns = () => {
 	const apiRef = useGridApiContext();
 	const columns = useGridSelector(apiRef, gridVisibleColumnDefinitionsSelector);
 
-	return columns
-		.filter(column => column.field !== '__check__' && column.field !== 'documents')
-		.map(({ field }) => field);
+	return columns.filter(column => column.field !== '__check__').map(({ field }) => field);
 };

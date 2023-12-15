@@ -75,10 +75,7 @@ export interface IDataItem {
 	 * Примечания
 	 */
 	notes: string;
-	/**
-	 * Список документов
-	 */
-	documents: IDocument[];
+
 	/**
 	 * Массив id пользователей, у которых данных позиция записана в избранное
 	 */

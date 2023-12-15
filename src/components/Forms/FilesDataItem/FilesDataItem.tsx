@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { skipToken } from '@reduxjs/toolkit/dist/query';
 import { useEffect, useState } from 'react';
 
 import ActionButtons from './components/ActionButtons';
@@ -13,6 +14,7 @@ import useValidateFileForm from './hooks/useDropZoneActions';
 import DropZone from './styled/DropZone';
 
 import { selectSelectedDataItem } from 'features/dataTable/dataTableSlice';
+import { useGetDocumentsListQuery } from 'features/files/filesApiSlice';
 import { selectSidebarStateOfHomePage } from 'features/sidebar/sidebarSlice';
 import { selectUserPermissions, selectUserRoles } from 'features/user/userSlice';
 import { useAppSelector } from 'hooks/redux';
@@ -32,7 +34,8 @@ function FilesDataItem(): JSX.Element {
 
 	useUpdateSelectedDataItem(selectedDataItem);
 
-	const documents = selectedDataItem?.documents ?? [];
+	const { data: documentsList } = useGetDocumentsListQuery(selectedDataItem?.id ?? skipToken);
+	const documents = documentsList ?? [];
 
 	const {
 		state: { isLoading, isDragReject, requiredSpace, occupiedSpace, dropzoneDisabled },
@@ -59,7 +62,6 @@ function FilesDataItem(): JSX.Element {
 
 	/* Достаем обработчик события клика, для дальнейшего прокидывания при условии */
 	const { onClick, ...othenProps } = getRootProps();
-
 	return (
 		<FormContainer>
 			<Box px={3.5} display='flex' flexDirection='column' flexGrow={1}>

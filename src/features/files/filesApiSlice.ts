@@ -8,7 +8,7 @@ import { apiSlice } from 'app/apiSlice';
 import { dayjsFormatVariant } from 'constant/dateFormat';
 import { HttpCodes } from 'constant/httpCodes';
 import { Messages } from 'constant/messages';
-import type { IDataItem } from 'types/dataItem';
+import type { IDataItem, IDocument } from 'types/dataItem';
 import type { Rename } from 'types/rename';
 import { saveAs } from 'utils/saveAs';
 
@@ -85,7 +85,10 @@ const filesApiSlice = apiSlice.injectEndpoints({
 				return { data: null };
 			},
 		}),
-
+		getDocumentsList: builder.query<IDocument[], GridRowId>({
+			query: body => API.data.documents.getDocumentsList(body),
+			providesTags: [],
+		}),
 		downloadArchive: builder.query<null, GridRowId>({
 			queryFn: async (id, _api, _, baseQuery) => {
 				const result = await baseQuery({
@@ -137,4 +140,5 @@ export const {
 	useLazyDownloadArchiveQuery,
 	useDeleteFileMutation,
 	useUploadFileMutation,
+	useGetDocumentsListQuery,
 } = filesApiSlice;

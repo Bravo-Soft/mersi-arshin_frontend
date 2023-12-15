@@ -30,6 +30,7 @@ export const API = {
 			documentsByItemId: (id: GridRowId) => `/data/${id}/documents`,
 			byDocumentId: (id: GridRowId, documentId: string | number) =>
 				`/data/${id}/documents/${documentId}`,
+			getDocumentsList: (id: GridRowId) => `data/${id}/documents/list`,
 		},
 		print: `/print/data`,
 	},
