@@ -2,10 +2,7 @@ import { ColumnNames } from 'constant/columnsName';
 import type { IDataItemWithDates } from 'types/dataItem';
 
 interface ICreateInputs {
-	key: keyof Omit<
-		IDataItemWithDates,
-		'id' | 'userIds' | 'documents' | 'verificationControlInStateRegister'
-	>;
+	key: keyof Omit<IDataItemWithDates, 'id' | 'userIds' | 'verificationControlInStateRegister'>;
 	label: ColumnNames;
 }
 
