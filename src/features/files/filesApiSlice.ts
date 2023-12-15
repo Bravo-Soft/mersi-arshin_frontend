@@ -46,7 +46,7 @@ const filesApiSlice = apiSlice.injectEndpoints({
 
 				return { data: null };
 			},
-			invalidatesTags: (_result, _error, { itemId }) => [{ type: 'Data', id: itemId }],
+			invalidatesTags: ['DownloadListFiles'],
 		}),
 
 		deleteFile: builder.mutation<null, IDeleteFileArg>({
@@ -63,7 +63,7 @@ const filesApiSlice = apiSlice.injectEndpoints({
 
 				return { data: null };
 			},
-			invalidatesTags: (_result, _error, { itemId }) => [{ type: 'Data', id: itemId }],
+			invalidatesTags: ['DownloadListFiles'],
 		}),
 
 		downloadFile: builder.query<null, IDownloadFileArg>({
@@ -87,7 +87,7 @@ const filesApiSlice = apiSlice.injectEndpoints({
 		}),
 		getDocumentsList: builder.query<IDocument[], GridRowId>({
 			query: body => API.data.documents.getDocumentsList(body),
-			providesTags: [],
+			providesTags: ['DownloadListFiles'],
 		}),
 		downloadArchive: builder.query<null, GridRowId>({
 			queryFn: async (id, _api, _, baseQuery) => {
