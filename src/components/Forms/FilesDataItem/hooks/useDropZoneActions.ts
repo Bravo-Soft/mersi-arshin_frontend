@@ -36,8 +36,6 @@ const useValidateFileForm = ({
 	const [sendNewFiles, { isLoading: uploadFileIsLoading }] = useUploadFileMutation();
 	const [downloadArchive, { isLoading: downloadArchiveIsLoading }] = useLazyDownloadArchiveQuery();
 
-	console.log('maxSizeOfSpacePerPosition', maxSizeOfSpacePerPosition);
-
 	/* Метод вызова диалогового окна ошибки */
 	const showFailureMessage = useCallback((errorMessage: keyof typeof Messages) => {
 		enqueueSnackbar(Messages[errorMessage], { variant: 'error' });
