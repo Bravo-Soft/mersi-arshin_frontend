@@ -25,7 +25,7 @@ export const useUploadHandlers = ({ onCloseMenu }: IUseUploadHandlers) => {
 
 	const data = filteredData.map(({ suitability, ...data }) => ({
 		...data,
-		suitability: suitability ? 'да' : 'НЕт',
+		suitability: suitability ? 'Да' : 'Нет',
 	}));
 
 	const { data: userData } = useGetUserProfileQuery();
