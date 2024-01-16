@@ -1,4 +1,4 @@
-const getPrintValue = (value: string | boolean | number) => {
+export const getPrintValue = (value: string | boolean | number) => {
 	let renderValue: string | boolean | number = '-';
 
 	switch (typeof value) {
