@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 interface IPrintingTagParamsProps {
 	isVisible: boolean;
 	translatedKey: string;
-	value: string;
+	value: string | boolean;
 }
 
 function PrintingTagParams({ isVisible, translatedKey, value }: IPrintingTagParamsProps) {
@@ -12,10 +12,12 @@ function PrintingTagParams({ isVisible, translatedKey, value }: IPrintingTagPara
 		return null;
 	}
 
+	const printValue = value ? (typeof value === 'boolean' ? (value ? 'Да ' : 'Нет') : value) : '-';
+
 	return (
 		<Stack direction='row' flexWrap='wrap' justifyContent='flex-start' gap={0.5}>
 			<Typography noWrap>{translatedKey}:</Typography>
-			<Typography fontWeight='bold'>{value ? value : '-'}</Typography>
+			<Typography fontWeight='bold'>{printValue}</Typography>
 		</Stack>
 	);
 }

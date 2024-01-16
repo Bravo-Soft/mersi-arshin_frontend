@@ -120,6 +120,7 @@ export const columns: GridColDef<IDataItem>[] = [
 		width: initialWidth,
 		headerAlign: 'center',
 		type: 'singleSelect',
+		valueFormatter: params => (params.value ? 'Да' : 'Нет'),
 		renderCell: params => (params.value ? 'Да' : 'Нет'),
 		valueOptions: [
 			{ label: 'Да', value: true },
