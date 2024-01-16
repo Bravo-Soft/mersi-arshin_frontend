@@ -20,8 +20,13 @@ export const useUploadHandlers = ({ onCloseMenu }: IUseUploadHandlers) => {
 	const apiRef = useGridApiContext();
 
 	/* Подготовка данных и колонок для них */
-	const data = useFiltredSortedData(apiRef);
+	const filteredData = useFiltredSortedData(apiRef);
 	const columns = useConvertColumns(apiRef);
+
+	const data = filteredData.map(({ suitability, ...data }) => ({
+		...data,
+		suitability: suitability ? 'Да' : 'Нет',
+	}));
 
 	const { data: userData } = useGetUserProfileQuery();
 
