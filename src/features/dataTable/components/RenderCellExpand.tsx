@@ -12,6 +12,8 @@ import type { GridRenderCellParams } from '@mui/x-data-grid';
 import { memo, useEffect, useRef, useState } from 'react';
 import { z } from 'zod';
 
+import { ArshinIcon } from '../modules/Arshin/ArshinIcon';
+
 const stringIsUrl = (value: string) => {
 	return /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/.test((value))
 };
@@ -156,7 +158,7 @@ interface GridCellExpandProps {
 	links: string[];
 }
 
-export function RenderCellExpand(params: GridRenderCellParams<string>) {
+export function RenderCellExpand(params: GridRenderCellParams<string>): JSX.Element {
 	return (
 		<GridCellExpand
 			value={params.value ? removeLink(params.value) : '–'}
@@ -164,4 +166,10 @@ export function RenderCellExpand(params: GridRenderCellParams<string>) {
 			links={params.value ? extractLinks(params.value) : []}
 		/>
 	);
+}
+
+export function RenderCellExpandedRegister(
+	params: GridRenderCellParams<boolean>
+): JSX.Element | string {
+	return params.value ? <ArshinIcon /> : '–';
 }

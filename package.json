@@ -1,8 +1,8 @@
 {
 	"name": "client",
 	"version": "0.1.0",
-	"proxy": "http://92.255.109.36:7013",
 	"private": true,
+	"proxy": "http://92.255.109.36:7015",
 	"dependencies": {
 		"@emotion/react": "^11.10.4",
 		"@emotion/styled": "^11.10.4",

@@ -8,9 +8,8 @@ import { gridClasses } from '@mui/x-data-grid-pro';
 import { sidebarWidth } from 'constant/sidebarWidth';
 import { customCheckbox } from 'styled/customCheckbox';
 
-
 interface IDataTableBoxProps {
-	sidebarIsOpen: boolean;
+	sidebarIsOpen?: boolean;
 }
 
 const DataTableBox = styled(Box, {
@@ -156,6 +155,10 @@ const DataTableBox = styled(Box, {
 
 		'& .twoWeeksToGo': {
 			backgroundColor: orange[100],
+		},
+
+		'& .notValid': {
+			color: red[700],
 		},
 	},
 }));

@@ -39,10 +39,10 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
 	api,
 	extraOptions
 ) => {
-	// mutex позволяет предотвратить множетсвенное обращение на обновление токена
+	// mutex позволяет предотвратить множественное обращение на обновление токена
 	await mutex.waitForUnlock();
 	let result = await baseQuery(args, api, extraOptions);
-	if (result.error && result.error.status === HttpCodes.UNAUTHORZED && api.endpoint !== 'login') {
+	if (result.error && result.error.status === HttpCodes.UNAUTHORIZED && api.endpoint !== 'login') {
 		if (!mutex.isLocked()) {
 			const release = await mutex.acquire();
 			try {
@@ -55,7 +55,7 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
 					api.dispatch(setCredentials(refreshResult.data as IReauthResponse));
 					result = await baseQuery(args, api, extraOptions);
 				} else {
-					if (refreshResult.error?.status === HttpCodes.UNAUTHORZED) {
+					if (refreshResult.error?.status === HttpCodes.UNAUTHORIZED) {
 						enqueueSnackbar(Messages.AUTHORIZATION_TIMEOUT, { variant: 'error' });
 					} else if (refreshResult.error?.status === 'FETCH_ERROR') {
 						enqueueSnackbar(Messages.ERROR_CONNECTION, { variant: 'error' });
@@ -85,6 +85,11 @@ export const apiSlice = createApi({
 		'Notification',
 		'Favorites',
 		'PrintSettings',
+		'ArshinFilters',
+		'ArshinData',
+		'ArshinStart',
+		'PushNotification',
+		'DownloadListFiles',
 	],
 	endpoints: () => ({}),
 });

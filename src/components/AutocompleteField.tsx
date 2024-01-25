@@ -2,7 +2,7 @@ import { Autocomplete, TextField } from '@mui/material';
 import { Controller, useFormContext } from 'react-hook-form';
 
 import type { AutocompleteKeysType } from 'components/Forms/hooks/useAutocomplete';
-import type { ColumnNames } from 'features/dataTable/columns';
+import type { ColumnNames } from 'constant/columnsName';
 import type { IDataItemWithDates } from 'types/dataItem';
 
 interface IAutocompleteFieldsProps {
@@ -42,7 +42,7 @@ function AutocompleteField({
 							label={label}
 							onChange={onChange}
 							error={Boolean(error)}
-							helperText={error?.message}
+							helperText={error?.message ?? ' '}
 							inputRef={ref}
 							InputLabelProps={{ shrink: true, required: required }}
 						/>

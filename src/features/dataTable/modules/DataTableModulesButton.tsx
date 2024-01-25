@@ -16,9 +16,6 @@ import { selectActualStep } from 'features/quickTour/components/quickTourSlice';
 import { usePrefetch } from 'features/user/userApiSlice';
 import { useAppSelector } from 'hooks/redux';
 
-
-
-
 function DataTableModulesButton(): JSX.Element {
 	const [templateFormIsOpen, setTemplateFormIsOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);

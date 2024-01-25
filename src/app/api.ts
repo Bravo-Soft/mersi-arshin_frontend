@@ -16,12 +16,12 @@ export const API = {
 			selectTemplateById: (templateId: string) => `/user/templates/${templateId}/select`,
 		},
 		profile: {
-			default: `/user/profile`,
-			photo: `/user/profile/photo`,
+			default: `/account/profile`,
+			photo: `/account/profile/photo`,
 		},
-		notification: `/user/notification`,
-		favoritesData: `/user/favorites/data`,
-		printSettings: `/user/print-settings`,
+		notification: `/user/settings/notification`,
+		favoritesData: `/user/list-data/favorites`,
+		printSettings: `/user/settings/print`,
 		reviews: `/user/reviews`,
 	},
 	data: {
@@ -30,7 +30,25 @@ export const API = {
 			documentsByItemId: (id: GridRowId) => `/data/${id}/documents`,
 			byDocumentId: (id: GridRowId, documentId: string | number) =>
 				`/data/${id}/documents/${documentId}`,
+			getDocumentsList: (id: GridRowId) => `data/${id}/documents/list`,
 		},
 		print: `/print/data`,
+	},
+	arshin: {
+		getData: `/user/modules/arshin`,
+		getFilters: `/user/settings/arshin`,
+		editFilters: `/user/settings/arshin`,
+		resetFilters: `/user/settings/arshin/reset`,
+		addItems: `/user/modules/arshin`,
+		deleteItems: `/user/modules/arshin`,
+		synchronizeItems: `/user/modules/arshin/process/synchronize`,
+		startArshin: `/user/modules/arshin/process/start`,
+		cancelArshin: `/user/modules/arshin/process/cancel`,
+		validateArshin: `/user/modules/arshin/validate`,
+	},
+	notification: {
+		getNotifications: `/mersi/arshin-notification/arshin/unread`,
+		readNotifications: (id: string) => `/mersi/arshin-notification/arshin/read/${id}`,
+		readAllNotifications: `/mersi/arshin-notification/arshin/read`,
 	},
 };

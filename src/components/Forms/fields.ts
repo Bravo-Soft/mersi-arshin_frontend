@@ -1,8 +1,8 @@
-import { ColumnNames } from 'features/dataTable/columns';
+import { ColumnNames } from 'constant/columnsName';
 import type { IDataItemWithDates } from 'types/dataItem';
 
 interface ICreateInputs {
-	key: keyof Omit<IDataItemWithDates, 'id' | 'userIds' | 'documents'>;
+	key: keyof Omit<IDataItemWithDates, 'id' | 'userIds' | 'verificationControlInStateRegister'>;
 	label: ColumnNames;
 }
 
@@ -21,7 +21,11 @@ export type KeysOfEdit =
 	| 'accuracyClass'
 	| 'measurementLimit'
 	| 'size'
-	| 'notes';
+	| 'notes'
+	| 'location'
+	| 'responsible'
+	| 'additionalData'
+	| 'methodology';
 
 export type KeysOfVerificate =
 	| 'verificationDate'
@@ -30,7 +34,10 @@ export type KeysOfVerificate =
 	| 'typeOfWork'
 	| 'stateRegister'
 	| 'certificate'
-	| 'organization';
+	| 'organization'
+	| 'suitability'
+	| 'fgisUrl'
+	| 'cost';
 
 export const editFields: IField<KeysOfEdit>[] = [
 	{
@@ -77,6 +84,22 @@ export const editFields: IField<KeysOfEdit>[] = [
 		key: 'notes',
 		label: ColumnNames.NOTES,
 	},
+	{
+		key: 'location',
+		label: ColumnNames.LOCATION,
+	},
+	{
+		key: 'responsible',
+		label: ColumnNames.RESPONSIBLE,
+	},
+	{
+		key: 'additionalData',
+		label: ColumnNames.ADDITIONAL_DATA,
+	},
+	{
+		key: 'methodology',
+		label: ColumnNames.METHODOLOGY,
+	},
 ];
 
 export const verificationFields: IField<KeysOfVerificate>[] = [
@@ -107,6 +130,18 @@ export const verificationFields: IField<KeysOfVerificate>[] = [
 	{
 		key: 'organization',
 		label: ColumnNames.ORGANIZATION,
+	},
+	{
+		key: 'suitability',
+		label: ColumnNames.SUITABILITY,
+	},
+	// {
+	// 	key: 'fgisUrl',
+	// 	label: ColumnNames.FGIS_URL,
+	// },
+	{
+		key: 'cost',
+		label: ColumnNames.COST,
 	},
 ];
 

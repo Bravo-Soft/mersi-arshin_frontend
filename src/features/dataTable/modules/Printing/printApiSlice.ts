@@ -4,7 +4,6 @@ import { API } from 'app/api';
 import { apiSlice } from 'app/apiSlice';
 import type { ITag } from 'types/tag';
 
-
 type Params = Record<string, boolean>;
 
 type AllTagsRequestArgs = {

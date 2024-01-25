@@ -6,6 +6,7 @@ import Dialog from 'components/Dialog';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 
 function PaymentDialog(): JSX.Element {
+	
 	const dispatch = useAppDispatch();
 	const { content, isOpen } = useAppSelector(selectPaymentVariant);
 

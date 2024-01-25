@@ -12,7 +12,6 @@ import { useRowClasses } from '../hooks/useRowClasses';
 import useTableData from '../hooks/useTableData';
 import { useUpdateTemplate } from '../hooks/useUpdateTemplate';
 import VerificationScheduleModal from '../modules/CreateVerificationSchedule/components/VerificationScheduleModal';
-import DataTableBox from '../styled/DataTableBox';
 import { columnsVisibility } from '../utils/columnsVisibility';
 
 import { ColumnMenu } from './ColumnMenu';
@@ -25,6 +24,7 @@ import { Toolbar } from './Toolbar';
 import { useQuickTourActions } from 'features/quickTour/hooks/useQuickTourActions';
 import { selectSidebarStateOfHomePage } from 'features/sidebar/sidebarSlice';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import DataTableBox from 'styled/DataTableBox';
 
 function DataTable(): JSX.Element {
 	const apiRef = useGridApiRef();

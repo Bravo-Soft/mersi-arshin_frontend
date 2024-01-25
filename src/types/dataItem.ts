@@ -75,10 +75,7 @@ export interface IDataItem {
 	 * Примечания
 	 */
 	notes: string;
-	/**
-	 * Список документов
-	 */
-	documents: IDocument[];
+
 	/**
 	 * Массив id пользователей, у которых данных позиция записана в избранное
 	 */
@@ -86,7 +83,39 @@ export interface IDataItem {
 	/**
 	 * Межповерочный интервал
 	 */
-	interVerificationInterval: string;
+	interVerificationInterval: number;
+	/**
+	 * Контроль поверки в Госреестр
+	 */
+	verificationControlInStateRegister: boolean;
+	/**
+	 * Местоположение СИ
+	 */
+	location: string;
+	/**
+	 * Ответственный
+	 */
+	responsible: string;
+	/**
+	 * Пригодность
+	 */
+	suitability: string;
+	/**
+	 * Ссылка
+	 */
+	fgisUrl: string;
+	/**
+	 * Доп. Данные
+	 */
+	additionalData: string;
+	/**
+	 * Методика
+	 */
+	methodology: string;
+	/**
+	 * Стоимость
+	 */
+	cost: string;
 }
 
 export interface IDocument {

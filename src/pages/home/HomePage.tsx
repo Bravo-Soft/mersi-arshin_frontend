@@ -11,10 +11,11 @@ import PageBox from 'styled/PageBox';
 function HomePage(): JSX.Element {
 	/* Селектор */
 	const { open, selector } = useAppSelector(selectSidebarStateOfHomePage);
-	useGetUserDataQuery();
 
 	/* Хук для сброса выбранного id, см. ниже условие работы */
 	useResetSelectedId(selector, open);
+
+	useGetUserDataQuery();
 
 	/* Получение всех элементов сайдбара по текущей странице */
 	const sidebarElements = useSidebarElements('home');

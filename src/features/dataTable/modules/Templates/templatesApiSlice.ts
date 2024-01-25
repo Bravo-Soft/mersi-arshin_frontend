@@ -57,7 +57,7 @@ export const templatesApiSlice = apiSlice.injectEndpoints({
 		selectTemplateById: builder.mutation<ITemplateConfig, ITemplateConfig['id']>({
 			query: id => ({
 				url: API.user.templates.selectTemplateById(id),
-				method: 'PATCH',
+				method: 'PUT',
 			}),
 			invalidatesTags: [
 				{ type: 'Template', id: 'LIST' },

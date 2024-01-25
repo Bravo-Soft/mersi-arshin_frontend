@@ -30,13 +30,11 @@ const useValidateFileForm = ({
 	/* Расчет уже занятого пространства и свободного места */
 	const requiredSpace = useSummarySize(files);
 	const occupiedSpace = useSummarySize(documents);
-
 	/* Достигнуто ли максимальное доступное место, вместе с имеющимся размером и размером загружаемых файлов */
 	const dropzoneDisabled = requiredSpace + occupiedSpace >= maxSizeOfSpacePerPosition;
-
 	/* Методы загрузки и отправки данных */
-	const [sendNewFiles, { isLoading }] = useUploadFileMutation();
-	const [downloadArchive] = useLazyDownloadArchiveQuery();
+	const [sendNewFiles, { isLoading: uploadFileIsLoading }] = useUploadFileMutation();
+	const [downloadArchive, { isLoading: downloadArchiveIsLoading }] = useLazyDownloadArchiveQuery();
 
 	/* Метод вызова диалогового окна ошибки */
 	const showFailureMessage = useCallback((errorMessage: keyof typeof Messages) => {
@@ -101,7 +99,7 @@ const useValidateFileForm = ({
 
 	return {
 		state: {
-			isLoading,
+			isLoading: uploadFileIsLoading || downloadArchiveIsLoading,
 			isDragReject,
 			requiredSpace,
 			occupiedSpace,

@@ -1,6 +1,6 @@
 import ExpandIcon from '@mui/icons-material/ExpandMore';
-import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
+import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,6 +12,8 @@ import {
 	GridToolbarFilterButton,
 } from '@mui/x-data-grid-pro';
 import { useEffect, useRef, useState } from 'react';
+
+// import ButtonsNavigation from '../../ButtonsNavigation';
 
 import DataTableColumnButton from './DataTableColumnButton';
 import DataTableToolbarFilter from './DataTableToolbarFilter';
@@ -49,7 +51,13 @@ function DataTableToolbar(): JSX.Element {
 		<>
 			<GridToolbarContainer sx={scrollbarStyles}>
 				<Toolbar sx={{ width: 1 }}>
-					<Box display='flex' flexDirection='row' columnGap={2} flexGrow={1} minWidth={350}>
+					<Stack
+						direction='row'
+						alignItems='center'
+						flexGrow={1}
+						spacing={2}
+						divider={<Divider orientation='vertical' flexItem />}
+					>
 						<Typography
 							color='primary.main'
 							variant='h6'
@@ -59,6 +67,7 @@ function DataTableToolbar(): JSX.Element {
 						>
 							Средства измерения
 						</Typography>
+						{/* <ButtonsNavigation /> */}
 						<Tooltip
 							title={
 								expanded
@@ -75,7 +84,7 @@ function DataTableToolbar(): JSX.Element {
 								/>
 							</IconButton>
 						</Tooltip>
-					</Box>
+					</Stack>
 					<Stack
 						direction='row'
 						gap={4}

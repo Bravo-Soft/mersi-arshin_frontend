@@ -9,7 +9,6 @@ import VerificateInputs from './VerificateInputs';
 import FetchingProgress from 'features/dataTable/components/FetchingProgress';
 import { useUpdateDataItemMutation } from 'features/dataTable/dataTableApiSlice';
 import { selectSelectedDataItem } from 'features/dataTable/dataTableSlice';
-import { useUpdateInputValues } from 'features/dataTable/hooks/useUpdateInputValues';
 import { selectUserRoles } from 'features/user/userSlice';
 import { useAppSelector } from 'hooks/redux';
 import { useUpdateSelectedDataItem } from 'hooks/useUpdateSelectedDataItem';
@@ -24,14 +23,14 @@ function VerificateDataItem(): JSX.Element {
 	const { isWriter, isAdmin, isReader } = useAppSelector(selectUserRoles);
 
 	const [sendUpdatedItem, { isLoading: isUpdateLoading }] = useUpdateDataItemMutation();
-	const methods = useForm<IDataItemWithDates>({
+
+	const methods = useForm<Omit<IDataItemWithDates, 'userIds'>>({
 		values: setDefaultValue(selectedDataItem),
 		resolver: formResolver,
-		mode: 'onChange',
+		mode: 'onSubmit',
 	});
 
 	useUpdateSelectedDataItem(selectedDataItem);
-	useUpdateInputValues(selectedDataItem, methods.setValue);
 
 	const onSubmit = methods.handleSubmit(async data => {
 		await sendUpdatedItem(dateFormTransform(formTrimming(data))).unwrap();

@@ -24,12 +24,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-.env*
-
-# ide
-/.idea
+# IDE
+/.idea/
 /.vscode
-/client.code-workspace
-*.code-workspace
 
-/thunder-tests
+/*.code-workspace

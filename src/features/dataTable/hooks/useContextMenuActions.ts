@@ -5,7 +5,6 @@ import { enqueueSnackbar } from 'notistack';
 import type { MouseEvent } from 'react';
 import { useState } from 'react';
 
-import type { ColumnNames } from '../columns';
 import {
 	pinManyRows,
 	pinSelectedRow,
@@ -20,7 +19,9 @@ import {
 	useCreateNewListFavoriteIdsMutation,
 	useDeleteFavoriteIdsMutation,
 } from '../favoritesApiSlice';
+import { useAddItemsMutation } from '../modules/Arshin/arshinTableApiSlice';
 
+import type { ColumnNames } from 'constant/columnsName';
 import { dayjsFormatVariant } from 'constant/dateFormat';
 import { Messages } from 'constant/messages';
 import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
@@ -35,7 +36,7 @@ export interface ICoordinates {
 	mouseY: number;
 }
 
-type CopyData = Omit<IDataItem, 'userIds' | 'documents'>;
+type CopyData = Omit<IDataItem, 'userIds'>;
 
 export type UseContextMenuActionsReturned = ReturnType<typeof useContextMenuActions>;
 
@@ -56,6 +57,7 @@ export const useContextMenuActions = (
 	/* Методы взаимодействия с сервером */
 	const [sendNewFavoriteList] = useCreateNewListFavoriteIdsMutation();
 	const [deleteFromFavorite] = useDeleteFavoriteIdsMutation();
+	const [addToArshin] = useAddItemsMutation();
 
 	const { openSidebarWith } = useSidebarAction('home');
 
@@ -166,7 +168,7 @@ export const useContextMenuActions = (
 				const dataWithConvertedDates = data
 					.map(
 						// eslint-disable-next-line @typescript-eslint/no-unused-vars
-						({ userIds, documents, ...item }: IDataItem): CopyData => ({
+						({ userIds, ...item }: IDataItem): CopyData => ({
 							...item,
 							productionDate: dayjs(item.productionDate).format(dayjsFormatVariant),
 							verificationDate: dayjs(item.verificationDate).format(dayjsFormatVariant),
@@ -196,6 +198,25 @@ export const useContextMenuActions = (
 		}
 	};
 
+	const handleAddToArshin = async () => {
+		const addingValue = isValueDefined(selectedDataItem)
+			? getArrayWithoutDuplicates(...selectionModel, selectedDataItem.id)
+			: selectionModel;
+
+		if (addingValue.length) {
+			try {
+				await addToArshin(addingValue).unwrap();
+				enqueueSnackbar(Messages.ARSHIN_ITEMS_SUCCESSFULLY_ADDED, { variant: 'success' });
+			} catch {
+				enqueueSnackbar(Messages.FAILED_ARSHIN_ITEMS_ADDED, { variant: 'error' });
+			} finally {
+				dispatch(resetSelectedModel());
+			}
+		} else {
+			enqueueSnackbar(Messages.POSITION_NOT_SELECTED, { variant: 'info' });
+		}
+	};
+
 	return {
 		contextMenu,
 		actionsOfContextMenu: {
@@ -212,6 +233,7 @@ export const useContextMenuActions = (
 			handleAddToFavorite,
 			handleRemoveFromFavorite,
 			handleCopySelectedValues,
+			handleAddToArshin,
 		},
 	};
 };

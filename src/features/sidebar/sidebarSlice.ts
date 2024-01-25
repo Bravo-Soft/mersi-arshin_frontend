@@ -5,6 +5,8 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { RootState } from 'app/store';
 
 export type SidebarSelectors =
+	| 'EditArshinItem'
+	| 'EditSidebarArshinItem'
 	| 'CreateDataItem'
 	| 'EditDataItem'
 	| 'VerificateDataItem'
@@ -14,14 +16,14 @@ export type SidebarSelectors =
 	| 'PrintSettings'
 	| 'idle';
 
-export type SidebarPages = 'home' | 'print';
+export type SidebarPages = 'home' | 'print' | 'arshin';
 
 export interface ISidebarOptions {
 	open: boolean;
 	selector: SidebarSelectors;
 }
 
-export type ISidebarState = Record<SidebarPages, ISidebarOptions>
+export type ISidebarState = Record<SidebarPages, ISidebarOptions>;
 
 const initialState: ISidebarState = {
 	home: {
@@ -29,6 +31,10 @@ const initialState: ISidebarState = {
 		selector: 'idle',
 	},
 	print: {
+		open: false,
+		selector: 'idle',
+	},
+	arshin: {
 		open: false,
 		selector: 'idle',
 	},
@@ -67,6 +73,7 @@ const sidebarSlice = createSlice({
 
 export const selectSidebarStateOfHomePage = (state: RootState) => state.sidebar.home;
 export const selectSidebarStateOfPrintPage = (state: RootState) => state.sidebar.print;
+export const selectSidebarStateOfArshinPage = (state: RootState) => state.sidebar.arshin;
 
 export const selectUserProfileIsOpen = createSelector(
 	selectSidebarStateOfHomePage,

@@ -1,39 +1,17 @@
-import type { GridCellParams, GridColDef, GridValueFormatterParams } from '@mui/x-data-grid-pro';
+import type { GridCellParams, GridColDef } from '@mui/x-data-grid-pro';
 import cn from 'classnames';
 import dayjs from 'dayjs';
 
-import { RenderCellExpand } from './components/RenderCellExpand';
+import { RenderCellExpand /* RenderCellExpandedRegister */ } from './components/RenderCellExpand';
+import { formatDateCallback } from './utils/formatDateCallback';
 import { quickFilterDateFormat } from './utils/quickFilterDateFormat';
 
+import { ColumnNames } from 'constant/columnsName';
 import { Tag } from 'constant/tag';
 import type { IDataItem } from 'types/dataItem';
 
 const initialWidth = 200;
 
-export enum ColumnNames {
-	NAME = 'Наименование',
-	TYPE = 'Тип СИ',
-	FACTORY_NUMBER = 'Заводской номер',
-	INVENTORY_NUMBER = 'Инвентарный номер',
-	DIVISION = 'Подразделение',
-	VERIFICATION_DATE = 'Дата поверки',
-	DATE_OF_THE_NEXT_VERIFICATION = 'Дата след. поверки',
-	TYPE_OF_WORK = 'Вид работ',
-	CONDITION = 'Состояние',
-	STATE_REGISTER = 'Госреестр',
-	CERTIFICATE = 'Свидетельство',
-	PRODUCTION_DATE = 'Дата производства',
-	ORGANIZATION = 'Организация',
-	ACCURACY_CLASS = 'Класс точности',
-	MEASUREMENT_LIMIT = 'Предел измерения',
-	SIZE = 'Размер бирки',
-	NOTES = 'Примечания',
-	VERIFICATION_INTERVAL = 'Межповерочный интервал',
-}
-
-const formatDateCallback = (params: GridValueFormatterParams<string>) => {
-	return dayjs(params.value).format('DD.MM.YYYY');
-};
 const getCellClasses = ({ value = '' }: GridCellParams<string>) => {
 	//TODO: При необходимости включить стили для ячеек, срок поверки которых меньше 2 недель
 	return cn({
@@ -64,6 +42,14 @@ export const columns: GridColDef<IDataItem>[] = [
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
 	},
+	// {
+	// 	field: 'verificationControlInStateRegister',
+	// 	headerName: ColumnNames.VERIFICATION_CONTROL_STATE_REGISTER,
+	// 	width: initialWidth,
+	// 	type: 'boolean',
+	// 	headerAlign: 'center',
+	// 	renderCell: RenderCellExpandedRegister,
+	// },
 	{
 		field: 'inventoryNumber',
 		headerName: ColumnNames.INVENTORY_NUMBER,
@@ -74,6 +60,20 @@ export const columns: GridColDef<IDataItem>[] = [
 	{
 		field: 'division',
 		headerName: ColumnNames.DIVISION,
+		width: initialWidth,
+		headerAlign: 'center',
+		renderCell: RenderCellExpand,
+	},
+	{
+		field: 'location',
+		headerName: ColumnNames.LOCATION,
+		width: initialWidth,
+		headerAlign: 'center',
+		renderCell: RenderCellExpand,
+	},
+	{
+		field: 'responsible',
+		headerName: ColumnNames.RESPONSIBLE,
 		width: initialWidth,
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
@@ -94,6 +94,7 @@ export const columns: GridColDef<IDataItem>[] = [
 		width: initialWidth,
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
+		valueGetter: params => `${params.value}`,
 	},
 	{
 		field: 'dateOfTheNextVerification',
@@ -114,6 +115,19 @@ export const columns: GridColDef<IDataItem>[] = [
 		renderCell: RenderCellExpand,
 	},
 	{
+		field: 'suitability',
+		headerName: ColumnNames.SUITABILITY,
+		width: initialWidth,
+		headerAlign: 'center',
+		type: 'singleSelect',
+		valueFormatter: params => (params.value ? 'Да' : 'Нет'),
+		renderCell: params => (params.value ? 'Да' : 'Нет'),
+		valueOptions: [
+			{ label: 'Да', value: true },
+			{ label: 'Нет', value: false },
+		],
+	},
+	{
 		field: 'condition',
 		headerName: ColumnNames.CONDITION,
 		width: initialWidth,
@@ -127,6 +141,13 @@ export const columns: GridColDef<IDataItem>[] = [
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
 	},
+	// {
+	// 	field: 'fgisUrl',
+	// 	headerName: ColumnNames.FGIS_URL,
+	// 	width: initialWidth,
+	// 	headerAlign: 'center',
+	// 	renderCell: RenderCellExpand,
+	// },
 	{
 		field: 'certificate',
 		headerName: ColumnNames.CERTIFICATE,
@@ -166,6 +187,13 @@ export const columns: GridColDef<IDataItem>[] = [
 		renderCell: RenderCellExpand,
 	},
 	{
+		field: 'additionalData',
+		headerName: ColumnNames.ADDITIONAL_DATA,
+		width: initialWidth,
+		headerAlign: 'center',
+		renderCell: RenderCellExpand,
+	},
+	{
 		field: 'size',
 		headerName: ColumnNames.SIZE,
 		width: initialWidth,
@@ -174,6 +202,22 @@ export const columns: GridColDef<IDataItem>[] = [
 		valueOptions: [Tag.SMALL, Tag.MEDIUM, Tag.LARGE],
 		renderCell: RenderCellExpand,
 	},
+	{
+		field: 'methodology',
+		headerName: ColumnNames.METHODOLOGY,
+		width: initialWidth,
+		headerAlign: 'center',
+		renderCell: RenderCellExpand,
+	},
+	{
+		field: 'cost',
+		headerName: ColumnNames.COST,
+		width: initialWidth,
+		headerAlign: 'center',
+		type: 'number',
+		renderCell: RenderCellExpand,
+	},
+
 	{
 		field: 'notes',
 		headerName: ColumnNames.NOTES,

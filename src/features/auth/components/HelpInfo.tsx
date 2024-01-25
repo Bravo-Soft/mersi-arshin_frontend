@@ -6,6 +6,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 
 const rulesList = [
+	`Минимальная длина 8 символов`,
 	'Только латинский алфавит',
 	'Хотя бы одна строчная буква',
 	'Хотя бы одна заглавная буква',
