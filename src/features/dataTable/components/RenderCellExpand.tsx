@@ -10,7 +10,6 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import type { GridRenderCellParams } from '@mui/x-data-grid';
 import { memo, useEffect, useRef, useState } from 'react';
-import { z } from 'zod';
 
 import { ArshinIcon } from '../modules/Arshin/ArshinIcon';
 
