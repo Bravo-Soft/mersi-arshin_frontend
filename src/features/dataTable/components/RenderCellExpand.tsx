@@ -13,7 +13,7 @@ import { memo, useEffect, useRef, useState } from 'react';
 import { z } from 'zod';
 
 const stringIsUrl = (value: string) => {
-	return z.string().url().safeParse(value).success;
+	return /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/.test((value))
 };
 
 const removeLink = (value: string) => {
