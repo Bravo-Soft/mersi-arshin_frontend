@@ -45,7 +45,7 @@
 		}
 	},
 	"scripts": {
-		"start": "react-scripts start",
+		"start": "PORT=4200 react-scripts start",
 		"build": "react-scripts build",
 		"lint:fix": "eslint src --fix",
 		"lint:check": "eslint src",
