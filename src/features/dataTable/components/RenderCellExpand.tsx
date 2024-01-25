@@ -15,7 +15,7 @@ import { z } from 'zod';
 import { ArshinIcon } from '../modules/Arshin/ArshinIcon';
 
 const stringIsUrl = (value: string) => {
-	return z.string().url().safeParse(value).success;
+	return /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/.test((value))
 };
 
 const removeLink = (value: string) => {
