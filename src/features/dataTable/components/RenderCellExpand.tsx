@@ -14,7 +14,7 @@ import { memo, useEffect, useRef, useState } from 'react';
 import { ArshinIcon } from '../modules/Arshin/ArshinIcon';
 
 const stringIsUrl = (value: string) => {
-	return /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/.test((value))
+	return /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/.test(value)
 };
 
 const removeLink = (value: string) => {
