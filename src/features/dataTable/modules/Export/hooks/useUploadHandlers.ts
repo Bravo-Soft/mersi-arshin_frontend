@@ -6,10 +6,10 @@ import { useConvertColumns } from './useConvertColumns';
 import { useFiltredSortedData } from './useFiltredSortedData';
 
 import { dayjsFormatVariant } from 'constant/dateFormat';
+import { fileType } from 'constant/fileType';
 import { Messages } from 'constant/messages';
 import { useGetUserProfileQuery } from 'features/user/userApiSlice';
 import type { IExcelConfig } from 'utils/excel';
-import { createWorkbook } from 'utils/excel';
 import { saveAs } from 'utils/saveAs';
 
 interface IUseUploadHandlers {
@@ -65,12 +65,13 @@ export const useUploadHandlers = ({ onCloseMenu }: IUseUploadHandlers) => {
 		};
 
 		try {
+			const createWorkbook = await import("utils/excel").then(m => m.createWorkbook);
 			const workbook = createWorkbook(data, columns, excelConfig);
 
 			/* Записываем книгу в буфер и передаем его в конструктор blob класса */
 			const buffer = await workbook.xlsx.writeBuffer();
 			const blob = new Blob([buffer], {
-				type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+				type: fileType
 			});
 
 			/* Задаем название и сохраняем файл */

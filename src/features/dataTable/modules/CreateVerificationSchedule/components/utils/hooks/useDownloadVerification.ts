@@ -8,16 +8,15 @@ import { useFormContext } from 'react-hook-form';
 import { createDateRange } from '../helpers';
 
 import { dayjsFormatVariant } from 'constant/dateFormat';
+import { fileType } from 'constant/fileType';
 import { setVerificationScheduleModal } from 'features/dataTable/dataTableSlice';
 import type { IForm } from 'features/dataTable/modules/CreateVerificationSchedule/operatorsFilters';
 import { updateData } from 'features/dataTable/modules/CreateVerificationSchedule/utils/updateData';
 import { useAppDispatch } from 'hooks/redux';
-import { createWorkbook } from 'utils/excel';
 import { saveAs } from 'utils/saveAs';
 
 /**
  * @package хук для выгрузки данных
- * @function setFilters => функция принимает в себя фильтры из дейтпикера и набора кастомных фильтров и вносит их в модель фильтрации таблицы
  * @function downloadDataExcel => функция выгрузки в Excel
  * @function downloadDataCSV => функция выгрузки в CSV
  * @function closeModal => функция закрытия окна создания графика
@@ -62,13 +61,15 @@ export const useDownloadVerification = (apiRef: MutableRefObject<GridApiPro>) =>
 
 			const newData = updateData(data, apiRef);
 
+			const createWorkbook = await import("utils/excel").then(m => m.createWorkbook);
 			const workbook = createWorkbook(newData, columns);
 
 			apiRef.current.setFilterModel(filters);
 
+
 			const buffer = await workbook.xlsx.writeBuffer();
 			const blob = new Blob([buffer], {
-				type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+				type: fileType,
 			});
 
 			const filename = `Книга от ${dayjs().format(dayjsFormatVariant)}.xlsx`;
