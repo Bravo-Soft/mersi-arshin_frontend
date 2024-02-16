@@ -1,15 +1,26 @@
-import { GridColDef } from '@mui/x-data-grid-pro';
+import { GridColDef, GridComparatorFn } from '@mui/x-data-grid-pro';
 
 import { ArshinStatus } from 'constant/arshinStatus';
 import { ColumnNames } from 'constant/columnsName';
 import { Tag } from 'constant/tag';
 import {
 	RenderCellExpand,
-	// RenderCellExpandedRegister,
+	RenderCellExpandedRegister,
 } from 'features/dataTable/components/RenderCellExpand';
 import { formatDateCallback } from 'features/dataTable/utils/formatDateCallback';
 import { quickFilterDateFormat } from 'features/dataTable/utils/quickFilterDateFormat';
 import { IDataItemArshin } from 'types/arshinIntegration';
+
+const sortComparator: GridComparatorFn = (v1, v2, cellParams1, cellParams2) => {
+	if (cellParams1.field === 'status' && cellParams2.field === 'status') {
+		if (v1 === ArshinStatus.PROCESS) {
+			return -1;
+		} else if (v2 === ArshinStatus.PROCESS) {
+			return 1;
+		}
+	}
+	return v1.toString().localeCompare(v2, undefined, { numeric: true });
+};
 
 export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	{
@@ -36,15 +47,15 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
 	},
-	// {
-	// 	field: 'verificationControlInStateRegister',
-	// 	sortable: false,
-	// 	headerName: ColumnNames.VERIFICATION_CONTROL_STATE_REGISTER,
-	// 	width: 200,
-	// 	type: 'boolean',
-	// 	headerAlign: 'center',
-	// 	renderCell: RenderCellExpandedRegister,
-	// },
+	{
+		field: 'verificationControlInStateRegister',
+		sortable: false,
+		headerName: ColumnNames.VERIFICATION_CONTROL_STATE_REGISTER,
+		width: 200,
+		type: 'boolean',
+		headerAlign: 'center',
+		renderCell: RenderCellExpandedRegister,
+	},
 	{
 		field: 'inventoryNumber',
 		sortable: false,
@@ -147,14 +158,14 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
 	},
-	// {
-	// 	field: 'fgisUrl',
-	// 	sortable: false,
-	// 	headerName: ColumnNames.FGIS_URL,
-	// 	width: 200,
-	// 	headerAlign: 'center',
-	// 	renderCell: RenderCellExpand,
-	// },
+	{
+		field: 'fgisUrl',
+		sortable: false,
+		headerName: ColumnNames.FGIS_URL,
+		width: 200,
+		headerAlign: 'center',
+		renderCell: RenderCellExpand,
+	},
 	{
 		field: 'certificate',
 		sortable: false,
@@ -254,5 +265,6 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 			ArshinStatus.AWAITING_SHIPMENT,
 		],
 		renderCell: RenderCellExpand,
+		sortComparator: sortComparator,
 	},
 ];

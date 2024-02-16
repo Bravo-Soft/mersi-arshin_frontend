@@ -1,13 +1,12 @@
-import { closeSnackbar, enqueueSnackbar } from 'notistack';
-import { useCallback, useEffect } from 'react';
-import { z } from 'zod';
+import { enqueueSnackbar } from 'notistack';
+import { useCallback } from 'react';
 
-import { selectIsAliveArshin, setEventSourceData } from '../eventSourceSlice';
+import { schemaArshinProcess, statusVariant } from '../config/arshinProcessConfig';
 
 import { useServerSentEvent } from './useServerSentEvent';
 
 import { apiSlice } from 'app/apiSlice';
-import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import { useAppDispatch } from 'hooks/redux';
 
 /**
  * @package хук обработчик SSE канала Arshin
@@ -18,41 +17,15 @@ import { useAppDispatch, useAppSelector } from 'hooks/redux';
 
 export const useSendingAction = () => {
 	const dispatch = useAppDispatch();
-	const alive = useAppSelector(selectIsAliveArshin);
 
 	const callBack = useCallback(
 		(event: MessageEvent) => {
-			const { total, processed, alive } = schema.parse(JSON.parse(event.data));
-
-			const isStart = processed !== 0;
-
-			localStorage.setItem('progressUpdating', JSON.stringify({ total, processed, alive }));
-
-			dispatch(setEventSourceData({ total, processed, isAlive: alive, isStart }));
-
-			if (processed === 0 && total > 0) {
-				dispatch(apiSlice.util.invalidateTags(['ArshinStart']));
-			}
+			const { status, message } = schemaArshinProcess.parse(JSON.parse(event.data));
+			dispatch(apiSlice.util.invalidateTags(['ArshinData']));
+			enqueueSnackbar(message, { variant: statusVariant[status] });
 		},
 		[dispatch]
 	);
-	useServerSentEvent(`/api/mersi/user/arshin/loading-process`, callBack);
 
-	useEffect(() => {
-		!alive &&
-			enqueueSnackbar('Ошибка подключения к серверу', {
-				preventDuplicate: true,
-				variant: 'error',
-				persist: true,
-				action: () => null,
-			});
-
-		return () => closeSnackbar();
-	}, [alive]);
+	useServerSentEvent(`/group/mersi/user/arshin/loading-process`, callBack);
 };
-
-const schema = z.object({
-	total: z.number(),
-	processed: z.number(),
-	alive: z.boolean(),
-});

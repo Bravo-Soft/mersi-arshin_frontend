@@ -160,6 +160,9 @@ const DataTableBox = styled(Box, {
 		'& .notValid': {
 			color: red[700],
 		},
+		'& .arshinProcessRow': {
+			backgroundColor: alpha(theme.palette.action.disabledBackground, 0.05),
+		},
 	},
 }));
 

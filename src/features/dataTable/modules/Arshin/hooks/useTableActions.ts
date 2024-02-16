@@ -1,4 +1,4 @@
-import { GridCellParams, GridSelectionModel } from '@mui/x-data-grid-pro';
+import { GridCellParams, GridRowParams, GridSelectionModel } from '@mui/x-data-grid-pro';
 
 import {
 	selectArshinData,
@@ -6,8 +6,9 @@ import {
 	selectSelectedDataIds,
 	setSelectedDataItems,
 } from '../arshinTableSlice';
-import { selectIsAliveArshin, selectIsStartArshin } from '../eventSourceSlice';
+import { selectIsWorkingArshin } from '../eventSourceSlice';
 
+import { ArshinStatus } from 'constant/arshinStatus';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { IDataItemArshin } from 'types/arshinIntegration';
 
@@ -25,8 +26,7 @@ const useTableActions = () => {
 	const dataArshin = useAppSelector(selectArshinData);
 
 	const selectionIds = useAppSelector(selectSelectedDataIds);
-	const isStart = useAppSelector(selectIsStartArshin);
-	const isAlive = useAppSelector(selectIsAliveArshin);
+	// const isWorking = useAppSelector(selectIsWorkingArshin);
 
 	const arshinItems = useAppSelector(selectNotValidArshinClassesItem);
 
@@ -35,12 +35,16 @@ const useTableActions = () => {
 		dispatch(setSelectedDataItems(selectedItems));
 	};
 
-	const handleDisabledSelectedRow = () => !isStart && isAlive;
+	const handleDisabledSelectedRow = (params: GridRowParams<IDataItemArshin>) =>
+		params.row.status !== ArshinStatus.PROCESS;
 
 	const handleGetCellClassName = (params: GridCellParams<unknown, IDataItemArshin>) => {
 		const isNotValid = arshinItems.map(({ id }) => id).includes(params.row.id);
 		if (params.field === 'name' && isNotValid) {
 			return 'notValid';
+		}
+		if (params.row.status === ArshinStatus.PROCESS) {
+			return 'arshinProcessRow';
 		}
 		return '';
 	};

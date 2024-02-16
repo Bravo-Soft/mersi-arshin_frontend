@@ -9,6 +9,7 @@ import useTableActions from '../hooks/useTableActions';
 
 import ContextMenuArshin from './ContextMenuArshin';
 import DataTableArshinToolbar from './DataTableArshinToolbar';
+import ProcessArshin from './Process/ProcessArshin';
 
 import { NoResultsOverlay } from 'features/dataTable/components/NoResultsOverlay';
 import { NoRowsOverlay } from 'features/dataTable/components/NoRowsOverlay';
@@ -73,7 +74,9 @@ function DataTableArshin() {
 				}}
 				getCellClassName={handleGetCellClassName}
 			/>
+
 			<ContextMenuArshin contextMenu={contextMenu} actions={actions} />
+			<ProcessArshin apiRef={apiRef} />
 		</DataTableBox>
 	);
 }
