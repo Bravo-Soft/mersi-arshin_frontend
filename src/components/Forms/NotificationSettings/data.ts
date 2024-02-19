@@ -52,6 +52,11 @@ export const columnsFilters: IColumnsFilters[] = [
 		type: 'defaultFilters',
 	},
 	{
+		field: 'view',
+		headerName: ColumnNames.VIEW,
+		type: 'defaultFilters',
+	},
+	{
 		field: 'factoryNumber',
 		headerName: ColumnNames.FACTORY_NUMBER,
 		type: 'defaultFilters',
@@ -67,8 +72,23 @@ export const columnsFilters: IColumnsFilters[] = [
 		type: 'defaultFilters',
 	},
 	{
+		field: 'location',
+		headerName: ColumnNames.LOCATION,
+		type: 'defaultFilters',
+	},
+	{
+		field: 'responsible',
+		headerName: ColumnNames.RESPONSIBLE,
+		type: 'defaultFilters',
+	},
+	{
 		field: 'verificationDate',
 		headerName: ColumnNames.VERIFICATION_DATE,
+		type: 'dateFilters',
+	},
+	{
+		field: 'interVerificationInterval',
+		headerName: ColumnNames.VERIFICATION_INTERVAL,
 		type: 'dateFilters',
 	},
 	{
@@ -79,6 +99,11 @@ export const columnsFilters: IColumnsFilters[] = [
 	{
 		field: 'typeOfWork',
 		headerName: ColumnNames.TYPE_OF_WORK,
+		type: 'defaultFilters',
+	},
+	{
+		field: 'suitability',
+		headerName: ColumnNames.SUITABILITY,
 		type: 'defaultFilters',
 	},
 	{
@@ -117,13 +142,28 @@ export const columnsFilters: IColumnsFilters[] = [
 		type: 'defaultFilters',
 	},
 	{
+		field: 'additionalData',
+		headerName: ColumnNames.ADDITIONAL_DATA,
+		type: 'defaultFilters',
+	},
+	{
 		field: 'size',
 		headerName: ColumnNames.SIZE,
 		type: 'sizesFilters',
 	},
 	{
+		field: 'methodology',
+		headerName: ColumnNames.METHODOLOGY,
+		type: 'defaultFilters',
+	},
+	{
 		field: 'notes',
 		headerName: ColumnNames.NOTES,
+		type: 'defaultFilters',
+	},
+	{
+		field: 'cost',
+		headerName: ColumnNames.COST,
 		type: 'defaultFilters',
 	},
 ];

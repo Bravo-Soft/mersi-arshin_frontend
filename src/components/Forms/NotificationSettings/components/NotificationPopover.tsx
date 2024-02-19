@@ -10,7 +10,6 @@ import NotificationFilterItem from './NotificationFilterItem';
 
 import type { INotificationSettings } from 'types/notification';
 
-
 interface INotificationPopover {
 	index: number;
 	closeFilters: () => void;

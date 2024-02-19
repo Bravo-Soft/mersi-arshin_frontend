@@ -9,6 +9,7 @@ import { useCallback } from 'react';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 
 import EmailInputs from './EmailInputs';
+import { notificationDateFormater } from './notificationDateFormater';
 import { notificationResolver } from './notificationResolver';
 import SelectInputs from './SelectInputs';
 
@@ -45,7 +46,8 @@ function NotificationSettings() {
 	const submitNotificationValue = useCallback(
 		async (data: INotificationSettings) => {
 			try {
-				await sendUpdatedItem(formTrimming(data)).unwrap();
+				await sendUpdatedItem(formTrimming(notificationDateFormater(data))).unwrap();
+
 				enqueueSnackbar(Messages.NOTIFICATION_SUCCESSFULLY_UPDATED, { variant: 'success' });
 			} catch {
 				enqueueSnackbar(Messages.FAILED_TO_UPDATE_NOTIFICATION, { variant: 'error' });

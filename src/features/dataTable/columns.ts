@@ -225,6 +225,13 @@ export const columns: GridColDef<IDataItem>[] = [
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
 	},
+	{
+		field: 'view',
+		headerName: ColumnNames.VIEW,
+		width: initialWidth,
+		headerAlign: 'center',
+		renderCell: RenderCellExpand,
+	},
 ];
 
 export default columns;
