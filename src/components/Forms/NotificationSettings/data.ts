@@ -113,7 +113,7 @@ export const columnsFilters: IColumnsFilters[] = [
 	{
 		field: 'interVerificationInterval',
 		headerName: ColumnNames.VERIFICATION_INTERVAL,
-		type: 'dateFilters',
+		type: 'interVerificationInterval',
 	},
 	{
 		field: 'dateOfTheNextVerification',
@@ -128,7 +128,7 @@ export const columnsFilters: IColumnsFilters[] = [
 	{
 		field: 'suitability',
 		headerName: ColumnNames.SUITABILITY,
-		type: 'defaultFilters',
+		type: 'suitability',
 	},
 	{
 		field: 'condition',
@@ -188,6 +188,6 @@ export const columnsFilters: IColumnsFilters[] = [
 	{
 		field: 'cost',
 		headerName: ColumnNames.COST,
-		type: 'defaultFilters',
+		type: 'cost',
 	},
 ];

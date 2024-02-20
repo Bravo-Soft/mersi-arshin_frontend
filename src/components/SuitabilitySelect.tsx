@@ -8,7 +8,11 @@ import { Controller, useFormContext } from 'react-hook-form';
 import { ColumnNames } from 'constant/columnsName';
 import type { IDataItemWithDates } from 'types/dataItem';
 
-function SuitabilitySelect() {
+type Props = {
+	isHelperText?: boolean;
+};
+
+function SuitabilitySelect({ isHelperText = true }: Props) {
 	const { control } = useFormContext<Pick<IDataItemWithDates, 'suitability'>>();
 
 	return (
@@ -25,7 +29,7 @@ function SuitabilitySelect() {
 							<MenuItem value='false'>Нет</MenuItem>
 							<MenuItem value='true'>Да</MenuItem>
 						</Select>
-						<FormHelperText>{error?.message ?? ' '}</FormHelperText>
+						{isHelperText && <FormHelperText>{error?.message ?? ' '}</FormHelperText>}
 					</>
 				)}
 			/>

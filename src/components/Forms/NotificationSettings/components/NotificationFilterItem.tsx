@@ -25,6 +25,7 @@ import { ColumnNames } from 'constant/columnsName';
 import { maxDate, minDate } from 'constant/dateMasks';
 import { Tag } from 'constant/tag';
 import type { INotificationSettings } from 'types/notification';
+import FormHelperText from "@mui/material/FormHelperText";
 
 interface INotificationFilterItemProps {
 	index: number;
@@ -218,13 +219,27 @@ function NotificationFilterItem({
 								)}
 							/>
 						) : operatorValueX === 'suitability' ? (
-							<SuitabilitySelect key='suitability' />
+							<FormControl fullWidth variant='standard'>
+								<InputLabel shrink={true} id='suitability-id'>
+									{ColumnNames.SUITABILITY}
+								</InputLabel>
+								<Controller
+									name={`subscribedEmails.${index}.emailFilters.${indexK}.value`}
+									control={control}
+									render={({ field, fieldState: { error } }) => (
+											<Select {...field} labelId='suitability-id'>
+												<MenuItem value='false'>Нет</MenuItem>
+												<MenuItem value='true'>Да</MenuItem>
+											</Select>
+									)}
+								/>
+							</FormControl>
 						) : operatorValueX === 'cost' ? (
 							<TextField
 								key='cost'
 								{...register(`subscribedEmails.${index}.emailFilters.${indexK}.value`)}
 								label={ColumnNames.COST}
-								// error={Boolean(errors.subscribedEmails[index].emailFilters[indexK].value)}
+								error={Boolean(errors.subscribedEmails[index].emailFilters[indexK].value)}
 								InputLabelProps={{ shrink: true }}
 								InputProps={{
 									startAdornment: <InputAdornment position='start'>₽</InputAdornment>,

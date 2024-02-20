@@ -8,6 +8,8 @@ export const defaultFilterValue = (type: keyof IOperatorsFIlters) => {
 			return new Date();
 		case 'sizesFilters':
 			return Tag.SMALL;
+		case 'suitability':
+			return `true`;
 		default:
 			return '';
 	}
