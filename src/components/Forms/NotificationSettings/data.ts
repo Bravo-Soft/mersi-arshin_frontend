@@ -8,7 +8,32 @@ export const operatorsFilters: IOperatorsFIlters = {
 		{ columnField: 'не равен', operatorValue: 'not' },
 		{ columnField: 'любой из', operatorValue: 'isAnyOf' },
 	],
+	suitability: [
+		{ columnField: 'равен', operatorValue: 'is' },
+		{ columnField: 'не равен', operatorValue: 'not' },
+		{ columnField: 'любой из', operatorValue: 'isAnyOf' },
+	],
 	dateFilters: [
+		{ columnField: 'равен', operatorValue: 'is' },
+		{ columnField: 'не равен', operatorValue: 'not' },
+		{ columnField: 'больше чем', operatorValue: 'after' },
+		{ columnField: 'больше или равно', operatorValue: 'onOrAfter' },
+		{ columnField: 'меньше чем', operatorValue: 'before' },
+		{ columnField: 'меньше или равно', operatorValue: 'onOrBefore' },
+		{ columnField: 'пустой', operatorValue: 'isEmpty' },
+		{ columnField: 'не пустой', operatorValue: 'isNotEmpty' },
+	],
+	interVerificationInterval: [
+		{ columnField: 'равен', operatorValue: 'is' },
+		{ columnField: 'не равен', operatorValue: 'not' },
+		{ columnField: 'больше чем', operatorValue: 'after' },
+		{ columnField: 'больше или равно', operatorValue: 'onOrAfter' },
+		{ columnField: 'меньше чем', operatorValue: 'before' },
+		{ columnField: 'меньше или равно', operatorValue: 'onOrBefore' },
+		{ columnField: 'пустой', operatorValue: 'isEmpty' },
+		{ columnField: 'не пустой', operatorValue: 'isNotEmpty' },
+	],
+	cost: [
 		{ columnField: 'равен', operatorValue: 'is' },
 		{ columnField: 'не равен', operatorValue: 'not' },
 		{ columnField: 'больше чем', operatorValue: 'after' },
@@ -28,7 +53,6 @@ export const operatorsFilters: IOperatorsFIlters = {
 		{ columnField: 'любой из', operatorValue: 'isAnyOf' },
 	],
 };
-
 export const linkOperators: Record<string, string>[] = [
 	{
 		linkValue: 'or',

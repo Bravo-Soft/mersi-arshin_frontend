@@ -47,7 +47,6 @@ function NotificationSettings() {
 		async (data: INotificationSettings) => {
 			try {
 				await sendUpdatedItem(formTrimming(notificationDateFormater(data))).unwrap();
-
 				enqueueSnackbar(Messages.NOTIFICATION_SUCCESSFULLY_UPDATED, { variant: 'success' });
 			} catch {
 				enqueueSnackbar(Messages.FAILED_TO_UPDATE_NOTIFICATION, { variant: 'error' });

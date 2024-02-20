@@ -1,4 +1,5 @@
 import CloseIcon from '@mui/icons-material/Close';
+import { InputAdornment } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
@@ -19,6 +20,8 @@ import { defaultFilterValue } from '../defaultFilterValue';
 import { useNotificationFormActions } from '../hooks/useNotificationFormActions';
 import type { FormFiltersTypes } from '../types';
 
+import SuitabilitySelect from 'components/SuitabilitySelect';
+import { ColumnNames } from 'constant/columnsName';
 import { maxDate, minDate } from 'constant/dateMasks';
 import { Tag } from 'constant/tag';
 import type { INotificationSettings } from 'types/notification';
@@ -36,7 +39,12 @@ function NotificationFilterItem({
 	control,
 	removeEmail,
 }: INotificationFilterItemProps) {
-	const { setValue, watch } = useFormContext<INotificationSettings>();
+	const {
+		setValue,
+		watch,
+		register,
+		formState: { errors },
+	} = useFormContext<INotificationSettings>();
 
 	const watchColumnField = watch(`subscribedEmails.${index}.emailFilters.${indexK}.columnFilter`);
 	const watchOperatorValue = watch(
@@ -190,59 +198,95 @@ function NotificationFilterItem({
 					/>
 				</Grid>
 				<Grid item xs={4}>
-					{watchOperatorValue !== 'isEmpty' && (
-						<Controller
-							control={control}
-							name={`subscribedEmails.${index}.emailFilters.${indexK}.value`}
-							render={({ field, fieldState: { error } }) =>
-								operatorValueX === 'defaultFilters' ? (
+					{watchOperatorValue !== 'isEmpty' &&
+						(operatorValueX === 'interVerificationInterval' ? (
+							<Controller
+								name={`subscribedEmails.${index}.emailFilters.${indexK}.value`}
+								key='interVerificationInterval'
+								control={control}
+								render={({ field: { ref, onChange, ...field }, fieldState: { error } }) => (
 									<TextField
 										{...field}
-										label='Значение'
-										fullWidth
-										placeholder='Значение фильтра'
-										InputLabelProps={{
-											shrink: true,
-										}}
+										label={ColumnNames.VERIFICATION_INTERVAL}
+										error={Boolean(error)}
+										helperText={error?.message ?? ' '}
+										inputRef={ref}
+										onChange={e => onChange(Number(e.target.value))}
+										InputLabelProps={{ shrink: true }}
+										type='number'
 									/>
-								) : operatorValueX === 'dateFilters' ? (
-									<DatePicker
-										{...field}
-										value={dayjs(field.value)}
-										onChange={newDate => {
-											if (isDayjs(newDate)) {
-												field.onChange(newDate);
-											}
-										}}
-										label='Дата фильтрации'
-										slotProps={{
-											textField: {
-												inputRef: field.ref,
-												error: Boolean(error),
-											},
-										}}
-										minDate={dayjs(minDate)}
-										maxDate={dayjs(maxDate)}
-									/>
-								) : (
-									<FormControl variant='standard' fullWidth>
-										<InputLabel shrink={true} id='select-operator-filter-label'>
-											Значение
-										</InputLabel>
-										<Select
+								)}
+							/>
+						) : operatorValueX === 'suitability' ? (
+							<SuitabilitySelect key='suitability' />
+						) : operatorValueX === 'cost' ? (
+							<TextField
+								key='cost'
+								{...register(`subscribedEmails.${index}.emailFilters.${indexK}.value`)}
+								label={ColumnNames.COST}
+								// error={Boolean(errors.subscribedEmails[index].emailFilters[indexK].value)}
+								InputLabelProps={{ shrink: true }}
+								InputProps={{
+									startAdornment: <InputAdornment position='start'>₽</InputAdornment>,
+								}}
+								inputProps={{
+									step: 0.01,
+								}}
+								type='number'
+							/>
+						) : (
+							<Controller
+								control={control}
+								name={`subscribedEmails.${index}.emailFilters.${indexK}.value`}
+								render={({ field, fieldState: { error } }) =>
+									operatorValueX === 'defaultFilters' ? (
+										<TextField
 											{...field}
-											id='select-operator-filter'
-											labelId='select-operator-filter-label'
-										>
-											<MenuItem value={Tag.SMALL}>{Tag.SMALL}</MenuItem>
-											<MenuItem value={Tag.MEDIUM}>{Tag.MEDIUM}</MenuItem>
-											<MenuItem value={Tag.LARGE}>{Tag.LARGE}</MenuItem>
-										</Select>
-									</FormControl>
-								)
-							}
-						/>
-					)}
+											label='Значение'
+											fullWidth
+											placeholder='Значение фильтра'
+											InputLabelProps={{
+												shrink: true,
+											}}
+										/>
+									) : operatorValueX === 'dateFilters' ? (
+										<DatePicker
+											{...field}
+											value={dayjs(field.value)}
+											onChange={newDate => {
+												if (isDayjs(newDate)) {
+													field.onChange(newDate);
+												}
+											}}
+											label='Дата фильтрации'
+											slotProps={{
+												textField: {
+													inputRef: field.ref,
+													error: Boolean(error),
+												},
+											}}
+											minDate={dayjs(minDate)}
+											maxDate={dayjs(maxDate)}
+										/>
+									) : (
+										<FormControl variant='standard' fullWidth>
+											<InputLabel shrink={true} id='select-operator-filter-label'>
+												Значение
+											</InputLabel>
+											<Select
+												{...field}
+												id='select-operator-filter'
+												labelId='select-operator-filter-label'
+											>
+												<MenuItem value={Tag.SMALL}>{Tag.SMALL}</MenuItem>
+												<MenuItem value={Tag.MEDIUM}>{Tag.MEDIUM}</MenuItem>
+												<MenuItem value={Tag.LARGE}>{Tag.LARGE}</MenuItem>
+											</Select>
+										</FormControl>
+									)
+								}
+							/>
+						))}
 				</Grid>
 			</Grid>
 		</Stack>

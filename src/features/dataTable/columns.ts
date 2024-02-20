@@ -36,6 +36,13 @@ export const columns: GridColDef<IDataItem>[] = [
 		renderCell: RenderCellExpand,
 	},
 	{
+		field: 'view',
+		headerName: ColumnNames.VIEW,
+		width: initialWidth,
+		headerAlign: 'center',
+		renderCell: RenderCellExpand,
+	},
+	{
 		field: 'factoryNumber',
 		headerName: ColumnNames.FACTORY_NUMBER,
 		width: initialWidth,
@@ -221,13 +228,6 @@ export const columns: GridColDef<IDataItem>[] = [
 	{
 		field: 'notes',
 		headerName: ColumnNames.NOTES,
-		width: initialWidth,
-		headerAlign: 'center',
-		renderCell: RenderCellExpand,
-	},
-	{
-		field: 'view',
-		headerName: ColumnNames.VIEW,
 		width: initialWidth,
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,

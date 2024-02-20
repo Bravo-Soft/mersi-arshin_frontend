@@ -7,13 +7,13 @@ const valueGuard = (value: unknown): value is Date => value instanceof Date;
 
 export const notificationDateFormater = ({ subscribedEmails, ...rest }: INotificationSettings) => {
 	const subEmail = subscribedEmails.map(({ emailFilters, ...restEmail }) => {
-		const conmfertEmailFilter = emailFilters.map(({ value, ...restFilter }) => {
+		const convertEmailFilter = emailFilters.map(({ value, ...restFilter }) => {
 			return {
 				...restFilter,
 				value: valueGuard(value) ? createDateISO(dayjs(value)) : value,
 			};
 		});
-		return { ...restEmail, emailFilters: conmfertEmailFilter };
+		return { ...restEmail, emailFilters: convertEmailFilter };
 	});
 	return { ...rest, subscribedEmails: subEmail };
 };

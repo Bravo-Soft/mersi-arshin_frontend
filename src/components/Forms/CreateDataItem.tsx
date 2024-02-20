@@ -52,6 +52,7 @@ const defaultValues = {
 	organization: '',
 	stateRegister: '',
 	type: '',
+	view: '',
 	typeOfWork: '',
 	location: '',
 	responsible: '',
