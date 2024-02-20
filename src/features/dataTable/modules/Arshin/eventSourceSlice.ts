@@ -14,8 +14,8 @@ const eventSource = createSlice({
 	name: 'eventSource',
 	initialState,
 	reducers: {
-		setEventSourceData: (state, action: PayloadAction<IEventSourceState>) => {
-			state.isWorking = action.payload.isWorking;
+		setEventSourceData: (state, action: PayloadAction<boolean>) => {
+			state.isWorking = action.payload;
 		},
 		resetState: () => initialState,
 	},

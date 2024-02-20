@@ -1,7 +1,12 @@
 import { enqueueSnackbar } from 'notistack';
 import { useCallback } from 'react';
 
-import { schemaArshinProcess, statusVariant } from '../config/arshinProcessConfig';
+import {
+	schemaArshinProcess,
+	schemaArshinWorking,
+	statusVariant,
+} from '../config/arshinProcessConfig';
+import { setEventSourceData } from '../eventSourceSlice';
 
 import { useServerSentEvent } from './useServerSentEvent';
 
@@ -26,6 +31,14 @@ export const useSendingAction = () => {
 		},
 		[dispatch]
 	);
+	const callBackWorking = useCallback(
+		(event: MessageEvent) => {
+			const { isWorking } = schemaArshinWorking.parse(JSON.parse(event.data));
+			dispatch(setEventSourceData(isWorking));
+		},
+		[dispatch]
+	);
 
-	useServerSentEvent(`/group/mersi/user/arshin/loading-process`, callBack);
+	useServerSentEvent(`/api/arshin/notifications/action`, callBack);
+	useServerSentEvent(`/api/arshin/notifications/working`, callBackWorking);
 };

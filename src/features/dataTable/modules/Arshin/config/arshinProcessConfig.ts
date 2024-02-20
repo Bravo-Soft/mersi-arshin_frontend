@@ -26,3 +26,6 @@ export const schemaArshinProcess = z.object({
 	status: z.nativeEnum(ARSHIN_ACTION_NOTIFICATION),
 	message: z.string(),
 });
+export const schemaArshinWorking = z.object({
+	isWorking: z.boolean(),
+});
