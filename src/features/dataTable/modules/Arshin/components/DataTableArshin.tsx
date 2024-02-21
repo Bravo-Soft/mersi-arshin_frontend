@@ -26,11 +26,11 @@ function DataTableArshin() {
 	useApplyTemplate(apiRef);
 
 	const { data, isFetching } = useGetDataQuery(undefined, {
+		refetchOnMountOrArgChange: true,
 		selectFromResult: ({ data, isFetching }) => ({
 			data: data ?? emptyData,
 			isFetching,
 		}),
-		pollingInterval: 20000,
 	});
 
 	const { selectionIds, handleSelectItems, handleDisabledSelectedRow, handleGetCellClassName } =

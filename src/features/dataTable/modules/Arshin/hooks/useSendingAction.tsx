@@ -31,10 +31,11 @@ export const useSendingAction = () => {
 		},
 		[dispatch]
 	);
+
 	const callBackWorking = useCallback(
 		(event: MessageEvent) => {
 			const { isWorking } = schemaArshinWorking.parse(JSON.parse(event.data));
-			dispatch(setEventSourceData(isWorking));
+			dispatch(setEventSourceData(JSON.parse(isWorking)));
 		},
 		[dispatch]
 	);

@@ -27,5 +27,5 @@ export const schemaArshinProcess = z.object({
 	message: z.string(),
 });
 export const schemaArshinWorking = z.object({
-	isWorking: z.boolean(),
+	isWorking: z.string(),
 });

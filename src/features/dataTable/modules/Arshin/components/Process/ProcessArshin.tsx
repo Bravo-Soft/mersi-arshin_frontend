@@ -23,7 +23,7 @@ function ProcessArshin({ apiRef }: Props) {
 
 	return (
 		<Popper
-			open={!isWorking}
+			open={isWorking}
 			anchorEl={anchor}
 			placement='bottom-end'
 			modifiers={processConfig}

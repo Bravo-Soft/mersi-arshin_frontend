@@ -32,7 +32,7 @@ export const useSendingArshin = () => {
 	};
 	const handleCancel = async () => {
 		await arshinCancel().unwrap();
-		localStorage.removeItem('setEventSourceData');
+		// localStorage.removeItem('setEventSourceData');
 		dispatch(resetState());
 	};
 
