@@ -42,7 +42,7 @@ export const API = {
 		addItems: `/data/arshin/add`,
 		deleteItems: `/arshin/data`,
 		synchronizeItems: `/arshin/data/synchronization`,
-		startArshin: `/arshin/process/cancel`,
+		startArshin: `/arshin/process/add`,
 		cancelArshin: `/arshin/process/cancel`,
 		validateArshin: `/arshin/data/validation`,
 	},

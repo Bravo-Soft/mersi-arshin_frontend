@@ -34,8 +34,9 @@ export const useSendingAction = () => {
 
 	const callBackWorking = useCallback(
 		(event: MessageEvent) => {
-			const { isWorking } = schemaArshinWorking.parse(JSON.parse(event.data));
-			dispatch(setEventSourceData(JSON.parse(isWorking)));
+			const { isWorking } = JSON.parse(event.data);
+			const test = isWorking !== 'false';
+			dispatch(setEventSourceData(test));
 		},
 		[dispatch]
 	);

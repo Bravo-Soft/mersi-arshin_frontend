@@ -24,8 +24,8 @@ export const useSendingArshin = () => {
 	const handleStart = async (data: string[]) => {
 		try {
 			await arshinValidate(data).unwrap();
-			// dispatch(setStartProcess(true));
 			await arshinStart(data).unwrap();
+			// dispatch(setStartProcess(true));
 		} catch (error) {
 			// dispatch(setStartProcess(false));
 		}

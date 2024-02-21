@@ -52,6 +52,7 @@ const defaultValues = {
 	organization: '',
 	stateRegister: '',
 	type: '',
+	view: '',
 	typeOfWork: '',
 	location: '',
 	responsible: '',
@@ -61,7 +62,6 @@ const defaultValues = {
 	methodology: '',
 	cost: '0',
 	verificationControlInStateRegister: false,
-	view: '',
 };
 
 function CreateDataItem(): JSX.Element {
