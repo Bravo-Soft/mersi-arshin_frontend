@@ -1,9 +1,9 @@
-import TextField from '@mui/material/TextField';
 import { DatePicker } from '@mui/x-date-pickers';
 import dayjs, { isDayjs } from 'dayjs';
-import { maxDate, minDate } from '../../../constant/dateMasks';
-import { Control, Controller, FieldPath, FieldValues } from 'react-hook-form';
 import React from 'react';
+import { Control, Controller, FieldPath, FieldValues } from 'react-hook-form';
+
+import { maxDate, minDate } from '../../../constant/dateMasks';
 
 type Props<T extends FieldValues> = {
 	name: FieldPath<T>;
@@ -38,3 +38,5 @@ function DatePickerFilterField<T extends FieldValues>({ name, control }: Props<T
 		/>
 	);
 }
+
+export default DatePickerFilterField;

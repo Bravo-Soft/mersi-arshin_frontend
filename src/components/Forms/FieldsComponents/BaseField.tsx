@@ -1,13 +1,13 @@
-import TextField from '@mui/material/TextField';
+import { TextField } from '@mui/material';
 import { Control, Controller, FieldPath, FieldValues } from 'react-hook-form';
 
 type Props<T extends FieldValues> = {
 	name: FieldPath<T>;
 	control: Control<T>;
 	label: string;
-	placeholder: string;
 };
-function FilterField<T extends FieldValues>({ name, control, label, placeholder }: Props<T>) {
+
+function BaseField<T extends FieldValues>({ control, name, label }: Props<T>) {
 	return (
 		<Controller
 			control={control}
@@ -16,15 +16,14 @@ function FilterField<T extends FieldValues>({ name, control, label, placeholder 
 				<TextField
 					{...field}
 					label={label}
-					fullWidth
-					placeholder={placeholder}
-					InputLabelProps={{
-						shrink: true,
-					}}
+					error={Boolean(error)}
+					helperText={error?.message ?? ' '}
+					InputLabelProps={{ shrink: true }}
+					type='text'
 				/>
 			)}
 		/>
 	);
 }
 
-export default FilterField;
+export default BaseField;

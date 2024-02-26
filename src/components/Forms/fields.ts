@@ -140,10 +140,10 @@ export const verificationFields: IField<KeysOfVerificate>[] = [
 		key: 'suitability',
 		label: ColumnNames.SUITABILITY,
 	},
-	// {
-	// 	key: 'fgisUrl',
-	// 	label: ColumnNames.FGIS_URL,
-	// },
+	{
+		key: 'fgisUrl',
+		label: ColumnNames.FGIS_URL,
+	},
 	{
 		key: 'cost',
 		label: ColumnNames.COST,

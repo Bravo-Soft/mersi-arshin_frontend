@@ -1,9 +1,10 @@
-import InputLabel from '@mui/material/InputLabel';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import { Tag } from '../../../constant/tag';
 import FormControl from '@mui/material/FormControl';
-import { Control, Controller, FieldPath, FieldValues, useFormContext } from 'react-hook-form';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import { Control, Controller, FieldPath, FieldValues } from 'react-hook-form';
+
+import { Tag } from '../../../constant/tag';
 
 type Props<T extends FieldValues> = {
 	name: FieldPath<T>;
@@ -14,7 +15,7 @@ function SizeField<T extends FieldValues>({ name, control }: Props<T>) {
 		<Controller
 			control={control}
 			name={name}
-			render={({ field, fieldState: { error } }) => (
+			render={({ field}) => (
 				<FormControl variant='standard' fullWidth>
 					<InputLabel shrink={true} id='select-operator-filter-label'>
 						Значение
@@ -34,3 +35,4 @@ function SizeField<T extends FieldValues>({ name, control }: Props<T>) {
 	);
 }
 
+export default SizeField;

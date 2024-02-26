@@ -5,99 +5,44 @@ import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import type { SelectChangeEvent } from '@mui/material/Select';
 import Select from '@mui/material/Select';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import { DatePicker } from '@mui/x-date-pickers';
 import dayjs, { isDayjs } from 'dayjs';
-import { useState } from 'react';
-import type { Control, ControllerRenderProps } from 'react-hook-form';
 import { Controller, useFormContext } from 'react-hook-form';
 
-import { columnsFilters, linkOperators, operatorsFilters } from '../data';
-import { defaultFilterValue } from '../defaultFilterValue';
-import { useNotificationFormActions } from '../hooks/useNotificationFormActions';
-import type { FormFiltersTypes } from '../types';
+import { operatorsFilters } from '../data';
+import useNameGenerator from '../hooks/useNameGenerator';
+import { useNotificationAction } from '../hooks/useNotificationAction';
 
-import SuitabilitySelect from 'components/SuitabilitySelect';
+import NotificationColumnFilter from './NotificationColumnFilter';
+import NotificationLinkOperator from './NotificationLinkOperator';
+
 import { ColumnNames } from 'constant/columnsName';
 import { maxDate, minDate } from 'constant/dateMasks';
 import { Tag } from 'constant/tag';
 import type { INotificationSettings } from 'types/notification';
-import FormHelperText from "@mui/material/FormHelperText";
 
 interface INotificationFilterItemProps {
 	index: number;
 	indexK: number;
-	control: Control<INotificationSettings, `subscribedEmails.${number}.emailFilters`>;
+	// control: Control<INotificationSettings, `subscribedEmails.${number}.emailFilters`>;
 	removeEmail: (indexRemove: number) => () => void;
 }
 
-function NotificationFilterItem({
-	index,
-	indexK,
-	control,
-	removeEmail,
-}: INotificationFilterItemProps) {
-	const {
-		setValue,
-		watch,
-		register,
-		formState: { errors },
-	} = useFormContext<INotificationSettings>();
+function NotificationFilterItem(props: INotificationFilterItemProps) {
+	const { index, indexK, removeEmail } = props;
 
-	const watchColumnField = watch(`subscribedEmails.${index}.emailFilters.${indexK}.columnFilter`);
-	const watchOperatorValue = watch(
-		`subscribedEmails.${index}.emailFilters.${indexK}.operatorValue`
-	);
+	const { register, control } = useFormContext<INotificationSettings>();
 
-	const { filterType } = useNotificationFormActions();
-	const [operatorValueX, setOperatorValue] = useState<FormFiltersTypes>(
-		filterType(watchColumnField)
-	);
+	const { linkName, columnName } = useNameGenerator({ index, indexK });
 
-	const onChangeColumnField =
-		(
-			field: ControllerRenderProps<
-				INotificationSettings,
-				`subscribedEmails.${number}.emailFilters.${number}.columnFilter`
-			>
-		) =>
-		(event: SelectChangeEvent<string>) => {
-			const eventFilterType = filterType(event.target.value);
-
-			if (eventFilterType !== operatorValueX) {
-				setOperatorValue(eventFilterType);
-				setValue(
-					`subscribedEmails.${index}.emailFilters.${indexK}.operatorValue`,
-					operatorsFilters[eventFilterType][0].operatorValue
-				);
-			}
-
-			if (eventFilterType !== filterType(watchColumnField)) {
-				setValue(
-					`subscribedEmails.${index}.emailFilters.${indexK}.value`,
-					defaultFilterValue(eventFilterType)
-				);
-			}
-
-			field.onChange(event.target.value);
-		};
-
-	const onChangeOperationField =
-		(
-			field: ControllerRenderProps<
-				INotificationSettings,
-				`subscribedEmails.${number}.emailFilters.${number}.operatorValue`
-			>
-		) =>
-		(event: SelectChangeEvent<string>) => {
-			if (watchOperatorValue === 'isEmpty') {
-				setValue(`subscribedEmails.${index}.emailFilters.${indexK}.value`, '');
-			}
-			field.onChange(event.target.value);
-		};
+	const { onChangeColumnField, onChangeOperationField, operatorValueX, watchOperatorValue } =
+		useNotificationAction({
+			index,
+			indexK,
+		});
 
 	return (
 		<Stack direction='row' p={1} justifyContent='space-between' alignItems='flex-end' spacing={2}>
@@ -105,60 +50,14 @@ function NotificationFilterItem({
 				<IconButton onClick={removeEmail(indexK)}>
 					<CloseIcon />
 				</IconButton>
-				{indexK !== 0 && (
-					<Controller
-						control={control}
-						name={`subscribedEmails.${index}.linkOperator`}
-						render={({ field }) => (
-							<FormControl variant='standard' size='medium'>
-								<Select
-									{...field}
-									value={field.value}
-									disabled={indexK !== 1}
-									sx={{ width: 58 }}
-								>
-									{linkOperators.map(({ linkValue, linkTitle }) => (
-										<MenuItem key={`${linkValue}_${linkTitle}`} value={linkValue}>
-											{linkTitle}
-										</MenuItem>
-									))}
-								</Select>
-							</FormControl>
-						)}
-					/>
-				)}
+				<NotificationLinkOperator control={control} name={linkName} indexK={indexK} />
 			</Stack>
 			<Grid container width={478} spacing={0}>
 				<Grid item xs={4}>
-					<Controller
-						control={control}
-						name={`subscribedEmails.${index}.emailFilters.${indexK}.columnFilter`}
-						render={({ field }) => (
-							<FormControl variant='standard' fullWidth>
-								<InputLabel id='select-date-of-sending-label'>Столбцы</InputLabel>
-								<Select
-									{...field}
-									value={field.value}
-									id='select-column-filter'
-									labelId='select-column-filter-label'
-									onChange={onChangeColumnField(field)}
-									fullWidth
-									MenuProps={{
-										PaperProps: {
-											sx: {
-												maxHeight: 200,
-											},
-										},
-									}}
-								>
-									{columnsFilters.map(({ field, headerName }) => (
-										<MenuItem key={`${field}_${headerName}`} value={field}>
-											{headerName}
-										</MenuItem>
-									))}
-								</Select>
-							</FormControl>
-						)}
+					<NotificationColumnFilter
+						// control={control}
+						name={columnName}
+						onChange={onChangeColumnField}
 					/>
 				</Grid>
 				<Grid item xs={4}>
@@ -227,10 +126,10 @@ function NotificationFilterItem({
 									name={`subscribedEmails.${index}.emailFilters.${indexK}.value`}
 									control={control}
 									render={({ field, fieldState: { error } }) => (
-											<Select {...field} labelId='suitability-id'>
-												<MenuItem value='false'>Нет</MenuItem>
-												<MenuItem value='true'>Да</MenuItem>
-											</Select>
+										<Select {...field} labelId='suitability-id'>
+											<MenuItem value='false'>Нет</MenuItem>
+											<MenuItem value='true'>Да</MenuItem>
+										</Select>
 									)}
 								/>
 							</FormControl>
@@ -239,7 +138,7 @@ function NotificationFilterItem({
 								key='cost'
 								{...register(`subscribedEmails.${index}.emailFilters.${indexK}.value`)}
 								label={ColumnNames.COST}
-								error={Boolean(errors.subscribedEmails[index].emailFilters[indexK].value)}
+								// error={Boolean(errors.subscribedEmails[index]?.emailFilters[indexK].value)}
 								InputLabelProps={{ shrink: true }}
 								InputProps={{
 									startAdornment: <InputAdornment position='start'>₽</InputAdornment>,

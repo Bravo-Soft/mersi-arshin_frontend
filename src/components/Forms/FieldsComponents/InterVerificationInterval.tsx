@@ -1,8 +1,8 @@
-import React from "react";
-import { Control, Controller, FieldPath, FieldValues } from "react-hook-form";
-import TextField from "@mui/material/TextField";
-import { ColumnNames } from "../../../constant/columnsName";
+import TextField from '@mui/material/TextField';
+import React from 'react';
+import { Control, Controller, FieldPath, FieldValues } from 'react-hook-form';
 
+import { ColumnNames } from '../../../constant/columnsName';
 
 type Props<T extends FieldValues> = {
 	name: FieldPath<T>;
