@@ -1,16 +1,15 @@
-import { GridCellParams, GridRowParams, GridSelectionModel } from '@mui/x-data-grid-pro';
+import { GridCellParams, GridRowParams, GridSelectionModel } from "@mui/x-data-grid-pro";
 
 import {
 	selectArshinData,
 	selectNotValidArshinClassesItem,
 	selectSelectedDataIds,
-	setSelectedDataItems,
-} from '../arshinTableSlice';
-import { selectIsWorkingArshin } from '../eventSourceSlice';
+	setSelectedDataItems
+} from "../arshinTableSlice";
 
-import { ArshinStatus } from 'constant/arshinStatus';
-import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { IDataItemArshin } from 'types/arshinIntegration';
+import { ArshinStatus } from "constant/arshinStatus";
+import { useAppDispatch, useAppSelector } from "hooks/redux";
+import { IDataItemArshin } from "types/arshinIntegration";
 
 /**
  * @package хук для обработки выбранных позиций в модели
@@ -26,7 +25,6 @@ const useTableActions = () => {
 	const dataArshin = useAppSelector(selectArshinData);
 
 	const selectionIds = useAppSelector(selectSelectedDataIds);
-	// const isWorking = useAppSelector(selectIsWorkingArshin);
 
 	const arshinItems = useAppSelector(selectNotValidArshinClassesItem);
 

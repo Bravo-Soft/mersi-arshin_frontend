@@ -1,11 +1,7 @@
-import {
-	useCancelArshinMutation,
-	useStartArshinMutation,
-	useValidateArshinMutation,
-} from '../arshinTableApiSlice';
-import { resetState } from '../eventSourceSlice';
+import { useCancelArshinMutation, useStartArshinMutation, useValidateArshinMutation } from "../arshinTableApiSlice";
+import { resetState } from "../eventSourceSlice";
 
-import { useAppDispatch } from 'hooks/redux';
+import { useAppDispatch } from "hooks/redux";
 
 /**
  * @package хук отправления данных на проверку в Arshin
@@ -14,7 +10,6 @@ import { useAppDispatch } from 'hooks/redux';
  * @returns возвращает  { handleStart, handleCancel }
  */
 
-//! TODO
 export const useSendingArshin = () => {
 	const [arshinStart] = useStartArshinMutation();
 	const [arshinCancel] = useCancelArshinMutation();

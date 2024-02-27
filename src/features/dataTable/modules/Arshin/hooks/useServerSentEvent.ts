@@ -25,10 +25,6 @@ export const useServerSentEvent = (
 			callBack(event);
 		};
 
-		eventSource.onopen = () => {
-			setIsOpen(true);
-		};
-
 		if (eventSource.onerror) {
 			eventSource.close();
 			setIsOpen(false);
