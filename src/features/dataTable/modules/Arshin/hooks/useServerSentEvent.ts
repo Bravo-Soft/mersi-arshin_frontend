@@ -17,6 +17,10 @@ export const useServerSentEvent = (
 		const eventSource = new EventSource(url, {
 			withCredentials: true,
 		});
+		eventSource.onopen = () => {
+			setIsOpen(true);
+		};
+
 		eventSource.onmessage = event => {
 			callBack(event);
 		};

@@ -26,7 +26,6 @@ function DataTableArshin() {
 	const isOpen = useWorkingArshin();
 
 	useApplyTemplate(apiRef);
-
 	const { data, isFetching } = useGetDataQuery(undefined, {
 		refetchOnMountOrArgChange: true,
 		skip: !isOpen,

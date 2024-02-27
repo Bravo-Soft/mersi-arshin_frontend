@@ -1,12 +1,12 @@
-import { enqueueSnackbar } from "notistack";
-import { useCallback } from "react";
+import { enqueueSnackbar } from 'notistack';
+import { useCallback } from 'react';
 
-import { schemaArshinProcess, statusVariant } from "../config/arshinProcessConfig";
+import { schemaArshinProcess, statusVariant } from '../config/arshinProcessConfig';
 
-import { useServerSentEvent } from "./useServerSentEvent";
+import { useServerSentEvent } from './useServerSentEvent';
 
-import { apiSlice } from "app/apiSlice";
-import { useAppDispatch } from "hooks/redux";
+import { apiSlice } from 'app/apiSlice';
+import { useAppDispatch } from 'hooks/redux';
 
 /**
  * @package хук обработчик SSE канала Arshin
