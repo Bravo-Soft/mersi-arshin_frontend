@@ -6,6 +6,7 @@ import { columnsArshin } from '../config/columns';
 import { useApplyTemplate } from '../hooks/useApplyTemplate';
 import { useContextMenuActions } from '../hooks/useContextMenuActions';
 import useTableActions from '../hooks/useTableActions';
+import { useWorkingArshin } from '../hooks/useWorkingArshin';
 
 import ContextMenuArshin from './ContextMenuArshin';
 import DataTableArshinToolbar from './DataTableArshinToolbar';
@@ -24,9 +25,10 @@ function DataTableArshin() {
 	const apiRef = useGridApiRef();
 
 	useApplyTemplate(apiRef);
-
+	const isOpen = useWorkingArshin();
 	const { data, isFetching } = useGetDataQuery(undefined, {
 		refetchOnMountOrArgChange: true,
+		skip: !isOpen,
 		selectFromResult: ({ data, isFetching }) => ({
 			data: data ?? emptyData,
 			isFetching,
