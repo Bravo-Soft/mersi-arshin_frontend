@@ -1,5 +1,3 @@
-import { useActionArshin } from '../../features/dataTable/modules/Arshin/hooks/useActionArshin';
-
 import DataTableArshin from 'features/dataTable/modules/Arshin/components/DataTableArshin';
 import DeletingDialog from 'features/dataTable/modules/Arshin/components/Dialog/DeletingDialog';
 import FiltersDialog from 'features/dataTable/modules/Arshin/components/Dialog/FiltersDialog';
@@ -12,7 +10,6 @@ import { useAppSelector } from 'hooks/redux';
 import PageBox from 'styled/PageBox';
 
 function ArshinIntegrationPage() {
-	useActionArshin();
 	/* Селектор */
 	const { open, selector } = useAppSelector(selectSidebarStateOfArshinPage);
 

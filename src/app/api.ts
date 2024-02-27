@@ -47,8 +47,8 @@ export const API = {
 		validateArshin: `/arshin/data/validation`,
 	},
 	notification: {
-		getNotifications: `/mersi/arshin-notification/arshin/unread`,
-		readNotifications: (id: string) => `/mersi/arshin-notification/arshin/read/${id}`,
-		readAllNotifications: `/mersi/arshin-notification/arshin/read`,
+		getNotifications: `/notifications/messages/unread`,
+		readNotifications: (id: string) => `/notifications/messages/read/${id}`,
+		readAllNotifications: `/notifications/messages/read`,
 	},
 };

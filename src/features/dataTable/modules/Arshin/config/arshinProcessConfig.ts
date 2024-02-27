@@ -22,10 +22,13 @@ export enum ARSHIN_ACTION_NOTIFICATION {
 	READY = 'ready',
 }
 
-export const schemaArshinProcess = z.object({
+export const schemaArshinProcessStatus = z.object({
 	status: z.nativeEnum(ARSHIN_ACTION_NOTIFICATION),
 	message: z.string(),
 });
-export const schemaArshinWorking = z.object({
+export const schemaArshinProcessWorking = z.object({
 	isWorking: z.boolean(),
 });
+
+export type ArshinProcessStatusType = z.infer<typeof schemaArshinProcessStatus>;
+export type ArshinProcessWorkingType = z.infer<typeof schemaArshinProcessWorking>;
