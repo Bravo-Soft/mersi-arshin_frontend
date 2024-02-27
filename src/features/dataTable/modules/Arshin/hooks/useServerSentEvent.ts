@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 /**
  * @package хук открывающий SSE канал
@@ -11,6 +11,8 @@ export const useServerSentEvent = (
 	callBack: (event: MessageEvent) => void,
 	disabled?: boolean
 ) => {
+	const [isOpen, setIsOpen] = useState(false);
+
 	useEffect(() => {
 		const eventSource = new EventSource(url, {
 			withCredentials: true,
@@ -18,9 +20,17 @@ export const useServerSentEvent = (
 		eventSource.onmessage = event => {
 			callBack(event);
 		};
+
+		eventSource.onopen = () => {
+			setIsOpen(true);
+		};
+
 		if (eventSource.onerror) {
 			eventSource.close();
+			setIsOpen(false);
 		}
 		return () => eventSource.close();
 	}, [callBack, disabled, url]);
+
+	return isOpen;
 };

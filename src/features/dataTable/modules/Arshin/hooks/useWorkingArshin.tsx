@@ -1,16 +1,10 @@
-import { enqueueSnackbar } from 'notistack';
 import { useCallback } from 'react';
 
-import {
-	schemaArshinProcess,
-	schemaArshinWorking,
-	statusVariant,
-} from '../config/arshinProcessConfig';
+import { schemaArshinWorking } from '../config/arshinProcessConfig';
 import { setEventSourceData } from '../eventSourceSlice';
 
 import { useServerSentEvent } from './useServerSentEvent';
 
-import { apiSlice } from 'app/apiSlice';
 import { useAppDispatch } from 'hooks/redux';
 
 /**
@@ -20,17 +14,8 @@ import { useAppDispatch } from 'hooks/redux';
  * @function useServerSentEvent => Создание SSE канала
  */
 
-export const useSendingAction = () => {
+export const useWorkingArshin = () => {
 	const dispatch = useAppDispatch();
-
-	const callBack = useCallback(
-		(event: MessageEvent) => {
-			const { status, message } = schemaArshinProcess.parse(JSON.parse(event.data));
-			dispatch(apiSlice.util.invalidateTags(['ArshinData']));
-			enqueueSnackbar(message, { variant: statusVariant[status] });
-		},
-		[dispatch]
-	);
 
 	const callBackWorking = useCallback(
 		(event: MessageEvent) => {
@@ -40,6 +25,5 @@ export const useSendingAction = () => {
 		[dispatch]
 	);
 
-	useServerSentEvent(`/api/arshin/notifications/action`, callBack);
-	useServerSentEvent(`/api/arshin/notifications/working`, callBackWorking);
+	return useServerSentEvent(`/api/arshin/notifications/working`, callBackWorking);
 };

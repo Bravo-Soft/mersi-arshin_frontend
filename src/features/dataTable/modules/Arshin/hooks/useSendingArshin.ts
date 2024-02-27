@@ -25,14 +25,11 @@ export const useSendingArshin = () => {
 		try {
 			await arshinValidate(data).unwrap();
 			await arshinStart(data).unwrap();
-			// dispatch(setStartProcess(true));
-		} catch (error) {
-			// dispatch(setStartProcess(false));
-		}
+			// eslint-disable-next-line no-empty
+		} catch (error) {}
 	};
 	const handleCancel = async () => {
 		await arshinCancel().unwrap();
-		// localStorage.removeItem('setEventSourceData');
 		dispatch(resetState());
 	};
 
