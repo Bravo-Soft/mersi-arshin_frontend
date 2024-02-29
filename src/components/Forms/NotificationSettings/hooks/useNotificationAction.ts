@@ -20,13 +20,13 @@ export const useNotificationAction = ({ index, indexK }: Props) => {
 
 	const watchColumnField = watch(`${fieldName}.columnFilter`);
 
-	const watchOperatorValue = watch(`${fieldName}.operatorValue`);
+	const operatorValue = watch(`${fieldName}.operatorValue`);
 
 	const [operatorValueX, setOperatorValue] = useState<FormFiltersTypes>(
 		filterType(watchColumnField)
 	);
 
-	const onChangeColumnField = (field: ColumnFieldProps) => (event: SelectChangeEvent<string>) => {
+	const columnChange = (field: ColumnFieldProps) => (event: SelectChangeEvent<string>) => {
 		const eventFilterType = filterType(event.target.value);
 
 		if (eventFilterType !== operatorValueX) {
@@ -41,15 +41,14 @@ export const useNotificationAction = ({ index, indexK }: Props) => {
 		field.onChange(event.target.value);
 	};
 
-	const onChangeOperationField =
-		(field: OperationFieldProps) => (event: SelectChangeEvent<string>) => {
-			if (watchOperatorValue === 'isEmpty') {
-				setValue(`subscribedEmails.${index}.emailFilters.${indexK}.value`, '');
-			}
-			field.onChange(event.target.value);
-		};
+	const operationChange = (field: OperationFieldProps) => (event: SelectChangeEvent<string>) => {
+		if (operatorValue === 'isEmpty') {
+			setValue(`subscribedEmails.${index}.emailFilters.${indexK}.value`, '');
+		}
+		field.onChange(event.target.value);
+	};
 
-	return { onChangeColumnField, onChangeOperationField, watchOperatorValue, operatorValueX };
+	return { columnChange, operationChange, operatorValue, operatorValueX };
 };
 
 export type ColumnFieldProps = ControllerRenderProps<

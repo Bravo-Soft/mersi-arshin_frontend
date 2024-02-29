@@ -32,11 +32,10 @@ function NotificationFilterItem(props: INotificationFilterItemProps) {
 
 	const { linkName, columnName, operatorName, valuerName } = useNameGenerator({ index, indexK });
 
-	const { onChangeColumnField, onChangeOperationField, operatorValueX, watchOperatorValue } =
-		useNotificationAction({
-			index,
-			indexK,
-		});
+	const { columnChange, operationChange, operatorValueX, operatorValue } = useNotificationAction({
+		index,
+		indexK,
+	});
 
 	return (
 		<Stack direction='row' p={1} justifyContent='space-between' alignItems='flex-end' spacing={2}>
@@ -51,7 +50,7 @@ function NotificationFilterItem(props: INotificationFilterItemProps) {
 					<NotificationColumnFilter
 						control={control}
 						name={columnName}
-						onChange={onChangeColumnField}
+						onChange={columnChange}
 					/>
 				</Grid>
 				<Grid item xs={4}>
@@ -59,10 +58,10 @@ function NotificationFilterItem(props: INotificationFilterItemProps) {
 						control={control}
 						name={operatorName}
 						operatorValueX={operatorValueX}
-						onChange={onChangeOperationField}
+						onChange={operationChange}
 					/>
 				</Grid>
-				{watchOperatorValue !== 'isEmpty' && (
+				{operatorValue !== 'isEmpty' && (
 					<Grid item xs={4}>
 						{operatorValueX === 'interVerificationInterval' ? (
 							<InterVerificationInterval name={valuerName} control={control} />
