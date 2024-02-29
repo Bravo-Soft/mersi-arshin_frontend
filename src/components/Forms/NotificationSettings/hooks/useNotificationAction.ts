@@ -26,25 +26,20 @@ export const useNotificationAction = ({ index, indexK }: Props) => {
 		filterType(watchColumnField)
 	);
 
-	const onChangeColumnField =
-		({ onChange }: ColumnFieldProps) =>
-		(event: SelectChangeEvent<string>) => {
-			const eventFilterType = filterType(event.target.value);
+	const onChangeColumnField = (field: ColumnFieldProps) => (event: SelectChangeEvent<string>) => {
+		const eventFilterType = filterType(event.target.value);
 
-			if (eventFilterType !== operatorValueX) {
-				setOperatorValue(eventFilterType);
-				setValue(
-					`${fieldName}.operatorValue`,
-					operatorsFilters[eventFilterType][0].operatorValue
-				);
-			}
+		if (eventFilterType !== operatorValueX) {
+			setOperatorValue(eventFilterType);
+			setValue(`${fieldName}.operatorValue`, operatorsFilters[eventFilterType][0].operatorValue);
+		}
 
-			if (eventFilterType !== filterType(watchColumnField)) {
-				setValue(`${fieldName}.value`, defaultFilterValue(eventFilterType));
-			}
+		if (eventFilterType !== filterType(watchColumnField)) {
+			setValue(`${fieldName}.value`, defaultFilterValue(eventFilterType));
+		}
 
-			onChange(event.target.value);
-		};
+		field.onChange(event.target.value);
+	};
 
 	const onChangeOperationField =
 		(field: OperationFieldProps) => (event: SelectChangeEvent<string>) => {
@@ -57,9 +52,10 @@ export const useNotificationAction = ({ index, indexK }: Props) => {
 	return { onChangeColumnField, onChangeOperationField, watchOperatorValue, operatorValueX };
 };
 
-export type ColumnFieldProps = {
-	onChange: (field: (...event: unknown[]) => void) => (event: SelectChangeEvent<string>) => void;
-};
+export type ColumnFieldProps = ControllerRenderProps<
+	INotificationSettings,
+	`subscribedEmails.${number}.emailFilters.${number}.columnFilter`
+>;
 
 export type OperationFieldProps = ControllerRenderProps<
 	INotificationSettings,

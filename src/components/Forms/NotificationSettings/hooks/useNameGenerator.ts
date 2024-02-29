@@ -10,7 +10,11 @@ const useNameGenerator = ({ indexK, index }: Props) => {
 		`subscribedEmails.${index}.emailFilters.${indexK}.columnFilter`
 	);
 
-	return { linkName, columnName };
+	const { name: operatorName } = register(
+		`subscribedEmails.${index}.emailFilters.${indexK}.operatorValue`
+	);
+	const { name: valuerName } = register(`subscribedEmails.${index}.emailFilters.${indexK}.value`);
+	return { linkName, columnName, operatorName, valuerName };
 };
 
 export default useNameGenerator;
