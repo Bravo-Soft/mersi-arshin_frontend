@@ -62,22 +62,28 @@ function NotificationFilterItem(props: INotificationFilterItemProps) {
 						onChange={onChangeOperationField}
 					/>
 				</Grid>
-				<Grid item xs={4}>
-					{watchOperatorValue !== 'isEmpty' &&
-						(operatorValueX === 'interVerificationInterval' ? (
+				{watchOperatorValue !== 'isEmpty' && (
+					<Grid item xs={4}>
+						{operatorValueX === 'interVerificationInterval' ? (
 							<InterVerificationInterval name={valuerName} control={control} />
 						) : operatorValueX === 'suitability' ? (
 							<SuitabilityField name={valuerName} control={control} />
 						) : operatorValueX === 'cost' ? (
-							<CostFilterField name={valuerName} control={control} />
+							<CostFilterField name={valuerName} control={control} hText={false} />
 						) : operatorValueX === 'dateFilters' ? (
 							<DatePickerFilterField control={control} name={valuerName} />
 						) : operatorValueX === 'sizesFilters' ? (
 							<SizeField control={control} name={valuerName} />
 						) : (
-							<BaseField control={control} name={valuerName} label='Значение фильтра' />
-						))}
-				</Grid>
+							<BaseField
+								control={control}
+								name={valuerName}
+								label='Значение фильтра'
+								hText={false}
+							/>
+						)}
+					</Grid>
+				)}
 			</Grid>
 		</Stack>
 	);

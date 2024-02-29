@@ -5,9 +5,10 @@ type Props<T extends FieldValues> = {
 	name: FieldPath<T>;
 	control: Control<T>;
 	label: string;
+	hText?: boolean;
 };
 
-function BaseField<T extends FieldValues>({ control, name, label }: Props<T>) {
+function BaseField<T extends FieldValues>({ control, name, label, hText = true }: Props<T>) {
 	return (
 		<Controller
 			control={control}
@@ -17,7 +18,7 @@ function BaseField<T extends FieldValues>({ control, name, label }: Props<T>) {
 					{...field}
 					label={label}
 					error={Boolean(error)}
-					helperText={error?.message ?? ' '}
+					helperText={(hText && error?.message) ?? ' '}
 					InputLabelProps={{ shrink: true }}
 					type='text'
 				/>

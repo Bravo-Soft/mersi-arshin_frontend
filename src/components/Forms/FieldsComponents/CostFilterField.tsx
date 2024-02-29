@@ -7,9 +7,10 @@ import { ColumnNames } from '../../../constant/columnsName';
 type Props<T extends FieldValues> = {
 	name: FieldPath<T>;
 	control: Control<T>;
+	hText?: boolean;
 };
 
-function CostFilterField<T extends FieldValues>({ name, control }: Props<T>) {
+function CostFilterField<T extends FieldValues>({ name, control, hText = true }: Props<T>) {
 	return (
 		<Controller
 			control={control}
@@ -23,7 +24,7 @@ function CostFilterField<T extends FieldValues>({ name, control }: Props<T>) {
 						startAdornment: <InputAdornment position='start'>₽</InputAdornment>,
 					}}
 					error={Boolean(error)}
-					helperText={error?.message ?? ' '}
+					helperText={(hText && error?.message) ?? ' '}
 					inputProps={{
 						step: 0.01,
 					}}
