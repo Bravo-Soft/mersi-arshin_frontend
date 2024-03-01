@@ -4,14 +4,14 @@ import Select from '@mui/material/Select';
 import React from 'react';
 import { Controller, FieldValues, useFormContext } from 'react-hook-form';
 
-import { linkOperators } from '../data';
+import { linkOperators } from '../../NotificationSettings/data';
 
 type Props<T extends FieldValues> = {
 	name: `${string}.linkOperator`;
 	indexK: number;
 };
 
-function NotificationLinkOperator<T extends FieldValues>({ name, indexK }: Props<T>) {
+function FilterLinkField<T extends FieldValues>({ name, indexK }: Props<T>) {
 	const { control } = useFormContext<FieldValues>();
 
 	if (indexK === 0) {
@@ -36,4 +36,4 @@ function NotificationLinkOperator<T extends FieldValues>({ name, indexK }: Props
 	);
 }
 
-export default NotificationLinkOperator;
+export default FilterLinkField;

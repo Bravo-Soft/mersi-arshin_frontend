@@ -1,27 +1,16 @@
 import CloseIcon from '@mui/icons-material/Close';
-import type { SelectChangeEvent } from '@mui/material';
 import Box from '@mui/material/Box';
-import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import TextField from '@mui/material/TextField';
-import { DatePicker } from '@mui/x-date-pickers-pro';
-import dayjs, { isDayjs } from 'dayjs';
-import { useState } from 'react';
-import type { ControllerRenderProps } from 'react-hook-form';
-import { Controller, useFormContext } from 'react-hook-form';
+import React from 'react';
 
-import type { FormFilterType, IColumnTable, IForm } from '../operatorsFilters';
-import { operatorsFilters } from '../operatorsFilters';
+import ColumnFilterField from '../../../../../components/Forms/FilterForm/components/ColumnFilterField';
+import OperatorFilterField from '../../../../../components/Forms/FilterForm/components/OperatorFilterField';
+import ValueFilterField from '../../../../../components/Forms/FilterForm/components/ValueFilterField';
+import useNameGenerator from '../../../../../components/Forms/FilterForm/hooks/useNameGenerator';
+import type { IColumnTable } from '../operatorsFilters';
 
-import { getCurrentColumns } from './utils/helpers';
-
-import { useNotificationFormActions } from 'components/Forms/NotificationSettings/hooks/useNotificationFormActions';
-import { maxDate, minDate } from 'constant/dateMasks';
-import { Tag } from 'constant/tag';
+import { useFilterAction } from 'components/Forms/FilterForm/hooks/useFilterAction';
 
 interface IBlockFilterProps {
 	index: number;
@@ -30,39 +19,13 @@ interface IBlockFilterProps {
 }
 
 function BlockFilter({ index, remove, columnsFilters }: IBlockFilterProps) {
-	const { watch, control, setValue } = useFormContext<IForm>();
+	const { columnName, operatorName, valueName, fieldName } = useNameGenerator({
+		name: `filters.${index}`,
+	});
 
-	const watchColumnField = watch(`filters.${index}.columnField`);
-	const watchOperatorValue = watch(`filters.${index}.operatorValue`);
-
-	const { filterType } = useNotificationFormActions();
-	const [operatorValue, setOperatorValue] = useState<FormFilterType>(filterType(watchColumnField));
-
-	const onChangeColumnField =
-		(field: ControllerRenderProps<IForm, `filters.${number}.columnField`>) =>
-		(event: SelectChangeEvent<string>) => {
-			const eventFilterType = filterType(event.target.value);
-			if (eventFilterType !== operatorValue) {
-				setOperatorValue(eventFilterType);
-				setValue(
-					`filters.${index}.operatorValue`,
-					operatorsFilters[eventFilterType][0].operatorValue
-				);
-			}
-			if (eventFilterType !== filterType(watchColumnField)) {
-				setValue(`filters.${index}.value`, '');
-			}
-			field.onChange(event.target.value);
-		};
-
-	const onChangeOperationField =
-		(field: ControllerRenderProps<IForm, `filters.${number}.operatorValue`>) =>
-		(event: SelectChangeEvent<string>) => {
-			if (watchOperatorValue === 'isEmpty') {
-				setValue(`filters.${index}.value`, '');
-			}
-			field.onChange(event.target.value);
-		};
+	const { columnChange, operationChange, operatorValueX, operatorValue } = useFilterAction({
+		fieldName,
+	});
 
 	const removeFilter = (index: number) => () => {
 		remove(index);
@@ -75,132 +38,20 @@ function BlockFilter({ index, remove, columnsFilters }: IBlockFilterProps) {
 			</IconButton>
 			<Grid container width='100%' spacing={0}>
 				<Grid item xs={4}>
-					<Controller
-						control={control}
-						name={`filters.${index}.columnField`}
-						render={({ field }) => (
-							<FormControl variant='standard' fullWidth>
-								<InputLabel id='select-date-of-sending-label'>Столбцы</InputLabel>
-								<Select
-									{...field}
-									value={field.value}
-									id='select-column-filter'
-									labelId='select-column-filter-label'
-									onChange={onChangeColumnField(field)}
-									fullWidth
-									MenuProps={{
-										PaperProps: {
-											sx: {
-												maxHeight: 200,
-											},
-										},
-									}}
-								>
-									{getCurrentColumns(columnsFilters).map(({ field, headerName }) => (
-										<MenuItem key={`${field}_${headerName}`} value={field}>
-											{headerName}
-										</MenuItem>
-									))}
-								</Select>
-							</FormControl>
-						)}
-					/>
+					<ColumnFilterField name={columnName} onChange={columnChange} />
 				</Grid>
 				<Grid item xs={4}>
-					<Controller
-						control={control}
-						name={`filters.${index}.operatorValue`}
-						render={({ field }) => (
-							<FormControl variant='standard' fullWidth>
-								<InputLabel id='select-operator-filter-label'>Операторы</InputLabel>
-								<Select
-									{...field}
-									value={field.value}
-									id='select-operator-filter'
-									labelId='select-operator-filter-label'
-									onChange={onChangeOperationField(field)}
-									fullWidth
-									MenuProps={{
-										PaperProps: {
-											sx: {
-												maxHeight: 200,
-											},
-										},
-									}}
-								>
-									{operatorsFilters[operatorValue].map(
-										({ operatorValue, columnField }) => (
-											<MenuItem
-												key={`${operatorValue}_${columnField}`}
-												value={operatorValue}
-											>
-												{columnField}
-											</MenuItem>
-										)
-									)}
-								</Select>
-							</FormControl>
-						)}
+					<OperatorFilterField
+						name={operatorName}
+						operatorValueX={operatorValueX}
+						onChange={operationChange}
 					/>
 				</Grid>
-				<Grid item xs={4}>
-					{watchOperatorValue !== 'isEmpty' && (
-						<Controller
-							control={control}
-							name={`filters.${index}.value`}
-							render={({ field, fieldState: { error }, formState: { errors } }) =>
-								operatorValue === 'defaultFilters' ? (
-									<TextField
-										{...field}
-										label='Значение'
-										fullWidth
-										placeholder='Значение фильтра'
-										InputLabelProps={{
-											shrink: true,
-										}}
-										error={Boolean(error)}
-										helperText={error?.message ?? ' '}
-									/>
-								) : operatorValue === 'dateFilters' ? (
-									<DatePicker
-										{...field}
-										label='Дата фильтрации'
-										value={dayjs(field.value)}
-										onChange={newDate => {
-											if (isDayjs(newDate)) {
-												field.onChange(newDate);
-											}
-										}}
-										slotProps={{
-											textField: {
-												inputRef: field.ref,
-												error: Boolean(errors.filters && errors.filters[index]?.value),
-												helperText: error?.message ?? ' ',
-											},
-										}}
-										minDate={dayjs(minDate)}
-										maxDate={dayjs(maxDate)}
-									/>
-								) : (
-									<FormControl variant='standard' fullWidth>
-										<InputLabel shrink={true} id='select-operator-filter-label'>
-											Значение
-										</InputLabel>
-										<Select
-											{...field}
-											id='select-operator-filter'
-											labelId='select-operator-filter-label'
-										>
-											<MenuItem value={Tag.SMALL}>{Tag.SMALL}</MenuItem>
-											<MenuItem value={Tag.MEDIUM}>{Tag.MEDIUM}</MenuItem>
-											<MenuItem value={Tag.LARGE}>{Tag.LARGE}</MenuItem>
-										</Select>
-									</FormControl>
-								)
-							}
-						/>
-					)}
-				</Grid>
+				{operatorValue !== 'isEmpty' && (
+					<Grid item xs={4}>
+						<ValueFilterField operatorValueX={operatorValueX} valueName={valueName} />
+					</Grid>
+				)}
 			</Grid>
 		</Box>
 	);

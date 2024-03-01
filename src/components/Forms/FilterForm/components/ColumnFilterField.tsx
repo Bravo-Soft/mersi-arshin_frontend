@@ -4,7 +4,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select, { type SelectChangeEvent } from '@mui/material/Select';
 import { Controller, FieldValues, useFormContext } from 'react-hook-form';
 
-import { columnsFilters } from '../data';
+import { columnsFilters } from '../../NotificationSettings/data';
 import { ColumnFieldProps } from '../hooks/useFilterAction';
 
 type Props = {
@@ -12,7 +12,7 @@ type Props = {
 	onChange: (field: ColumnFieldProps) => (event: SelectChangeEvent<string>) => void;
 };
 
-function NotificationColumnFilter({ name, onChange }: Props) {
+function ColumnFilterField({ name, onChange }: Props) {
 	const { control } = useFormContext<FieldValues>();
 
 	return (
@@ -49,4 +49,4 @@ function NotificationColumnFilter({ name, onChange }: Props) {
 	);
 }
 
-export default NotificationColumnFilter;
+export default ColumnFilterField;

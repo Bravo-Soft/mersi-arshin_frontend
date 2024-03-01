@@ -7,16 +7,16 @@ import {
 	useFormContext,
 } from 'react-hook-form';
 
-import { operatorsFilters } from '../data';
-import { defaultFilterValue } from '../defaultFilterValue';
-import type { FormFiltersTypes } from '../types';
+import { operatorsFilters } from '../../NotificationSettings/data';
+import { defaultFilterValue } from '../../NotificationSettings/defaultFilterValue';
+import type { FormFiltersTypes } from '../../NotificationSettings/types';
 
-import { useNotificationFormActions } from './useNotificationFormActions';
+import { useFilterFieldActions } from './useFilterFieldActions';
 
 type Props = { fieldName: FieldPath<FieldValues> };
 
 export const useFilterAction = ({ fieldName }: Props) => {
-	const { filterType } = useNotificationFormActions();
+	const { filterType } = useFilterFieldActions();
 
 	const { setValue, watch } = useFormContext<FieldValues>();
 

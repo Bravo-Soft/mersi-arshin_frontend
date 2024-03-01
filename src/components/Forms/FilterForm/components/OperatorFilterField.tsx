@@ -5,9 +5,9 @@ import Select, { type SelectChangeEvent } from '@mui/material/Select';
 import React from 'react';
 import { Controller, FieldValues, useFormContext } from 'react-hook-form';
 
-import { operatorsFilters } from '../NotificationSettings/data';
-import { OperationFieldProps } from '../NotificationSettings/hooks/useFilterAction';
-import { FormFiltersTypes } from '../NotificationSettings/types';
+import { operatorsFilters } from '../../NotificationSettings/data';
+import { FormFiltersTypes } from '../../NotificationSettings/types';
+import { OperationFieldProps } from '../hooks/useFilterAction';
 
 type Props = {
 	name: `${string}.operatorValue`;
@@ -15,7 +15,7 @@ type Props = {
 	operatorValueX: FormFiltersTypes;
 };
 
-function OperatorValueSelect({ name, onChange, operatorValueX }: Props) {
+function OperatorFilterField({ name, onChange, operatorValueX }: Props) {
 	const { control } = useFormContext<FieldValues>();
 
 	return (
@@ -52,4 +52,4 @@ function OperatorValueSelect({ name, onChange, operatorValueX }: Props) {
 	);
 }
 
-export default OperatorValueSelect;
+export default OperatorFilterField;

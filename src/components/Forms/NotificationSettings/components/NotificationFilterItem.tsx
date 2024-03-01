@@ -4,13 +4,12 @@ import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import React from 'react';
 
-import OperatorValueSelect from '../../FieldsComponents/OperatorValueSelect';
-import { useFilterAction } from '../hooks/useFilterAction';
-import useNameGenerator from '../hooks/useNameGenerator';
-
-import NotificationColumnFilter from './NotificationColumnFilter';
-import NotificationLinkOperator from './NotificationLinkOperator';
-import NotificationValueField from './NotificationValueField';
+import ColumnFilterField from '../../FilterForm/components/ColumnFilterField';
+import FilterLinkField from '../../FilterForm/components/FilterLinkField';
+import OperatorFilterField from '../../FilterForm/components/OperatorFilterField';
+import ValueFilterField from '../../FilterForm/components/ValueFilterField';
+import { useFilterAction } from '../../FilterForm/hooks/useFilterAction';
+import useNameGenerator from '../../FilterForm/hooks/useNameGenerator';
 
 interface INotificationFilterItemProps {
 	index: number;
@@ -35,17 +34,14 @@ function NotificationFilterItem(props: INotificationFilterItemProps) {
 				<IconButton onClick={removeEmail(indexK)}>
 					<CloseIcon />
 				</IconButton>
-				<NotificationLinkOperator
-					name={`subscribedEmails.${index}.linkOperator`}
-					indexK={indexK}
-				/>
+				<FilterLinkField name={`subscribedEmails.${index}.linkOperator`} indexK={indexK} />
 			</Stack>
 			<Grid container width={478} spacing={0}>
 				<Grid item xs={4}>
-					<NotificationColumnFilter name={columnName} onChange={columnChange} />
+					<ColumnFilterField name={columnName} onChange={columnChange} />
 				</Grid>
 				<Grid item xs={4}>
-					<OperatorValueSelect
+					<OperatorFilterField
 						name={operatorName}
 						operatorValueX={operatorValueX}
 						onChange={operationChange}
@@ -53,7 +49,7 @@ function NotificationFilterItem(props: INotificationFilterItemProps) {
 				</Grid>
 				{operatorValue !== 'isEmpty' && (
 					<Grid item xs={4}>
-						<NotificationValueField operatorValueX={operatorValueX} valueName={valueName} />
+						<ValueFilterField operatorValueX={operatorValueX} valueName={valueName} />
 					</Grid>
 				)}
 			</Grid>

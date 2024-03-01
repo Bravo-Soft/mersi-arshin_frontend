@@ -7,14 +7,14 @@ import DatePickerFilterField from '../../FieldsComponents/DatePickerFilterField'
 import InterVerificationInterval from '../../FieldsComponents/InterVerificationInterval';
 import SizeField from '../../FieldsComponents/SizeField';
 import SuitabilityField from '../../FieldsComponents/SuitabilityField';
-import { FormFiltersTypes } from '../types';
+import { FormFiltersTypes } from '../../NotificationSettings/types';
 
 type Props<T extends FieldValues> = {
 	operatorValueX: FormFiltersTypes;
 	valueName: FieldPath<T>;
 };
 
-function NotificationValueField<T extends FieldValues>({ operatorValueX, valueName }: Props<T>) {
+function ValueFilterField<T extends FieldValues>({ operatorValueX, valueName }: Props<T>) {
 	const { control } = useFormContext<FieldValues>();
 
 	switch (operatorValueX) {
@@ -35,4 +35,4 @@ function NotificationValueField<T extends FieldValues>({ operatorValueX, valueNa
 	}
 }
 
-export default NotificationValueField;
+export default ValueFilterField;
