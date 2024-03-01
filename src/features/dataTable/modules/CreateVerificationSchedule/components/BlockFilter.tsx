@@ -8,17 +8,15 @@ import ColumnFilterField from '../../../../../components/Forms/FilterForm/compon
 import OperatorFilterField from '../../../../../components/Forms/FilterForm/components/OperatorFilterField';
 import ValueFilterField from '../../../../../components/Forms/FilterForm/components/ValueFilterField';
 import useNameGenerator from '../../../../../components/Forms/FilterForm/hooks/useNameGenerator';
-import type { IColumnTable } from '../operatorsFilters';
 
 import { useFilterAction } from 'components/Forms/FilterForm/hooks/useFilterAction';
 
 interface IBlockFilterProps {
 	index: number;
 	remove: (index: number) => void;
-	columnsFilters: IColumnTable[];
 }
 
-function BlockFilter({ index, remove, columnsFilters }: IBlockFilterProps) {
+function BlockFilter({ index, remove }: IBlockFilterProps) {
 	const { columnName, operatorName, valueName, fieldName } = useNameGenerator({
 		name: `filters.${index}`,
 	});
