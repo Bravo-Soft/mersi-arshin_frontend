@@ -8,7 +8,7 @@ function PulseButton() {
 		<>
 			<FiberManualRecordIcon color='primary' sx={{ position: 'relative', zIndex: 100 }} />
 			{circleConfig.map(e => (
-				<StyledCircleAnimation transition={e} />
+				<StyledCircleAnimation key={e} transition={e} />
 			))}
 		</>
 	);
