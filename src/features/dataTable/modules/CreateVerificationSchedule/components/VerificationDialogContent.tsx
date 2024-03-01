@@ -62,12 +62,7 @@ function VerificationDialogContent() {
 			<Box mt={1}>
 				<Box maxHeight='300px' overflow='auto' sx={hideScrollbar()}>
 					{fields.map((item, index) => (
-						<BlockFilter
-							key={item.id}
-							columnsFilters={columnsFilters}
-							index={index}
-							remove={remove}
-						/>
+						<BlockFilter key={item.id} index={index} remove={remove} />
 					))}
 				</Box>
 				<Button type='button' onClick={addFilter} startIcon={<AddIcon />}>
