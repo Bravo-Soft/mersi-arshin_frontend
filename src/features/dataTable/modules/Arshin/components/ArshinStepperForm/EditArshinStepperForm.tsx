@@ -22,8 +22,10 @@ function EditArshinStepperForm() {
 	const dispatch = useAppDispatch();
 	const { activeStep, arshinItems, handleSendAction, handleBack } = useArshinStepper();
 
-	const { data, isLoading: isUpdateLoading } = useGetDataByIdQuery(arshinItems?.[activeStep]?.id, {
-		skip: !arshinItems?.[activeStep]?.id,
+	const arshinId = arshinItems?.[activeStep]?.id;
+
+	const { data, isLoading: isUpdateLoading } = useGetDataByIdQuery(arshinId, {
+		skip: !arshinId,
 	});
 
 	const [sendUpdatedItem] = useUpdateDataItemMutation();

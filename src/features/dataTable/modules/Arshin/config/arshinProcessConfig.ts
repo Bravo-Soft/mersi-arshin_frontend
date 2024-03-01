@@ -30,5 +30,5 @@ export const schemaArshinProcessWorking = z.object({
 	isWorking: z.boolean(),
 });
 
-export type ArshinProcessStatusType = z.infer<typeof schemaArshinProcessStatus>;
-export type ArshinProcessWorkingType = z.infer<typeof schemaArshinProcessWorking>;
+export type isSseProcessType = z.infer<typeof schemaArshinProcessStatus>;
+export type isSseWorkingType = z.infer<typeof schemaArshinProcessWorking>;

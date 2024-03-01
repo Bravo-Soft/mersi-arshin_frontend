@@ -20,3 +20,5 @@ export const processConfig = [
 		},
 	},
 ];
+
+export const circleConfig = [1, 2, 3];

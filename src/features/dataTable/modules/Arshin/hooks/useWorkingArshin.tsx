@@ -1,14 +1,14 @@
-import { enqueueSnackbar } from "notistack";
-import { useCallback } from "react";
+import { enqueueSnackbar } from 'notistack';
+import { useCallback } from 'react';
 
-import { apiSlice } from "../../../../../app/apiSlice";
-import { statusVariant } from "../config/arshinProcessConfig";
-import { setEventSourceData } from "../eventSourceSlice";
-import { ArshinSseGuardProcessStatus, ArshinSseGuardWorking } from "../utils/arshinSSEGuard";
+import { apiSlice } from '../../../../../app/apiSlice';
+import { statusVariant } from '../config/arshinProcessConfig';
+import { setEventSourceData } from '../eventSourceSlice';
+import { arshinSseGuardProcessStatus, arshinSseGuardWorking } from '../utils/arshinSSEGuard';
 
-import { useServerSentEvent } from "./useServerSentEvent";
+import { useServerSentEvent } from './useServerSentEvent';
 
-import { useAppDispatch } from "hooks/redux";
+import { useAppDispatch } from 'hooks/redux';
 
 /**
  * @package хук обработчик SSE канала Arshin
@@ -24,11 +24,11 @@ export const useProcessArshin = () => {
 		(event: MessageEvent) => {
 			const data = JSON.parse(event.data);
 
-			if (ArshinSseGuardWorking(data)) {
+			if (arshinSseGuardWorking(data)) {
 				dispatch(setEventSourceData(data.isWorking));
 			}
 
-			if (ArshinSseGuardProcessStatus(data)) {
+			if (arshinSseGuardProcessStatus(data)) {
 				dispatch(apiSlice.util.invalidateTags(['ArshinData']));
 				enqueueSnackbar(data.message, { variant: statusVariant[data.status] });
 			}

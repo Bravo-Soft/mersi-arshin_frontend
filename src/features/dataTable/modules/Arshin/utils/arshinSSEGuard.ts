@@ -1,12 +1,11 @@
 import {
-	ArshinProcessStatusType,
-	ArshinProcessWorkingType,
+	isSseProcessType,
+	isSseWorkingType,
 	schemaArshinProcessStatus,
 	schemaArshinProcessWorking,
 } from '../config/arshinProcessConfig';
 
-export const ArshinSseGuardWorking = (data: unknown): data is ArshinProcessWorkingType =>
+export const arshinSseGuardWorking = (data: unknown): data is isSseWorkingType =>
 	schemaArshinProcessWorking.safeParse(data).success;
-
-export const ArshinSseGuardProcessStatus = (data: unknown): data is ArshinProcessStatusType =>
+export const arshinSseGuardProcessStatus = (data: unknown): data is isSseProcessType =>
 	schemaArshinProcessStatus.safeParse(data).success;
