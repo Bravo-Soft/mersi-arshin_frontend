@@ -51,12 +51,6 @@ export const useNotificationAction = ({ index, indexK }: Props) => {
 	return { columnChange, operationChange, operatorValue, operatorValueX };
 };
 
-export type ColumnFieldProps = ControllerRenderProps<
-	INotificationSettings,
-	`subscribedEmails.${number}.emailFilters.${number}.columnFilter`
->;
+export type ColumnFieldProps = ControllerRenderProps;
 
-export type OperationFieldProps = ControllerRenderProps<
-	INotificationSettings,
-	`subscribedEmails.${number}.emailFilters.${number}.operatorValue`
->;
+export type OperationFieldProps = ControllerRenderProps;

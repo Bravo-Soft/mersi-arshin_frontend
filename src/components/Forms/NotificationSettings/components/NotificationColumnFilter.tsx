@@ -2,19 +2,19 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { type SelectChangeEvent } from '@mui/material/Select';
-import { Control, Controller } from 'react-hook-form';
+import { Controller, FieldValues, useFormContext } from 'react-hook-form';
 
-import type { INotificationSettings } from '../../../../types/notification';
 import { columnsFilters } from '../data';
 import { ColumnFieldProps } from '../hooks/useNotificationAction';
 
 type Props = {
-	name: `subscribedEmails.${number}.emailFilters.${number}.columnFilter`;
-	control: Control<INotificationSettings, `subscribedEmails.${number}.emailFilters`>;
+	name: `${string}.columnFilter`;
 	onChange: (field: ColumnFieldProps) => (event: SelectChangeEvent<string>) => void;
 };
 
-function NotificationColumnFilter({ name, onChange, control }: Props) {
+function NotificationColumnFilter({ name, onChange }: Props) {
+	const { control } = useFormContext<FieldValues>();
+
 	return (
 		<Controller
 			control={control}

@@ -62,7 +62,6 @@ function NotificationPopover({ index, closeFilters: handleCloseFilter }: INotifi
 						key={e.id}
 						index={index}
 						indexK={indexK}
-						control={control}
 						removeEmail={removeEmail}
 					/>
 				))}

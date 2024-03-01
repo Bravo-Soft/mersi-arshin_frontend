@@ -3,21 +3,21 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { type SelectChangeEvent } from '@mui/material/Select';
 import React from 'react';
-import { Control, Controller } from 'react-hook-form';
+import { Controller, FieldValues, useFormContext } from 'react-hook-form';
 
-import type { INotificationSettings } from '../../../types/notification';
 import { operatorsFilters } from '../NotificationSettings/data';
 import { OperationFieldProps } from '../NotificationSettings/hooks/useNotificationAction';
 import { FormFiltersTypes } from '../NotificationSettings/types';
 
 type Props = {
-	name: `subscribedEmails.${number}.emailFilters.${number}.operatorValue`;
-	control: Control<INotificationSettings, `subscribedEmails.${number}.emailFilters`>;
+	name: `${string}.operatorValue`;
 	onChange: (field: OperationFieldProps) => (event: SelectChangeEvent<string>) => void;
 	operatorValueX: FormFiltersTypes;
 };
 
-function OperatorValueSelect({ name, onChange, control, operatorValueX }: Props) {
+function OperatorValueSelect({ name, onChange, operatorValueX }: Props) {
+	const { control } = useFormContext<FieldValues>();
+
 	return (
 		<Controller
 			control={control}
