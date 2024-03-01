@@ -6,7 +6,7 @@ import React from 'react';
 import { Controller, FieldValues, useFormContext } from 'react-hook-form';
 
 import { operatorsFilters } from '../NotificationSettings/data';
-import { OperationFieldProps } from '../NotificationSettings/hooks/useNotificationAction';
+import { OperationFieldProps } from '../NotificationSettings/hooks/useFilterAction';
 import { FormFiltersTypes } from '../NotificationSettings/types';
 
 type Props = {

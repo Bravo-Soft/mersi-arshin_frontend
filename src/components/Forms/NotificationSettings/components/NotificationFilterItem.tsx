@@ -3,12 +3,10 @@ import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import React from 'react';
-import { useFormContext } from 'react-hook-form';
 
-import type { INotificationSettings } from '../../../../types/notification';
 import OperatorValueSelect from '../../FieldsComponents/OperatorValueSelect';
+import { useFilterAction } from '../hooks/useFilterAction';
 import useNameGenerator from '../hooks/useNameGenerator';
-import { useNotificationAction } from '../hooks/useNotificationAction';
 
 import NotificationColumnFilter from './NotificationColumnFilter';
 import NotificationLinkOperator from './NotificationLinkOperator';
@@ -23,13 +21,12 @@ interface INotificationFilterItemProps {
 function NotificationFilterItem(props: INotificationFilterItemProps) {
 	const { index, indexK, removeEmail } = props;
 
-	const { control } = useFormContext<INotificationSettings>();
+	const { columnName, operatorName, valueName, fieldName } = useNameGenerator({
+		name: `subscribedEmails.${index}.emailFilters.${indexK}`,
+	});
 
-	const { linkName, columnName, operatorName, valueName } = useNameGenerator({ index, indexK });
-
-	const { columnChange, operationChange, operatorValueX, operatorValue } = useNotificationAction({
-		index,
-		indexK,
+	const { columnChange, operationChange, operatorValueX, operatorValue } = useFilterAction({
+		fieldName,
 	});
 
 	return (
@@ -38,7 +35,10 @@ function NotificationFilterItem(props: INotificationFilterItemProps) {
 				<IconButton onClick={removeEmail(indexK)}>
 					<CloseIcon />
 				</IconButton>
-				<NotificationLinkOperator control={control} name={linkName} indexK={indexK} />
+				<NotificationLinkOperator
+					name={`subscribedEmails.${index}.linkOperator`}
+					indexK={indexK}
+				/>
 			</Stack>
 			<Grid container width={478} spacing={0}>
 				<Grid item xs={4}>

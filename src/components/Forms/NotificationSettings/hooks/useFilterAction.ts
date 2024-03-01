@@ -1,22 +1,24 @@
 import type { SelectChangeEvent } from '@mui/material/Select';
 import { useState } from 'react';
-import { type ControllerRenderProps, useFormContext } from 'react-hook-form';
+import {
+	type ControllerRenderProps,
+	FieldPath,
+	FieldValues,
+	useFormContext,
+} from 'react-hook-form';
 
-import type { INotificationSettings } from '../../../../types/notification';
 import { operatorsFilters } from '../data';
 import { defaultFilterValue } from '../defaultFilterValue';
 import type { FormFiltersTypes } from '../types';
 
 import { useNotificationFormActions } from './useNotificationFormActions';
 
-type Props = { index: number; indexK: number };
+type Props = { fieldName: FieldPath<FieldValues> };
 
-export const useNotificationAction = ({ index, indexK }: Props) => {
+export const useFilterAction = ({ fieldName }: Props) => {
 	const { filterType } = useNotificationFormActions();
 
-	const { setValue, watch } = useFormContext<INotificationSettings>();
-
-	const fieldName = `subscribedEmails.${index}.emailFilters.${indexK}` as const;
+	const { setValue, watch } = useFormContext<FieldValues>();
 
 	const watchColumnField = watch(`${fieldName}.columnFilter`);
 
@@ -43,7 +45,7 @@ export const useNotificationAction = ({ index, indexK }: Props) => {
 
 	const operationChange = (field: OperationFieldProps) => (event: SelectChangeEvent<string>) => {
 		if (operatorValue === 'isEmpty') {
-			setValue(`subscribedEmails.${index}.emailFilters.${indexK}.value`, '');
+			setValue(`${fieldName}.value`, '');
 		}
 		field.onChange(event.target.value);
 	};

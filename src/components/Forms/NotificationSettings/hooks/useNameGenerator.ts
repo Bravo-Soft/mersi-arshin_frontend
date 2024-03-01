@@ -1,20 +1,18 @@
-import { useFormContext } from 'react-hook-form';
+import { FieldPath, FieldValues, useFormContext } from 'react-hook-form';
 
-type Props = { indexK: number; index: number };
-const useNameGenerator = ({ indexK, index }: Props) => {
+type Props = { name: FieldPath<FieldValues> };
+const useNameGenerator = ({ name }: Props) => {
 	const { register } = useFormContext();
 
-	const { name: linkName } = register(`subscribedEmails.${index}.linkOperator`);
+	const { name: fieldName } = register(name);
 
-	const { name: columnName } = register(
-		`subscribedEmails.${index}.emailFilters.${indexK}.columnFilter`
-	);
+	const { name: columnName } = register(`${name}.columnFilter`);
 
-	const { name: operatorName } = register(
-		`subscribedEmails.${index}.emailFilters.${indexK}.operatorValue`
-	);
-	const { name: valueName } = register(`subscribedEmails.${index}.emailFilters.${indexK}.value`);
-	return { linkName, columnName, operatorName, valueName };
+	const { name: operatorName } = register(`${name}.operatorValue`);
+
+	const { name: valueName } = register(`${name}.value`);
+
+	return { columnName, operatorName, valueName, fieldName };
 };
 
 export default useNameGenerator;

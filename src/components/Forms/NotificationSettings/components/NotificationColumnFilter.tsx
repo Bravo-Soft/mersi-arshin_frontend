@@ -5,7 +5,7 @@ import Select, { type SelectChangeEvent } from '@mui/material/Select';
 import { Controller, FieldValues, useFormContext } from 'react-hook-form';
 
 import { columnsFilters } from '../data';
-import { ColumnFieldProps } from '../hooks/useNotificationAction';
+import { ColumnFieldProps } from '../hooks/useFilterAction';
 
 type Props = {
 	name: `${string}.columnFilter`;

@@ -2,17 +2,18 @@ import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import React from 'react';
-import { Control, Controller, FieldPath, FieldValues } from 'react-hook-form';
+import { Controller, FieldValues, useFormContext } from 'react-hook-form';
 
 import { linkOperators } from '../data';
 
 type Props<T extends FieldValues> = {
-	name: FieldPath<T>;
-	control: Control<T>;
+	name: `${string}.linkOperator`;
 	indexK: number;
 };
 
-function NotificationLinkOperator<T extends FieldValues>({ name, control, indexK }: Props<T>) {
+function NotificationLinkOperator<T extends FieldValues>({ name, indexK }: Props<T>) {
+	const { control } = useFormContext<FieldValues>();
+
 	if (indexK === 0) {
 		return null;
 	}
