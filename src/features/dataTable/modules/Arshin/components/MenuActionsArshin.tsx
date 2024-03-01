@@ -9,7 +9,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Menu from '@mui/material/Menu';
 
 import { selectSelectedDataIds } from '../arshinTableSlice';
-import { selectIsAliveArshin, selectIsStartArshin } from '../eventSourceSlice';
+import { selectIsWorkingArshin } from '../eventSourceSlice';
 import { useArshinActions } from '../hooks/useArshinActions';
 import { useMenuActions } from '../hooks/useMenuActions';
 
@@ -31,8 +31,8 @@ function MenuActionsArshin() {
 	const { anchorEl, open, handleOpenFilter, handleCloseMenu, handleOpenMenu } = useMenuActions();
 	const { handleDeleteItems } = useArshinActions();
 
-	const isStart = useAppSelector(selectIsStartArshin);
-	const isAlive = useAppSelector(selectIsAliveArshin);
+	const isWorking = useAppSelector(selectIsWorkingArshin);
+
 	const menuItems: IMenuItem[] = [
 		{
 			title: 'Настроить фильтра',
@@ -56,7 +56,7 @@ function MenuActionsArshin() {
 	return (
 		<>
 			<Button
-				disabled={isStart || !isAlive}
+				disabled={isWorking}
 				startIcon={
 					<ExpandIcon
 						sx={{

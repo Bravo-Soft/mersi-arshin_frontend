@@ -6,9 +6,11 @@ import { columnsArshin } from '../config/columns';
 import { useApplyTemplate } from '../hooks/useApplyTemplate';
 import { useContextMenuActions } from '../hooks/useContextMenuActions';
 import useTableActions from '../hooks/useTableActions';
+import { useProcessArshin } from '../hooks/useWorkingArshin';
 
 import ContextMenuArshin from './ContextMenuArshin';
 import DataTableArshinToolbar from './DataTableArshinToolbar';
+import ProcessArshin from './Process/ProcessArshin';
 
 import { NoResultsOverlay } from 'features/dataTable/components/NoResultsOverlay';
 import { NoRowsOverlay } from 'features/dataTable/components/NoRowsOverlay';
@@ -21,15 +23,16 @@ const emptyData: IDataItemArshin[] = [];
 
 function DataTableArshin() {
 	const apiRef = useGridApiRef();
+	const isOpen = useProcessArshin();
 
 	useApplyTemplate(apiRef);
-
 	const { data, isFetching } = useGetDataQuery(undefined, {
+		refetchOnMountOrArgChange: true,
+		skip: !isOpen,
 		selectFromResult: ({ data, isFetching }) => ({
 			data: data ?? emptyData,
 			isFetching,
 		}),
-		pollingInterval: 20000,
 	});
 
 	const { selectionIds, handleSelectItems, handleDisabledSelectedRow, handleGetCellClassName } =
@@ -73,7 +76,9 @@ function DataTableArshin() {
 				}}
 				getCellClassName={handleGetCellClassName}
 			/>
+
 			<ContextMenuArshin contextMenu={contextMenu} actions={actions} />
+			<ProcessArshin apiRef={apiRef} />
 		</DataTableBox>
 	);
 }

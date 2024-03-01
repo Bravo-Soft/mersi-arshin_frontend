@@ -5,7 +5,6 @@ import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
-import Typography from '@mui/material/Typography';
 import {
 	GridToolbarContainer,
 	GridToolbarDensitySelector,
@@ -13,7 +12,7 @@ import {
 } from '@mui/x-data-grid-pro';
 import { useEffect, useRef, useState } from 'react';
 
-// import ButtonsNavigation from '../../ButtonsNavigation';
+import ButtonsNavigation from '../../ButtonsNavigation';
 
 import DataTableColumnButton from './DataTableColumnButton';
 import DataTableToolbarFilter from './DataTableToolbarFilter';
@@ -58,16 +57,7 @@ function DataTableToolbar(): JSX.Element {
 						spacing={2}
 						divider={<Divider orientation='vertical' flexItem />}
 					>
-						<Typography
-							color='primary.main'
-							variant='h6'
-							lineHeight={1.3}
-							textOverflow='ellipsis'
-							noWrap
-						>
-							Средства измерения
-						</Typography>
-						{/* <ButtonsNavigation /> */}
+						<ButtonsNavigation />
 						<Tooltip
 							title={
 								expanded
