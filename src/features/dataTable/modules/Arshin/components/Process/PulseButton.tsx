@@ -1,14 +1,13 @@
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
-import { circleConfig } from './processConfig';
 import { StyledCircleAnimation } from './StyledCircleAnimation';
 
 function PulseButton() {
 	return (
 		<>
 			<FiberManualRecordIcon color='primary' sx={{ position: 'relative', zIndex: 100 }} />
-			{circleConfig.map(e => (
-				<StyledCircleAnimation key={e} transition={e} />
+			{[1, 2, 3].map(e => (
+				<StyledCircleAnimation key={e} delay={e} />
 			))}
 		</>
 	);

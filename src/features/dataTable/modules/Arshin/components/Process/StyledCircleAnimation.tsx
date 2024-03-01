@@ -2,13 +2,13 @@ import { styled } from '@mui/material';
 import Box from '@mui/material/Box';
 
 type Props = {
-	transition: number;
+	delay: number;
 };
 
 export const StyledCircleAnimation = styled(Box, {
-	shouldForwardProp: prop => prop !== 'transition',
-})<Props>(({ theme, transition }) => ({
-	animationDelay: `${transition}s`,
+	shouldForwardProp: prop => prop !== 'delay',
+})<Props>(({ theme, delay }) => ({
+	animationDelay: `${delay}s`,
 	'@keyframes growAndFade ': {
 		'0%': {
 			opacity: '.25',
