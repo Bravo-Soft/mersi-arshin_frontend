@@ -15,7 +15,7 @@ import {
 	selectSynchronizeIds,
 } from '../arshinTableSlice';
 import { changeDialogState, resetDialogState, selectIsOpenDialog } from '../dialogArshinSlice';
-import { selectIsAliveArshin, selectIsStartArshin } from '../eventSourceSlice';
+import { selectIsWorkingArshin } from '../eventSourceSlice';
 
 import { Messages } from 'constant/messages';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
@@ -44,8 +44,7 @@ export const useArshinActions = () => {
 
 	const selectedDataIds = useAppSelector(selectSelectedArshin);
 
-	const isStart = useAppSelector(selectIsStartArshin);
-	const isAlive = useAppSelector(selectIsAliveArshin);
+	const isWorking = useAppSelector(selectIsWorkingArshin);
 
 	const handleSynchronize = async () => {
 		try {
@@ -113,7 +112,7 @@ export const useArshinActions = () => {
 	};
 
 	const handleContextMenuEditArshinItem = () => {
-		if (!isAlive || isStart) return;
+		if (isWorking) return;
 		openSidebarWith('EditSidebarArshinItem');
 	};
 

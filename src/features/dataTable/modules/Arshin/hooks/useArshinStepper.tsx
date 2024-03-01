@@ -43,7 +43,7 @@ export const useArshinStepper = () => {
 		dispatch(setSelectedDataItems(modelFiltered));
 		handleNext();
 		if (isLastStep) {
-			handleStart(modelIds);
+			await handleStart(modelIds);
 			closeSidebar();
 		}
 	};

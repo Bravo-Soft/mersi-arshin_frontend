@@ -1,9 +1,5 @@
-import {
-	useCancelArshinMutation,
-	useStartArshinMutation,
-	useValidateArshinMutation,
-} from '../arshinTableApiSlice';
-import { resetState, setStartProcess } from '../eventSourceSlice';
+import { useCancelArshinMutation, useStartArshinMutation, useValidateArshinMutation } from '../arshinTableApiSlice';
+import { resetState } from '../eventSourceSlice';
 
 import { useAppDispatch } from 'hooks/redux';
 
@@ -21,17 +17,12 @@ export const useSendingArshin = () => {
 	const dispatch = useAppDispatch();
 
 	const handleStart = async (data: string[]) => {
-		try {
-			await arshinValidate(data).unwrap();
-			dispatch(setStartProcess(true));
-			await arshinStart(data).unwrap();
-		} catch (error) {
-			dispatch(setStartProcess(false));
-		}
+		await arshinValidate(data).unwrap();
+		await arshinStart(data).unwrap();
 	};
+
 	const handleCancel = async () => {
 		await arshinCancel().unwrap();
-		localStorage.removeItem('setEventSourceData');
 		dispatch(resetState());
 	};
 

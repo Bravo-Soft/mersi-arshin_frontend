@@ -76,7 +76,7 @@ export const usePushNotification = () => {
 		[dispatch]
 	);
 
-	useServerSentEvent(`/api/mersi/notifications/arshin`, callBack);
+	useServerSentEvent(`/api/notifications/arshin`, callBack);
 
 	return {
 		anchorEl,
