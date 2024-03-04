@@ -9,10 +9,10 @@ import { ColumnNames } from 'constant/columnsName';
 import type { IDataItemWithDates } from 'types/dataItem';
 
 type Props = {
-	isHelperText?: boolean;
+	hasHelperText?: boolean;
 };
 
-function SuitabilitySelect({ isHelperText = true }: Props) {
+function SuitabilitySelect({ hasHelperText = true }: Props) {
 	const { control } = useFormContext<Pick<IDataItemWithDates, 'suitability'>>();
 
 	return (
@@ -29,7 +29,7 @@ function SuitabilitySelect({ isHelperText = true }: Props) {
 							<MenuItem value='false'>Нет</MenuItem>
 							<MenuItem value='true'>Да</MenuItem>
 						</Select>
-						{isHelperText && <FormHelperText>{error?.message ?? ' '}</FormHelperText>}
+						{hasHelperText && <FormHelperText>{error?.message ?? ' '}</FormHelperText>}
 					</>
 				)}
 			/>

@@ -47,7 +47,7 @@ const verificationSchema = z.object({
 		}, 'Дата поверки не может идти после даты следующей поверки'),
 	filters: z.array(
 		z.object({
-			columnField: z.string(),
+			columnFilter: z.string(),
 			operatorValue: z.string(),
 			value: z
 				.string()

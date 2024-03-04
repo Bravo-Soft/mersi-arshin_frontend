@@ -6,6 +6,7 @@ import type { MutableRefObject } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { createDateRange } from '../helpers';
+import { refactorVerificationData } from '../helpers/refactorVerificationData';
 
 import { dayjsFormatVariant } from 'constant/dateFormat';
 import { fileType } from 'constant/fileType';
@@ -43,7 +44,7 @@ export const useDownloadVerification = (apiRef: MutableRefObject<GridApiPro>) =>
 		const newFiltersDate: DateRange<Date> = [firstDate, secondDate];
 
 		apiRef.current.setFilterModel({
-			items: [...createDateRange(newFiltersDate), ...formFilters],
+			items: [...createDateRange(newFiltersDate), ...refactorVerificationData(formFilters)],
 			linkOperator: GridLinkOperator.And,
 		});
 	};
@@ -53,7 +54,6 @@ export const useDownloadVerification = (apiRef: MutableRefObject<GridApiPro>) =>
 			const columns = apiRef.current
 				.getVisibleColumns()
 				.filter(el => el.field !== '__check__')
-				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				.map(el => ({ key: el.field, header: el.headerName! }));
 
 			setFilters();
@@ -61,11 +61,10 @@ export const useDownloadVerification = (apiRef: MutableRefObject<GridApiPro>) =>
 
 			const newData = updateData(data, apiRef);
 
-			const createWorkbook = await import("utils/excel").then(m => m.createWorkbook);
+			const createWorkbook = await import('utils/excel').then(m => m.createWorkbook);
 			const workbook = createWorkbook(newData, columns);
 
 			apiRef.current.setFilterModel(filters);
-
 
 			const buffer = await workbook.xlsx.writeBuffer();
 			const blob = new Blob([buffer], {

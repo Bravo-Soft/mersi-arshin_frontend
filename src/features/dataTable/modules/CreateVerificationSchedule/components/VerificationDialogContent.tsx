@@ -7,11 +7,10 @@ import dayjs from 'dayjs';
 import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
 
 import type { IForm } from '../operatorsFilters';
-import { operatorsFilters } from '../operatorsFilters';
 
 import BlockFilter from './BlockFilter';
 
-import { columnsFilters } from 'components/Forms/NotificationSettings/data';
+import { columnsFilters, operatorsFilters } from 'components/Forms/NotificationSettings/data';
 import { maxDate, minDate } from 'constant/dateMasks';
 import { hideScrollbar } from 'utils/hideScrollbar';
 
@@ -26,10 +25,10 @@ function VerificationDialogContent() {
 
 	const addFilter = () => {
 		append({
-			columnField: columnsFilters[0].field,
+			columnFilter: columnsFilters[0].field,
 			operatorValue: operatorsFilters.defaultFilters[0].operatorValue,
-			id: Math.random(), // нужен только если мы используем множество фильтров
 			value: '',
+			id: Math.random(),
 		});
 	};
 
