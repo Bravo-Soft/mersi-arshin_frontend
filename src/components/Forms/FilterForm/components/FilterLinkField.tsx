@@ -6,12 +6,12 @@ import { Controller, FieldValues, useFormContext } from 'react-hook-form';
 
 import { linkOperators } from '../../NotificationSettings/data';
 
-type Props<T extends FieldValues> = {
+type Props = {
 	name: `${string}.linkOperator`;
 	indexK: number;
 };
 
-function FilterLinkField<T extends FieldValues>({ name, indexK }: Props<T>) {
+function FilterLinkField({ name, indexK }: Props) {
 	const { control } = useFormContext<FieldValues>();
 
 	if (indexK === 0) {

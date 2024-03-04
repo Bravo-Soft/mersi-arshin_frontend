@@ -7,12 +7,13 @@ type Props<T extends FieldValues> = {
 	label: string;
 	placeholder: string;
 };
+
 function FilterField<T extends FieldValues>({ name, control, label, placeholder }: Props<T>) {
 	return (
 		<Controller
 			control={control}
 			name={name}
-			render={({ field, fieldState: { error } }) => (
+			render={({ field }) => (
 				<TextField
 					{...field}
 					label={label}

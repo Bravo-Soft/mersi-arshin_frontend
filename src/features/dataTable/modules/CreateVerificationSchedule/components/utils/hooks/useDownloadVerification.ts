@@ -54,7 +54,7 @@ export const useDownloadVerification = (apiRef: MutableRefObject<GridApiPro>) =>
 			const columns = apiRef.current
 				.getVisibleColumns()
 				.filter(el => el.field !== '__check__')
-				.map(el => ({ key: el.field, header: el.headerName! }));
+				.map(({ headerName, field }) => ({ key: field, header: headerName ?? '' }));
 
 			setFilters();
 			const data = Array.from(apiRef.current.getVisibleRowModels());
