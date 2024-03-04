@@ -25,7 +25,8 @@ export type KeysOfEdit =
 	| 'location'
 	| 'responsible'
 	| 'additionalData'
-	| 'methodology';
+	| 'methodology'
+	| 'view';
 
 export type KeysOfVerificate =
 	| 'verificationDate'
@@ -100,6 +101,10 @@ export const editFields: IField<KeysOfEdit>[] = [
 		key: 'methodology',
 		label: ColumnNames.METHODOLOGY,
 	},
+	{
+		key: 'view',
+		label: ColumnNames.VIEW,
+	},
 ];
 
 export const verificationFields: IField<KeysOfVerificate>[] = [
@@ -135,10 +140,10 @@ export const verificationFields: IField<KeysOfVerificate>[] = [
 		key: 'suitability',
 		label: ColumnNames.SUITABILITY,
 	},
-	// {
-	// 	key: 'fgisUrl',
-	// 	label: ColumnNames.FGIS_URL,
-	// },
+	{
+		key: 'fgisUrl',
+		label: ColumnNames.FGIS_URL,
+	},
 	{
 		key: 'cost',
 		label: ColumnNames.COST,

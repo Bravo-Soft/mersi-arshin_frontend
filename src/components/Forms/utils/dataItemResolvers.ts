@@ -16,6 +16,7 @@ import { Tag } from 'constant/tag';
 export const itemSchema = z.object({
 	name: z.string().max(256, largeLengthField).min(1, 'Это обязательное поле'),
 	type: z.string().max(128, smallLengthField),
+	view: z.string().max(128, smallLengthField),
 	factoryNumber: z.string().max(128, smallLengthField),
 	inventoryNumber: z.string().max(128, smallLengthField),
 	division: z.string().max(128, smallLengthField),

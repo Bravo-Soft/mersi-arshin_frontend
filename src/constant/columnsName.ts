@@ -27,4 +27,5 @@ export enum ColumnNames {
 	COST = 'Стоимость',
 	STATUS = 'Статус',
 	ACTIONS = 'Действия',
+	VIEW = 'Вид СИ',
 }

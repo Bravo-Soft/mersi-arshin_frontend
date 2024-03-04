@@ -1,6 +1,6 @@
-import { columnsFilters } from '../data';
+import { columnsFilters } from '../../NotificationSettings/data';
 
-export const useNotificationFormActions = () => {
+export const useFilterFieldActions = () => {
 	const filterType = (typeFilter: string | boolean) => {
 		const fondedFilter = columnsFilters.find(e => e.field === typeFilter);
 		if (fondedFilter) {

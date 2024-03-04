@@ -116,6 +116,10 @@ export interface IDataItem {
 	 * Стоимость
 	 */
 	cost: string;
+	/**
+	 * Вид
+	 */
+	view: string;
 }
 
 export interface IDocument {

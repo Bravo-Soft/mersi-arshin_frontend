@@ -2,7 +2,10 @@ import type { GridCellParams, GridColDef } from '@mui/x-data-grid-pro';
 import cn from 'classnames';
 import dayjs from 'dayjs';
 
-import { RenderCellExpand, RenderCellExpandedRegister } from './components/RenderCellExpand';
+import {
+	RenderCellExpand /* RenderCellExpandedRegister */,
+	RenderCellExpandedRegister,
+} from './components/RenderCellExpand';
 import { formatDateCallback } from './utils/formatDateCallback';
 import { quickFilterDateFormat } from './utils/quickFilterDateFormat';
 
@@ -31,6 +34,13 @@ export const columns: GridColDef<IDataItem>[] = [
 	{
 		field: 'type',
 		headerName: ColumnNames.TYPE,
+		width: initialWidth,
+		headerAlign: 'center',
+		renderCell: RenderCellExpand,
+	},
+	{
+		field: 'view',
+		headerName: ColumnNames.VIEW,
 		width: initialWidth,
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
@@ -141,13 +151,13 @@ export const columns: GridColDef<IDataItem>[] = [
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
 	},
-	// {
-	// 	field: 'fgisUrl',
-	// 	headerName: ColumnNames.FGIS_URL,
-	// 	width: initialWidth,
-	// 	headerAlign: 'center',
-	// 	renderCell: RenderCellExpand,
-	// },
+	{
+		field: 'fgisUrl',
+		headerName: ColumnNames.FGIS_URL,
+		width: initialWidth,
+		headerAlign: 'center',
+		renderCell: RenderCellExpand,
+	},
 	{
 		field: 'certificate',
 		headerName: ColumnNames.CERTIFICATE,

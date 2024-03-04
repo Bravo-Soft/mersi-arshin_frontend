@@ -36,6 +36,7 @@ const defaultKeys: AutocompleteKeysType[] = [
 	'additionalData',
 	'methodology',
 	'cost',
+	'view',
 ];
 
 const defaultValue = {} as Record<AutocompleteKeysType, string[]>;
