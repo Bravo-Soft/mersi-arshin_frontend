@@ -8,7 +8,32 @@ export const operatorsFilters: IOperatorsFIlters = {
 		{ columnField: 'не равен', operatorValue: 'not' },
 		{ columnField: 'любой из', operatorValue: 'isAnyOf' },
 	],
+	suitability: [
+		{ columnField: 'равен', operatorValue: 'is' },
+		{ columnField: 'не равен', operatorValue: 'not' },
+		{ columnField: 'любой из', operatorValue: 'isAnyOf' },
+	],
 	dateFilters: [
+		{ columnField: 'равен', operatorValue: 'is' },
+		{ columnField: 'не равен', operatorValue: 'not' },
+		{ columnField: 'больше чем', operatorValue: 'after' },
+		{ columnField: 'больше или равно', operatorValue: 'onOrAfter' },
+		{ columnField: 'меньше чем', operatorValue: 'before' },
+		{ columnField: 'меньше или равно', operatorValue: 'onOrBefore' },
+		{ columnField: 'пустой', operatorValue: 'isEmpty' },
+		{ columnField: 'не пустой', operatorValue: 'isNotEmpty' },
+	],
+	interVerificationInterval: [
+		{ columnField: 'равен', operatorValue: 'is' },
+		{ columnField: 'не равен', operatorValue: 'not' },
+		{ columnField: 'больше чем', operatorValue: 'after' },
+		{ columnField: 'больше или равно', operatorValue: 'onOrAfter' },
+		{ columnField: 'меньше чем', operatorValue: 'before' },
+		{ columnField: 'меньше или равно', operatorValue: 'onOrBefore' },
+		{ columnField: 'пустой', operatorValue: 'isEmpty' },
+		{ columnField: 'не пустой', operatorValue: 'isNotEmpty' },
+	],
+	cost: [
 		{ columnField: 'равен', operatorValue: 'is' },
 		{ columnField: 'не равен', operatorValue: 'not' },
 		{ columnField: 'больше чем', operatorValue: 'after' },
@@ -28,7 +53,6 @@ export const operatorsFilters: IOperatorsFIlters = {
 		{ columnField: 'любой из', operatorValue: 'isAnyOf' },
 	],
 };
-
 export const linkOperators: Record<string, string>[] = [
 	{
 		linkValue: 'or',
@@ -67,9 +91,24 @@ export const columnsFilters: IColumnsFilters[] = [
 		type: 'defaultFilters',
 	},
 	{
+		field: 'location',
+		headerName: ColumnNames.LOCATION,
+		type: 'defaultFilters',
+	},
+	{
+		field: 'responsible',
+		headerName: ColumnNames.RESPONSIBLE,
+		type: 'defaultFilters',
+	},
+	{
 		field: 'verificationDate',
 		headerName: ColumnNames.VERIFICATION_DATE,
 		type: 'dateFilters',
+	},
+	{
+		field: 'interVerificationInterval',
+		headerName: ColumnNames.VERIFICATION_INTERVAL,
+		type: 'interVerificationInterval',
 	},
 	{
 		field: 'dateOfTheNextVerification',
@@ -80,6 +119,11 @@ export const columnsFilters: IColumnsFilters[] = [
 		field: 'typeOfWork',
 		headerName: ColumnNames.TYPE_OF_WORK,
 		type: 'defaultFilters',
+	},
+	{
+		field: 'suitability',
+		headerName: ColumnNames.SUITABILITY,
+		type: 'suitability',
 	},
 	{
 		field: 'condition',
@@ -117,13 +161,28 @@ export const columnsFilters: IColumnsFilters[] = [
 		type: 'defaultFilters',
 	},
 	{
+		field: 'additionalData',
+		headerName: ColumnNames.ADDITIONAL_DATA,
+		type: 'defaultFilters',
+	},
+	{
 		field: 'size',
 		headerName: ColumnNames.SIZE,
 		type: 'sizesFilters',
 	},
 	{
+		field: 'methodology',
+		headerName: ColumnNames.METHODOLOGY,
+		type: 'defaultFilters',
+	},
+	{
 		field: 'notes',
 		headerName: ColumnNames.NOTES,
 		type: 'defaultFilters',
+	},
+	{
+		field: 'cost',
+		headerName: ColumnNames.COST,
+		type: 'cost',
 	},
 ];
