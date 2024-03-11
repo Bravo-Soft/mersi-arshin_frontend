@@ -10,7 +10,7 @@ import dayjs from 'dayjs';
 const operatorValueRange = ['onOrAfter', 'onOrBefore'];
 
 export const createDateRange = (fieldsDate: DateRange<Date>) => {
-	const createDateFilter: GridFilterItem[] = fieldsDate
+	return fieldsDate
 		.map((e, index): GridFilterItem | null =>
 			e !== null
 				? {
@@ -22,6 +22,4 @@ export const createDateRange = (fieldsDate: DateRange<Date>) => {
 				: e
 		)
 		.filter((e): e is GridFilterItem => Boolean(e));
-
-	return createDateFilter;
 };

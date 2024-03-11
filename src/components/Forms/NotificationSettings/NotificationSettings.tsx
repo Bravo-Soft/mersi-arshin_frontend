@@ -1,16 +1,13 @@
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Fade from '@mui/material/Fade';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import Stack from '@mui/material/Stack';
-import Switch from '@mui/material/Switch';
 import { enqueueSnackbar } from 'notistack';
 import { useCallback } from 'react';
-import { Controller, FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 
-import EmailInputs from './EmailInputs';
+import { notificationDateFormater } from './notificationDateFormater';
+import { notificationDefaultValue } from './notificationDefaultValue';
+import NotificationMainForm from './NotificationMainForm';
 import { notificationResolver } from './notificationResolver';
-import SelectInputs from './SelectInputs';
 
 import { Messages } from 'constant/messages';
 import FetchingProgress from 'features/dataTable/components/FetchingProgress';
@@ -35,17 +32,17 @@ function NotificationSettings() {
 	const methods = useForm<INotificationSettings>({
 		values: settings,
 		resolver: notificationResolver,
+		defaultValues: notificationDefaultValue,
 	});
 
-	const { handleSubmit, watch, control } = methods;
-	const switchNotification = watch('isNotificationEnabled');
+	const { handleSubmit } = methods;
 
 	const [sendUpdatedItem] = useUpdateUserNotificationMutation();
 
 	const submitNotificationValue = useCallback(
 		async (data: INotificationSettings) => {
 			try {
-				await sendUpdatedItem(formTrimming(data)).unwrap();
+				await sendUpdatedItem(formTrimming(notificationDateFormater(data))).unwrap();
 				enqueueSnackbar(Messages.NOTIFICATION_SUCCESSFULLY_UPDATED, { variant: 'success' });
 			} catch {
 				enqueueSnackbar(Messages.FAILED_TO_UPDATE_NOTIFICATION, { variant: 'error' });
@@ -56,8 +53,9 @@ function NotificationSettings() {
 
 	return (
 		<FormContainer onSubmit={handleSubmit(submitNotificationValue)}>
-			<FetchingProgress isFetching={isGetDataFetching} />
-			{!isGetDataFetching && (
+			{isGetDataFetching ? (
+				<FetchingProgress isFetching={isGetDataFetching} />
+			) : (
 				<Stack
 					direction='column'
 					px={3.5}
@@ -66,25 +64,7 @@ function NotificationSettings() {
 					justifyContent='space-between'
 				>
 					<FormProvider {...methods}>
-						<Box>
-							<Controller
-								control={control}
-								name='isNotificationEnabled'
-								render={({ field: { value, ...props } }) => (
-									<FormControlLabel
-										sx={{ mb: 2 }}
-										control={<Switch {...props} checked={value} />}
-										label='Уведомления о поверках'
-									/>
-								)}
-							/>
-							<Fade in={switchNotification}>
-								<Stack gap={4}>
-									<SelectInputs />
-									<EmailInputs />
-								</Stack>
-							</Fade>
-						</Box>
+						<NotificationMainForm />
 					</FormProvider>
 				</Stack>
 			)}

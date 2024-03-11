@@ -33,6 +33,7 @@ function SelectInputs() {
 							<MenuItem value={DATE_OF_SENDING_NOTIFICATION.TWO_WEEKS}>
 								За две недели
 							</MenuItem>
+							<MenuItem value={DATE_OF_SENDING_NOTIFICATION.ONE_MONTH}>За месяц</MenuItem>
 						</Select>
 					</FormControl>
 				)}

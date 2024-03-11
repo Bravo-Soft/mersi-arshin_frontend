@@ -8,9 +8,18 @@ export interface IOperatorsFIlters {
 	sizesFilters: IOperatorsFIltersOptions[];
 	dateFilters: IOperatorsFIltersOptions[];
 	defaultFilters: IOperatorsFIltersOptions[];
+	interVerificationInterval: IOperatorsFIltersOptions[];
+	suitability: IOperatorsFIltersOptions[];
+	cost: IOperatorsFIltersOptions[];
 }
 
-export type FormFiltersTypes = 'dateFilters' | 'sizesFilters' | 'defaultFilters';
+export type FormFiltersTypes =
+	| 'dateFilters'
+	| 'sizesFilters'
+	| 'defaultFilters'
+	| 'interVerificationInterval'
+	| 'suitability'
+	| 'cost';
 export interface IColumnsFilters {
 	field: string;
 	headerName: ColumnNames;
