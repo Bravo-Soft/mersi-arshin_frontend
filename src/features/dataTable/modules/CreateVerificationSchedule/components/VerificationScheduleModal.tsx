@@ -10,9 +10,6 @@ import {
 } from 'features/dataTable/dataTableSlice';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 
-
-
-
 interface IPopupVerificationScheduleModalProps {
 	apiRef: MutableRefObject<GridApiPro>;
 }
