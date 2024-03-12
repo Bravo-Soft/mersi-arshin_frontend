@@ -38,7 +38,7 @@ export const API = {
 		getData: `/arshin/data`,
 		getFilters: `/arshin/group/settings`,
 		editFilters: `/arshin/group/settings`,
-		resetFilters: `/arshin/group/settings`,
+		resetFilters: `/arshin/group/settings/reset`,
 		addItems: `/data/arshin/add`,
 		deleteItems: `/arshin/data`,
 		synchronizeItems: `/arshin/data/synchronization`,
