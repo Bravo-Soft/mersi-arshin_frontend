@@ -4,7 +4,7 @@ import { z } from 'zod';
 const authSchema = z.object({
 	email: z
 		.string()
-		.transform(e => e.trim())
+		.transform(e => e.trim().toLocaleLowerCase())
 		.pipe(
 			z
 				.string()
@@ -13,8 +13,10 @@ const authSchema = z.object({
 					message: 'Введите email в верном формате',
 				})
 		),
-	password: z.string().min(8, 'Минимальная длина пароля 8 символов'),
-	// .regex(new RegExp('/[^A-Za-z0-9]/'), 'Пароль не соответствует правилам безопасности'),
+	password: z
+		.string()
+		.transform(e => e.trim())
+		.pipe(z.string().min(8, 'Минимальная длина пароля 8 символов')),
 });
 
 export const authResolver = zodResolver(authSchema);
