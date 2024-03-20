@@ -1,0 +1,13 @@
+version: "2.1"
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    container_name: test-arshin-mersi-frontend
+    command: npx serve -s /usr/src/app/build -l 2017
+    restart: unless-stopped
+    ports:
+      - '2017:2017'
+    env_file:
+      - .env
