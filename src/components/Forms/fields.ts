@@ -62,6 +62,14 @@ export const editFields: IField<KeysOfEdit>[] = [
 		label: ColumnNames.DIVISION,
 	},
 	{
+		key: 'responsible',
+		label: ColumnNames.RESPONSIBLE,
+	},
+	{
+		key: 'location',
+		label: ColumnNames.LOCATION,
+	},
+	{
 		key: 'condition',
 		label: ColumnNames.CONDITION,
 	},
@@ -85,14 +93,7 @@ export const editFields: IField<KeysOfEdit>[] = [
 		key: 'notes',
 		label: ColumnNames.NOTES,
 	},
-	{
-		key: 'location',
-		label: ColumnNames.LOCATION,
-	},
-	{
-		key: 'responsible',
-		label: ColumnNames.RESPONSIBLE,
-	},
+
 	{
 		key: 'additionalData',
 		label: ColumnNames.ADDITIONAL_DATA,
