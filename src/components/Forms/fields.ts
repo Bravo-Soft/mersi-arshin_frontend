@@ -50,6 +50,10 @@ export const editFields: IField<KeysOfEdit>[] = [
 		label: ColumnNames.TYPE,
 	},
 	{
+		key: 'view',
+		label: ColumnNames.VIEW,
+	},
+	{
 		key: 'factoryNumber',
 		label: ColumnNames.FACTORY_NUMBER,
 	},
@@ -101,10 +105,6 @@ export const editFields: IField<KeysOfEdit>[] = [
 	{
 		key: 'methodology',
 		label: ColumnNames.METHODOLOGY,
-	},
-	{
-		key: 'view',
-		label: ColumnNames.VIEW,
 	},
 ];
 
