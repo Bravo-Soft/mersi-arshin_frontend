@@ -44,7 +44,7 @@ function SelectInputs() {
 				render={({ field }) => (
 					<FormControl fullWidth variant='standard'>
 						<InputLabel id='select-range-of-selection-label'>
-							Диапазон средств измерения
+							Диапазон дат следующей поверки
 						</InputLabel>
 						<Select
 							{...field}
