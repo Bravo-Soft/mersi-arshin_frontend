@@ -35,7 +35,7 @@ function EditArshinItem() {
 					InputLabelProps={{ shrink: true }}
 				/>
 				<TextField
-					{...register('type')}
+					{...register('type', { required: requiredValidation(filterConfig.type) })}
 					label={ColumnNames.TYPE}
 					type='text'
 					required={filterConfig?.type}
@@ -44,7 +44,9 @@ function EditArshinItem() {
 					helperText={errors.type?.message ?? ' '}
 				/>
 				<TextField
-					{...register('factoryNumber')}
+					{...register('factoryNumber', {
+						required: requiredValidation(filterConfig.factoryNumber),
+					})}
 					type='text'
 					required={filterConfig?.factoryNumber}
 					label={ColumnNames.FACTORY_NUMBER}
@@ -74,7 +76,9 @@ function EditArshinItem() {
 					)}
 				/>
 				<TextField
-					{...register('organization')}
+					{...register('organization', {
+						required: requiredValidation(filterConfig.organization),
+					})}
 					label={ColumnNames.ORGANIZATION}
 					type='text'
 					required={filterConfig?.organization}
@@ -104,7 +108,9 @@ function EditArshinItem() {
 					)}
 				/>
 				<TextField
-					{...register('certificate')}
+					{...register('certificate', {
+						required: requiredValidation(filterConfig.certificate),
+					})}
 					label={ColumnNames.CERTIFICATE}
 					type='text'
 					required={filterConfig?.certificate}

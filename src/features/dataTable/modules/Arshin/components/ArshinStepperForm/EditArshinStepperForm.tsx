@@ -1,11 +1,8 @@
-import { useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { useGetFiltersQuery } from '../../arshinTableApiSlice';
 import { deleteNotValidArshinItem } from '../../arshinTableSlice';
 import { defaultValueSidebarArshin } from '../../config/defaultValueSidebarArshin';
 import { useArshinStepper } from '../../hooks/useArshinStepper';
-import { useValdatingForm } from '../../hooks/useValdatingForm';
 import { arshinFormaterItem } from '../../utils/arshinFormaterItem';
 
 import ArshinEditInputs from './ArshinEditInputs';
@@ -17,7 +14,6 @@ import {
 } from 'features/dataTable/dataTableApiSlice';
 import { useAppDispatch } from 'hooks/redux';
 import FormContainer from 'styled/FormContainer';
-import { IFormFilterArshin } from 'types/arshinIntegration';
 import { IDataItemWithDates } from 'types/dataItem';
 import { formTrimming } from 'utils/formTrimming';
 import { setDefaultValue } from 'utils/setDefaultValue';
