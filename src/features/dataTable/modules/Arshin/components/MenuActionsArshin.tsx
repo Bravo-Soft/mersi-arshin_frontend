@@ -35,7 +35,7 @@ function MenuActionsArshin() {
 
 	const menuItems: IMenuItem[] = [
 		{
-			title: 'Настроить фильтра',
+			title: 'Настроить фильтры',
 			Icon: SettingsIcon,
 			isActive: true,
 			action: handleOpenFilter,

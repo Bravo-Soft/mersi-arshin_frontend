@@ -37,7 +37,7 @@ export enum Messages {
 	SETTINGS_SUCCESSFULLY_UPDATED = 'Настройки печати успешно обновлены',
 	SETTINGS_SUCCESSFULLY_RESET = 'Применены стандартные настройки печати',
 	REVIEW_SUCCESSFULLY_SENDED = 'Отзыв успешно отправлен',
-	ARSHIN_FILTERS_SUCCESSFULLY_EDITED = 'Фильтра успешно обновлены',
+	ARSHIN_FILTERS_SUCCESSFULLY_EDITED = 'Фильтры успешно обновлены',
 	ARSHIN_FILTERS_SUCCESSFULLY_RESET = 'Применены стандартные фильтра',
 	ARSHIN_ITEMS_SUCCESSFULLY_ADDED = 'Позиция(и) добавлены в Контроль поверки в Госреестре',
 	ARSHIN_ITEM_SUCCESSFULLY_UPDATED = 'Позиция(и) успешно обновлена(ы)',
