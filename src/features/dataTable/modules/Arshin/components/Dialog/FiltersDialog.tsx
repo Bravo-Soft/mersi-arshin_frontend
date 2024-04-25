@@ -71,7 +71,7 @@ function FiltersDialog() {
 			<FormProvider {...methods}>
 				<Paper component='form' onSubmit={methods.handleSubmit(onSubmit)}>
 					<DialogTitle>
-						Выберите фильтра для поиска
+						Выберите фильтры для поиска
 						<IconButton
 							onClick={handleClose}
 							sx={{
