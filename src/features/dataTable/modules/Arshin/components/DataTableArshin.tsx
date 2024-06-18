@@ -12,12 +12,14 @@ import ContextMenuArshin from './ContextMenuArshin';
 import DataTableArshinToolbar from './DataTableArshinToolbar';
 import ProcessArshin from './Process/ProcessArshin';
 
+import { ColumnMenu } from 'features/dataTable/components/ColumnMenu'; // add column menu from dataTable Components
 import { NoResultsOverlay } from 'features/dataTable/components/NoResultsOverlay';
 import { NoRowsOverlay } from 'features/dataTable/components/NoRowsOverlay';
 import { selectSidebarStateOfArshinPage } from 'features/sidebar/sidebarSlice';
 import { useAppSelector } from 'hooks/redux';
 import DataTableBox from 'styled/DataTableBox';
 import { IDataItemArshin } from 'types/arshinIntegration';
+
 
 const emptyData: IDataItemArshin[] = [];
 
@@ -49,17 +51,19 @@ function DataTableArshin() {
 				columns={columnsArshin}
 				rows={data}
 				loading={isFetching}
-				disableColumnMenu
+				// disableColumnMenu
 				pagination
 				checkboxSelection
-				disableColumnFilter
+				// disableColumnFilter
 				disableSelectionOnClick
-				disableColumnResize
-				disableColumnReorder
+				// disableColumnResize
+				// disableColumnReorder
+				disableColumnSelector
 				density='compact'
 				components={{
 					LoadingOverlay: LinearProgress,
 					Toolbar: DataTableArshinToolbar,
+					ColumnMenu, // add column menu
 					NoRowsOverlay,
 					NoResultsOverlay,
 				}}
