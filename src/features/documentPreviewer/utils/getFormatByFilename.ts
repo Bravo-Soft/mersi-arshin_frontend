@@ -1,0 +1,1 @@
+export const getFormatByFilename = (label: string): string => label.split('.').pop() as string;
