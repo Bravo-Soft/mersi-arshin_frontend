@@ -19,7 +19,7 @@ const StyledPrintingTag = styled(Paper, {
 	shouldForwardProp: prop => !properties.includes(prop),
 })<IStyledChipProps>(({ theme, sizes }) => ({
 	resize: 'both',
-	gap: '5px 15px',
+	gap: '0px 10px',
 	display: 'flex',
 	flexWrap: 'wrap',
 	overflow: 'auto',
