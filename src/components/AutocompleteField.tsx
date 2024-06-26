@@ -20,7 +20,7 @@ function AutocompleteField({
 	readOnly = false,
 	autocompleteParams,
 }: IAutocompleteFieldsProps): JSX.Element {
-	const { control } = useFormContext<IDataItemWithDates>();
+	const { control, trigger } = useFormContext<IDataItemWithDates>();
 
 	return (
 		<Controller
@@ -32,15 +32,19 @@ function AutocompleteField({
 					freeSolo
 					disableClearable
 					options={autocompleteParams}
-					onChange={(_event, value) => {
-						onChange(value);
+					onChange={(_event, newValue) => {
+						onChange(newValue);
+						trigger(name);
 					}}
 					readOnly={readOnly}
 					renderInput={params => (
 						<TextField
 							{...params}
 							label={label}
-							onChange={onChange}
+							onChange={e => {
+								onChange(e.target.value);
+								trigger(name);
+							}}
 							error={Boolean(error)}
 							helperText={error?.message ?? ' '}
 							inputRef={ref}

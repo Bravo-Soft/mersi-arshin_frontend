@@ -1,4 +1,4 @@
-const errorMessage = (size: number) => `Длина строки не может быть больше ${size}`;
+const errorMessage = (size: number) => `Длина строки не может быть больше ${size} символов.`;
 
 export const biggerLengthField = errorMessage(1024);
 export const mediumLengthField = errorMessage(512);

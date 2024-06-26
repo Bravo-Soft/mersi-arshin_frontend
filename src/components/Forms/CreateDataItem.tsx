@@ -76,7 +76,7 @@ function CreateDataItem(): JSX.Element {
 		resolver: createResolver,
 	});
 
-	const { handleSubmit, reset, control } = methods;
+	const { handleSubmit, reset, control, trigger } = methods;
 
 	const rowCount = data?.length ?? 0;
 	const maxRowsIsReached = isValueDefined(maxRowsPerTable) && rowCount >= maxRowsPerTable;
@@ -172,6 +172,7 @@ function CreateDataItem(): JSX.Element {
 						helperText={methods.formState.errors?.fgisUrl?.message ?? ' '}
 						InputLabelProps={{ shrink: true }}
 						type='text'
+						onChange={() => trigger('fgisUrl')}
 					/>
 				);
 			default:
