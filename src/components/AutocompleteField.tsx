@@ -11,6 +11,7 @@ interface IAutocompleteFieldsProps {
 	required?: boolean;
 	name: AutocompleteKeysType;
 	autocompleteParams: string[];
+	maxLength?: number;
 }
 
 function AutocompleteField({
@@ -19,6 +20,7 @@ function AutocompleteField({
 	required = false,
 	readOnly = false,
 	autocompleteParams,
+	maxLength,
 }: IAutocompleteFieldsProps): JSX.Element {
 	const { control, trigger } = useFormContext<IDataItemWithDates>();
 
@@ -49,6 +51,7 @@ function AutocompleteField({
 							helperText={error?.message ?? ' '}
 							inputRef={ref}
 							InputLabelProps={{ shrink: true, required: required }}
+							inputProps={{ ...params.inputProps, maxLength }}
 						/>
 					)}
 				/>
