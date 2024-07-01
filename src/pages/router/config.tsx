@@ -6,7 +6,7 @@ import { PrivateRoute } from './PrivateRoute';
 import Layout from 'components/Layout';
 import { AppRoutes } from 'constant/appRoutes';
 import QuickTour from 'features/quickTour/components/QuickTour';
-// import { ArshinIntegrationPageLazy } from 'pages/arshin-integration';
+import { ArshinIntegrationPageLazy } from 'pages/arshin-integration';
 import { AuthPage } from 'pages/auth';
 import ErrorPage from 'pages/error/ErrorPage';
 import { HomePage } from 'pages/home';
@@ -45,14 +45,14 @@ const config: RouteObject[] = [
 					</PrivateRoute>
 				),
 			},
-			// {
-			// 	path: AppRoutes.ARSHIN,
-			// 	element: (
-			// 		<PrivateRoute>
-			// 			<ArshinIntegrationPageLazy />
-			// 		</PrivateRoute>
-			// 	),
-			// },
+			{
+				path: AppRoutes.ARSHIN,
+				element: (
+					<PrivateRoute>
+						<ArshinIntegrationPageLazy />
+					</PrivateRoute>
+				),
+			},
 		],
 	},
 ];

@@ -17,7 +17,7 @@ import { Messages } from 'constant/messages';
 import { SidebarTitles } from 'constant/sidebarTitles';
 import { selectSelectedDataItem, selectSelectionModel } from 'features/dataTable/dataTableSlice';
 import type { UseContextMenuActionsReturned } from 'features/dataTable/hooks/useContextMenuActions';
-// import { ArshinIcon } from 'features/dataTable/modules/Arshin/ArshinIcon';
+import { ArshinIcon } from 'features/dataTable/modules/Arshin/ArshinIcon';
 import { selectActualStep, selectMenuStart } from 'features/quickTour/components/quickTourSlice';
 import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
 import { selectUserId, selectUserPermissions, selectUserRoles } from 'features/user/userSlice';
@@ -47,7 +47,7 @@ function ContextMenu({ contextMenu, actionsOfContextMenu }: IContextMenuProps): 
 	const userId = useAppSelector(selectUserId);
 	const tourStartedIsMenu = useAppSelector(selectMenuStart);
 	// const { attachFiles, hasFavorites, hasClipboard } = useAppSelector(selectUserPermissions);
-	const { isFileStorage /*isArshin*/ } = useAppSelector(selectUserPermissions);
+	const { isFileStorage  , isArshin  } = useAppSelector(selectUserPermissions);
 
 	const isFavoriteRow =
 		isValueDefined(selectedDataItem) && userId && selectedDataItem.userIds.includes(userId);
@@ -61,7 +61,7 @@ function ContextMenu({ contextMenu, actionsOfContextMenu }: IContextMenuProps): 
 		handleAddToFavorite,
 		handleRemoveFromFavorite,
 		handleCopySelectedValues,
-		// handleAddToArshin,
+		handleAddToArshin,
 	} = actionsOfContextMenu;
 
 	const actualStep = useAppSelector(selectActualStep);
@@ -116,12 +116,12 @@ function ContextMenu({ contextMenu, actionsOfContextMenu }: IContextMenuProps): 
 			isActive: true,
 			action: isFavoriteRow ? handleRemoveFromFavorite : handleAddToFavorite,
 		},
-		// {
-		// 	title: 'Контроль поверки в Госреестре',
-		// 	Icon: isArshin ? ArshinIcon : LockIcon,
-		// 	isActive: isArshin ?? false,
-		// 	action: handleAddToArshin,
-		// },
+		{
+			title: 'Контроль поверки в Госреестре',
+			Icon: isArshin ? ArshinIcon : LockIcon,
+			isActive: isArshin ?? false,
+			action: handleAddToArshin,
+		},
 	];
 
 	const openContextMenu =
