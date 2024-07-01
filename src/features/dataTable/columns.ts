@@ -52,14 +52,14 @@ export const columns: GridColDef<IDataItem>[] = [
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
 	},
-	{
-		field: 'verificationControlInStateRegister',
-		headerName: ColumnNames.VERIFICATION_CONTROL_STATE_REGISTER,
-		width: initialWidth,
-		type: 'boolean',
-		headerAlign: 'center',
-		renderCell: RenderCellExpandedRegister,
-	},
+	// {
+	// 	field: 'verificationControlInStateRegister',
+	// 	headerName: ColumnNames.VERIFICATION_CONTROL_STATE_REGISTER,
+	// 	width: initialWidth,
+	// 	type: 'boolean',
+	// 	headerAlign: 'center',
+	// 	renderCell: RenderCellExpandedRegister,
+	// },
 	{
 		field: 'inventoryNumber',
 		headerName: ColumnNames.INVENTORY_NUMBER,
