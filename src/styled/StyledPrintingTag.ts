@@ -26,7 +26,7 @@ const StyledPrintingTag = styled(Paper, {
 	width: sizes.width,
 	height: sizes.height,
 	flexDirection: 'column',
-	padding: theme.spacing(1),
+	padding: '4px 4px 4px 4px',//theme.spacing(1),
 	backgroundColor: theme.palette.background.default,
 	transition: theme.transitions.create(['border-color', 'box-shadow'], {
 		duration: theme.transitions.duration.short,
