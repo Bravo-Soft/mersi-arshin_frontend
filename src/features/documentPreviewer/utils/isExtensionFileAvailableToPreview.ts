@@ -1,5 +1,5 @@
 export const isFileExtensionAvailableToPreview = (ext: string): boolean => {
-	const extensions = ['txt', 'pdf', 'docx', 'png', 'jpg', 'jpeg'];
+	const extensions = ['docx', 'pdf', 'png', 'jpg', 'jpeg', 'txt'];
 
 	return extensions.includes(ext);
 };
