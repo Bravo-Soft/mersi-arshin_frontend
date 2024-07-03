@@ -16,7 +16,7 @@ interface IDocumentPreview {
 	close: () => void;
 }
 
-const renderDocumentPreview = (format: string, url: string) => formatMapper[format](url);
+const renderDocumentPreview = (format: string, url: string) => formatMapper[format?.toLowerCase()](url);
 
 export const DocumentPreview = ({ itemId, documentId, label, close }: IDocumentPreview) => {
 	const { data: url, isLoading } = useGetUrlForDocumentPreviewQuery({ itemId, documentId });
