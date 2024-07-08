@@ -33,8 +33,13 @@ function HelperDialog(): JSX.Element {
 				open={open}
 				onClose={handleToggleHelpDialog}
 				title='Информация'
-				content={`Допустимые форматы: ${extensions.join(', ')}
-				Форматы предпросмотра: ${previewExtensions.join(', ')}`}
+				content={
+					<div>
+						<div>Форматы</div>
+						<div>Для загрузки - {extensions.join(', ')}</div>
+						<div>Для просмотра - {previewExtensions.join(', ')}</div>
+					</div>
+				}
 				action={<Button onClick={handleToggleHelpDialog}>Закрыть</Button>}
 			/>
 		</>
