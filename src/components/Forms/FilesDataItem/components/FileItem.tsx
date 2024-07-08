@@ -106,7 +106,7 @@ function FileItem({ document, itemId }: ILoadedFileProps): JSX.Element {
 					>
 						{isFileExtensionAvailableToPreview(
 							getFormatByFilename(document.label)
-						) && <MenuItem onClick={handlePreviewFile}>Предпросмотр</MenuItem>}
+						) && <MenuItem onClick={handlePreviewFile}>Посмотреть</MenuItem>}
 						<MenuItem onClick={handleLoadFile}>Загрузить на ПК</MenuItem>
 						<DeleteMenuItem onClick={handleDeleteFile}>Удалить</DeleteMenuItem>
 					</Menu>
