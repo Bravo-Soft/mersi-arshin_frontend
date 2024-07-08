@@ -35,7 +35,7 @@ export const DocumentPreviewHeader = ({ closePreviewLayout, filename }: IDocumen
 			}}
 			>{filename}</Box>
 			<Button variant='contained' onClick={closePreviewLayout}>
-				Выйти из режима предпросмотра
+				Закрыть
 			</Button>
 		</Box>
 	);
