@@ -31,6 +31,8 @@ export const API = {
 			byDocumentId: (id: GridRowId, documentId: string | number) =>
 				`/data/${id}/documents/${documentId}`,
 			getDocumentsList: (id: GridRowId) => `data/${id}/documents/list`,
+			getPreviewForDocument: (id: GridRowId, documentId: string) =>
+				`/data/${id}/documents/${documentId}/url`, // add preview api
 		},
 		print: `/print/data`,
 	},

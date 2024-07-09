@@ -33,6 +33,7 @@ function Tag({ tag, onOpenClick }: IPrintingTagProps) {
 						sizes={filterSize(printSettigns, tag.size)}
 						onContextMenu={onOpenClick(tag.id)}
 						id='demo-positioned-menu'
+						sx={tag.size === 'маленький' ? {padding: '2px 4px 2px 0px'} : {}}
 					>
 						{tag &&
 							tag.tagsPrint.map(({ isVisible, value, translatedKey }, index) => (

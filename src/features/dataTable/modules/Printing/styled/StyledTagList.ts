@@ -6,7 +6,7 @@ import { hideScrollbar } from 'utils/hideScrollbar';
 const StyledTagList = styled(Box)({
 	overflow: 'auto',
 	height: '100%',
-	padding: '10px 0',
+	padding: '10px 0px',
 	scrollbarWidth: 'none',
 	...hideScrollbar(),
 	'@media print': {

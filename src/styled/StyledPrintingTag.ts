@@ -19,14 +19,14 @@ const StyledPrintingTag = styled(Paper, {
 	shouldForwardProp: prop => !properties.includes(prop),
 })<IStyledChipProps>(({ theme, sizes }) => ({
 	resize: 'both',
-	gap: '5px 15px',
+	gap: '0px 10px',
 	display: 'flex',
 	flexWrap: 'wrap',
 	overflow: 'auto',
 	width: sizes.width,
 	height: sizes.height,
 	flexDirection: 'column',
-	padding: theme.spacing(1),
+	padding: '4px 4px 4px 4px',//theme.spacing(1),
 	backgroundColor: theme.palette.background.default,
 	transition: theme.transitions.create(['border-color', 'box-shadow'], {
 		duration: theme.transitions.duration.short,

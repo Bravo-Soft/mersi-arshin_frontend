@@ -15,9 +15,9 @@ function PrintingTagParams({ isVisible, translatedKey, value }: IPrintingTagPara
 	}
 
 	return (
-		<Stack direction='row' flexWrap='wrap' justifyContent='flex-start' gap={0.5}>
-			<Typography noWrap>{translatedKey}:</Typography>
-			<Typography fontWeight='bold'>{getPrintValue(value)}</Typography>
+		<Stack direction='row' flexWrap='wrap' justifyContent='flex-start' gap={0}>
+			<Typography noWrap paddingLeft={'4px'}>{translatedKey}:</Typography>
+			<Typography fontWeight='bold' paddingLeft={'4px'}>{getPrintValue(value)}</Typography>
 		</Stack>
 	);
 }

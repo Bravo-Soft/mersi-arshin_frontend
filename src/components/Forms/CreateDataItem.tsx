@@ -76,7 +76,7 @@ function CreateDataItem(): JSX.Element {
 		resolver: createResolver,
 	});
 
-	const { handleSubmit, reset, control } = methods;
+	const { handleSubmit, reset, control, trigger } = methods;
 
 	const rowCount = data?.length ?? 0;
 	const maxRowsIsReached = isValueDefined(maxRowsPerTable) && rowCount >= maxRowsPerTable;
@@ -108,7 +108,7 @@ function CreateDataItem(): JSX.Element {
 
 	const parametrs = useFilterAutocomplete();
 
-	const createRenderedField = allInputFields.map(({ key, label }) => {
+	const createRenderedField = allInputFields.map(({ key, label, stringLength }) => {
 		switch (key) {
 			case 'size':
 				return <SizeSelect key={key} />;
@@ -164,14 +164,25 @@ function CreateDataItem(): JSX.Element {
 				);
 			case 'fgisUrl':
 				return (
-					<TextField
+					<Controller
+						name={key}
 						key={key}
-						{...methods.register('fgisUrl')}
-						label={label}
-						error={Boolean(methods.formState.errors.fgisUrl)}
-						helperText={methods.formState.errors?.fgisUrl?.message ?? ' '}
-						InputLabelProps={{ shrink: true }}
-						type='text'
+						control={control}
+						render={({ field: { onChange, value, ref }, fieldState: { error } }) => (
+							<TextField
+								value={value}
+								onChange={e => {
+									onChange(e.target.value);
+									trigger(key);
+								}}
+								label={label}
+								error={Boolean(error)}
+								helperText={error?.message ?? ' '}
+								inputRef={ref}
+								InputLabelProps={{ shrink: true }}
+								inputProps={{ maxLength: stringLength }}
+							/>
+						)}
 					/>
 				);
 			default:
@@ -182,6 +193,7 @@ function CreateDataItem(): JSX.Element {
 						label={label}
 						required={key === 'name'}
 						autocompleteParams={parametrs[key]}
+						maxLength={stringLength}
 					/>
 				);
 		}
