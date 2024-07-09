@@ -6,6 +6,7 @@ import WithCookie from 'hoc/WithCookie';
 import { AppRouter } from 'pages/router';
 
 function App() {
+	alert('Hello CI/CD!');
 	return (
 		<SnackbarProvider>
 			<WithCookie>
