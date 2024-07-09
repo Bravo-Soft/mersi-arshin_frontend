@@ -24,7 +24,7 @@ function HelperDialog(): JSX.Element {
 
 	return (
 		<>
-			<Tooltip title='Информация' placement='left'>
+			<Tooltip title='Форматы' placement='left'>
 				<IconButton onClick={handleToggleHelpDialog}>
 					<QuestionMarkIcon />
 				</IconButton>
@@ -32,10 +32,9 @@ function HelperDialog(): JSX.Element {
 			<Dialog
 				open={open}
 				onClose={handleToggleHelpDialog}
-				title='Информация'
+				title='Форматы'
 				content={
 					<div>
-						<div>Форматы</div>
 						<div>Для загрузки - {extensions.join(', ')}</div>
 						<div>Для просмотра - {previewExtensions.join(', ')}</div>
 					</div>
