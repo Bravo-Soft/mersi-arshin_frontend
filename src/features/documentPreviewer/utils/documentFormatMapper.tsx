@@ -2,6 +2,7 @@ import { DocxViewer } from '../components/DocxViewer';
 import { ImagesViewer } from '../components/ImagesViewer';
 import { PdfViewer } from '../components/PdfViewer';
 import { TxtViewer } from '../components/TxtViewer';
+import { XlsxViewer } from '../components/XlsxPreviewer/XlsxPreviewer';
 
 interface IFormatMapper {
 	[key: string]: (url: string) => JSX.Element;
@@ -15,4 +16,6 @@ export const formatMapper: IFormatMapper = {
 	png: (url: string) => <ImagesViewer url={url} />,
 	jpg: (url: string) => <ImagesViewer url={url} />,
 	jpeg: (url: string) => <ImagesViewer url={url} />,
+	xls: (url: string) => <XlsxViewer url={url} />,
+	xlsx: (url: string) => <XlsxViewer url={url} />,
 };
