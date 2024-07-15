@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 
 import { Messages } from '../../../constant/messages';
 
+import { ErrorOverlay } from 'features/dataTable/components/ErrorOverlay';
+
 interface ITxtViewer {
 	url: string;
 }
@@ -20,46 +22,38 @@ export const TxtViewer = ({ url }: ITxtViewer) => {
 	}, [url]);
 
 	return (
-		text ? <Box
-				sx={{
-					width: '100%',
-					maxHeight: '80vh',
-				}}
-			>
-				<TextField
-					multiline
-					hiddenLabel
-					InputProps={{
-						readOnly: true,
-						disableUnderline: true,
-					}}
-					fullWidth
-					minRows={10}
-					maxRows={24}
-					sx={{
-						padding: '10px 25px 10px 5vw !important',
-						overflowY: 'auto',
-						background: '#fff',
-						border: 'none',
-					}}
-					value={text}
-					variant='standard'
-				/>
-			</Box>
-		: text === '' ? <Box
-					sx={{
-						width: '100%',
-						minHeight: '10rem',
-						textAlign: 'center',
-						fontSize: '24px',
-						padding: '10px 25px 10px 5vw !important',
-						overflowY: 'auto',
-						background: '#fff',
-						border: 'none',
-					}}
-				>
-					Файл пуст
-				</Box>
-			: <></>
+		<Box
+			sx={{
+				height: '100%',
+				width: '100%',
+				maxHeight: '80vh',
+			}}
+		>
+			{text === '' ? (
+				<ErrorOverlay errorType='emptyFile' />
+			) : (
+				text && (
+					<TextField
+						multiline
+						hiddenLabel
+						InputProps={{
+							readOnly: true,
+							disableUnderline: true,
+						}}
+						fullWidth
+						minRows={10}
+						maxRows={24}
+						sx={{
+							padding: '10px 25px 10px 5vw !important',
+							overflowY: 'auto',
+							background: '#fff',
+							border: 'none',
+						}}
+						value={text}
+						variant='standard'
+					/>
+				)
+			)}
+		</Box>
 	);
 };

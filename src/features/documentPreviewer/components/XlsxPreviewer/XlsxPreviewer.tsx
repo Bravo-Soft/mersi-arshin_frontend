@@ -84,7 +84,7 @@ export function XlsxViewer({ url }: IXlsxViewer) {
 			}}
 		>
 			{previewerIsFailed ? (
-				<ErrorOverlay />
+				<ErrorOverlay errorType='readError' />
 			) : (
 				rows.length > 0 &&
 				columns.length > 0 && (
@@ -94,6 +94,8 @@ export function XlsxViewer({ url }: IXlsxViewer) {
 						rows={rows[tab]}
 						columns={columns[tab]}
 						pagination
+						disableColumnMenu
+						disableSelectionOnClick
 						components={{
 							LoadingOverlay: LinearProgress,
 							NoResultsOverlay,
