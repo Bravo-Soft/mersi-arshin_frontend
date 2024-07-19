@@ -1,14 +1,9 @@
 import { Box } from '@mui/material';
 import { renderAsync } from 'docx-preview';
-import { RefObject, useEffect, useRef, useState } from 'react';
-
-import { selectIsPreviewerFailed, setPreviewerIsFailed } from '../../documentPreviewerSlice';
-
-import { isDocxEmpty } from './utils/isDocxEmpty';
+import { RefObject, useEffect, useRef } from 'react';
 
 import { ErrorOverlay } from 'features/dataTable/components/ErrorOverlay';
-import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { useUploadFile } from 'hooks/useFileUpload';
+import { useFileValidation } from 'hooks/useFileValidation';
 
 interface IDocxViewer {
 	url: string;
@@ -16,33 +11,20 @@ interface IDocxViewer {
 
 export const DocxViewer = ({ url }: IDocxViewer) => {
 	const docxContainerRef = useRef<HTMLDivElement>();
-	const [emptyFile, setEmptyFile] = useState<boolean | null>(null);
-
-	const dispatch = useAppDispatch();
-	const previewerIsFailed = useAppSelector(selectIsPreviewerFailed);
-
-	const { blob } = useUploadFile(url);
+	const { fileStatus, blob } = useFileValidation(url);
 
 	useEffect(() => {
 		const renderDocx = async () => {
-			await renderAsync(blob, docxContainerRef.current as HTMLDivElement);
+			if (blob) {
+				await renderAsync(blob, docxContainerRef.current as HTMLDivElement);
+			}
 		};
 
-		if (blob) {
-			isDocxEmpty(blob, dispatch)
-				.then(isEmpty => {
-					if (isEmpty) {
-						setEmptyFile(true);
-					} else {
-						renderDocx();
-						setEmptyFile(false);
-					}
-				})
-				.catch(() => {
-					dispatch(setPreviewerIsFailed(true));
-				});
+		if (!fileStatus.isEmpty && !fileStatus.isCorrupt) {
+			renderDocx();
 		}
-	}, [blob, dispatch]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [fileStatus]);
 
 	return (
 		<Box
@@ -61,8 +43,8 @@ export const DocxViewer = ({ url }: IDocxViewer) => {
 				},
 			}}
 		>
-			{previewerIsFailed && <ErrorOverlay errorType='readError' />}
-			{emptyFile && <ErrorOverlay errorType='emptyFile' />}
+			{fileStatus.isEmpty && <ErrorOverlay errorType='emptyFile' />}
+			{fileStatus.isCorrupt && <ErrorOverlay errorType='readError' />}
 		</Box>
 	);
 };

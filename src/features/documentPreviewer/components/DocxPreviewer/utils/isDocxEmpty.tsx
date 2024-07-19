@@ -1,30 +1,28 @@
 import JSZip from 'jszip';
 
-import { AppDispatch } from 'app/store';
-import { setPreviewerIsFailed } from 'features/documentPreviewer/documentPreviewerSlice';
+interface IEmptyDocx {
+	isEmpty: boolean;
+	isCorrupt: boolean;
+}
 
-export const isDocxEmpty = async (blob: Blob, dispatch: AppDispatch): Promise<boolean> => {
-	if (blob.size === 0) {
-		return true;
-	}
-
+export const isDocxEmpty = async (blob: Blob): Promise<IEmptyDocx> => {
 	try {
 		const arrayBuffer = await blob.arrayBuffer();
 		const zip = await JSZip.loadAsync(arrayBuffer);
 		const docXml = await zip.file('word/document.xml')?.async('text');
-
 		if (!docXml) {
-			dispatch(setPreviewerIsFailed(true));
+			return { isEmpty: false, isCorrupt: true };
 		} else {
 			const parser = new DOMParser();
 			const xmlDoc = parser.parseFromString(docXml, 'application/xml');
 			const textContent = xmlDoc.documentElement.textContent || '';
 
-			return textContent.trim().length === 0;
+			if (textContent.trim().length === 0) {
+				return { isEmpty: true, isCorrupt: false };
+			}
+			return { isEmpty: false, isCorrupt: false };
 		}
-		return true;
 	} catch (error) {
-		dispatch(setPreviewerIsFailed(true));
-		return true;
+		return { isEmpty: false, isCorrupt: true };
 	}
 };

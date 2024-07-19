@@ -4,7 +4,7 @@ import { SyntheticEvent } from 'react';
 interface ICustomPagination {
 	sheets: string[];
 	tab: number;
-	handleChangeTab: (event: SyntheticEvent, newValue: number) => void;
+	handleChangeTab?: (event: SyntheticEvent, newValue: number) => void;
 }
 
 export function CustomPagination({ sheets, tab, handleChangeTab }: ICustomPagination) {
