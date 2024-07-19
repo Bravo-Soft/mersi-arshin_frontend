@@ -1,6 +1,6 @@
-import { DocxViewer } from '../components/DocxViewer';
+import { DocxViewer } from '../components/DocxPreviewer/DocxViewer';
 import { ImagesViewer } from '../components/ImagesViewer';
-import { PdfViewer } from '../components/PdfViewer';
+import { PdfViewer } from '../components/PdfPreviewer/PdfViewer';
 import { TxtViewer } from '../components/TxtViewer';
 import { XlsxViewer } from '../components/XlsxPreviewer/XlsxPreviewer';
 

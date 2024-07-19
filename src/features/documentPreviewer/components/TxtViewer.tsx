@@ -1,25 +1,14 @@
 import { Box, TextField } from '@mui/material';
-import { enqueueSnackbar } from 'notistack';
-import { useEffect, useState } from 'react';
-
-import { Messages } from '../../../constant/messages';
 
 import { ErrorOverlay } from 'features/dataTable/components/ErrorOverlay';
+import { useFileValidation } from 'hooks/useFileValidation';
 
 interface ITxtViewer {
 	url: string;
 }
 
 export const TxtViewer = ({ url }: ITxtViewer) => {
-	const [text, setText] = useState<string | null>(null);
-
-	useEffect(() => {
-		fetch(url)
-			.then(res => res.blob())
-			.then(blob => blob.text())
-			.then(text => setText(text))
-			.catch(() => enqueueSnackbar(Messages.ERROR_REPEAT, { variant: 'error' }));
-	}, [url]);
+	const { text, fileStatus } = useFileValidation(url);
 
 	return (
 		<Box
@@ -29,30 +18,30 @@ export const TxtViewer = ({ url }: ITxtViewer) => {
 				maxHeight: '80vh',
 			}}
 		>
-			{text === '' ? (
+			{fileStatus.isEmpty ? (
 				<ErrorOverlay errorType='emptyFile' />
+			) : fileStatus.isCorrupt ? (
+				<ErrorOverlay errorType='readError' />
 			) : (
-				text && (
-					<TextField
-						multiline
-						hiddenLabel
-						InputProps={{
-							readOnly: true,
-							disableUnderline: true,
-						}}
-						fullWidth
-						minRows={10}
-						maxRows={24}
-						sx={{
-							padding: '10px 25px 10px 5vw !important',
-							overflowY: 'auto',
-							background: '#fff',
-							border: 'none',
-						}}
-						value={text}
-						variant='standard'
-					/>
-				)
+				<TextField
+					multiline
+					hiddenLabel
+					InputProps={{
+						readOnly: true,
+						disableUnderline: true,
+					}}
+					fullWidth
+					minRows={10}
+					maxRows={24}
+					sx={{
+						padding: '10px 25px 10px 5vw !important',
+						overflowY: 'auto',
+						background: '#fff',
+						border: 'none',
+					}}
+					value={text}
+					variant='standard'
+				/>
 			)}
 		</Box>
 	);
