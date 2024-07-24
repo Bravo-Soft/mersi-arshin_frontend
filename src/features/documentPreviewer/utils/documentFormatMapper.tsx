@@ -12,7 +12,7 @@ export const formatMapper: IFormatMapper = {
 	txt: (url: string) => <TxtViewer url={url} />,
 	pdf: (url: string) => <PdfViewer url={url} />,
 	docx: (url: string) => <DocxViewer url={url} />,
-	// doc: (url: string) => <DocxViewer url={url} />,
+	doc: (url: string) => <DocxViewer url={url} />,
 	png: (url: string) => <ImagesViewer url={url} />,
 	jpg: (url: string) => <ImagesViewer url={url} />,
 	jpeg: (url: string) => <ImagesViewer url={url} />,
