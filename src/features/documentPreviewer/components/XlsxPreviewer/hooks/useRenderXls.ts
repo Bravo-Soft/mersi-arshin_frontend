@@ -6,7 +6,12 @@ import { convertWsToMuiDataGrid } from '../utils/convertWsToMuiDataGrid';
 
 type Row = GridRowsProp[];
 
-export const useRenderXls = (arrayBuffer: ArrayBuffer | null) => {
+interface IXlsProps {
+	type: string;
+	arrayBuffer: ArrayBuffer | null;
+}
+
+export const useRenderXls = ({ type, arrayBuffer }: IXlsProps) => {
 	const [sheets, setSheets] = useState<string[]>([]);
 	const [rows, setRows] = useState<Row[][]>([]);
 	const [columns, setColumns] = useState<GridColDef[][]>([]);
@@ -19,15 +24,22 @@ export const useRenderXls = (arrayBuffer: ArrayBuffer | null) => {
 	useEffect(() => {
 		const renderXls = async () => {
 			try {
-				const wb = read(arrayBuffer);
+				const options = type === 'csv' ? { codepage: 65001 } : {};
+				const wb = read(arrayBuffer, options);
 				const sheetNames = wb.SheetNames;
 				setSheets(sheetNames);
 
 				for (let i = 0; i < sheetNames.length; i++) {
 					const ws = wb.Sheets[wb.SheetNames[i]];
 					const { rows, columns } = convertWsToMuiDataGrid(ws);
-					setRows(prevState => [...prevState, rows]);
-					setColumns(prevState => [...prevState, columns]);
+
+					if (i === 0) {
+						setRows([rows]);
+						setColumns([columns]);
+					} else {
+						setRows(prevState => [...prevState, rows]);
+						setColumns(prevState => [...prevState, columns]);
+					}
 				}
 			} catch (e) {
 				return;
@@ -37,7 +49,7 @@ export const useRenderXls = (arrayBuffer: ArrayBuffer | null) => {
 		if (arrayBuffer) {
 			renderXls();
 		}
-	}, [arrayBuffer]);
+	}, [arrayBuffer, type]);
 
 	return { sheets, rows, columns, tab, handleChangeTab };
 };

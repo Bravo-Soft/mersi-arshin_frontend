@@ -191,6 +191,13 @@ export const theme = createTheme(
 					}),
 				},
 			},
+			MuiPopover: {
+				styleOverrides: {
+					root: {
+						zIndex: 2000,
+					},
+				},
+			},
 		},
 	},
 	coreRuRU,

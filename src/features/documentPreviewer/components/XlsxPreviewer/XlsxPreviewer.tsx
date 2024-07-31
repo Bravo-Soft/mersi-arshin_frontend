@@ -3,7 +3,7 @@ import { DataGridPro } from '@mui/x-data-grid-pro';
 
 import { CustomFooter } from './components/CustomFooter';
 import { CustomPagination } from './components/CustomPagination';
-import { useRenderXls } from './hooks/useRenderXls';
+import { useCsv, useRenderXls } from './hooks';
 import RootDataGrid from './utils/rootDataGrid';
 
 import { ErrorOverlay } from 'features/dataTable/components/ErrorOverlay';
@@ -13,11 +13,19 @@ import { useFileValidation } from 'hooks/useFileValidation';
 
 interface IXlsxViewer {
 	url: string;
+	type: 'csv' | 'xlsx' | 'xls';
 }
 
-export function XlsxViewer({ url }: IXlsxViewer) {
+export function XlsxViewer({ url, type }: IXlsxViewer) {
 	const { fileStatus, arrayBuffer } = useFileValidation(url);
-	const { sheets, rows, columns, tab, handleChangeTab } = useRenderXls(arrayBuffer);
+	const { encodedArrayBuffer, customHeader } = useCsv(arrayBuffer);
+
+	const currentArrayBuffer = type === 'csv' ? encodedArrayBuffer : arrayBuffer;
+
+	const { sheets, rows, columns, tab, handleChangeTab } = useRenderXls({
+		arrayBuffer: currentArrayBuffer,
+		type,
+	});
 
 	return (
 		<RootDataGrid
@@ -48,13 +56,17 @@ export function XlsxViewer({ url }: IXlsxViewer) {
 							LoadingOverlay: LinearProgress,
 							NoResultsOverlay,
 							NoRowsOverlay,
-							Footer: CustomFooter,
-							Pagination: () =>
-								CustomPagination({
-									sheets,
-									tab,
-									handleChangeTab,
-								}),
+							Header: type === 'csv' ? customHeader : () => <></>,
+							Footer: type === 'csv' ? () => <></> : CustomFooter,
+							Pagination:
+								type === 'csv'
+									? () => <></>
+									: () =>
+											CustomPagination({
+												sheets,
+												tab,
+												handleChangeTab,
+											}),
 						}}
 					/>
 				)

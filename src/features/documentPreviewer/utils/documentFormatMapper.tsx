@@ -16,6 +16,7 @@ export const formatMapper: IFormatMapper = {
 	png: (url: string) => <ImagesViewer url={url} />,
 	jpg: (url: string) => <ImagesViewer url={url} />,
 	jpeg: (url: string) => <ImagesViewer url={url} />,
-	xls: (url: string) => <XlsxViewer url={url} />,
-	xlsx: (url: string) => <XlsxViewer url={url} />,
+	xls: (url: string) => <XlsxViewer url={url} type='xls' />,
+	xlsx: (url: string) => <XlsxViewer url={url} type='xlsx' />,
+	csv: (url: string) => <XlsxViewer url={url} type='csv' />,
 };

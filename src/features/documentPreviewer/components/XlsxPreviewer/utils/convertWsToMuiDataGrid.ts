@@ -13,7 +13,7 @@ export function convertWsToMuiDataGrid(ws: WorkSheet): RowCol {
 		field: String(i),
 		headerName: utils.encode_col(i),
 		editable: false,
-		minWidth: 50,
+		minWidth: 200,
 		flex: 1,
 	}));
 	const columns = [
