@@ -68,6 +68,22 @@ export function XlsxViewer({ url, type }: IXlsxViewer) {
 												handleChangeTab,
 											}),
 						}}
+						sx={{
+							'.MuiDataGrid-main': {
+								borderRadius: type === 'csv' ? `0 0 8px 8px` : 0,
+							},
+							'.MuiDataGrid-cell': {
+								userSelect: 'text',
+								':hover': {
+									cursor: 'default',
+								},
+							},
+							'.MuiDataGrid-cellContent': {
+								':hover': {
+									cursor: 'text',
+								},
+							},
+						}}
 					/>
 				)
 			)}

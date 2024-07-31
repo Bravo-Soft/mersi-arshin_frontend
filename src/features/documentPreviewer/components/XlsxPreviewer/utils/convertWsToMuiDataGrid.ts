@@ -14,7 +14,6 @@ export function convertWsToMuiDataGrid(ws: WorkSheet): RowCol {
 		headerName: utils.encode_col(i),
 		editable: false,
 		minWidth: 200,
-		flex: 1,
 	}));
 	const columns = [
 		{
