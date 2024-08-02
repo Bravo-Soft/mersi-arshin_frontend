@@ -85,6 +85,15 @@ const RootDataGrid = styled(Box, {
 			':first-of-type': {
 				borderLeft: 'none',
 			},
+			userSelect: 'text',
+			':hover': {
+				cursor: 'default',
+			},
+		},
+		[`& .${gridClasses.cellContent}`]: {
+			':hover': {
+				cursor: 'text',
+			},
 		},
 
 		[`& .${gridClasses.row}`]: {

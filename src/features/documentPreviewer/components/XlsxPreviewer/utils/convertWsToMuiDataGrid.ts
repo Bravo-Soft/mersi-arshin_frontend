@@ -14,12 +14,14 @@ export function convertWsToMuiDataGrid(ws: WorkSheet): RowCol {
 		headerName: utils.encode_col(i),
 		editable: false,
 		minWidth: 200,
+		width: 200,
 	}));
 	const columns = [
 		{
 			field: 'id',
 			headerName: '\u25E2',
 			editable: false,
+			minWidth: 200,
 		},
 		...columnsData,
 	];
