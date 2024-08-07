@@ -11,7 +11,6 @@ export const useUploadFile = (url: string) => {
 		const getFileByUrl = async () => {
 			try {
 				const response = await fetch(url);
-
 				const blob = await response.blob();
 				setBlob(blob);
 

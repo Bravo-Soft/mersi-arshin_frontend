@@ -34,12 +34,10 @@ export const DocxViewer = ({ url }: IDocxViewer) => {
 				width: '100%',
 				'& .docx-wrapper': {
 					borderRadius: '0 0 8px 8px',
-					maxHeight: '80vh',
 				},
 				'& .docx-wrapper .docx': {
-					minHeight: 'unset !important',
-					padding: '16px !important',
-					overflowY: 'auto',
+					padding: '50px !important',
+					overflowY: 'scroll',
 				},
 			}}
 		>
