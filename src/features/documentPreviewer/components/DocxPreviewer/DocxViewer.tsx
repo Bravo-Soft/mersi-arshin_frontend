@@ -32,12 +32,12 @@ export const DocxViewer = ({ url }: IDocxViewer) => {
 			sx={{
 				height: '100%',
 				width: '100%',
+				overflowY: 'auto',
 				'& .docx-wrapper': {
 					borderRadius: '0 0 8px 8px',
 				},
 				'& .docx-wrapper .docx': {
 					padding: '50px !important',
-					overflowY: 'scroll',
 				},
 			}}
 		>
