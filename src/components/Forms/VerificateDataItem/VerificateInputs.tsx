@@ -41,8 +41,8 @@ function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
 						return <SuitabilitySelect key={key} />;
 					case 'cost':
 						return <CostFilterField key={key} control={control} name={key} />;
-					case 'fgisUrl':
-						return <BaseField key={key} control={control} name={key} label={label} />;
+					// case 'fgisUrl':
+					// 	return <BaseField key={key} control={control} name={key} label={label} />;
 					default:
 						return (
 							<AutocompleteField
