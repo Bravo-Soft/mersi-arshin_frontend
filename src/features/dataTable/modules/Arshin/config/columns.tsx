@@ -5,7 +5,7 @@ import { ColumnNames } from 'constant/columnsName';
 import { Tag } from 'constant/tag';
 import {
 	RenderCellExpand,
-	// RenderCellExpandedRegister,
+	RenderCellExpandedRegister,
 } from 'features/dataTable/components/RenderCellExpand';
 import { formatDateCallback } from 'features/dataTable/utils/formatDateCallback';
 import { quickFilterDateFormat } from 'features/dataTable/utils/quickFilterDateFormat';
@@ -47,15 +47,15 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
 	},
-	// {
-	// 	field: 'verificationControlInStateRegister',
-	// 	// sortable: false,
-	// 	headerName: ColumnNames.VERIFICATION_CONTROL_STATE_REGISTER,
-	// 	width: 200,
-	// 	type: 'boolean',
-	// 	headerAlign: 'center',
-	// 	renderCell: RenderCellExpandedRegister,
-	// },
+	{
+		field: 'verificationControlInStateRegister',
+		// sortable: false,
+		headerName: ColumnNames.VERIFICATION_CONTROL_STATE_REGISTER,
+		width: 200,
+		type: 'boolean',
+		headerAlign: 'center',
+		renderCell: RenderCellExpandedRegister,
+	},
 	{
 		field: 'inventoryNumber',
 		// sortable: false,
@@ -158,14 +158,14 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
 	},
-	// {
-	// 	field: 'fgisUrl',
-	// 	//sortable: false,
-	// 	headerName: ColumnNames.FGIS_URL,
-	// 	width: 200,
-	// 	headerAlign: 'center',
-	// 	renderCell: RenderCellExpand,
-	// },
+	{
+		field: 'fgisUrl',
+		//sortable: false,
+		headerName: ColumnNames.FGIS_URL,
+		width: 200,
+		headerAlign: 'center',
+		renderCell: RenderCellExpand,
+	},
 	{
 		field: 'certificate',
 		//sortable: false,

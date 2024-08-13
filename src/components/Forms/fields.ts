@@ -28,8 +28,8 @@ export type KeysOfEdit =
 	| 'location'
 	| 'responsible'
 	| 'additionalData'
-	| 'methodology';
-// | 'view';
+	| 'methodology'
+	| 'view';
 
 export type KeysOfVerificate =
 	| 'verificationDate'
@@ -40,7 +40,7 @@ export type KeysOfVerificate =
 	| 'certificate'
 	| 'organization'
 	| 'suitability'
-	// | 'fgisUrl'
+	| 'fgisUrl'
 	| 'cost';
 
 export const editFields: IField<KeysOfEdit>[] = [
@@ -54,11 +54,11 @@ export const editFields: IField<KeysOfEdit>[] = [
 		label: ColumnNames.TYPE,
 		stringLength: ColumnsMaxStringLength.SMALL,
 	},
-	// {
-	// 	key: 'view',
-	// 	label: ColumnNames.VIEW,
-	// 	stringLength: ColumnsMaxStringLength.SMALL,
-	// },
+	{
+		key: 'view',
+		label: ColumnNames.VIEW,
+		stringLength: ColumnsMaxStringLength.SMALL,
+	},
 	{
 		key: 'factoryNumber',
 		label: ColumnNames.FACTORY_NUMBER,
@@ -162,11 +162,11 @@ export const verificationFields: IField<KeysOfVerificate>[] = [
 		key: 'suitability',
 		label: ColumnNames.SUITABILITY,
 	},
-	// {
-	// 	key: 'fgisUrl',
-	// 	label: ColumnNames.FGIS_URL,
-	// 	stringLength: ColumnsMaxStringLength.LARGE,
-	// },
+	{
+		key: 'fgisUrl',
+		label: ColumnNames.FGIS_URL,
+		stringLength: ColumnsMaxStringLength.LARGE,
+	},
 	{
 		key: 'cost',
 		label: ColumnNames.COST,
