@@ -5,7 +5,7 @@ import {
 	setSelectedDataArshinItem,
 	setSelectedEditItemIds,
 } from '../arshinTableSlice';
-import { selectIsAliveArshin, selectIsStartArshin } from '../eventSourceSlice';
+import { selectIsWorkingArshin } from '../eventSourceSlice';
 
 import { ICoordinates } from 'features/dataTable/hooks/useContextMenuActions';
 import { isValueDefined } from 'guards/isValueDefined';
@@ -19,8 +19,7 @@ export const useContextMenuActions = (data: IDataItemArshin[]) => {
 
 	const dispatch = useAppDispatch();
 
-	const isStart = useAppSelector(selectIsStartArshin);
-	const isAlive = useAppSelector(selectIsAliveArshin);
+	const isWorking = useAppSelector(selectIsWorkingArshin);
 
 	const handleCloseContextMenu = () => {
 		dispatch(resetSelectedDataArshinItem());
@@ -30,14 +29,15 @@ export const useContextMenuActions = (data: IDataItemArshin[]) => {
 	const handleOpenContextMenu = (event: MouseEvent<HTMLDivElement>) => {
 		event.preventDefault();
 
-		if (isStart || !isAlive) return;
+		if (isWorking) return;
 
 		const currentId = event.currentTarget.getAttribute('data-id');
 		if (currentId !== null) {
 			const fondedDataItem = data.find(({ id }) => id === currentId);
+
 			if (isValueDefined(fondedDataItem)) {
 				dispatch(setSelectedDataArshinItem(fondedDataItem));
-				dispatch(setSelectedEditItemIds(fondedDataItem.originId));
+				dispatch(setSelectedEditItemIds(fondedDataItem.id));
 				setContextMenu(
 					contextMenu === null
 						? { mouseX: event.clientX - 2, mouseY: event.clientY - 4 }

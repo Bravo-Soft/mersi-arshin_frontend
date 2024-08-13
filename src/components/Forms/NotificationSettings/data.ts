@@ -75,6 +75,11 @@ export const columnsFilters: IColumnsFilters[] = [
 		headerName: ColumnNames.TYPE,
 		type: 'defaultFilters',
 	},
+	// {
+	// 	field: 'view',
+	// 	headerName: ColumnNames.VIEW,
+	// 	type: 'defaultFilters',
+	// },
 	{
 		field: 'factoryNumber',
 		headerName: ColumnNames.FACTORY_NUMBER,

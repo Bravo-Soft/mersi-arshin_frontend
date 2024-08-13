@@ -8,14 +8,20 @@ import {
 	minDateConstant,
 	minDateMessageConstant,
 } from './dateConstants';
-import { largeLengthField, smallLengthField } from './errorMessage';
+import {
+	biggerLengthField,
+	largeLengthField,
+	mediumLengthField,
+	smallLengthField,
+} from './errorMessage';
 
 import { dayjsFormatVariant } from 'constant/dateFormat';
 import { Tag } from 'constant/tag';
 
 export const itemSchema = z.object({
-	name: z.string().max(256, largeLengthField).min(1, 'Это обязательное поле'),
+	name: z.string().max(512, mediumLengthField).min(1, 'Это обязательное поле'),
 	type: z.string().max(128, smallLengthField),
+	view: z.string().max(128, smallLengthField),
 	factoryNumber: z.string().max(128, smallLengthField),
 	inventoryNumber: z.string().max(128, smallLengthField),
 	division: z.string().max(128, smallLengthField),
@@ -26,11 +32,11 @@ export const itemSchema = z.object({
 	organization: z.string().max(256, largeLengthField),
 	accuracyClass: z.string().max(256, largeLengthField),
 	measurementLimit: z.string().max(128, smallLengthField),
-	location: z.string().max(128, smallLengthField),
+	location: z.string().max(512, mediumLengthField),
 	responsible: z.string().max(128, smallLengthField),
 	suitability: z.string(),
 	fgisUrl: z.string().max(256, largeLengthField),
-	additionalData: z.string().max(256, largeLengthField),
+	additionalData: z.string().max(1024, biggerLengthField),
 	methodology: z.string().max(256, largeLengthField),
 	cost: z
 		.string()
@@ -39,7 +45,7 @@ export const itemSchema = z.object({
 		.refine(e => e >= 0, 'Минимальное допустимое число 1')
 		.transform(e => e.toString()),
 	size: z.nativeEnum(Tag),
-	notes: z.string().max(256, largeLengthField),
+	notes: z.string().max(1024, biggerLengthField),
 	interVerificationInterval: z
 		.number()
 		.positive('Число не может быть менее 0')

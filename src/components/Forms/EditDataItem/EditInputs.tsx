@@ -21,7 +21,7 @@ function EditInputs({ isReader }: IEditInputsProps): JSX.Element {
 	const params = useFilterAutocomplete();
 	return (
 		<Stack direction='column' px={3} pb={3.5} flexGrow={1}>
-			{renderColumns.map(({ key, label }) => {
+			{renderColumns.map(({ key, label, stringLength }) => {
 				switch (key) {
 					case 'productionDate':
 						return <DateField key={key} readOnly={isReader} nameOfKey={key} label={label} />;
@@ -36,6 +36,7 @@ function EditInputs({ isReader }: IEditInputsProps): JSX.Element {
 								required={key === 'name'}
 								autocompleteParams={params[key]}
 								readOnly={isReader}
+								maxLength={stringLength}
 							/>
 						);
 				}

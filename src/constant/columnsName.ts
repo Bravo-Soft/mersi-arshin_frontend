@@ -22,9 +22,10 @@ export enum ColumnNames {
 	RESPONSIBLE = 'Ответственный',
 	SUITABILITY = 'Пригодность',
 	// FGIS_URL = 'Ссылка',
-	ADDITIONAL_DATA = 'Доп. Данные',
+	ADDITIONAL_DATA = 'Доп. данные',
 	METHODOLOGY = 'Методика',
 	COST = 'Стоимость',
 	STATUS = 'Статус',
 	ACTIONS = 'Действия',
+	// VIEW = 'Вид СИ',
 }

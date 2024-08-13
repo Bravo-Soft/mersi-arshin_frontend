@@ -31,8 +31,11 @@ export const useArshinStepper = () => {
 	const handleSendAction = async () => {
 		handleNext();
 		if (isLastStep) {
-			await handleStart(model.map(({ id }) => id));
 			closeSidebar();
+			setActiveStep(0);
+			setTimeout(async () => {
+				await handleStart(model.map(({ id }) => id));
+			}, 1700);
 		}
 	};
 
@@ -43,8 +46,9 @@ export const useArshinStepper = () => {
 		dispatch(setSelectedDataItems(modelFiltered));
 		handleNext();
 		if (isLastStep) {
-			handleStart(modelIds);
+			await handleStart(modelIds);
 			closeSidebar();
+			setActiveStep(0);
 		}
 	};
 

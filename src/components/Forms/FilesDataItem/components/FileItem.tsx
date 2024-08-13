@@ -12,8 +12,11 @@ import MenuItem from '@mui/material/MenuItem';
 import type { MouseEvent } from 'react';
 import { useState } from 'react';
 
+import { getFormatByFilename } from '../../../../features/documentPreviewer/utils/getFormatByFilename';
+import { isFileExtensionAvailableToPreview } from '../../../../features/documentPreviewer/utils/isExtensionFileAvailableToPreview';
 import { convertFileSize } from '../convertFileSize';
 
+import { DocumentPreview } from 'features/documentPreviewer/components/DocumentPreview';
 import { useDeleteFileMutation, useLazyDownloadFileQuery } from 'features/files/filesApiSlice';
 import { selectUserRoles } from 'features/user/userSlice';
 import { isValueDefined } from 'guards/isValueDefined';
@@ -60,40 +63,66 @@ function FileItem({ document, itemId }: ILoadedFileProps): JSX.Element {
 		}
 	};
 
+	const handlePreviewFile = async () => {
+		handleCloseMenu();
+
+		setDocumentPreviewIsOpen(true);
+	};
+
+	const closeDocumentPreview = () => {
+		setDocumentPreviewIsOpen(false);
+	};
+
+	const [documentPreviewIsOpen, setDocumentPreviewIsOpen] = useState(false);
+
 	return (
-		<ListItem>
-			<ListItemAvatar>
-				<Avatar>
-					<InsertDriveFileIcon />
-				</Avatar>
-			</ListItemAvatar>
-			<ListItemText
-				primaryTypographyProps={{ noWrap: true }}
-				primary={document.label}
-				secondary={convertFileSize(document.size, 2) + ' МБ'}
-			/>
-			<ListItemSecondaryAction>
-				<IconButton
-					edge='end'
-					aria-label='Удалить'
-					size='small'
-					onClick={isWriter || isAdmin ? handleOpenMenu : handleLoadFile}
-				>
-					{isWriter || isAdmin ? <MoreHorizIcon /> : <DownloadIcon />}
-				</IconButton>
-				{(isWriter || isAdmin) && (
-					<Menu
-						open={open}
-						anchorEl={anchorEl}
-						onClose={handleCloseMenu}
-						sx={{ minWidth: 200 }}
+		<>
+			<ListItem>
+				<ListItemAvatar>
+					<Avatar>
+						<InsertDriveFileIcon />
+					</Avatar>
+				</ListItemAvatar>
+				<ListItemText
+					primaryTypographyProps={{ noWrap: true }}
+					primary={document.label}
+					secondary={convertFileSize(document.size, 2) + ' МБ'}
+				/>
+				<ListItemSecondaryAction>
+					<IconButton
+						edge='end'
+						aria-label='Удалить'
+						size='small'
+						onClick={isWriter || isAdmin ? handleOpenMenu : handleLoadFile}
 					>
-						<MenuItem onClick={handleLoadFile}>Загрузить на ПК</MenuItem>
-						<DeleteMenuItem onClick={handleDeleteFile}>Удалить</DeleteMenuItem>
-					</Menu>
-				)}
-			</ListItemSecondaryAction>
-		</ListItem>
+						{isWriter || isAdmin ? <MoreHorizIcon /> : <DownloadIcon />}
+					</IconButton>
+					{(isWriter || isAdmin) && (
+						<Menu
+							open={open}
+							anchorEl={anchorEl}
+							onClose={handleCloseMenu}
+							sx={{ minWidth: 200 }}
+						>
+							{isFileExtensionAvailableToPreview(getFormatByFilename(document.label)) && (
+								<MenuItem onClick={handlePreviewFile}>Посмотреть</MenuItem>
+							)}
+							<MenuItem onClick={handleLoadFile}>Загрузить на ПК</MenuItem>
+							<DeleteMenuItem onClick={handleDeleteFile}>Удалить</DeleteMenuItem>
+						</Menu>
+					)}
+				</ListItemSecondaryAction>
+			</ListItem>
+
+			{documentPreviewIsOpen && (
+				<DocumentPreview
+					itemId={itemId}
+					documentId={document.id}
+					label={document.label}
+					close={closeDocumentPreview}
+				/>
+			)}
+		</>
 	);
 }
 

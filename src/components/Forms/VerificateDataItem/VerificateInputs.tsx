@@ -1,9 +1,10 @@
-import InputAdornment from '@mui/material/InputAdornment';
 import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
-import { Controller, useFormContext } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 
 import { verificationFields } from '../fields';
+import BaseField from '../FieldsComponents/BaseField';
+import CostFilterField from '../FieldsComponents/CostFilterField';
+import InterVerificationInterval from '../FieldsComponents/InterVerificationInterval';
 import { useFilterAutocomplete } from '../hooks/useAutocomplete';
 
 import AutocompleteField from 'components/AutocompleteField';
@@ -18,11 +19,7 @@ interface IVerificateFieldsProps {
 }
 
 function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
-	const {
-		control,
-		register,
-		formState: { errors },
-	} = useFormContext<IDataItemWithDates>();
+	const { control } = useFormContext<IDataItemWithDates>();
 
 	const { modifiedVerificationFields } = useAppSelector(selectedVisibleColumns);
 
@@ -33,65 +30,31 @@ function VerificateFields({ isReader }: IVerificateFieldsProps): JSX.Element {
 
 	return (
 		<Stack direction='column' px={3.5} pb={3.5} flexGrow={1}>
-			{renderColumns.map(({ key, label }) =>
-				key === 'verificationDate' || key === 'dateOfTheNextVerification' ? (
-					<DateField key={key} readOnly={isReader} nameOfKey={key} label={label} />
-				) : key === 'interVerificationInterval' ? (
-					<Controller
-						name={key}
-						key={key}
-						control={control}
-						render={({ field: { ref, onChange, ...field }, fieldState: { error } }) => (
-							<TextField
-								{...field}
+			{renderColumns.map(({ key, label }) => {
+				switch (key) {
+					case 'verificationDate':
+					case 'dateOfTheNextVerification':
+						return <DateField key={key} readOnly={isReader} nameOfKey={key} label={label} />;
+					case 'interVerificationInterval':
+						return <InterVerificationInterval name={key} control={control} key={key} />;
+					case 'suitability':
+						return <SuitabilitySelect key={key} />;
+					case 'cost':
+						return <CostFilterField key={key} control={control} name={key} />;
+					// case 'fgisUrl':
+					// 	return <BaseField key={key} control={control} name={key} label={label} />;
+					default:
+						return (
+							<AutocompleteField
+								key={key}
+								name={key}
 								label={label}
-								error={Boolean(error)}
-								helperText={error?.message ?? ' '}
-								inputRef={ref}
-								onChange={e => onChange(Number(e.target.value))}
-								InputLabelProps={{ shrink: true }}
-								type='number'
+								autocompleteParams={params[key]}
+								readOnly={isReader}
 							/>
-						)}
-					/>
-				) : key === 'suitability' ? (
-					<SuitabilitySelect key={key} />
-				) : key === 'cost' ? (
-					<TextField
-						key={key}
-						{...register('cost')}
-						label={label}
-						error={Boolean(errors.cost)}
-						helperText={errors?.cost?.message ?? ' '}
-						InputLabelProps={{ shrink: true }}
-						InputProps={{
-							startAdornment: <InputAdornment position='start'>₽</InputAdornment>,
-						}}
-						inputProps={{
-							step: 0.01,
-						}}
-						type='number'
-					/>
-				) : key === 'fgisUrl' ? (
-					<TextField
-						key={key}
-						{...register('fgisUrl')}
-						label={label}
-						error={Boolean(errors.fgisUrl)}
-						helperText={errors?.fgisUrl?.message ?? ' '}
-						InputLabelProps={{ shrink: true }}
-						type='text'
-					/>
-				) : (
-					<AutocompleteField
-						key={key}
-						name={key}
-						label={label}
-						autocompleteParams={params[key]}
-						readOnly={isReader}
-					/>
-				)
-			)}
+						);
+				}
+			})}
 		</Stack>
 	);
 }

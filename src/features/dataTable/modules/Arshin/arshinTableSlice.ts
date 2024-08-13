@@ -167,7 +167,7 @@ export const selectSelectedEditItemIds = (state: RootState) =>
 
 export const selectNotValidArshinClassesItem = (state: RootState) =>
 	state.arshinTable.notValidArshinClassesItem;
-	
+
 export const {
 	setSelectedDataItems,
 	resetSelectedDataItem,

@@ -41,6 +41,7 @@ function DataTable(): JSX.Element {
 	/* Загрузка данных */
 	const { data: loadedData = [], isFetching: isFetchingData } = useGetAllDataQuery(undefined, {
 		pollingInterval: 60000,
+		refetchOnMountOrArgChange: true,
 	});
 
 	/* Хуки, создающие обработчики событий и обрабатывающие загруженные данные */

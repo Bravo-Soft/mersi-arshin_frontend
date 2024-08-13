@@ -62,7 +62,8 @@ export const arshinTableApiSlice = apiSlice.injectEndpoints({
 		cancelArshin: builder.mutation<void, void>({
 			query: () => ({
 				url: API.arshin.cancelArshin,
-				method: 'PATCH',
+				body: [],
+				method: 'POST',
 			}),
 		}),
 		getFilters: builder.query<IFormFilterArshin, void>({

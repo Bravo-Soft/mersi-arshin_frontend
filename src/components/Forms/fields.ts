@@ -1,13 +1,16 @@
+import { ColumnsMaxStringLength } from 'constant/columnsMaxStringLength';
 import { ColumnNames } from 'constant/columnsName';
 import type { IDataItemWithDates } from 'types/dataItem';
 
 interface ICreateInputs {
 	key: keyof Omit<IDataItemWithDates, 'id' | 'userIds' | 'verificationControlInStateRegister'>;
 	label: ColumnNames;
+	stringLength?: number;
 }
 
 export interface IField<T> extends Omit<ICreateInputs, 'key'> {
 	key: T;
+	stringLength?: number;
 }
 
 export type KeysOfEdit =
@@ -26,6 +29,7 @@ export type KeysOfEdit =
 	| 'responsible'
 	| 'additionalData'
 	| 'methodology';
+// | 'view';
 
 export type KeysOfVerificate =
 	| 'verificationDate'
@@ -36,33 +40,54 @@ export type KeysOfVerificate =
 	| 'certificate'
 	| 'organization'
 	| 'suitability'
-	| 'fgisUrl'
+	// | 'fgisUrl'
 	| 'cost';
 
 export const editFields: IField<KeysOfEdit>[] = [
 	{
 		key: 'name',
 		label: ColumnNames.NAME,
+		stringLength: ColumnsMaxStringLength.MEDIUM,
 	},
 	{
 		key: 'type',
 		label: ColumnNames.TYPE,
+		stringLength: ColumnsMaxStringLength.SMALL,
 	},
+	// {
+	// 	key: 'view',
+	// 	label: ColumnNames.VIEW,
+	// 	stringLength: ColumnsMaxStringLength.SMALL,
+	// },
 	{
 		key: 'factoryNumber',
 		label: ColumnNames.FACTORY_NUMBER,
+		stringLength: ColumnsMaxStringLength.SMALL,
 	},
 	{
 		key: 'inventoryNumber',
 		label: ColumnNames.INVENTORY_NUMBER,
+		stringLength: ColumnsMaxStringLength.SMALL,
 	},
 	{
 		key: 'division',
 		label: ColumnNames.DIVISION,
+		stringLength: ColumnsMaxStringLength.SMALL,
+	},
+	{
+		key: 'responsible',
+		label: ColumnNames.RESPONSIBLE,
+		stringLength: ColumnsMaxStringLength.SMALL,
+	},
+	{
+		key: 'location',
+		label: ColumnNames.LOCATION,
+		stringLength: ColumnsMaxStringLength.MEDIUM,
 	},
 	{
 		key: 'condition',
 		label: ColumnNames.CONDITION,
+		stringLength: ColumnsMaxStringLength.LARGE,
 	},
 	{
 		key: 'productionDate',
@@ -71,10 +96,12 @@ export const editFields: IField<KeysOfEdit>[] = [
 	{
 		key: 'accuracyClass',
 		label: ColumnNames.ACCURACY_CLASS,
+		stringLength: ColumnsMaxStringLength.LARGE,
 	},
 	{
 		key: 'measurementLimit',
 		label: ColumnNames.MEASUREMENT_LIMIT,
+		stringLength: ColumnsMaxStringLength.SMALL,
 	},
 	{
 		key: 'size',
@@ -83,22 +110,18 @@ export const editFields: IField<KeysOfEdit>[] = [
 	{
 		key: 'notes',
 		label: ColumnNames.NOTES,
+		stringLength: ColumnsMaxStringLength.BIGGER,
 	},
-	{
-		key: 'location',
-		label: ColumnNames.LOCATION,
-	},
-	{
-		key: 'responsible',
-		label: ColumnNames.RESPONSIBLE,
-	},
+
 	{
 		key: 'additionalData',
 		label: ColumnNames.ADDITIONAL_DATA,
+		stringLength: ColumnsMaxStringLength.BIGGER,
 	},
 	{
 		key: 'methodology',
 		label: ColumnNames.METHODOLOGY,
+		stringLength: ColumnsMaxStringLength.LARGE,
 	},
 ];
 
@@ -118,18 +141,22 @@ export const verificationFields: IField<KeysOfVerificate>[] = [
 	{
 		key: 'typeOfWork',
 		label: ColumnNames.TYPE_OF_WORK,
+		stringLength: ColumnsMaxStringLength.SMALL,
 	},
 	{
 		key: 'stateRegister',
 		label: ColumnNames.STATE_REGISTER,
+		stringLength: ColumnsMaxStringLength.LARGE,
 	},
 	{
 		key: 'certificate',
 		label: ColumnNames.CERTIFICATE,
+		stringLength: ColumnsMaxStringLength.LARGE,
 	},
 	{
 		key: 'organization',
 		label: ColumnNames.ORGANIZATION,
+		stringLength: ColumnsMaxStringLength.LARGE,
 	},
 	{
 		key: 'suitability',
@@ -138,6 +165,7 @@ export const verificationFields: IField<KeysOfVerificate>[] = [
 	// {
 	// 	key: 'fgisUrl',
 	// 	label: ColumnNames.FGIS_URL,
+	// 	stringLength: ColumnsMaxStringLength.LARGE,
 	// },
 	{
 		key: 'cost',

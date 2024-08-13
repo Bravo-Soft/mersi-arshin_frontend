@@ -12,6 +12,3 @@ export const arshinFilterStatusDone = {
 	operatorValue: 'is',
 	value: ArshinStatus.DONE,
 };
-
-
-

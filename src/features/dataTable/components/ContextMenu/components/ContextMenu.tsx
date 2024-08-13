@@ -47,7 +47,7 @@ function ContextMenu({ contextMenu, actionsOfContextMenu }: IContextMenuProps): 
 	const userId = useAppSelector(selectUserId);
 	const tourStartedIsMenu = useAppSelector(selectMenuStart);
 	// const { attachFiles, hasFavorites, hasClipboard } = useAppSelector(selectUserPermissions);
-	const { isFileStorage /* isArshin */ } = useAppSelector(selectUserPermissions);
+	const { isFileStorage /*isArshin*/ } = useAppSelector(selectUserPermissions);
 
 	const isFavoriteRow =
 		isValueDefined(selectedDataItem) && userId && selectedDataItem.userIds.includes(userId);

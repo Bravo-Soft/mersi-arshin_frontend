@@ -62,7 +62,7 @@ function ButtonGroup({ apiRef }: IButtonGroupProps) {
 					<MenuItem onClick={downloadDataCSV}>Выгрузить в CSV</MenuItem>
 					<MenuItem onClick={downloadDataExcel}>Выгрузить в XLSX</MenuItem>
 				</Menu>
-				<Button onClick={closeModal}>Закрыть</Button>
+				<Button onClick={closeModal}>Отменить</Button>
 			</Stack>
 		</DialogActions>
 	);

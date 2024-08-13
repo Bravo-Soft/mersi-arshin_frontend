@@ -1,5 +1,4 @@
-import { enqueueSnackbar } from 'notistack';
-import { SyntheticEvent, useCallback } from 'react';
+import { SyntheticEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import {
@@ -7,10 +6,8 @@ import {
 	useReadNotificationMutation,
 } from '../api/NotificationApiSlice';
 
-import { apiSlice } from 'app/apiSlice';
 import { AppRoutes } from 'constant/appRoutes';
 import { Messages } from 'constant/messages';
-import { useServerSentEvent } from 'features/dataTable/modules/Arshin/hooks/useServerSentEvent';
 import { useAnchor } from 'features/dataTable/modules/CreateVerificationSchedule/components/utils/hooks';
 import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
 import { selectUserPermissions } from 'features/user/userSlice';
@@ -38,19 +35,15 @@ export const usePushNotification = () => {
 		}
 	};
 
-	const handleReadAllNotifications = async () => {
+	const handleReadAll = async () => {
 		try {
 			await readAllMutation();
 		} finally {
 			handleClose();
 		}
 	};
-	const handleReadNotification = (id: string) => async () => {
-		try {
-			await readMutation(id);
-		} finally {
-			handleClose();
-		}
+	const handleRead = (id: string) => async () => {
+		await readMutation(id);
 	};
 
 	const handleClickIconNotification = (event: SyntheticEvent) => {
@@ -65,27 +58,13 @@ export const usePushNotification = () => {
 			  );
 	};
 
-	const callBack = useCallback(
-		(event: MessageEvent) => {
-			const { message } = JSON.parse(event.data);
-			dispatch(apiSlice.util.invalidateTags(['PushNotification']));
-			enqueueSnackbar(message, {
-				variant: 'info',
-			});
-		},
-		[dispatch]
-	);
-
-	useServerSentEvent(`/api/mersi/notifications/arshin`, callBack);
-
 	return {
 		anchorEl,
-		handleOpen,
-		handleClose,
 		isArshin,
+		handleRead,
+		handleReadAll,
 		handleNavigateToArshin,
-		handleReadAllNotifications,
-		handleReadNotification,
-		handleClickIconNotification,
+		handleClose,
+		handleOpen: handleClickIconNotification,
 	};
 };

@@ -9,4 +9,5 @@ export const acceptedFiles: Accept = {
 	'image/png': ['.png'],
 	'image/jpeg': ['.jpeg', '.jpg'],
 	'text/csv': ['.csv'],
+	'text/plain': ['.txt'],
 };

@@ -58,6 +58,7 @@ function DataTableToolbar(): JSX.Element {
 						spacing={2}
 						divider={<Divider orientation='vertical' flexItem />}
 					>
+						{/* <ButtonsNavigation /> */}
 						<Typography
 							color='primary.main'
 							variant='h6'
@@ -67,7 +68,6 @@ function DataTableToolbar(): JSX.Element {
 						>
 							Средства измерения
 						</Typography>
-						{/* <ButtonsNavigation /> */}
 						<Tooltip
 							title={
 								expanded

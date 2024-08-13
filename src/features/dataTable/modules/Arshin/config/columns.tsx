@@ -1,4 +1,4 @@
-import { GridColDef } from '@mui/x-data-grid-pro';
+import { GridColDef, GridComparatorFn } from '@mui/x-data-grid-pro';
 
 import { ArshinStatus } from 'constant/arshinStatus';
 import { ColumnNames } from 'constant/columnsName';
@@ -11,10 +11,21 @@ import { formatDateCallback } from 'features/dataTable/utils/formatDateCallback'
 import { quickFilterDateFormat } from 'features/dataTable/utils/quickFilterDateFormat';
 import { IDataItemArshin } from 'types/arshinIntegration';
 
+const sortComparator: GridComparatorFn = (v1, v2, cellParams1, cellParams2) => {
+	if (cellParams1.field === 'status' && cellParams2.field === 'status') {
+		if (v1 === ArshinStatus.PROCESS) {
+			return -1;
+		} else if (v2 === ArshinStatus.PROCESS) {
+			return 1;
+		}
+	}
+	return v1.toString().localeCompare(v2, undefined, { numeric: true });
+};
+
 export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	{
 		field: 'name',
-		sortable: false,
+		// sortable: false,
 		headerName: ColumnNames.NAME,
 		width: 200,
 		headerAlign: 'center',
@@ -22,7 +33,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	},
 	{
 		field: 'type',
-		sortable: false,
+		// sortable: false,
 		headerName: ColumnNames.TYPE,
 		width: 200,
 		headerAlign: 'center',
@@ -30,7 +41,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	},
 	{
 		field: 'factoryNumber',
-		sortable: false,
+		// sortable: false,
 		headerName: ColumnNames.FACTORY_NUMBER,
 		width: 200,
 		headerAlign: 'center',
@@ -38,7 +49,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	},
 	// {
 	// 	field: 'verificationControlInStateRegister',
-	// 	sortable: false,
+	// 	// sortable: false,
 	// 	headerName: ColumnNames.VERIFICATION_CONTROL_STATE_REGISTER,
 	// 	width: 200,
 	// 	type: 'boolean',
@@ -47,7 +58,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	// },
 	{
 		field: 'inventoryNumber',
-		sortable: false,
+		// sortable: false,
 		headerName: ColumnNames.INVENTORY_NUMBER,
 		width: 200,
 		headerAlign: 'center',
@@ -55,7 +66,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	},
 	{
 		field: 'division',
-		sortable: false,
+		// sortable: false,
 		headerName: ColumnNames.DIVISION,
 		width: 200,
 		headerAlign: 'center',
@@ -64,7 +75,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 
 	{
 		field: 'location',
-		sortable: false,
+		// sortable: false,
 		headerName: ColumnNames.LOCATION,
 		width: 200,
 		headerAlign: 'center',
@@ -72,7 +83,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	},
 	{
 		field: 'responsible',
-		sortable: false,
+		// sortable: false,
 		headerName: ColumnNames.RESPONSIBLE,
 		width: 200,
 		headerAlign: 'center',
@@ -80,7 +91,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	},
 	{
 		field: 'verificationDate',
-		sortable: false,
+		// sortable: false,
 		headerName: ColumnNames.VERIFICATION_DATE,
 		width: 200,
 		resizable: false,
@@ -92,7 +103,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 
 	{
 		field: 'interVerificationInterval',
-		sortable: false,
+		// sortable: false,
 		headerName: ColumnNames.VERIFICATION_INTERVAL,
 		width: 200,
 		headerAlign: 'center',
@@ -100,7 +111,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	},
 	{
 		field: 'dateOfTheNextVerification',
-		sortable: false,
+		// sortable: false,
 		headerName: ColumnNames.DATE_OF_THE_NEXT_VERIFICATION,
 		width: 200,
 		resizable: false,
@@ -111,7 +122,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	},
 	{
 		field: 'typeOfWork',
-		sortable: false,
+		// sortable: false,
 		headerName: ColumnNames.TYPE_OF_WORK,
 		width: 200,
 		headerAlign: 'center',
@@ -133,7 +144,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 
 	{
 		field: 'condition',
-		sortable: false,
+		// sortable: false,
 		headerName: ColumnNames.CONDITION,
 		width: 200,
 		headerAlign: 'center',
@@ -141,7 +152,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	},
 	{
 		field: 'stateRegister',
-		sortable: false,
+		//sortable: false,
 		headerName: ColumnNames.STATE_REGISTER,
 		width: 200,
 		headerAlign: 'center',
@@ -149,7 +160,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	},
 	// {
 	// 	field: 'fgisUrl',
-	// 	sortable: false,
+	// 	//sortable: false,
 	// 	headerName: ColumnNames.FGIS_URL,
 	// 	width: 200,
 	// 	headerAlign: 'center',
@@ -157,7 +168,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	// },
 	{
 		field: 'certificate',
-		sortable: false,
+		//sortable: false,
 		headerName: ColumnNames.CERTIFICATE,
 		width: 200,
 		headerAlign: 'center',
@@ -165,7 +176,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	},
 	{
 		field: 'productionDate',
-		sortable: false,
+		//sortable: false,
 		headerName: ColumnNames.PRODUCTION_DATE,
 		width: 200,
 		resizable: false,
@@ -175,7 +186,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	},
 	{
 		field: 'organization',
-		sortable: false,
+		//sortable: false,
 		headerName: ColumnNames.ORGANIZATION,
 		width: 200,
 		headerAlign: 'center',
@@ -183,7 +194,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	},
 	{
 		field: 'accuracyClass',
-		sortable: false,
+		//sortable: false,
 		headerName: ColumnNames.ACCURACY_CLASS,
 		width: 200,
 		headerAlign: 'center',
@@ -191,7 +202,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	},
 	{
 		field: 'measurementLimit',
-		sortable: false,
+		//sortable: false,
 		headerName: ColumnNames.MEASUREMENT_LIMIT,
 		width: 200,
 		headerAlign: 'center',
@@ -199,7 +210,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	},
 	{
 		field: 'additionalData',
-		sortable: false,
+		//sortable: false,
 		headerName: ColumnNames.ADDITIONAL_DATA,
 		width: 200,
 		headerAlign: 'center',
@@ -207,7 +218,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	},
 	{
 		field: 'size',
-		sortable: false,
+		//sortable: false,
 		headerName: ColumnNames.SIZE,
 		width: 200,
 		headerAlign: 'center',
@@ -217,7 +228,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	},
 	{
 		field: 'methodology',
-		sortable: false,
+		//sortable: false,
 		headerName: ColumnNames.METHODOLOGY,
 		width: 200,
 		headerAlign: 'center',
@@ -225,7 +236,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	},
 	{
 		field: 'cost',
-		sortable: false,
+		//sortable: false,
 		headerName: ColumnNames.COST,
 		width: 200,
 		headerAlign: 'center',
@@ -235,7 +246,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 
 	{
 		field: 'notes',
-		sortable: false,
+		//sortable: false,
 		headerName: ColumnNames.NOTES,
 		width: 200,
 		headerAlign: 'center',
@@ -243,7 +254,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	},
 	{
 		field: 'status',
-		sortable: false,
+		//sortable: false,
 		headerName: ColumnNames.STATUS,
 		width: 250,
 		headerAlign: 'center',
@@ -254,5 +265,6 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 			ArshinStatus.AWAITING_SHIPMENT,
 		],
 		renderCell: RenderCellExpand,
+		sortComparator: sortComparator,
 	},
 ];

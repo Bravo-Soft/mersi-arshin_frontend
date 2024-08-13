@@ -98,6 +98,11 @@ export const useSidebarElements = (page: SidebarPages): ISidebarElement<SidebarS
 					selector: 'EditSidebarArshinItem',
 					headerTitle: SidebarTitles.EDIT_ITEM,
 				},
+				{
+					Component: UserProfile,
+					selector: 'UserProfile',
+					headerTitle: SidebarTitles.PROFILE_SETTINGS,
+				},
 			];
 
 			return sidebarElements;

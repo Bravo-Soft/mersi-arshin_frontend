@@ -11,6 +11,7 @@ interface IAutocompleteFieldsProps {
 	required?: boolean;
 	name: AutocompleteKeysType;
 	autocompleteParams: string[];
+	maxLength?: number;
 }
 
 function AutocompleteField({
@@ -19,8 +20,9 @@ function AutocompleteField({
 	required = false,
 	readOnly = false,
 	autocompleteParams,
+	maxLength,
 }: IAutocompleteFieldsProps): JSX.Element {
-	const { control } = useFormContext<IDataItemWithDates>();
+	const { control, trigger } = useFormContext<IDataItemWithDates>();
 
 	return (
 		<Controller
@@ -32,19 +34,24 @@ function AutocompleteField({
 					freeSolo
 					disableClearable
 					options={autocompleteParams}
-					onChange={(_event, value) => {
-						onChange(value);
+					onChange={(_event, newValue) => {
+						onChange(newValue);
+						trigger(name);
 					}}
 					readOnly={readOnly}
 					renderInput={params => (
 						<TextField
 							{...params}
 							label={label}
-							onChange={onChange}
+							onChange={e => {
+								onChange(e.target.value);
+								trigger(name);
+							}}
 							error={Boolean(error)}
 							helperText={error?.message ?? ' '}
 							inputRef={ref}
 							InputLabelProps={{ shrink: true, required: required }}
+							inputProps={{ ...params.inputProps, maxLength }}
 						/>
 					)}
 				/>

@@ -62,7 +62,7 @@ export const useValidateArshin = () => {
 	const handleValidateDate = (date: Dayjs) => date.isValid() || 'Неверный формат даты';
 
 	const requiredValidation = (bool?: boolean) => {
-		return Boolean(!bool) || 'Обязательное поле';
+		return bool && 'Обязательное поле';
 	};
 
 	const verificationDateValidate = {
