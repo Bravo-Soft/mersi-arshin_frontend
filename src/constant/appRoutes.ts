@@ -3,4 +3,5 @@ export const enum AppRoutes {
 	AUTH = '/auth',
 	PRINT = '/print',
 	ARSHIN = '/arshin-integration',
+	HISTORY = '/history',
 }

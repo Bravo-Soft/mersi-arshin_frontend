@@ -83,4 +83,5 @@ export enum Messages {
 	FAILED_ARSHIN_FILTERS_RESET = 'Не удалось применить стандартные фильтра',
 	FAILED_ARSHIN_ITEMS_ADDED = 'Не удалось добавить позицию(и) в Контроль поверки в Госреестре',
 	FAILED_ARSHIN_ITEM_UPDATED = 'Не удалось обновить позицию(и)',
+	FAILED_ITEM_HISTORY_LOADING = 'Невозможно отобразить историю: заводской номер прибора не указан!',
 }
