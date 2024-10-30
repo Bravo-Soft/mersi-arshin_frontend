@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import { enqueueSnackbar } from 'notistack';
 import type { MouseEvent } from 'react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import {
 	pinManyRows,
@@ -48,6 +49,7 @@ export const useContextMenuActions = (
 	data: IDataItem[]
 ) => {
 	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
 
 	/* Состояние и селекторы */
 	const [contextMenu, setContextMenu] = useState<ICoordinates | null>(null);
@@ -217,6 +219,10 @@ export const useContextMenuActions = (
 		}
 	};
 
+	const handleGetItemHistory = async () => {
+		navigate('/history');
+	};
+
 	return {
 		contextMenu,
 		actionsOfContextMenu: {
@@ -234,6 +240,7 @@ export const useContextMenuActions = (
 			handleRemoveFromFavorite,
 			handleCopySelectedValues,
 			handleAddToArshin,
+			handleGetItemHistory,
 		},
 	};
 };

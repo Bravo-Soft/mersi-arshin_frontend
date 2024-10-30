@@ -8,13 +8,13 @@ import { gridClasses } from '@mui/x-data-grid-pro';
 import { sidebarWidth } from 'constant/sidebarWidth';
 import { customCheckbox } from 'styled/customCheckbox';
 
-interface IDataTableBoxProps {
+interface ITableBoxProps {
 	sidebarIsOpen?: boolean;
 }
 
-const DataTableBox = styled(Box, {
+const TableBox = styled(Box, {
 	shouldForwardProp: prop => prop !== 'sidebarIsOpen',
-})<IDataTableBoxProps>(({ theme, sidebarIsOpen }) => ({
+})<ITableBoxProps>(({ theme, sidebarIsOpen }) => ({
 	height: '100%',
 	padding: `0 ${theme.spacing(3)}`,
 	transition: `${theme.transitions.create('all', {
@@ -147,6 +147,18 @@ const DataTableBox = styled(Box, {
 				outline: 'none',
 			},
 		},
+		'& .cellCreated': {
+			backgroundColor: '#2b92698e',
+			color: '#000',
+		},
+		'& .cellUpdated': {
+			backgroundColor: '#22abc9ac',
+			color: '#000',
+		},
+		'& .cellRemoved': {
+			backgroundColor: red[50],
+			color: red[700],
+		},
 
 		'& .overdueItem': {
 			backgroundColor: red[50],
@@ -166,4 +178,4 @@ const DataTableBox = styled(Box, {
 	},
 }));
 
-export default DataTableBox;
+export default TableBox;

@@ -9,6 +9,7 @@ import QuickTour from 'features/quickTour/components/QuickTour';
 import { ArshinIntegrationPageLazy } from 'pages/arshin-integration';
 import { AuthPage } from 'pages/auth';
 import ErrorPage from 'pages/error/ErrorPage';
+import { HistoryPage } from 'pages/history';
 import { HomePage } from 'pages/home';
 import { InitPage } from 'pages/init';
 import { PrintPage } from 'pages/print';
@@ -50,6 +51,14 @@ const config: RouteObject[] = [
 				element: (
 					<PrivateRoute>
 						<ArshinIntegrationPageLazy />
+					</PrivateRoute>
+				),
+			},
+			{
+				path: AppRoutes.HISTORY,
+				element: (
+					<PrivateRoute>
+						<HistoryPage />
 					</PrivateRoute>
 				),
 			},

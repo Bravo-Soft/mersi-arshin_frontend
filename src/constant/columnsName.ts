@@ -28,4 +28,7 @@ export enum ColumnNames {
 	STATUS = 'Статус',
 	ACTIONS = 'Действия',
 	VIEW = 'Вид СИ',
+	EDITED_BY = 'Редактор',
+	ACTION = 'Действие',
+	MODIFICATION_DATE = 'Дата изменения',
 }
