@@ -2,10 +2,7 @@ import type { GridCellParams, GridColDef } from '@mui/x-data-grid-pro';
 import cn from 'classnames';
 import dayjs from 'dayjs';
 
-import {
-	RenderCellExpand /* RenderCellExpandedRegister */,
-	RenderCellExpandedRegister,
-} from './components/RenderCellExpand';
+import { RenderCellExpand, RenderCellExpandedRegister } from './components/RenderCellExpand';
 import { formatDateCallback } from './utils/formatDateCallback';
 import { quickFilterDateFormat } from './utils/quickFilterDateFormat';
 

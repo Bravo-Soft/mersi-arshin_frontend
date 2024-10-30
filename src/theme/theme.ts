@@ -88,6 +88,10 @@ export const theme = createTheme(
 				main: '#014E5F',
 				light: '#EAF0F2',
 			},
+			secondary: {
+				main: '#014E5F',
+				light: '#EAF0F2',
+			},
 			background: {
 				default: '#EDEEF0',
 				paper: '#FFF',
@@ -185,6 +189,13 @@ export const theme = createTheme(
 							boxShadow: 'none',
 						},
 					}),
+				},
+			},
+			MuiPopover: {
+				styleOverrides: {
+					root: {
+						zIndex: 2000,
+					},
 				},
 			},
 		},
