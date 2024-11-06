@@ -39,3 +39,12 @@ export interface INotValidArshinItem {
 	keys: KeyofDataItemArshin[];
 }
 export type IResponseValidateArshin = INotValidArshinItem;
+
+export interface IRequestItem {
+	id: number | string;
+	requestTitle: string;
+	status: string;
+	fieldsDate: string[] | null[];
+	periodicity: 1 | 3 | 5;
+	items: string[];
+}

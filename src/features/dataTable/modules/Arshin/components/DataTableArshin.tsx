@@ -20,7 +20,6 @@ import { useAppSelector } from 'hooks/redux';
 import DataTableBox from 'styled/DataTableBox';
 import { IDataItemArshin } from 'types/arshinIntegration';
 
-
 const emptyData: IDataItemArshin[] = [];
 
 function DataTableArshin() {
@@ -40,12 +39,12 @@ function DataTableArshin() {
 	const { selectionIds, handleSelectItems, handleDisabledSelectedRow, handleGetCellClassName } =
 		useTableActions();
 
-	const { open: sidebarIsOpen } = useAppSelector(selectSidebarStateOfArshinPage);
+	const { open: sidebarIsOpen, selector } = useAppSelector(selectSidebarStateOfArshinPage);
 
 	const { contextMenu, actions } = useContextMenuActions(data);
 
 	return (
-		<DataTableBox sidebarIsOpen={sidebarIsOpen}>
+		<DataTableBox sidebarIsOpen={sidebarIsOpen} selector={selector}>
 			<DataGridPro
 				apiRef={apiRef}
 				columns={columnsArshin}

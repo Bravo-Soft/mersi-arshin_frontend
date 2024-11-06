@@ -1,14 +1,16 @@
 import { GridSelectionModel } from '@mui/x-data-grid-pro';
 import { enqueueSnackbar } from 'notistack';
 
-import { setNotValidArshinItem } from './arshinTableSlice';
+import { setNotValidArshinItem, setRequestsList } from './arshinTableSlice';
 import { changeDialogState } from './dialogArshinSlice';
+import { REQUESTS_MOCK } from './REQUESTS_MOCK';
 
 import { API } from 'app/api';
 import { apiSlice } from 'app/apiSlice';
 import {
 	IDataItemArshin,
 	IFormFilterArshin,
+	IRequestItem,
 	IResponseValidateArshin,
 } from 'types/arshinIntegration';
 
@@ -103,6 +105,23 @@ export const arshinTableApiSlice = apiSlice.injectEndpoints({
 				};
 			},
 		}),
+		getRequestsList: builder.query<IRequestItem[], void>({
+			queryFn: async (_, { dispatch }) => {
+				await new Promise(resolve => setTimeout(resolve, 500));
+				dispatch(setRequestsList(REQUESTS_MOCK));
+				return { data: REQUESTS_MOCK };
+			},
+			providesTags: ['RequestsList'],
+		}),
+		createNewRequest: builder.mutation<IRequestItem[], IRequestItem>({
+			queryFn: async (data, { dispatch }) => {
+				await new Promise(resolve => setTimeout(resolve, 500));
+				const updatedData = [...REQUESTS_MOCK, data];
+				dispatch(setRequestsList(updatedData));
+				return { data: updatedData };
+			},
+			// invalidatesTags: ['RequestsList'],
+		}),
 	}),
 });
 
@@ -117,4 +136,6 @@ export const {
 	useStartArshinMutation,
 	useCancelArshinMutation,
 	useValidateArshinMutation,
+	useGetRequestsListQuery,
+	useCreateNewRequestMutation,
 } = arshinTableApiSlice;

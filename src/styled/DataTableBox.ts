@@ -10,11 +10,12 @@ import { customCheckbox } from 'styled/customCheckbox';
 
 interface IDataTableBoxProps {
 	sidebarIsOpen?: boolean;
+	selector?: string;
 }
 
 const DataTableBox = styled(Box, {
 	shouldForwardProp: prop => prop !== 'sidebarIsOpen',
-})<IDataTableBoxProps>(({ theme, sidebarIsOpen }) => ({
+})<IDataTableBoxProps>(({ theme, sidebarIsOpen, selector }) => ({
 	height: '100%',
 	padding: `0 ${theme.spacing(3)}`,
 	transition: `${theme.transitions.create('all', {
@@ -22,9 +23,14 @@ const DataTableBox = styled(Box, {
 	})} !important`,
 	marginRight: 0,
 
-	...(sidebarIsOpen && {
-		marginRight: sidebarWidth,
-	}),
+	...(sidebarIsOpen &&
+		selector !== 'RequestsList' && {
+			marginRight: sidebarWidth,
+		}),
+	...(sidebarIsOpen &&
+		selector === 'RequestsList' && {
+			marginLeft: sidebarWidth,
+		}),
 
 	[`& .${gridClasses.root}`]: {
 		width: '100%',
