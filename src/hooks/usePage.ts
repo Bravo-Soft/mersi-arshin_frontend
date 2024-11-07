@@ -11,7 +11,8 @@ export const usePage = (): SidebarPages => {
 
 	const pageName = pathname.replace(/^\/|\/$/g, '');
 
-	const page = pageName === 'arshin-integration' ? 'arshin' : pageName;
+	const page =
+		pageName === 'arshin-integration' ? 'arshin' : pageName === 'history' ? 'history' : pageName;
 
 	return page as SidebarPages;
 };

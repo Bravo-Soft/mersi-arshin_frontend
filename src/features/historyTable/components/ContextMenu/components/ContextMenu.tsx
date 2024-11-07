@@ -3,7 +3,6 @@ import CheckIcon from '@mui/icons-material/Check';
 import CopyAllIcon from '@mui/icons-material/CopyAll';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import HistoryIcon from '@mui/icons-material/History';
 import LockIcon from '@mui/icons-material/Lock';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
@@ -48,7 +47,7 @@ function ContextMenu({ contextMenu, actionsOfContextMenu }: IContextMenuProps): 
 	const userId = useAppSelector(selectUserId);
 	const tourStartedIsMenu = useAppSelector(selectMenuStart);
 	// const { attachFiles, hasFavorites, hasClipboard } = useAppSelector(selectUserPermissions);
-	const { isFileStorage, isArshin } = useAppSelector(selectUserPermissions);
+	const { isFileStorage  , isArshin  } = useAppSelector(selectUserPermissions);
 
 	const isFavoriteRow =
 		isValueDefined(selectedDataItem) && userId && selectedDataItem.userIds.includes(userId);
@@ -63,7 +62,6 @@ function ContextMenu({ contextMenu, actionsOfContextMenu }: IContextMenuProps): 
 		handleRemoveFromFavorite,
 		handleCopySelectedValues,
 		handleAddToArshin,
-		handleGetItemHistory,
 	} = actionsOfContextMenu;
 
 	const actualStep = useAppSelector(selectActualStep);
@@ -72,14 +70,6 @@ function ContextMenu({ contextMenu, actionsOfContextMenu }: IContextMenuProps): 
 		handleClose();
 		isActive
 			? action()
-			: !selectedDataItem?.factoryNumber
-			? dispatch(
-					changeSmartDialogState({
-						variant: 'payment',
-						isOpen: true,
-						content: Messages.FAILED_ITEM_HISTORY_LOADING,
-					})
-			  )
 			: dispatch(
 					changeSmartDialogState({
 						variant: 'payment',
@@ -131,12 +121,6 @@ function ContextMenu({ contextMenu, actionsOfContextMenu }: IContextMenuProps): 
 			Icon: isArshin ? ArshinIcon : LockIcon,
 			isActive: isArshin ?? false,
 			action: handleAddToArshin,
-		},
-		{
-			title: SidebarTitles.ITEM_HISTORY,
-			Icon: HistoryIcon,
-			isActive: Boolean(selectedDataItem?.factoryNumber),
-			action: handleGetItemHistory,
 		},
 	];
 

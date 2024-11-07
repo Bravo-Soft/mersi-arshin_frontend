@@ -53,4 +53,7 @@ export const API = {
 		readNotifications: (id: string) => `/notifications/messages/read/${id}`,
 		readAllNotifications: `/notifications/messages/read`,
 	},
+	history: {
+		default: 'https://mocki.io/v1/714d01de-2db1-4374-9f3d-dd44975e5dbc',
+	},
 };
