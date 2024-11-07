@@ -107,6 +107,17 @@ export const useSidebarElements = (page: SidebarPages): ISidebarElement<SidebarS
 
 			return sidebarElements;
 		}
+		case 'history': {
+			const sidebarElements: ISidebarElement<SidebarSelectors>[] = [
+				{
+					Component: UserProfile,
+					selector: 'UserProfile',
+					headerTitle: SidebarTitles.PROFILE_SETTINGS,
+				},
+			];
+
+			return sidebarElements;
+		}
 		default:
 			return [];
 	}

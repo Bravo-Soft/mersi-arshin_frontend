@@ -16,7 +16,7 @@ export type SidebarSelectors =
 	| 'PrintSettings'
 	| 'idle';
 
-export type SidebarPages = 'home' | 'print' | 'arshin';
+export type SidebarPages = 'home' | 'print' | 'arshin' | 'history';
 
 export interface ISidebarOptions {
 	open: boolean;
@@ -35,6 +35,10 @@ const initialState: ISidebarState = {
 		selector: 'idle',
 	},
 	arshin: {
+		open: false,
+		selector: 'idle',
+	},
+	history: {
 		open: false,
 		selector: 'idle',
 	},
@@ -74,15 +78,23 @@ const sidebarSlice = createSlice({
 export const selectSidebarStateOfHomePage = (state: RootState) => state.sidebar.home;
 export const selectSidebarStateOfPrintPage = (state: RootState) => state.sidebar.print;
 export const selectSidebarStateOfArshinPage = (state: RootState) => state.sidebar.arshin;
+export const selectSidebarStateOfHistoryPage = (state: RootState) => state.sidebar.history;
 
 export const selectUserProfileIsOpen = createSelector(
 	selectSidebarStateOfHomePage,
 	selectSidebarStateOfPrintPage,
-	(homeState, printState) => {
+	selectSidebarStateOfHistoryPage,
+	(homeState, printState, historyState) => {
 		const isUserProfileOpenInHomePage = homeState.open && homeState.selector === 'UserProfile';
 		const isUserProfileOpenInPrintPage = printState.open && printState.selector === 'UserProfile';
+		const isUserProfileOpenInHistoryPage =
+			historyState.open && historyState.selector === 'UserProfile';
 
-		return isUserProfileOpenInHomePage || isUserProfileOpenInPrintPage;
+		return (
+			isUserProfileOpenInHomePage ||
+			isUserProfileOpenInPrintPage ||
+			isUserProfileOpenInHistoryPage
+		);
 	}
 );
 

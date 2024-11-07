@@ -8,7 +8,7 @@ import { Toolbar } from './components/Toolbar';
 import { useGetAllHistoryDataQuery } from './historyTableApiSlice';
 
 import { selectSelectedDataItem } from 'features/dataTable/dataTableSlice';
-import { selectSidebarStateOfHomePage } from 'features/sidebar/sidebarSlice';
+import { selectSidebarStateOfHistoryPage } from 'features/sidebar/sidebarSlice';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import DataTableBox from 'styled/DataTableBox';
 
@@ -16,7 +16,7 @@ function HistoryTable(): JSX.Element {
 	const apiRef = useGridApiRef();
 
 	const dispatch = useAppDispatch();
-	const { open: sidebarIsOpen } = useAppSelector(selectSidebarStateOfHomePage);
+	const { open: sidebarIsOpen } = useAppSelector(selectSidebarStateOfHistoryPage);
 	const selectedDataItem = useAppSelector(selectSelectedDataItem);
 	// const { multipleColumnsFiltering, columnPinning, columnReorder, rowPinning } =
 	// 	useAppSelector(selectUserPermissions);
