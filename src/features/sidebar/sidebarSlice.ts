@@ -14,6 +14,7 @@ export type SidebarSelectors =
 	| 'NotificationSettings'
 	| 'UserProfile'
 	| 'PrintSettings'
+	| 'RequestsList'
 	| 'idle';
 
 export type SidebarPages = 'home' | 'print' | 'arshin' | 'history';

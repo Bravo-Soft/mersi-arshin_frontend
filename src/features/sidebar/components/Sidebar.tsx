@@ -24,9 +24,11 @@ export default function Sidebar(props: ISidebarProps): JSX.Element {
 	const { currentSelector, sidebarElements, ...othenProps } = props;
 	const currentElement = sidebarElements.find(({ selector }) => selector === currentSelector);
 
+	const anchorType = currentSelector === 'RequestsList' ? 'left' : 'right';
+
 	return (
 		<>
-			<StyledDrawer {...othenProps} variant='persistent' anchor='right'>
+			<StyledDrawer {...othenProps} variant='persistent' anchor={anchorType}>
 				<SidebarHeader title={currentElement?.headerTitle} selector={currentSelector} />
 				{sidebarElements.map(
 					({ selector, Component }) =>

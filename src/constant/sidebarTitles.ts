@@ -9,4 +9,5 @@ export const enum SidebarTitles {
 	PRINT_SETTINGS = 'Настройка печати бирок',
 	CREATE_VERIFICATION_SCHEDULE = 'Создание графика поверки',
 	ITEM_HISTORY = 'Посмотреть историю СИ',
+	REQUESTS_LIST = 'Список запросов',
 }
