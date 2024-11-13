@@ -1,3 +1,4 @@
+import AssignmentIcon from '@mui/icons-material/Assignment';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import CheckIcon from '@mui/icons-material/Check';
 import CopyAllIcon from '@mui/icons-material/CopyAll';
@@ -64,6 +65,7 @@ function ContextMenu({ contextMenu, actionsOfContextMenu }: IContextMenuProps): 
 		handleCopySelectedValues,
 		handleAddToArshin,
 		handleGetItemHistory,
+		handleViewItemPassport,
 	} = actionsOfContextMenu;
 
 	const actualStep = useAppSelector(selectActualStep);
@@ -107,6 +109,12 @@ function ContextMenu({ contextMenu, actionsOfContextMenu }: IContextMenuProps): 
 			Icon: CheckIcon,
 			isActive: true,
 			action: handleOpenVerificationDataItem,
+		},
+		{
+			title: SidebarTitles.PASSPORT,
+			Icon: AssignmentIcon,
+			isActive: true,
+			action: handleViewItemPassport,
 		},
 		{
 			title: SidebarTitles.ITEM_FILES,

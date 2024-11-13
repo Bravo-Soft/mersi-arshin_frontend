@@ -8,13 +8,14 @@ import { gridClasses } from '@mui/x-data-grid-pro';
 import { sidebarWidth } from 'constant/sidebarWidth';
 import { customCheckbox } from 'styled/customCheckbox';
 
-interface ITableBoxProps {
+interface IDataTableBoxProps {
 	sidebarIsOpen?: boolean;
+	selector?: string;
 }
 
 const TableBox = styled(Box, {
 	shouldForwardProp: prop => prop !== 'sidebarIsOpen',
-})<ITableBoxProps>(({ theme, sidebarIsOpen }) => ({
+})<IDataTableBoxProps>(({ theme, sidebarIsOpen, selector }) => ({
 	height: '100%',
 	padding: `0 ${theme.spacing(3)}`,
 	transition: `${theme.transitions.create('all', {
@@ -22,9 +23,14 @@ const TableBox = styled(Box, {
 	})} !important`,
 	marginRight: 0,
 
-	...(sidebarIsOpen && {
-		marginRight: sidebarWidth,
-	}),
+	...(sidebarIsOpen &&
+		selector !== 'RequestsList' && {
+			marginRight: sidebarWidth,
+		}),
+	...(sidebarIsOpen &&
+		selector === 'RequestsList' && {
+			marginLeft: sidebarWidth,
+		}),
 
 	[`& .${gridClasses.root}`]: {
 		width: '100%',

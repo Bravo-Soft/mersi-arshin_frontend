@@ -49,7 +49,6 @@ function ButtonsNavigation() {
 				Контроль поверки в госреестре
 				{!isArshin && !isLoading && <LockIcon sx={{ ml: 1 }} />}
 			</StyledToggleButton>
-			<ToggleButton value={AppRoutes.HISTORY}>История cредств измерения</ToggleButton>
 		</StyledToggleButtonGroup>
 	);
 }

@@ -10,6 +10,7 @@ import VerificateDataItem from 'components/Forms/VerificateDataItem';
 import { SidebarTitles } from 'constant/sidebarTitles';
 import EditArshinStepper from 'features/dataTable/modules/Arshin/components/ArshinStepperForm/EditArshinStepper';
 import EditSidebarArshinItem from 'features/dataTable/modules/Arshin/components/EditSidebarArshinItem';
+import RequestsList from 'features/dataTable/modules/Arshin/components/RequestsList/RequestsList';
 import UserProfile from 'features/user/UserProfile';
 import { selectUserPermissions, selectUserRoles } from 'features/user/userSlice';
 import { useAppSelector } from 'hooks/redux';
@@ -98,6 +99,22 @@ export const useSidebarElements = (page: SidebarPages): ISidebarElement<SidebarS
 					selector: 'EditSidebarArshinItem',
 					headerTitle: SidebarTitles.EDIT_ITEM,
 				},
+				{
+					Component: UserProfile,
+					selector: 'UserProfile',
+					headerTitle: SidebarTitles.PROFILE_SETTINGS,
+				},
+				{
+					Component: RequestsList,
+					selector: 'RequestsList',
+					headerTitle: SidebarTitles.REQUESTS_LIST,
+				},
+			];
+
+			return sidebarElements;
+		}
+		case 'history': {
+			const sidebarElements: ISidebarElement<SidebarSelectors>[] = [
 				{
 					Component: UserProfile,
 					selector: 'UserProfile',

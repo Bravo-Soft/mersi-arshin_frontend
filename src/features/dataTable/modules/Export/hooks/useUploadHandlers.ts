@@ -65,13 +65,13 @@ export const useUploadHandlers = ({ onCloseMenu }: IUseUploadHandlers) => {
 		};
 
 		try {
-			const createWorkbook = await import("utils/excel").then(m => m.createWorkbook);
+			const createWorkbook = await import('utils/excel').then(m => m.createWorkbook);
 			const workbook = createWorkbook(data, columns, excelConfig);
 
 			/* Записываем книгу в буфер и передаем его в конструктор blob класса */
 			const buffer = await workbook.xlsx.writeBuffer();
 			const blob = new Blob([buffer], {
-				type: fileType
+				type: fileType,
 			});
 
 			/* Задаем название и сохраняем файл */
@@ -80,6 +80,32 @@ export const useUploadHandlers = ({ onCloseMenu }: IUseUploadHandlers) => {
 		} catch {
 			enqueueSnackbar(Messages.FAILED_TO_SAVE_WORKBOOK, { variant: 'error' });
 		}
+	};
+
+	const downloadDataXML = () => {
+		if (!columns.length) {
+			return showHiddenMessage();
+		}
+
+		let xml =
+			'<?xml version="1.0" encoding="UTF-8"?>\n<Message xsi:noNamespaceSchemaLocation="schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">\n<VerificationMeasuringInstrumentData>\n';
+
+		filteredData.forEach(
+			({ stateRegister, verificationDate, dateOfTheNextVerification, type }) => {
+				xml += '  <VerificationMeasuringInstrument>\n';
+				xml += `		<NumberVerification>${stateRegister}</NumberVerification>`;
+				xml += `		<DateVerification>${verificationDate}</DateVerification>`;
+				xml += `		<DateEndVerification>${dateOfTheNextVerification}</DateEndVerification>`;
+				xml += `		<TypeMeasuringInstrument>${type}</TypeMeasuringInstrument>`;
+				xml += '  </VerificationMeasuringInstrument>\n';
+			}
+		);
+
+		// Завершаем XML закрывающим тегом
+		xml += '<SaveMethod>1</SaveMethod>\n</VerificationMeasuringInstrumentData>\n</Message>';
+
+		const blob = new Blob([xml], { type: 'application/xml' });
+		saveAs(blob, 'data.xml');
 	};
 
 	/* Обработчики с готовыми функциями экспорта, работают в зависимости от статуса права в пакете */
@@ -93,5 +119,5 @@ export const useUploadHandlers = ({ onCloseMenu }: IUseUploadHandlers) => {
 		await exportDataAsXLSX();
 	};
 
-	return { handleUploadToCSV, handleUploadToXLSX };
+	return { handleUploadToCSV, handleUploadToXLSX, downloadDataXML };
 };
