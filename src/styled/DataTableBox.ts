@@ -8,7 +8,7 @@ import { gridClasses } from '@mui/x-data-grid-pro';
 import { sidebarWidth } from 'constant/sidebarWidth';
 import { customCheckbox } from 'styled/customCheckbox';
 
-interface ITableBoxProps {
+interface IDataTableBoxProps {
 	sidebarIsOpen?: boolean;
 	selector?: string;
 }

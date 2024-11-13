@@ -1,63 +1,60 @@
+import CachedIcon from '@mui/icons-material/Cached';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ExpandIcon from '@mui/icons-material/ExpandMore';
-import SettingsIcon from '@mui/icons-material/Settings';
-import { SvgIconProps } from '@mui/material';
+import { MenuItem } from '@mui/material';
 import Button from '@mui/material/Button';
 import red from '@mui/material/colors/red';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Menu from '@mui/material/Menu';
 
-import { selectSelectedDataIds } from '../arshinTableSlice';
+import {
+	selectModelSynchronizeIds,
+	selectSelectedDataIds,
+	selectSynchronizeIds,
+} from '../arshinTableSlice';
 import { selectIsWorkingArshin } from '../eventSourceSlice';
 import { useArshinActions } from '../hooks/useArshinActions';
 import { useMenuActions } from '../hooks/useMenuActions';
 
-import UpdateMenuItem from './UpdateMenuItem';
-
 import { useAppSelector } from 'hooks/redux';
-import StyledMenuItem from 'styled/StyledMenuItem';
-
-interface IMenuItem {
-	title: string;
-	isActive: boolean;
-	Icon: (props: SvgIconProps) => JSX.Element;
-	action: VoidFunction;
-}
 
 function MenuActionsArshin() {
 	const selectionIds = useAppSelector(selectSelectedDataIds);
 
-	const { anchorEl, open, handleOpenFilter, handleCloseMenu, handleOpenMenu } = useMenuActions();
+	const { anchorEl, open, handleCloseMenu, handleOpenMenu } = useMenuActions();
 	const { handleDeleteItems } = useArshinActions();
 
 	const isWorking = useAppSelector(selectIsWorkingArshin);
 
-	const menuItems: IMenuItem[] = [
-		{
-			title: 'Настроить фильтры',
-			Icon: SettingsIcon,
-			isActive: true,
-			action: handleOpenFilter,
-		},
-		{
-			title: 'Удалить выделенное',
-			Icon: DeleteIcon,
-			isActive: Boolean(selectionIds.length),
-			action: handleDeleteItems,
-		},
-	];
+	const isDeleteActive = Boolean(selectionIds.length);
 
-	const handleClick = (action: VoidFunction, isActive: boolean) => () => {
+	const handleRemoveItems = async () => {
+		await handleDeleteItems();
 		handleCloseMenu();
-		isActive && action();
+	};
+
+	const synchronizeModelData = useAppSelector(selectModelSynchronizeIds);
+
+	const synchronizeTableData = useAppSelector(selectSynchronizeIds);
+
+	const { handleModelSynchronize, handleSynchronize } = useArshinActions();
+
+	const handleAllSynchronize = () => {
+		handleCloseMenu();
+		handleSynchronize();
+	};
+
+	const handleModelSynchronise = () => {
+		handleModelSynchronize();
+		handleCloseMenu();
 	};
 
 	return (
 		<>
 			<Button
 				disabled={isWorking}
-				startIcon={
+				startIcon={<CachedIcon />}
+				endIcon={
 					<ExpandIcon
 						sx={{
 							transition: theme => theme.transitions.create('rotate'),
@@ -67,34 +64,31 @@ function MenuActionsArshin() {
 				}
 				onClick={handleOpenMenu}
 			>
-				Действия
+				Перезаписать данные в МерСИ
+			</Button>
+			<Button
+				disabled={!isDeleteActive}
+				startIcon={<DeleteIcon />}
+				onClick={handleRemoveItems}
+				sx={{
+					':hover': {
+						backgroundColor: red[50],
+						color: red[700],
+						'& .MuiSvgIcon-root': {
+							color: red[700],
+						},
+					},
+				}}
+			>
+				Удалить выделенное
 			</Button>
 			<Menu open={open} onClose={handleCloseMenu} anchorEl={anchorEl}>
-				<UpdateMenuItem onClose={handleCloseMenu} />
-				{menuItems.map(({ action, title, Icon, isActive }) => (
-					<StyledMenuItem
-						moduleIsActive={true}
-						disabled={!isActive}
-						key={title}
-						onClick={handleClick(action, isActive)}
-						sx={{
-							...(title === 'Удалить выделенное' && {
-								':hover': {
-									backgroundColor: red[50],
-									color: red[700],
-									'& .MuiSvgIcon-root': {
-										color: red[700],
-									},
-								},
-							}),
-						}}
-					>
-						<ListItemIcon>
-							<Icon />
-						</ListItemIcon>
-						<ListItemText primary={title} />
-					</StyledMenuItem>
-				))}
+				<MenuItem disabled={!synchronizeTableData.length} onClick={handleAllSynchronize}>
+					<ListItemText primary='Все' />
+				</MenuItem>
+				<MenuItem disabled={!synchronizeModelData.length} onClick={handleModelSynchronise}>
+					<ListItemText primary='Выделенное' />
+				</MenuItem>
 			</Menu>
 		</>
 	);

@@ -1,4 +1,4 @@
-import { type Dayjs } from 'dayjs';
+import dayjs, { type Dayjs } from 'dayjs';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { useCreateNewRequestMutation } from '../../arshinTableApiSlice';
@@ -42,10 +42,11 @@ function CreateRequestForm(): JSX.Element {
 	});
 
 	const onSubmit = methods.handleSubmit(async data => {
-		const upd = { ...data, fieldsDate: data.fieldsDate.map(el => createDateISO(el)) };
-		await createRequest(upd);
-		handleClose();
-		openRequestsSidebarOnSave();
+		// const upd = { ...data, fieldsDate: data.fieldsDate.map(el => createDateISO(el)) };
+		// await createRequest(upd);
+		// handleClose();
+		// openRequestsSidebarOnSave();
+		console.log(1);
 	});
 
 	return (

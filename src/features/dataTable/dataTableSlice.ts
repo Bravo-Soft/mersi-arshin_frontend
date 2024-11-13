@@ -19,6 +19,7 @@ export interface IDataTableState {
 	top: GridRowId[];
 	isOpenVerificationSheduleModal: boolean;
 	visibleColumns: AllFormsVisibleColumnsType;
+	isOpenPassportModal: boolean;
 }
 
 const initialState: IDataTableState = {
@@ -28,6 +29,7 @@ const initialState: IDataTableState = {
 	top: [],
 	isOpenVerificationSheduleModal: false,
 	visibleColumns: {} as AllFormsVisibleColumnsType,
+	isOpenPassportModal: false,
 };
 const dataTableSlice = createSlice({
 	name: 'dataTable',
@@ -67,6 +69,9 @@ const dataTableSlice = createSlice({
 		setActualesColumns: (state, action: PayloadAction<AllFormsVisibleColumnsType>) => {
 			state.visibleColumns = action.payload;
 		},
+		setPassportModal: (state, action: PayloadAction<boolean>) => {
+			state.isOpenPassportModal = action.payload;
+		},
 	},
 });
 
@@ -77,6 +82,7 @@ export const selectedVisibleColumns = (state: RootState) => state.dataTable.visi
 export const selectCurrentChipFilterVariant = (state: RootState) => state.dataTable.filteringOption;
 export const selectedIsOpenedVerificationScheduleModal = (state: RootState) =>
 	state.dataTable.isOpenVerificationSheduleModal;
+export const selectIsOpenPassportModal = (state: RootState) => state.dataTable.isOpenPassportModal;
 
 export const dataTablePath = dataTableSlice.name;
 export const dataTableReducer = dataTableSlice.reducer;
@@ -94,4 +100,5 @@ export const {
 	applyNewSelectionModel,
 	changeChipFilterOption,
 	setVerificationScheduleModal,
+	setPassportModal,
 } = dataTableSlice.actions;

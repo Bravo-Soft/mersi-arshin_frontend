@@ -12,6 +12,7 @@ import {
 	resetSelectedModel,
 	selectSelectedDataItem,
 	selectSelectionModel,
+	setPassportModal,
 	setSelectedDataItem,
 	unpinManyRows,
 	unPinRow,
@@ -223,6 +224,10 @@ export const useContextMenuActions = (
 		navigate('/history');
 	};
 
+	const handleViewItemPassport = () => {
+		dispatch(setPassportModal(true));
+	};
+
 	return {
 		contextMenu,
 		actionsOfContextMenu: {
@@ -241,6 +246,7 @@ export const useContextMenuActions = (
 			handleCopySelectedValues,
 			handleAddToArshin,
 			handleGetItemHistory,
+			handleViewItemPassport,
 		},
 	};
 };

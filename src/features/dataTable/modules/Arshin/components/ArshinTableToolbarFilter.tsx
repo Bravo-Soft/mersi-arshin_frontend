@@ -31,7 +31,13 @@ function ArshinTableToolbarFilter() {
 				}}
 			>
 				<StyledChip
-					label='Мои СИ'
+					label='Все средства измерения'
+					variant='filled'
+					onClick={handleCompleting}
+					// color={completeDone ? 'default' : 'primary'}
+				/>
+				<StyledChip
+					label='Мои средства измерения'
 					variant='filled'
 					onClick={handleCompleting}
 					color={completeDone ? 'default' : 'primary'}

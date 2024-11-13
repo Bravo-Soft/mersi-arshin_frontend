@@ -17,6 +17,7 @@ import { columnsVisibility } from '../utils/columnsVisibility';
 import { ColumnMenu } from './ColumnMenu';
 import { ContextMenu } from './ContextMenu';
 import { Footer } from './Footer';
+import ItemPassport from './ItemPassport/ItemPassport';
 import { NoResultsOverlay } from './NoResultsOverlay';
 import { NoRowsOverlay } from './NoRowsOverlay';
 import { Toolbar } from './Toolbar';
@@ -122,6 +123,7 @@ function DataTable(): JSX.Element {
 				apiRef={apiRef}
 			/>
 			<VerificationScheduleModal apiRef={apiRef} />
+			<ItemPassport />
 		</DataTableBox>
 	);
 }

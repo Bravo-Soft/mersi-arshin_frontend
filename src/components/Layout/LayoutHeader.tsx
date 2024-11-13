@@ -5,6 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
 import LayoutAccountCircle from './LayoutAccountCircle';
+import LayoutButtonHistory from './LayoutButtonHistory';
 import LayoutButtonNotification from './LayoutButtonNotification';
 import LayoutLogo from './LayoutLogo';
 import LogoWrapper from './LogoWrapper';
@@ -38,6 +39,7 @@ function LayoutHeader({ setOpenModal }: ILayoutHeaderProps): JSX.Element {
 					</Typography>
 				</LogoWrapper>
 				<Stack direction='row' alignItems='center' columnGap={2}>
+					<LayoutButtonHistory />
 					<LayoutButtonNotification />
 					<LayoutAccountCircle setOpenModal={setOpenModal} />
 				</Stack>

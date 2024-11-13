@@ -1,13 +1,9 @@
-import GetAppIcon from '@mui/icons-material/GetApp';
+import AddIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button';
-import { useGridApiContext } from '@mui/x-data-grid-pro';
 
 import { selectUploadModelIds, setCreateRequestModal } from '../arshinTableSlice';
-import { selectIsWorkingArshin } from '../eventSourceSlice';
-import { useSendingArshin } from '../hooks/useSendingArshin';
 
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { useSidebarAction } from 'hooks/useSidebarActions';
 
 function ArshinSendingBtn() {
 	// const apiRef = useGridApiContext();
@@ -33,7 +29,7 @@ function ArshinSendingBtn() {
 		// 	{isWorking ? 'Добавить сейчас' : 'Получить сейчас'}
 		// </Button>
 		<Button
-			startIcon={<GetAppIcon />}
+			startIcon={<AddIcon />}
 			disabled={!processData.length}
 			onClick={handleOpenCreateRequestModal}
 		>

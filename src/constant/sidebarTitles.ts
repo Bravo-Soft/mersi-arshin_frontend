@@ -10,4 +10,5 @@ export const enum SidebarTitles {
 	CREATE_VERIFICATION_SCHEDULE = 'Создание графика поверки',
 	ITEM_HISTORY = 'Посмотреть историю СИ',
 	REQUESTS_LIST = 'Список запросов',
+	PASSPORT = 'Паспорт данных СИ',
 }

@@ -56,6 +56,7 @@ function DataTableArshinToolbar(): JSX.Element {
 							</IconButton>
 						</Tooltip>
 						<Divider orientation='vertical' flexItem />
+						<ArshinSendingBtn />
 						<StyledChip
 							label='Список запросов'
 							variant='filled'
@@ -64,7 +65,6 @@ function DataTableArshinToolbar(): JSX.Element {
 						/>
 					</Stack>
 					<Stack direction='row' gap={4}>
-						<ArshinSendingBtn />
 						<MenuActionsArshin />
 					</Stack>
 				</Toolbar>
