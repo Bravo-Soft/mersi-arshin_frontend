@@ -1,4 +1,5 @@
-import { IDataItem } from './dataItem';
+import { type Dayjs } from 'dayjs';
+import { type IDataItem } from './dataItem';
 
 import { ArshinStatus } from 'constant/arshinStatus';
 
@@ -41,10 +42,15 @@ export interface INotValidArshinItem {
 export type IResponseValidateArshin = INotValidArshinItem;
 
 export interface IRequestItem {
-	id: number | string;
+	author: string;
+	requestId: string;
 	requestTitle: string;
 	status: string;
-	fieldsDate: string[] | null[];
+	fieldsDate: string[];
 	periodicity: 1 | 3 | 5;
 	items: string[];
+}
+
+export interface IRequestItemWithDates extends Omit<IRequestItem, 'fieldsDate'> {
+	fieldsDate: Dayjs[];
 }

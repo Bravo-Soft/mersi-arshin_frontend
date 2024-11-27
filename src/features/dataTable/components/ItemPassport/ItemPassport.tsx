@@ -1,40 +1,40 @@
 import CloseIcon from '@mui/icons-material/Close';
-import { Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
+import PrintIcon from '@mui/icons-material/Print';
+import { Button, ButtonGroup, Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
 
 import PassportTable from './components/PassportTable';
-import { useGetPassportData } from './hooks/useGetPassportData';
+import { usePassport } from './hooks/usePassport';
 
-import { selectIsOpenPassportModal, setPassportModal } from 'features/dataTable/dataTableSlice';
-import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import ExcelIcon from 'features/dataTable/modules/Export/ExcelIcon';
 
 function ItemPassport(): JSX.Element {
-	const dispatch = useAppDispatch();
-
-	const open = useAppSelector(selectIsOpenPassportModal);
-
-	const handleClosePassport = () => {
-		dispatch(setPassportModal(false));
-	};
+	const {
+		passportPrintRef,
+		open,
+		handlePrint,
+		handleClosePassport,
+		exportPassportToXslx,
+		...otherData
+	} = usePassport();
 
 	return (
-		<Dialog open={open} onClose={handleClosePassport} fullWidth maxWidth='lg'>
-			<DialogTitle>
-				<IconButton
-					aria-label='close'
-					onClick={handleClosePassport}
-					sx={{
-						position: 'absolute',
-						right: 8,
-						top: 8,
-						color: theme => theme.palette.grey[500],
-					}}
-				>
+		<Dialog open={open} onClose={handleClosePassport} fullWidth maxWidth={'lg'}>
+			<DialogTitle sx={{ display: 'flex', justifyContent: 'space-between' }}>
+				Паспорт средства измерения
+				<ButtonGroup aria-label='Close' variant='text' size='small'>
+					<Button onClick={exportPassportToXslx} startIcon={<ExcelIcon />}>
+						Экспорт в XLSX
+					</Button>
+					<Button onClick={handlePrint} endIcon={<PrintIcon />}>
+						Печать
+					</Button>
+				</ButtonGroup>
+				<IconButton aria-label='Close' onClick={handleClosePassport}>
 					<CloseIcon />
 				</IconButton>
-				Паспорт данных СИ{' '}
 			</DialogTitle>
-			<DialogContent>
-				<PassportTable />
+			<DialogContent ref={passportPrintRef}>
+				<PassportTable tableData={otherData} />
 			</DialogContent>
 		</Dialog>
 	);

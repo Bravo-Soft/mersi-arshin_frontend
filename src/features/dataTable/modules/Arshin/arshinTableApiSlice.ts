@@ -113,6 +113,14 @@ export const arshinTableApiSlice = apiSlice.injectEndpoints({
 			},
 			providesTags: ['RequestsList'],
 		}),
+		// getRequestData: builder.query<IRequestItem, string>({
+		// 	queryFn: async (requestId, { dispatch }) => {
+		// 		await new Promise(resolve => setTimeout(resolve, 500));
+		// 		const data = REQUESTS_MOCK.filter((el) => el.requestId === requestId)
+		// 		return data  ;
+		// 	},
+		// 	providesTags: ['RequestsList'],
+		// }),
 		createNewRequest: builder.mutation<IRequestItem[], IRequestItem>({
 			queryFn: async (data, { dispatch }) => {
 				await new Promise(resolve => setTimeout(resolve, 500));
@@ -122,6 +130,8 @@ export const arshinTableApiSlice = apiSlice.injectEndpoints({
 			},
 			// invalidatesTags: ['RequestsList'],
 		}),
+		// getRequestItems: builder.query<IDataItemArshin[], string>({
+		// }),
 	}),
 });
 

@@ -7,7 +7,7 @@ import { quickFilterDateFormat } from './utils/quickFilterDateFormat';
 
 import { ColumnNames } from 'constant/columnsName';
 import { Tag } from 'constant/tag';
-import { IHistoryItem } from 'types/historyItem';
+import { IHistoryItem, ItemAction } from 'types/historyItem';
 
 const initialWidth = 200;
 
@@ -39,6 +39,11 @@ export const columns: GridColDef<IHistoryItem>[] = [
 		width: initialWidth,
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
+		sortable: true,
+		sortComparator: (v1: ItemAction, v2: ItemAction) => {
+			const order = { Удаление: 1, Редактирование: 2, Создание: 3 };
+			return order[v1] - order[v2];
+		},
 	},
 	{
 		field: 'modificationDate',

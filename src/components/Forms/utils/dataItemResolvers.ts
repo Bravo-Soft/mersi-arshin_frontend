@@ -52,6 +52,7 @@ export const itemSchema = z.object({
 		.lte(9999, 'Число не может быть больше чем 9999'),
 	verificationControlInStateRegister: z.boolean(),
 	id: z.string(),
+	comment: z.string(),
 });
 
 const dateSchema = z

@@ -22,7 +22,7 @@ export const useApplyTemplate = (apiRef: MutableRefObject<GridApiPro>) => {
 			template.filter.filterModel = {
 				items: localeStorageArshinState ? [arshinFilterStatusDone] : [],
 			};
-			template.pinnedColumns.left = [];
+			template.pinnedColumns.left = ['verificationControlInStateRegister'];
 			template.pinnedColumns.right = [];
 			apiRef.current.restoreState(template);
 		}

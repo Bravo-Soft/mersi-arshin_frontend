@@ -1,14 +1,16 @@
 import { Button, DialogActions, Stack } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
 
-import { useRequestDialog } from '../hooks/useRequestDialog';
+import { useArshinRequests } from '../../../hooks/useArshinRequests';
+
+import { type IRequestItem } from 'types/arshinIntegration';
 
 function DialogButtons() {
 	const {
 		formState: { errors, isValid },
-	} = useFormContext<any>();
+	} = useFormContext<IRequestItem>();
 
-	const { handleClose } = useRequestDialog();
+	const { handleCloseDialog } = useArshinRequests();
 
 	const isDisabled = !isValid;
 
@@ -23,7 +25,7 @@ function DialogButtons() {
 				<Button type='submit' disabled={isDisabled}>
 					Сохранить и отправить
 				</Button>
-				<Button onClick={handleClose}>Отменить</Button>
+				<Button onClick={handleCloseDialog}>Отменить</Button>
 			</Stack>
 		</DialogActions>
 	);

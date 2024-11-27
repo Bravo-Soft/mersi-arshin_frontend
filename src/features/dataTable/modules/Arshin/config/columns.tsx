@@ -24,6 +24,16 @@ const sortComparator: GridComparatorFn = (v1, v2, cellParams1, cellParams2) => {
 
 export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	{
+		field: 'verificationControlInStateRegister',
+		disableColumnMenu: true,
+		// sortable: false,
+		headerName: '',
+		width: 300,
+		type: 'boolean',
+		headerAlign: 'center',
+		renderCell: RenderCellExpandedRegister,
+	},
+	{
 		field: 'name',
 		// sortable: false,
 		headerName: ColumnNames.NAME,
@@ -47,17 +57,10 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
 	},
-	{
-		field: 'verificationControlInStateRegister',
-		// sortable: false,
-		headerName: ColumnNames.VERIFICATION_CONTROL_STATE_REGISTER,
-		width: 200,
-		type: 'boolean',
-		headerAlign: 'center',
-		renderCell: RenderCellExpandedRegister,
-	},
+
 	{
 		field: 'inventoryNumber',
+		hide: true,
 		// sortable: false,
 		headerName: ColumnNames.INVENTORY_NUMBER,
 		width: 200,
@@ -66,6 +69,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	},
 	{
 		field: 'division',
+		hide: true,
 		// sortable: false,
 		headerName: ColumnNames.DIVISION,
 		width: 200,
@@ -75,6 +79,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 
 	{
 		field: 'location',
+		hide: true,
 		// sortable: false,
 		headerName: ColumnNames.LOCATION,
 		width: 200,
@@ -83,6 +88,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	},
 	{
 		field: 'responsible',
+		hide: true,
 		// sortable: false,
 		headerName: ColumnNames.RESPONSIBLE,
 		width: 200,
@@ -103,6 +109,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 
 	{
 		field: 'interVerificationInterval',
+		hide: true,
 		// sortable: false,
 		headerName: ColumnNames.VERIFICATION_INTERVAL,
 		width: 200,
@@ -122,6 +129,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	},
 	{
 		field: 'typeOfWork',
+		hide: true,
 		// sortable: false,
 		headerName: ColumnNames.TYPE_OF_WORK,
 		width: 200,
@@ -144,6 +152,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 
 	{
 		field: 'condition',
+		hide: true,
 		// sortable: false,
 		headerName: ColumnNames.CONDITION,
 		width: 200,
@@ -152,6 +161,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	},
 	{
 		field: 'stateRegister',
+		hide: true,
 		//sortable: false,
 		headerName: ColumnNames.STATE_REGISTER,
 		width: 200,
@@ -176,6 +186,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	},
 	{
 		field: 'productionDate',
+		hide: true,
 		//sortable: false,
 		headerName: ColumnNames.PRODUCTION_DATE,
 		width: 200,
@@ -194,6 +205,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	},
 	{
 		field: 'accuracyClass',
+		hide: true,
 		//sortable: false,
 		headerName: ColumnNames.ACCURACY_CLASS,
 		width: 200,
@@ -202,6 +214,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	},
 	{
 		field: 'measurementLimit',
+		hide: true,
 		//sortable: false,
 		headerName: ColumnNames.MEASUREMENT_LIMIT,
 		width: 200,
@@ -210,6 +223,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	},
 	{
 		field: 'additionalData',
+		hide: true,
 		//sortable: false,
 		headerName: ColumnNames.ADDITIONAL_DATA,
 		width: 200,
@@ -218,6 +232,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	},
 	{
 		field: 'size',
+		hide: true,
 		//sortable: false,
 		headerName: ColumnNames.SIZE,
 		width: 200,
@@ -228,6 +243,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	},
 	{
 		field: 'methodology',
+		hide: true,
 		//sortable: false,
 		headerName: ColumnNames.METHODOLOGY,
 		width: 200,
@@ -236,6 +252,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	},
 	{
 		field: 'cost',
+		hide: true,
 		//sortable: false,
 		headerName: ColumnNames.COST,
 		width: 200,
@@ -246,6 +263,7 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 
 	{
 		field: 'notes',
+		hide: true,
 		//sortable: false,
 		headerName: ColumnNames.NOTES,
 		width: 200,

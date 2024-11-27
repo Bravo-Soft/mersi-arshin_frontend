@@ -14,6 +14,7 @@ import { createResolver } from './utils/dataItemResolvers';
 import { dateFormTransform } from './utils/dateFormTransform';
 
 import AutocompleteField from 'components/AutocompleteField';
+import ConditionSelect from 'components/ConditionSelect';
 import DateField from 'components/DateField';
 import SizeSelect from 'components/SizeSelect';
 import SuitabilitySelect from 'components/SuitabilitySelect';
@@ -24,7 +25,7 @@ import {
 	useGetAllDataQuery,
 } from 'features/dataTable/dataTableApiSlice';
 import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
-import { selectUserPermissions } from 'features/user/userSlice';
+import { selectUserPermissions, selectUserRoles } from 'features/user/userSlice';
 import { isValueDefined } from 'guards/isValueDefined';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import ButtonContainer from 'styled/ButtonContainer';
@@ -41,7 +42,7 @@ const defaultValues = {
 	dateOfTheNextVerification: today,
 	accuracyClass: '',
 	certificate: '',
-	condition: '',
+	condition: 'В работе',
 	division: '',
 	factoryNumber: '',
 	interVerificationInterval: 1,
@@ -67,6 +68,7 @@ const defaultValues = {
 function CreateDataItem(): JSX.Element {
 	const dispatch = useAppDispatch();
 	const { maxRowsPerTable } = useAppSelector(selectUserPermissions);
+	const { isReader } = useAppSelector(selectUserRoles);
 
 	const { data } = useGetAllDataQuery();
 	const [createNewItem, { isLoading, isSuccess }] = useCreateNewDataItemMutation();
@@ -126,6 +128,8 @@ function CreateDataItem(): JSX.Element {
 						<DateField nameOfKey={key} label={label} />
 					</Fragment>
 				);
+			case 'condition':
+				return <ConditionSelect key={key} readOnly={isReader} />;
 			case 'interVerificationInterval':
 				return (
 					<Controller

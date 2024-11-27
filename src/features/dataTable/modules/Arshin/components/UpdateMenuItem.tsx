@@ -44,7 +44,7 @@ function UpdateMenuItem({ onClose }: Props) {
 				<ListItemIcon>
 					<CachedIcon />
 				</ListItemIcon>
-				<ListItemText primary='Перезаписать данные в МерСИ' />
+				<ListItemText primary='Перезаписать данные в реестр' />
 				<ExpandIcon
 					color='action'
 					sx={{

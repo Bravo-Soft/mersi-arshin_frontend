@@ -13,6 +13,8 @@ export interface IAuthResponse {
 export interface IAuthFormRequest {
 	email: string;
 	password: string;
+	type: 'trial' | 'client';
+	product: 'Мерси';
 }
 
 export const authApiSlice = apiSlice.injectEndpoints({

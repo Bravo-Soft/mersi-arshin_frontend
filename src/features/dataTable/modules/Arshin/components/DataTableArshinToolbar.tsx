@@ -1,8 +1,10 @@
 import ExpandIcon from '@mui/icons-material/ExpandMore';
+import ListIcon from '@mui/icons-material/List';
 import { Divider, IconButton, Stack, Tooltip, Toolbar, Collapse } from '@mui/material';
 import { GridToolbarContainer } from '@mui/x-data-grid-pro';
 import { useState } from 'react';
 
+import { useArshinRequests } from '../hooks/useArshinRequests';
 import { useFilterArshin } from '../hooks/useFilterArshin';
 
 import ArshinSendingBtn from './ArshinSendingBtn';
@@ -22,10 +24,16 @@ function DataTableArshinToolbar(): JSX.Element {
 	const page = usePage();
 
 	const { openSidebarWith, closeSidebar } = useSidebarAction(page);
+	const { resetSelectedRequest } = useArshinRequests();
 	const { open, selector } = useAppSelector(selectSidebarStateOfArshinPage);
 
-	const handleOpenRequests = () => {
-		open ? closeSidebar() : openSidebarWith('RequestsList');
+	const handleToggleRequestsList = () => {
+		if (open) {
+			resetSelectedRequest();
+			closeSidebar();
+			return;
+		}
+		return openSidebarWith('RequestsList');
 	};
 
 	const handleToggleFilterPanel = () => {
@@ -58,9 +66,14 @@ function DataTableArshinToolbar(): JSX.Element {
 						<Divider orientation='vertical' flexItem />
 						<ArshinSendingBtn />
 						<StyledChip
+							icon={<ListIcon />}
 							label='Список запросов'
-							variant='filled'
-							onClick={handleOpenRequests}
+							onClick={handleToggleRequestsList}
+							sx={{
+								borderRadius: 1,
+								border: 0,
+								background: open && selector === 'RequestsList' ? 'primary' : '#fff',
+							}}
 							color={open && selector === 'RequestsList' ? 'primary' : 'default'}
 						/>
 					</Stack>

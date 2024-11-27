@@ -2,6 +2,8 @@ import { Dayjs } from 'dayjs';
 
 import type { Tag } from 'constant/tag';
 
+export type ItemAction = 'Создание' | 'Редактирование' | 'Удаление';
+
 export interface IHistoryItem {
 	/**
 	 * Кем отредактирован СИ
@@ -14,7 +16,7 @@ export interface IHistoryItem {
 	/**
 	 * Действие пользователя
 	 */
-	action: string;
+	action: ItemAction;
 
 	/**
 	 * Идентификационный номер

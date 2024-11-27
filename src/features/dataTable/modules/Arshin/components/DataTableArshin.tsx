@@ -4,6 +4,7 @@ import { DataGridPro, GridSelectionModel, useGridApiRef } from '@mui/x-data-grid
 import { useGetDataQuery } from '../arshinTableApiSlice';
 import { columnsArshin } from '../config/columns';
 import { useApplyTemplate } from '../hooks/useApplyTemplate';
+import { useArshinRequests } from '../hooks/useArshinRequests';
 import { useContextMenuActions } from '../hooks/useContextMenuActions';
 import useTableActions from '../hooks/useTableActions';
 import { useProcessArshin } from '../hooks/useWorkingArshin';
@@ -36,8 +37,24 @@ function DataTableArshin() {
 		}),
 	});
 
-	const { selectionIds, handleSelectItems, handleDisabledSelectedRow, handleGetCellClassName } =
-		useTableActions();
+	/** Здесь исключительно моковый функционал для имитации работы отображения внутренностей запроса */
+	const { selectedRequest } = useArshinRequests();
+
+	const requestData = data.filter(row => {
+		if (!selectedRequest) return;
+
+		return selectedRequest.items?.includes(row.id);
+	});
+
+	/**_____________________________________________________________________________________________ */
+
+	const {
+		selectionIds,
+		handleSelectItems,
+		handleDisabledSelectedRow,
+		handleGetCellClassName,
+		handleDoubleClickOnRow,
+	} = useTableActions();
 
 	const { open: sidebarIsOpen, selector } = useAppSelector(selectSidebarStateOfArshinPage);
 
@@ -48,16 +65,17 @@ function DataTableArshin() {
 			<DataGridPro
 				apiRef={apiRef}
 				columns={columnsArshin}
-				rows={data}
+				rows={requestData.length ? requestData : data}
 				loading={isFetching}
 				// disableColumnMenu
 				pagination
 				checkboxSelection
 				// disableColumnFilter
-				disableSelectionOnClick
+				// disableSelectionOnClick
 				// disableColumnResize
 				// disableColumnReorder
-				disableColumnSelector
+				// onRowDoubleClick={handleDoubleClickOnRow}
+				// disableColumnSelector
 				density='compact'
 				components={{
 					LoadingOverlay: LinearProgress,

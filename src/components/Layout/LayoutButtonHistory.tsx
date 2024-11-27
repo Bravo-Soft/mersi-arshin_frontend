@@ -1,5 +1,5 @@
 import HistoryIcon from '@mui/icons-material/History';
-import { IconButton, Tooltip } from '@mui/material';
+import { Button, Tooltip } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 import { AppRoutes } from 'constant/appRoutes';
@@ -17,9 +17,14 @@ function LayoutButtonHistory() {
 
 	return (
 		<Tooltip title='Посмотреть историю изменения СИ'>
-			<IconButton onClick={handleClick}>
-				<HistoryIcon fontSize='medium' sx={{ color: '#ffffff' }} />
-			</IconButton>
+			<Button
+				size='small'
+				startIcon={<HistoryIcon fontSize='large' />}
+				sx={{ color: '#ffffff' }}
+				onClick={handleClick}
+			>
+				История
+			</Button>
 		</Tooltip>
 	);
 }

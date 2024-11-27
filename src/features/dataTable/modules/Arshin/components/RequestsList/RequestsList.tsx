@@ -17,7 +17,7 @@ function RequestsList() {
 			{isLoading ? (
 				<Loader />
 			) : (
-				requestsList?.map(item => <RequestItem key={item.id} {...item} />)
+				requestsList.map(item => <RequestItem key={item.requestId} {...item} />)
 			)}
 		</Stack>
 	);

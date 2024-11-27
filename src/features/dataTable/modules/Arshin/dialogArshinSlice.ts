@@ -3,7 +3,15 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 
 import type { RootState } from 'app/store';
 
-export type DialogVariants = 'synchronize' | 'deleting' | 'validate' | 'filter' | null;
+export type DialogVariants =
+	| 'synchronize'
+	| 'deleting'
+	| 'validate'
+	| 'filter'
+	| 'createRequest'
+	| 'editRequest'
+	| 'deleteRequest'
+	| null;
 
 type ISmartDialogState = {
 	variant: DialogVariants;
@@ -29,6 +37,12 @@ export const selectSynchronizeDialog = (state: RootState) =>
 	state.dialogArshin.variant === 'synchronize';
 export const selectValidateDialog = (state: RootState) => state.dialogArshin.variant === 'validate';
 export const selectDeletingDialog = (state: RootState) => state.dialogArshin.variant === 'deleting';
+export const selectCreatingRequestDialog = (state: RootState) =>
+	state.dialogArshin.variant === 'createRequest';
+export const selectEditingRequestDialog = (state: RootState) =>
+	state.dialogArshin.variant === 'editRequest';
+export const selectDeletingRequestDialog = (state: RootState) =>
+	state.dialogArshin.variant === 'deleteRequest';
 
 export const selectOpenFilterDialogArshin = (state: RootState) =>
 	state.dialogArshin.variant === 'filter';

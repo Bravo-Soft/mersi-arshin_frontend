@@ -1,3 +1,4 @@
+import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { SvgIconProps } from '@mui/material';
@@ -30,12 +31,20 @@ function ContextMenuArshin({ contextMenu, actions }: UseArshinContextMenuActions
 
 	const { handleCloseContextMenu } = actions;
 
+	const handleOpenCreateRequestModal = () => console.log(1);
+
 	const menuItems: IMenuItem[] = [
 		{
 			title: SidebarTitles.EDIT_ITEM,
 			Icon: EditIcon,
 			isDisabled: true,
 			action: handleContextMenuEditArshinItem,
+		},
+		{
+			title: 'Создать запрос',
+			Icon: AddIcon,
+			isDisabled: Boolean(selectedDataIds?.length),
+			action: handleOpenCreateRequestModal,
 		},
 		{
 			title: 'Удалить выделенное',

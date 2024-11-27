@@ -120,6 +120,10 @@ export interface IDataItem {
 	 * Вид
 	 */
 	view: string;
+	/**
+	 * Комментарий к ремонту (опционально)
+	 */
+	comment?: string;
 }
 
 export interface IDocument {

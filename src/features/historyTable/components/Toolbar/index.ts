@@ -1,1 +1,1 @@
-export { default as Toolbar } from './components/DataTableToolbar';
+export { default as Toolbar } from './components/HistoryTableToolbar';

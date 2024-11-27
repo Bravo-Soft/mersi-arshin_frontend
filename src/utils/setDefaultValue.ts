@@ -23,6 +23,7 @@ export const setDefaultValue = (data?: IDataItem | null) => {
 			productionDate: dayjs(productionDate),
 			verificationDate: dayjs(verificationDate),
 			dateOfTheNextVerification: dayjs(dateOfTheNextVerification),
+			comment: '',
 		};
 	}
 };

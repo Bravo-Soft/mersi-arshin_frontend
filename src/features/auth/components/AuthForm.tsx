@@ -30,6 +30,8 @@ function AuthForm({ submitCallback, isLoading, isError }: IAuthFormProps): JSX.E
 		defaultValues: {
 			email: '',
 			password: '',
+			product: 'Мерси',
+			type: 'client',
 		},
 	});
 

@@ -13,6 +13,7 @@ import {
 	selectNotValidArshinItem,
 	selectSelectedArshin,
 	selectSynchronizeIds,
+	setCreateRequestModal,
 } from '../arshinTableSlice';
 import { changeDialogState, resetDialogState, selectIsOpenDialog } from '../dialogArshinSlice';
 import { selectIsWorkingArshin } from '../eventSourceSlice';
@@ -81,7 +82,7 @@ export const useArshinActions = () => {
 	};
 
 	const handleDeleteItems = async () => {
-		if (Boolean(synchronizeModelData.length) && !isOpen) {
+		if (Boolean(deleteData.length) && !isOpen) {
 			return dispatch(changeDialogState('deleting'));
 		}
 		try {

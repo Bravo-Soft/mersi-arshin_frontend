@@ -6,8 +6,8 @@ import MuiDialogContentText from '@mui/material/DialogContentText';
 import MuiDialogTitle from '@mui/material/DialogTitle';
 
 interface IDialogProps extends MuiDialogProps {
-	title: string;
-	content: string | JSX.Element;
+	title?: string;
+	content?: string | JSX.Element;
 	action?: JSX.Element;
 }
 

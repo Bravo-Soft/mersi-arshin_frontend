@@ -38,6 +38,7 @@ function LayoutHeader({ setOpenModal }: ILayoutHeaderProps): JSX.Element {
 						МЕРСИ
 					</Typography>
 				</LogoWrapper>
+
 				<Stack direction='row' alignItems='center' columnGap={2}>
 					<LayoutButtonHistory />
 					<LayoutButtonNotification />

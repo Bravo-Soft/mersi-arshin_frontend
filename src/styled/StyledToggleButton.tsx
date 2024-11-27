@@ -8,7 +8,7 @@ interface StyledMenuItemProps extends ToggleButtonProps {
 
 const StyledToggleButton = styled(ToggleButton, {
 	shouldForwardProp: prop => prop !== 'moduleIsActive',
-})<StyledMenuItemProps>(({ theme, moduleIsActive }) => ({
+})<StyledMenuItemProps>(({ theme, moduleIsActive = true }) => ({
 	...(!moduleIsActive && {
 		cursor: 'help',
 		color: theme.palette.text.disabled,
@@ -24,6 +24,12 @@ const StyledToggleButton = styled(ToggleButton, {
 			'& .MuiSvgIcon-root': {
 				color: theme.palette.warning.light,
 			},
+		},
+	}),
+	...(moduleIsActive && {
+		'&.Mui-selected,&.Mui-selected:hover': {
+			color: '#fff',
+			backgroundColor: '#014e5ff7',
 		},
 	}),
 }));

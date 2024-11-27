@@ -9,6 +9,7 @@ import { IDataItemArshin, INotValidArshinItem, IRequestItem } from 'types/arshin
 import { getArrayWithoutDuplicates } from 'utils/getArrayWithoutDuplicates';
 
 interface IArshinTableState {
+	selectedDataItem: IDataItemArshin | null;
 	selectedDataItems: IDataItemArshin[] | null;
 	selectedDataArshinItem: IDataItemArshin | null;
 	selectedEditItemIds?: string;
@@ -20,6 +21,7 @@ interface IArshinTableState {
 }
 
 const initialState: IArshinTableState = {
+	selectedDataItem: null,
 	selectedDataItems: [],
 	selectedDataArshinItem: null,
 	notValidArshinItem: [],
@@ -34,6 +36,9 @@ const arshinTableSlice = createSlice({
 	name: 'arshinTable',
 	initialState,
 	reducers: {
+		setSelectedDataItem: (state, action: PayloadAction<IDataItemArshin>) => {
+			state.selectedDataItem = action.payload;
+		},
 		setSelectedDataItems: (state, action: PayloadAction<IDataItemArshin[]>) => {
 			state.selectedDataItems = action.payload;
 		},
@@ -66,7 +71,7 @@ const arshinTableSlice = createSlice({
 		setRequestsList: (state, action: PayloadAction<IRequestItem[]>) => {
 			state.requestsList = action.payload;
 		},
-		setRequest: (state, action: PayloadAction<IRequestItem>) => {
+		setRequest: (state, action: PayloadAction<IRequestItem | null>) => {
 			state.requestItem = action.payload;
 		},
 	},
@@ -76,6 +81,8 @@ export const selectRequestsList = (state: RootState) => state.arshinTable.reques
 export const selectRequest = (state: RootState) => state.arshinTable.requestItem;
 
 //Selected model (Модель выбора)
+export const selectSelectedDataItem = (state: RootState) =>
+	state.arshinTable.selectedDataItem ?? null;
 export const selectSelectedDataItems = (state: RootState) =>
 	state.arshinTable.selectedDataItems ?? [];
 
@@ -190,6 +197,7 @@ export const selectIsOpenCreateRequestModal = (state: RootState) =>
 	state.arshinTable.isOpenCreateRequestModal;
 
 export const {
+	setSelectedDataItem,
 	setSelectedDataItems,
 	resetSelectedDataItem,
 	setNotValidArshinItem,
@@ -200,6 +208,7 @@ export const {
 	deleteNotValidArshinItem,
 	setCreateRequestModal,
 	setRequestsList,
+	setRequest,
 } = arshinTableSlice.actions;
 
 export const arshinTablePath = arshinTableSlice.name;

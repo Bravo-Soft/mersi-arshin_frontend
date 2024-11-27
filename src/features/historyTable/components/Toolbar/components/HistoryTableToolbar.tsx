@@ -1,7 +1,5 @@
-import ExpandIcon from '@mui/icons-material/ExpandMore';
 import Collapse from '@mui/material/Collapse';
 import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
@@ -12,17 +10,16 @@ import {
 } from '@mui/x-data-grid-pro';
 import { useEffect, useRef, useState } from 'react';
 
-import ButtonsNavigation from '../../ButtonsNavigation';
-
 import DataTableColumnButton from './DataTableColumnButton';
 import DataTableToolbarFilter from './DataTableToolbarFilter';
 import { scrollbarStyles } from './scrollbarStyles';
 
+import ButtonsNavigation from 'features/dataTable/components/ButtonsNavigation';
 import DataTableModulesButton from 'features/dataTable/modules/DataTableModulesButton';
 import { selectActualStep, selectMenuStart } from 'features/quickTour/components/quickTourSlice';
 import { useAppSelector } from 'hooks/redux';
 
-function DataTableToolbar(): JSX.Element {
+function HistoryTableToolbar(): JSX.Element {
 	const [expanded, setExpanded] = useState(false);
 
 	const actualStep = useAppSelector(selectActualStep);
@@ -91,4 +88,4 @@ function DataTableToolbar(): JSX.Element {
 	);
 }
 
-export default DataTableToolbar;
+export default HistoryTableToolbar;

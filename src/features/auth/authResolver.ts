@@ -17,6 +17,8 @@ const authSchema = z.object({
 		.string()
 		.transform(e => e.trim())
 		.pipe(z.string().min(8, 'Минимальная длина пароля 8 символов')),
+	type: z.string(),
+	product: z.string(),
 });
 
 export const authResolver = zodResolver(authSchema);
