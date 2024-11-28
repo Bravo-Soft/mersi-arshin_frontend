@@ -13,6 +13,7 @@ export const dateFormTransform = <T extends UpdatePropsType>(data: T) => {
 		suitability,
 		interVerificationInterval,
 		cost,
+		dateOfCommissioning,
 		...other
 	} = data;
 
@@ -24,5 +25,6 @@ export const dateFormTransform = <T extends UpdatePropsType>(data: T) => {
 		dateOfTheNextVerification: createDateISO(dateOfTheNextVerification),
 		productionDate: createDateISO(productionDate),
 		verificationDate: createDateISO(verificationDate),
+		dateOfCommissioning: createDateISO(dateOfCommissioning),
 	};
 };

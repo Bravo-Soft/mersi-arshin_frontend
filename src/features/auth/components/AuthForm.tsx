@@ -31,7 +31,7 @@ function AuthForm({ submitCallback, isLoading, isError }: IAuthFormProps): JSX.E
 			email: '',
 			password: '',
 			product: 'Мерси',
-			type: 'client',
+			type: 'trial',
 		},
 	});
 

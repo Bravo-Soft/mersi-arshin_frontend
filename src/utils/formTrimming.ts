@@ -2,6 +2,7 @@ const setNames = new Set([
 	'verificationDate',
 	'productionDate',
 	'dateOfTheNextVerification',
+	'dateOfCommissioning',
 	'fieldsDate',
 ]);
 

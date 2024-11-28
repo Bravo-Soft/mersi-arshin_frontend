@@ -10,7 +10,6 @@ import { NoRowsOverlay } from './components/NoRowsOverlay';
 import { Toolbar } from './components/Toolbar';
 import { useGetAllHistoryDataQuery } from './historyTableApiSlice';
 
-import { selectSelectedDataItem } from 'features/dataTable/dataTableSlice';
 import { selectSidebarStateOfHistoryPage } from 'features/sidebar/sidebarSlice';
 import { useAppSelector } from 'hooks/redux';
 import DataTableBox from 'styled/DataTableBox';
@@ -19,16 +18,12 @@ function HistoryTable(): JSX.Element {
 	const apiRef = useGridApiRef();
 
 	const { open: sidebarIsOpen } = useAppSelector(selectSidebarStateOfHistoryPage);
-	const selectedDataItem = useAppSelector(selectSelectedDataItem);
 
 	/* Загрузка данных */
-	const { data = [], isFetching: isFetchingData } = useGetAllHistoryDataQuery(
-		selectedDataItem?.factoryNumber || undefined,
-		{
-			pollingInterval: 60000,
-			refetchOnMountOrArgChange: true,
-		}
-	);
+	const { data = [], isFetching: isFetchingData } = useGetAllHistoryDataQuery(undefined, {
+		pollingInterval: 60000,
+		refetchOnMountOrArgChange: true,
+	});
 
 	//Функции для отрисовки подменю строки
 

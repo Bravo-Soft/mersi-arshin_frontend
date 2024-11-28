@@ -35,7 +35,7 @@ function EditDataItem(): JSX.Element {
 		await sendUpdatedItem(dateFormTransform(formTrimming(data))).unwrap();
 		if (comment) {
 			const repairData = { comment, itemId: data.id };
-			console.log(repairData);
+			// console.log(repairData);
 		}
 	});
 

@@ -7,7 +7,7 @@ interface IDateFieldsProps {
 	label: string;
 	nameOfKey: keyof Pick<
 		IDataItemWithDates,
-		'productionDate' | 'verificationDate' | 'dateOfTheNextVerification'
+		'productionDate' | 'verificationDate' | 'dateOfTheNextVerification' | 'dateOfCommissioning'
 	>;
 	readOnly?: boolean;
 }

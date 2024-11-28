@@ -21,7 +21,7 @@ function CreatingRequestDialog(): JSX.Element {
 
 	const methods = useForm<IRequestItemWithDates>({
 		defaultValues: {
-			requestId: now,
+			requestId: now.toString(),
 			status: 'В процессе',
 			requestTitle: '',
 			fieldsDate: [now, now],

@@ -121,6 +121,22 @@ export interface IDataItem {
 	 */
 	view: string;
 	/**
+	 * Завод-изготовитель
+	 */
+	manufacturer: string;
+	/**
+	 * Дата производства
+	 */
+	dateOfCommissioning: string;
+	/**
+	 * Аттестат
+	 */
+	instrumentCertificate: string;
+	/**
+	 * СНИЛС
+	 */
+	snils: string;
+	/**
 	 * Комментарий к ремонту (опционально)
 	 */
 	comment?: string;
@@ -143,7 +159,10 @@ export interface IDocument {
 
 /* Интерфейс копирует родительский, но только изменяет тип данных трёх ключей. Необходим для отправки формы на сервер */
 export interface IDataItemWithDates
-	extends Omit<IDataItem, 'verificationDate' | 'productionDate' | 'dateOfTheNextVerification'> {
+	extends Omit<
+		IDataItem,
+		'verificationDate' | 'productionDate' | 'dateOfTheNextVerification' | 'dateOfCommissioning'
+	> {
 	/**
 	 * Дата поверки
 	 */
@@ -156,4 +175,8 @@ export interface IDataItemWithDates
 	 * Дата следующией поверки
 	 */
 	dateOfTheNextVerification: Dayjs;
+	/**
+	 * Дата ввода в эксплуатацию
+	 */
+	dateOfCommissioning: Dayjs;
 }

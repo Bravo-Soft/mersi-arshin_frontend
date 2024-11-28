@@ -37,13 +37,13 @@ export const API = {
 		print: `/print/data`,
 	},
 	arshin: {
-		getData: `/arshin/data`,
+		getData: `/arshin/data/group`,
 		getFilters: `/arshin/group/settings`,
 		editFilters: `/arshin/group/settings`,
 		resetFilters: `/arshin/group/settings/reset`,
-		addItems: `/data/arshin/add`,
-		deleteItems: `/arshin/data`,
-		synchronizeItems: `/arshin/data/synchronization`,
+		addItems: `/arshin/data/add`,
+		deleteItems: `/arshin/data/remove`,
+		synchronizeItems: `/arshin/data/synchronize`,
 		startArshin: `/arshin/process/add`,
 		cancelArshin: `/arshin/process/cancel`,
 		validateArshin: `/arshin/data/validation`,
@@ -54,6 +54,7 @@ export const API = {
 		readAllNotifications: `/notifications/messages/read`,
 	},
 	history: {
-		default: 'https://mocki.io/v1/714d01de-2db1-4374-9f3d-dd44975e5dbc',
+		getAllHistoryData: `/history`,
+		getHistoryDataById: (id: GridRowId) => `/history/${id}`,
 	},
 };

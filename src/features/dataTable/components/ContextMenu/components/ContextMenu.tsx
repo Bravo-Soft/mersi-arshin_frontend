@@ -118,8 +118,8 @@ function ContextMenu({ contextMenu, actionsOfContextMenu }: IContextMenuProps): 
 		},
 		{
 			title: SidebarTitles.ITEM_FILES,
-			Icon: isFileStorage.enable ? AttachFileIcon : LockIcon,
-			isActive: isFileStorage.enable ?? false,
+			Icon: isFileStorage ? AttachFileIcon : LockIcon,
+			isActive: isFileStorage ?? false,
 			action: handleOpenFilesOfDataItem,
 		},
 		{

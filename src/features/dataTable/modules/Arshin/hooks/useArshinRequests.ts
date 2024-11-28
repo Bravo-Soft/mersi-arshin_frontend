@@ -12,7 +12,6 @@ import {
 	selectIsOpenDialog,
 } from '../dialogArshinSlice';
 
-import { dayjsFormatVariant } from 'constant/dateFormat';
 import { Messages } from 'constant/messages';
 import { selectSidebarStateOfArshinPage } from 'features/sidebar/sidebarSlice';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
@@ -35,7 +34,7 @@ export const useArshinRequests = () => {
 
 	const isDialogOpen = useAppSelector(selectIsOpenDialog);
 
-	const now = `${dayjs(Date.now()).format(dayjsFormatVariant)}`;
+	const now = dayjs(new Date());
 
 	const handleSelectRequest = (data: IRequestItem) => {
 		dispatch(setRequest(data));

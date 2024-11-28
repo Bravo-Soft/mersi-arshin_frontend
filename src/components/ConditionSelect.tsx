@@ -53,7 +53,7 @@ function ConditionSelect({ readOnly }: IConditionSelectProps): JSX.Element {
 					</>
 				)}
 			/>
-			<Controller
+			{/* <Controller
 				name='comment'
 				control={control}
 				render={({ field, fieldState: { error } }) => (
@@ -73,7 +73,7 @@ function ConditionSelect({ readOnly }: IConditionSelectProps): JSX.Element {
 						<FormHelperText>{error?.message ?? ' '}</FormHelperText>
 					</>
 				)}
-			/>
+			/> */}
 
 			{/* {} */}
 		</FormControl>

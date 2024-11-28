@@ -3,7 +3,10 @@ import { ColumnNames } from 'constant/columnsName';
 import type { IDataItemWithDates } from 'types/dataItem';
 
 interface ICreateInputs {
-	key: keyof Omit<IDataItemWithDates, 'id' | 'userIds' | 'verificationControlInStateRegister'>;
+	key: keyof Omit<
+		IDataItemWithDates,
+		'id' | 'userIds' | 'verificationControlInStateRegister' | 'fgisUrl'
+	>;
 	label: ColumnNames;
 	stringLength?: number;
 }
@@ -29,7 +32,11 @@ export type KeysOfEdit =
 	| 'responsible'
 	| 'additionalData'
 	| 'methodology'
-	| 'view';
+	| 'view'
+	| 'manufacturer'
+	| 'dateOfCommissioning'
+	| 'instrumentCertificate'
+	| 'snils';
 
 export type KeysOfVerificate =
 	| 'verificationDate'
@@ -40,7 +47,6 @@ export type KeysOfVerificate =
 	| 'certificate'
 	| 'organization'
 	| 'suitability'
-	| 'fgisUrl'
 	| 'cost';
 
 export const editFields: IField<KeysOfEdit>[] = [
@@ -123,6 +129,25 @@ export const editFields: IField<KeysOfEdit>[] = [
 		label: ColumnNames.METHODOLOGY,
 		stringLength: ColumnsMaxStringLength.LARGE,
 	},
+	{
+		key: 'manufacturer',
+		label: ColumnNames.MANUFACTURER,
+		stringLength: ColumnsMaxStringLength.LARGE,
+	},
+	{
+		key: 'dateOfCommissioning',
+		label: ColumnNames.DATE_OF_COMISSIONING,
+	},
+	{
+		key: 'instrumentCertificate',
+		label: ColumnNames.INSTRUMENT_CERTIFICATE,
+		stringLength: ColumnsMaxStringLength.LARGE,
+	},
+	{
+		key: 'snils',
+		label: ColumnNames.SNILS,
+		stringLength: ColumnsMaxStringLength.SMALL,
+	},
 ];
 
 export const verificationFields: IField<KeysOfVerificate>[] = [
@@ -161,11 +186,6 @@ export const verificationFields: IField<KeysOfVerificate>[] = [
 	{
 		key: 'suitability',
 		label: ColumnNames.SUITABILITY,
-	},
-	{
-		key: 'fgisUrl',
-		label: ColumnNames.FGIS_URL,
-		stringLength: ColumnsMaxStringLength.LARGE,
 	},
 	{
 		key: 'cost',

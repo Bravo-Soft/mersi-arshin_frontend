@@ -41,6 +41,7 @@ export const RequestItem: React.FC<IRequestItem> = ({
 	return (
 		<Card
 			sx={{
+				border: 'none',
 				display: 'flex',
 				background: selectedRequest?.requestId === requestId ? '#014e5f1e' : '#f3f3f3',
 			}}

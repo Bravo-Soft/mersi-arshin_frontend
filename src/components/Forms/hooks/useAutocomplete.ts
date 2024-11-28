@@ -14,6 +14,8 @@ export type AutocompleteKeysType = keyof Omit<
 	| 'productionDate'
 	| 'verificationControlInStateRegister'
 	| 'interVerificationInterval'
+	| 'dateOfCommissioning'
+	| 'fgisUrl'
 >;
 
 const defaultKeys: AutocompleteKeysType[] = [
@@ -32,11 +34,13 @@ const defaultKeys: AutocompleteKeysType[] = [
 	'notes',
 	'location',
 	'responsible',
-	'fgisUrl',
 	'additionalData',
 	'methodology',
 	'cost',
 	'view',
+	'manufacturer',
+	'instrumentCertificate',
+	'snils',
 ];
 
 const defaultValue = {} as Record<AutocompleteKeysType, string[]>;

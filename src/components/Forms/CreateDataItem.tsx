@@ -58,11 +58,13 @@ const defaultValues = {
 	location: '',
 	responsible: '',
 	suitability: 'false',
-	fgisUrl: '',
 	additionalData: '',
 	methodology: '',
 	cost: '0',
-	verificationControlInStateRegister: false,
+	manufacturer: '',
+	dateOfCommissioning: today,
+	instrumentCertificate: '',
+	snils: '',
 };
 
 function CreateDataItem(): JSX.Element {
@@ -118,6 +120,7 @@ function CreateDataItem(): JSX.Element {
 				return <SuitabilitySelect key={key} />;
 			case 'productionDate':
 			case 'dateOfTheNextVerification':
+			case 'dateOfCommissioning':
 				return <DateField key={key} nameOfKey={key} label={label} />;
 			case 'verificationDate':
 				return (
@@ -166,29 +169,7 @@ function CreateDataItem(): JSX.Element {
 						type='number'
 					/>
 				);
-			case 'fgisUrl':
-				return (
-					<Controller
-						name={key}
-						key={key}
-						control={control}
-						render={({ field: { onChange, value, ref }, fieldState: { error } }) => (
-							<TextField
-								value={value}
-								onChange={e => {
-									onChange(e.target.value);
-									trigger(key);
-								}}
-								label={label}
-								error={Boolean(error)}
-								helperText={error?.message ?? ' '}
-								inputRef={ref}
-								InputLabelProps={{ shrink: true }}
-								inputProps={{ maxLength: stringLength }}
-							/>
-						)}
-					/>
-				);
+
 			default:
 				return (
 					<AutocompleteField

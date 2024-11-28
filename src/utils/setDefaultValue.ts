@@ -13,6 +13,7 @@ export const setDefaultValue = (data?: IDataItem | null) => {
 			dateOfTheNextVerification,
 			interVerificationInterval,
 			userIds,
+			dateOfCommissioning,
 			...other
 		} = data;
 
@@ -23,6 +24,7 @@ export const setDefaultValue = (data?: IDataItem | null) => {
 			productionDate: dayjs(productionDate),
 			verificationDate: dayjs(verificationDate),
 			dateOfTheNextVerification: dayjs(dateOfTheNextVerification),
+			dateOfCommissioning: dayjs(dateOfCommissioning),
 			comment: '',
 		};
 	}

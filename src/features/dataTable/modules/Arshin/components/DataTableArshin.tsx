@@ -30,7 +30,7 @@ function DataTableArshin() {
 	useApplyTemplate(apiRef);
 	const { data, isFetching } = useGetDataQuery(undefined, {
 		refetchOnMountOrArgChange: true,
-		skip: !isOpen,
+		// skip: !isOpen,
 		selectFromResult: ({ data, isFetching }) => ({
 			data: data ?? emptyData,
 			isFetching,

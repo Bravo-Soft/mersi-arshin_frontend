@@ -59,7 +59,7 @@ function FormMenu({ page }: IFormMenuProps): JSX.Element | null {
 	};
 
 	const handleOpenFilesForm = () => {
-		isFileStorage.enable
+		isFileStorage
 			? openSidebarWith('FilesDataItem')
 			: dispatch(
 					changeSmartDialogState({
@@ -113,14 +113,12 @@ function FormMenu({ page }: IFormMenuProps): JSX.Element | null {
 					<ListItemText>{SidebarTitles.VERIFICATION_ITEM}</ListItemText>
 				</MenuItem>
 				<StyledMenuItem
-					moduleIsActive={isFileStorage.enable}
+					moduleIsActive={isFileStorage}
 					onClick={handleOpenFilesForm}
 					selected={selector === 'FilesDataItem'}
 					divider={isWriter || isAdmin}
 				>
-					<ListItemIcon>
-						{isFileStorage.enable ? <AttachFileIcon /> : <LockIcon />}
-					</ListItemIcon>
+					<ListItemIcon>{isFileStorage ? <AttachFileIcon /> : <LockIcon />}</ListItemIcon>
 					<ListItemText>{SidebarTitles.ITEM_FILES}</ListItemText>
 				</StyledMenuItem>
 				{(isWriter || isAdmin) && (

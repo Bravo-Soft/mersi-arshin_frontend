@@ -25,6 +25,7 @@ function EditInputs({ isReader }: IEditInputsProps): JSX.Element {
 			{renderColumns.map(({ key, label, stringLength }) => {
 				switch (key) {
 					case 'productionDate':
+					case 'dateOfCommissioning':
 						return <DateField key={key} readOnly={isReader} nameOfKey={key} label={label} />;
 					case 'size':
 						return <SizeSelect key={key} readOnly={isReader} />;

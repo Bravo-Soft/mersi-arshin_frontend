@@ -235,6 +235,38 @@ export const columns: GridColDef<IDataItem>[] = [
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
 	},
+	{
+		field: 'manufacturer',
+		headerName: ColumnNames.MANUFACTURER,
+		width: initialWidth,
+		headerAlign: 'center',
+		renderCell: RenderCellExpand,
+	},
+	{
+		field: 'dateOfCommissioning',
+		headerName: ColumnNames.DATE_OF_COMISSIONING,
+		width: initialWidth,
+		headerAlign: 'center',
+		type: 'date',
+		resizable: false,
+		valueFormatter: formatDateCallback,
+		getApplyQuickFilterFn: quickFilterDateFormat,
+	},
+	{
+		field: 'instrumentCertificate',
+		headerName: ColumnNames.INSTRUMENT_CERTIFICATE,
+		width: initialWidth,
+		headerAlign: 'center',
+		renderCell: RenderCellExpand,
+	},
+	{
+		field: 'snils',
+		hide: true,
+		headerName: ColumnNames.SNILS,
+		width: initialWidth,
+		headerAlign: 'center',
+		renderCell: RenderCellExpand,
+	},
 ];
 
 export default columns;
