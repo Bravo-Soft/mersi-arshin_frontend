@@ -64,7 +64,7 @@ function ContextMenu({ contextMenu, actionsOfContextMenu }: IContextMenuProps): 
 		handleRemoveFromFavorite,
 		handleCopySelectedValues,
 		handleAddToArshin,
-		handleGetItemHistory,
+		handleViewItemHistory,
 		handleViewItemPassport,
 	} = actionsOfContextMenu;
 
@@ -143,8 +143,8 @@ function ContextMenu({ contextMenu, actionsOfContextMenu }: IContextMenuProps): 
 		{
 			title: SidebarTitles.ITEM_HISTORY,
 			Icon: HistoryIcon,
-			isActive: Boolean(selectedDataItem?.factoryNumber),
-			action: handleGetItemHistory,
+			isActive: true,
+			action: handleViewItemHistory,
 		},
 	];
 

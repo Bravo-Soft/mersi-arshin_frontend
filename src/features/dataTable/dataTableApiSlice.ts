@@ -6,7 +6,7 @@ import { API } from 'app/api';
 import { apiSlice } from 'app/apiSlice';
 import { HttpCodes } from 'constant/httpCodes';
 import { Messages } from 'constant/messages';
-import type { IDataItem } from 'types/dataItem';
+import type { IConditionData, IDataItem } from 'types/dataItem';
 
 export const dataTableApiSlice = apiSlice.injectEndpoints({
 	overrideExisting: false,

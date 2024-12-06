@@ -27,9 +27,9 @@ export type ItemVerification = {
 };
 
 export type ItemRepair = {
-	repareDate: string;
-	repairType: string;
-	fio: string;
+	modificationDate: string;
+	conditionDescription: string;
+	editedBy: string;
 };
 
 export interface IPassportData {

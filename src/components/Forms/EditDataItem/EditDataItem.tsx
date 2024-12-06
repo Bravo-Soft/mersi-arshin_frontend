@@ -31,12 +31,8 @@ function EditDataItem(): JSX.Element {
 
 	useUpdateSelectedDataItem(selectedDataItem);
 
-	const onSubmit = methods.handleSubmit(async ({ comment, ...data }) => {
+	const onSubmit = methods.handleSubmit(async data => {
 		await sendUpdatedItem(dateFormTransform(formTrimming(data))).unwrap();
-		if (comment) {
-			const repairData = { comment, itemId: data.id };
-			// console.log(repairData);
-		}
 	});
 
 	return (

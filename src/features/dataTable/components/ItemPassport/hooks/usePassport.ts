@@ -6,101 +6,24 @@ import { useReactToPrint } from 'react-to-print';
 import { repairColumns, summaryColumns, verificationColumns } from '../columns';
 import { type ISummary } from '../types';
 
-import { dayjsFormatVariant } from 'constant/dateFormat';
 import {
 	selectIsOpenPassportModal,
-	selectSelectedDataItem,
+	selectPassportItem,
 	setPassportModal,
 } from 'features/dataTable/dataTableSlice';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { type IDataItem } from 'types/dataItem';
 import { saveAs } from 'utils/saveAs';
 
 export const usePassport = () => {
 	const passportPrintRef = useRef<HTMLDivElement>(null);
 	const dispatch = useAppDispatch();
 
-	const selectedItem = useAppSelector(selectSelectedDataItem);
-
 	const open = useAppSelector(selectIsOpenPassportModal);
+	const passportData = useAppSelector(selectPassportItem);
 
 	const handleClosePassport = () => {
 		dispatch(setPassportModal(false));
 	};
-
-	const organization = '_______________________________________';
-
-	const {
-		name,
-		productionDate,
-		inventoryNumber,
-		type,
-		factoryNumber,
-		accuracyClass,
-		division,
-		measurementLimit,
-		typeOfWork,
-		interVerificationInterval,
-	} = (selectedItem as IDataItem) || {};
-
-	const summaryData: ISummary = {
-		passportId: '__________',
-		name,
-		productionDate: dayjs(productionDate).format(dayjsFormatVariant) || '',
-		inventoryNumber,
-		type,
-		factoryNumber,
-		accuracyClass,
-		startDate: dayjs(productionDate).format(dayjsFormatVariant) || '',
-		measurementLimit,
-		typeOfWork,
-		interVerificationInterval,
-	};
-
-	const verifications = [
-		{
-			verificationDate: '2024-07-08T21:00:00.000Z',
-			workType: 'Поверка',
-			document: '111111',
-			organization: 'ООО "ФНИИМ"',
-			resolution: 'Годен',
-			fio: 'Иванов И.И.',
-		},
-		{
-			verificationDate: '2024-07-08T21:00:00.000Z',
-			workType: 'Доверка',
-			document: '39у38',
-			organization: 'ООО "Ктопришел"',
-			resolution: 'Годен',
-			fio: 'Иванов И.И.',
-		},
-		{
-			verificationDate: '2024-07-08T21:00:00.000Z',
-			workType: 'Переверка',
-			document: '11113111',
-			organization: 'ООО "ААА"',
-			resolution: 'Годен',
-			fio: 'Иванов И.И.',
-		},
-	];
-
-	const repairs = [
-		{
-			repareDate: '2024-07-08T21:00:00.000Z',
-			repairType: 'Ремонт корпуса',
-			fio: 'Иванов И.И.',
-		},
-		{
-			repareDate: '2022-10-18T21:00:00.000Z',
-			repairType: 'Замена резистора',
-			fio: 'Петров П.П.',
-		},
-		{
-			repareDate: '2024-12-04T21:00:00.000Z',
-			repairType: 'Обновление прошивки',
-			fio: 'Сидоров Ч.Ч.',
-		},
-	];
 
 	const handlePrint = useReactToPrint({
 		content: () => passportPrintRef.current,
@@ -153,7 +76,8 @@ export const usePassport = () => {
 		worksheet.getColumn('C').width = 20;
 
 		worksheet.mergeCells('D1:F1');
-		worksheet.getCell('D1').value = organization || '_______________________________';
+		worksheet.getCell('D1').value =
+			passportData?.organization || '_______________________________';
 		worksheet.getColumn('D').width = 20;
 		worksheet.getColumn('E').width = 20;
 		worksheet.getColumn('F').width = 20;
@@ -163,7 +87,9 @@ export const usePassport = () => {
 		worksheet.getCell('A2').style = { ...boldCenterStyle };
 
 		worksheet.mergeCells('D2:F2');
-		worksheet.getCell('D2').value = division || '_______________________________';
+		passportData?.division.forEach((el, index) => {
+			worksheet.getCell(`D${2 + index}`).value = el;
+		});
 
 		//Разделитель
 		worksheet.mergeCells('A3:F3');
@@ -189,7 +115,8 @@ export const usePassport = () => {
 			worksheet.getCell(`A${rowIndex}`).style = { ...boldCenterStyle };
 
 			worksheet.mergeCells(`D${rowIndex}:F${rowIndex}`);
-			worksheet.getCell(`D${rowIndex}`).value = summaryData[name as keyof ISummary];
+			worksheet.getCell(`D${rowIndex}`).value =
+				passportData?.summaryData[name as keyof ISummary];
 
 			rowIndex++;
 		});
@@ -222,7 +149,7 @@ export const usePassport = () => {
 		rowIndex++;
 
 		// Заполнение данных "Результаты метрологических работ"
-		verifications.forEach(verification => {
+		passportData?.verifications.forEach(verification => {
 			worksheet.getRow(rowIndex).values = [
 				dayjs(verification.verificationDate).format('DD.MM.YYYY'),
 				verification.workType,
@@ -246,36 +173,40 @@ export const usePassport = () => {
 		// Добавление заголовка "Сведения о ремонте"
 		worksheet.mergeCells(`A${rowIndex}:F${rowIndex}`);
 		worksheet.getRow(rowIndex).height = 25;
-		worksheet.getCell(`A${rowIndex}`).value =
-			'Сведения о ремонте/техническом обслуживании/консервации';
+		worksheet.getCell(`A${rowIndex}`).value = !passportData?.repairs.length
+			? `Сведения о ремонте/техническом обслуживании/консервации отсутствуют`
+			: `Сведения о ремонте/техническом обслуживании/консервации `;
 		worksheet.getCell(`A${rowIndex}`).style = { ...boldCenterStyle };
 
 		rowIndex++;
 
-		// Заголовки таблицы "Сведения о ремонте"
-		worksheet.getRow(rowIndex).height = 35;
-		repairColumns.forEach((name, colIndex) => {
-			worksheet.mergeCells(rowIndex, colIndex * 2 + 1, rowIndex, colIndex * 2 + 2);
-			const cell = worksheet.getCell(rowIndex, colIndex * 2 + 1);
-			cell.value = name;
-			cell.style = { ...headerStyle };
-		});
-
-		rowIndex++;
-
-		// Заполнение данных "Сведения о ремонте"
-		repairs.forEach(repair => {
-			worksheet.mergeCells(rowIndex, 1, rowIndex, 2);
-			worksheet.mergeCells(rowIndex, 3, rowIndex, 4);
-			worksheet.mergeCells(rowIndex, 5, rowIndex, 6);
-
-			// Установка значений для объединённых столбцов
-			worksheet.getCell(rowIndex, 1).value = dayjs(repair.repareDate).format('DD.MM.YYYY');
-			worksheet.getCell(rowIndex, 3).value = repair.repairType;
-			worksheet.getCell(rowIndex, 5).value = repair.fio;
+		if (passportData?.repairs.length) {
+			// Заголовки таблицы "Сведения о ремонте"
+			worksheet.getRow(rowIndex).height = 35;
+			repairColumns.forEach((name, colIndex) => {
+				worksheet.mergeCells(rowIndex, colIndex * 2 + 1, rowIndex, colIndex * 2 + 2);
+				const cell = worksheet.getCell(rowIndex, colIndex * 2 + 1);
+				cell.value = name;
+				cell.style = { ...headerStyle };
+			});
 
 			rowIndex++;
-		});
+			// Заполнение данных "Сведения о ремонте"
+			passportData.repairs.forEach(repair => {
+				worksheet.mergeCells(rowIndex, 1, rowIndex, 2);
+				worksheet.mergeCells(rowIndex, 3, rowIndex, 4);
+				worksheet.mergeCells(rowIndex, 5, rowIndex, 6);
+
+				// Установка значений для объединённых столбцов
+				worksheet.getCell(rowIndex, 1).value = dayjs(repair.modificationDate).format(
+					'DD.MM.YYYY'
+				);
+				worksheet.getCell(rowIndex, 3).value = repair.conditionDescription;
+				worksheet.getCell(rowIndex, 5).value = repair.editedBy;
+
+				rowIndex++;
+			});
+		}
 
 		//Разделитель
 		worksheet.mergeCells(`A${rowIndex}:F${rowIndex}`);
@@ -307,10 +238,6 @@ export const usePassport = () => {
 		handlePrint,
 		handleClosePassport,
 		exportPassportToXslx,
-		division: [division],
-		organization,
-		summaryData,
-		verifications,
-		repairs,
+		isLoading: !passportData,
 	};
 };

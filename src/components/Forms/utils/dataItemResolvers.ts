@@ -50,7 +50,7 @@ export const itemSchema = z.object({
 		.positive('Число не может быть менее 0')
 		.lte(9999, 'Число не может быть больше чем 9999'),
 	id: z.string(),
-	comment: z.string(),
+	conditionDescription: z.string(),
 	manufacturer: z.string(),
 	instrumentCertificate: z.string(),
 	snils: z.string(),
@@ -152,7 +152,7 @@ export const schema = itemSchema.and(dateSchema);
 export const createSchema = itemSchema
 	.omit({
 		id: true,
-		comment: true,
+		conditionDescription: true,
 	})
 
 	.and(dateSchema);

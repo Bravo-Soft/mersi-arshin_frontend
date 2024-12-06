@@ -1,4 +1,3 @@
-
 import Box from '@mui/material/Box';
 
 import StyledGridOverlay from '../StyledGridOverlay';
@@ -10,7 +9,7 @@ function DataTableNoRowsOverlay(): JSX.Element {
 		<StyledGridOverlay>
 			<EmptyIcon />
 			<Box mt={1} color='text.secondary'>
-				Не добавлено ни одной позиции
+				История изменений отсутствует
 			</Box>
 		</StyledGridOverlay>
 	);

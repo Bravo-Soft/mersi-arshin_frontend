@@ -2,6 +2,7 @@ import type { GridRowId, GridSelectionModel } from '@mui/x-data-grid-pro';
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
+import { IPassportData } from './components/ItemPassport/types';
 import type { ChipFilterOptions } from './components/Toolbar/components/DataTableToolbarFilter/toolBarFilters';
 
 import type { RootState } from 'app/store';
@@ -20,6 +21,7 @@ export interface IDataTableState {
 	isOpenVerificationSheduleModal: boolean;
 	visibleColumns: AllFormsVisibleColumnsType;
 	isOpenPassportModal: boolean;
+	passportItem: IPassportData | null;
 }
 
 const initialState: IDataTableState = {
@@ -30,6 +32,7 @@ const initialState: IDataTableState = {
 	isOpenVerificationSheduleModal: false,
 	visibleColumns: {} as AllFormsVisibleColumnsType,
 	isOpenPassportModal: false,
+	passportItem: null,
 };
 const dataTableSlice = createSlice({
 	name: 'dataTable',
@@ -72,6 +75,12 @@ const dataTableSlice = createSlice({
 		setPassportModal: (state, action: PayloadAction<boolean>) => {
 			state.isOpenPassportModal = action.payload;
 		},
+		setPassportItem: (state, action: PayloadAction<IPassportData>) => {
+			state.passportItem = action.payload;
+		},
+		resetPassportItem: state => {
+			state.passportItem = initialState.passportItem;
+		},
 	},
 });
 
@@ -83,6 +92,7 @@ export const selectCurrentChipFilterVariant = (state: RootState) => state.dataTa
 export const selectedIsOpenedVerificationScheduleModal = (state: RootState) =>
 	state.dataTable.isOpenVerificationSheduleModal;
 export const selectIsOpenPassportModal = (state: RootState) => state.dataTable.isOpenPassportModal;
+export const selectPassportItem = (state: RootState) => state.dataTable.passportItem;
 
 export const dataTablePath = dataTableSlice.name;
 export const dataTableReducer = dataTableSlice.reducer;
@@ -101,4 +111,6 @@ export const {
 	changeChipFilterOption,
 	setVerificationScheduleModal,
 	setPassportModal,
+	setPassportItem,
+	resetPassportItem,
 } = dataTableSlice.actions;

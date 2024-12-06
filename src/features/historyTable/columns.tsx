@@ -1,5 +1,4 @@
 import type { GridCellParams, GridColDef } from '@mui/x-data-grid-pro';
-import cn from 'classnames';
 
 import { RenderCellExpand, RenderCellExpandedRegister } from './components/RenderCellExpand';
 import { formatDateCallback } from './utils/formatDateCallback';
@@ -12,17 +11,15 @@ import { IHistoryItem, ItemAction } from 'types/historyItem';
 const initialWidth = 200;
 
 const getCellClasses = ({ row, field }: GridCellParams<string>) => {
-	const flagStatus = row.flags[field];
+	const { action, flags } = row;
 
-	if (row.action === 'Создание') {
-		return cn({ cellCreated: true });
-	}
-	if (row.action === 'Удаление') {
-		return cn({ cellRemoved: true });
-	}
-	return cn({
-		cellUpdated: flagStatus === 'update',
-	});
+	return flags.includes(field)
+		? 'cellUpdated'
+		: action === ItemAction.CREATED
+		? 'cellCreated'
+		: action === ItemAction.REMOVED
+		? 'cellRemoved'
+		: '';
 };
 
 export const columns: GridColDef<IHistoryItem>[] = [
@@ -41,7 +38,7 @@ export const columns: GridColDef<IHistoryItem>[] = [
 		renderCell: RenderCellExpand,
 		sortable: true,
 		sortComparator: (v1: ItemAction, v2: ItemAction) => {
-			const order = { Удаление: 1, Редактирование: 2, Создание: 3 };
+			const order = { Удален: 1, Обновлен: 2, Создан: 3 };
 			return order[v1] - order[v2];
 		},
 	},
@@ -286,6 +283,42 @@ export const columns: GridColDef<IHistoryItem>[] = [
 	{
 		field: 'notes',
 		headerName: ColumnNames.NOTES,
+		width: initialWidth,
+		headerAlign: 'center',
+		renderCell: RenderCellExpand,
+		cellClassName: getCellClasses,
+	},
+	{
+		field: 'manufacturer',
+		headerName: ColumnNames.MANUFACTURER,
+		width: initialWidth,
+		headerAlign: 'center',
+		renderCell: RenderCellExpand,
+		cellClassName: getCellClasses,
+	},
+	{
+		field: 'dateOfCommissioning',
+		headerName: ColumnNames.DATE_OF_COMISSIONING,
+		width: initialWidth,
+		headerAlign: 'center',
+		type: 'date',
+		resizable: false,
+		valueFormatter: formatDateCallback,
+		getApplyQuickFilterFn: quickFilterDateFormat,
+		cellClassName: getCellClasses,
+	},
+	{
+		field: 'instrumentCertificate',
+		headerName: ColumnNames.INSTRUMENT_CERTIFICATE,
+		width: initialWidth,
+		headerAlign: 'center',
+		renderCell: RenderCellExpand,
+		cellClassName: getCellClasses,
+	},
+	{
+		field: 'snils',
+		hide: true,
+		headerName: ColumnNames.SNILS,
 		width: initialWidth,
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,

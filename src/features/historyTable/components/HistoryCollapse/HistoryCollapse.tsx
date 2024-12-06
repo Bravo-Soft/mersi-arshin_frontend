@@ -1,38 +1,48 @@
 import { Box, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
-import dayjs from 'dayjs';
 
-import { dayjsFormatVariant } from 'constant/dateFormat';
+import Loader from 'components/Loader';
+import { useGetHistoryDataByIdQuery } from 'features/historyTable/historyTableApiSlice';
+import { parseHistoryChanges } from 'features/historyTable/utils/parseHistoryChanges';
 import { IHistoryItem } from 'types/historyItem';
 
 function HistoryCollapse({ row }: { row: IHistoryItem }): JSX.Element {
-	return (
+	const { data, isLoading } = useGetHistoryDataByIdQuery(row.id);
+
+	const parsedHistory = parseHistoryChanges(data || []);
+
+	return isLoading ? (
+		<Loader />
+	) : (
 		<>
 			<Box sx={{ padding: 2, maxWidth: '100vw', height: 1, borderRadius: 1 }}>
 				<Table>
 					<TableHead>
 						<TableRow>
-							<TableCell>Редактор</TableCell>
-							<TableCell>Действие</TableCell>
 							<TableCell>Дата изменения</TableCell>
-							<TableCell>Предыдущее значение</TableCell>
-							<TableCell>Новое значение</TableCell>
+							<TableCell>Внесенные изменения</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						<TableRow>
-							<TableCell>{row.editedBy}</TableCell>
-							<TableCell>{row.action}</TableCell>
-							<TableCell>{dayjs(row.modificationDate).format(dayjsFormatVariant)}</TableCell>
-							<TableCell>Старое значение</TableCell>
-							<TableCell>Не староезначение</TableCell>
-						</TableRow>
-						<TableRow>
-							<TableCell>{row.editedBy}</TableCell>
-							<TableCell>{row.action}</TableCell>
-							<TableCell>{dayjs(row.modificationDate).format(dayjsFormatVariant)}</TableCell>
-							<TableCell>Предыдущее значение</TableCell>
-							<TableCell>Новое значение</TableCell>
-						</TableRow>
+						{parsedHistory.map(({ action, editedBy, modificationDate, updates }, idx) => (
+							<TableRow key={idx}>
+								<TableCell>{modificationDate}</TableCell>
+								<TableCell>
+									<ul>
+										{action === 'Создан' && (
+											<li>Добавление СИ пользователем {editedBy}</li>
+										)}
+
+										{action === 'Обновлен' &&
+											updates.map(({ field, oldValue, newValue }, idx) => (
+												<li key={idx}>
+													{editedBy} изменил <b>{field}</b> с <b>{oldValue}</b> на{' '}
+													<b>{newValue}</b>
+												</li>
+											))}
+									</ul>
+								</TableCell>
+							</TableRow>
+						))}
 					</TableBody>
 				</Table>
 			</Box>

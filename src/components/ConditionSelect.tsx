@@ -4,7 +4,7 @@ import FormHelperText from '@mui/material/FormHelperText';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 
 import { ColumnNames } from 'constant/columnsName';
@@ -16,11 +16,31 @@ interface IConditionSelectProps {
 }
 
 function ConditionSelect({ readOnly }: IConditionSelectProps): JSX.Element {
-	const { control } = useFormContext<Pick<IDataItem, 'condition' | 'comment'>>();
-	// const [comment, setComment] = useState('');
+	const { control, watch, setValue } =
+		useFormContext<Pick<IDataItem, 'condition' | 'conditionDescription'>>();
 	const commentInputRef = useRef<HTMLInputElement>(null);
 
-	// При изменении статуса на любой, кроме уже установленного или "В работе", запрашиваем комментарий.
+	const condition = watch('condition');
+	const [previousCondition, setPreviousCondition] = useState(condition);
+	const [showComment, setShowComment] = useState(false);
+
+	useEffect(() => {
+		if (condition !== previousCondition) {
+			if (condition !== Condition.IN_WORK) {
+				setShowComment(true);
+				commentInputRef.current?.focus();
+			} else {
+				setShowComment(false);
+				setValue('conditionDescription', '');
+			}
+			setPreviousCondition(condition);
+		}
+	}, [condition, previousCondition, setValue]);
+
+	const handleConditionChange = (field: any, e: any) => {
+		field.onChange(e);
+	};
+
 	return (
 		<FormControl fullWidth variant='standard'>
 			<InputLabel id='select-condition-of-label'>{ColumnNames.CONDITION}</InputLabel>
@@ -34,14 +54,7 @@ function ConditionSelect({ readOnly }: IConditionSelectProps): JSX.Element {
 							labelId='select-condition-of-label'
 							id='select-condition'
 							readOnly={readOnly}
-							// onChange={e => {
-							// 	field.onChange(e);
-							// 	if (e.target.value === Condition.IN_WORK) {
-							// 		setComment('');
-							// 	} else {
-							// 		commentInputRef.current?.focus();
-							// 	}
-							// }}
+							onChange={e => handleConditionChange(field, e)}
 						>
 							<MenuItem value={Condition.IN_WORK}>{Condition.IN_WORK}</MenuItem>
 							<MenuItem value={Condition.UNDER_REPAIR}>{Condition.UNDER_REPAIR}</MenuItem>
@@ -53,18 +66,16 @@ function ConditionSelect({ readOnly }: IConditionSelectProps): JSX.Element {
 					</>
 				)}
 			/>
-			{/* <Controller
-				name='comment'
+			<Controller
+				name='conditionDescription'
 				control={control}
 				render={({ field, fieldState: { error } }) => (
 					<>
-						{field.value !== Condition.IN_WORK && (
+						{showComment && (
 							<TextField
 								{...field}
 								inputRef={commentInputRef}
 								label='Комментарий'
-								// value={comment}
-								// onChange={e => setComment(e.target.value)}
 								variant='outlined'
 								sx={{ marginBottom: 2 }}
 								fullWidth
@@ -73,9 +84,7 @@ function ConditionSelect({ readOnly }: IConditionSelectProps): JSX.Element {
 						<FormHelperText>{error?.message ?? ' '}</FormHelperText>
 					</>
 				)}
-			/> */}
-
-			{/* {} */}
+			/>
 		</FormControl>
 	);
 }

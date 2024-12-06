@@ -259,14 +259,6 @@ export const columns: GridColDef<IDataItem>[] = [
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,
 	},
-	{
-		field: 'snils',
-		hide: true,
-		headerName: ColumnNames.SNILS,
-		width: initialWidth,
-		headerAlign: 'center',
-		renderCell: RenderCellExpand,
-	},
 ];
 
 export default columns;

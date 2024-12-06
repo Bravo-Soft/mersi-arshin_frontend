@@ -1,5 +1,3 @@
-import { HISTORY_MOCK } from './HISTORY_MOCK';
-
 import { API } from 'app/api';
 import { apiSlice } from 'app/apiSlice';
 import { IHistoryItem } from 'types/historyItem';

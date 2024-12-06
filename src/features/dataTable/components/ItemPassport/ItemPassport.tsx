@@ -9,32 +9,34 @@ import ExcelIcon from 'features/dataTable/modules/Export/ExcelIcon';
 
 function ItemPassport(): JSX.Element {
 	const {
+		isLoading,
 		passportPrintRef,
 		open,
 		handlePrint,
 		handleClosePassport,
 		exportPassportToXslx,
-		...otherData
 	} = usePassport();
 
 	return (
 		<Dialog open={open} onClose={handleClosePassport} fullWidth maxWidth={'lg'}>
 			<DialogTitle sx={{ display: 'flex', justifyContent: 'space-between' }}>
 				Паспорт средства измерения
-				<ButtonGroup aria-label='Close' variant='text' size='small'>
-					<Button onClick={exportPassportToXslx} startIcon={<ExcelIcon />}>
-						Экспорт в XLSX
-					</Button>
-					<Button onClick={handlePrint} endIcon={<PrintIcon />}>
-						Печать
-					</Button>
-				</ButtonGroup>
+				{!isLoading && (
+					<ButtonGroup aria-label='Close' variant='text' size='small'>
+						<Button onClick={exportPassportToXslx} startIcon={<ExcelIcon />}>
+							Экспорт в XLSX
+						</Button>
+						<Button onClick={handlePrint} endIcon={<PrintIcon />}>
+							Печать
+						</Button>
+					</ButtonGroup>
+				)}
 				<IconButton aria-label='Close' onClick={handleClosePassport}>
 					<CloseIcon />
 				</IconButton>
 			</DialogTitle>
 			<DialogContent ref={passportPrintRef}>
-				<PassportTable tableData={otherData} />
+				<PassportTable />
 			</DialogContent>
 		</Dialog>
 	);

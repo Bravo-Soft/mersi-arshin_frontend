@@ -8,7 +8,7 @@ import HistoryCollapse from './components/HistoryCollapse/HistoryCollapse';
 import { NoResultsOverlay } from './components/NoResultsOverlay';
 import { NoRowsOverlay } from './components/NoRowsOverlay';
 import { Toolbar } from './components/Toolbar';
-import { useGetAllHistoryDataQuery } from './historyTableApiSlice';
+import { useGetHistoryData } from './hooks/useGetHistoryData';
 
 import { selectSidebarStateOfHistoryPage } from 'features/sidebar/sidebarSlice';
 import { useAppSelector } from 'hooks/redux';
@@ -19,13 +19,10 @@ function HistoryTable(): JSX.Element {
 
 	const { open: sidebarIsOpen } = useAppSelector(selectSidebarStateOfHistoryPage);
 
-	/* Загрузка данных */
-	const { data = [], isFetching: isFetchingData } = useGetAllHistoryDataQuery(undefined, {
-		pollingInterval: 60000,
-		refetchOnMountOrArgChange: true,
-	});
+	/* Загрузка данных в зависимости от наличия/отсутствия id */
+	const { data, isFetching } = useGetHistoryData();
 
-	//Функции для отрисовки подменю строки
+	// //Функции для отрисовки подменю строки
 
 	// const getDetailPanelContent = useCallback<
 	// 	NonNullable<DataGridProProps['getDetailPanelContent']>
@@ -43,7 +40,7 @@ function HistoryTable(): JSX.Element {
 					apiRef={apiRef}
 					columns={columns}
 					rows={data}
-					loading={isFetchingData}
+					loading={isFetching}
 					pagination
 					checkboxSelection
 					disableSelectionOnClick
@@ -59,8 +56,8 @@ function HistoryTable(): JSX.Element {
 						Toolbar,
 						NoResultsOverlay,
 						NoRowsOverlay,
-						DetailPanelCollapseIcon: KeyboardArrowUp,
-						DetailPanelExpandIcon: KeyboardArrowDown,
+						// DetailPanelCollapseIcon: KeyboardArrowUp,
+						// DetailPanelExpandIcon: KeyboardArrowDown,
 					}}
 					componentsProps={{
 						filterPanel: {

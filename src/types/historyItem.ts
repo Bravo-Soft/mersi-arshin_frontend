@@ -1,10 +1,14 @@
 import { Dayjs } from 'dayjs';
 
-import type { Tag } from 'constant/tag';
+import { IDataItem } from './dataItem';
 
-export type ItemAction = 'Создание' | 'Редактирование' | 'Удаление';
+export enum ItemAction {
+	CREATED = 'Создан',
+	UPDATED = 'Обновлен',
+	REMOVED = 'Удален',
+}
 
-export interface IHistoryItem {
+export interface IHistoryItem extends IDataItem {
 	/**
 	 * Кем отредактирован СИ
 	 */
@@ -17,125 +21,14 @@ export interface IHistoryItem {
 	 * Действие пользователя
 	 */
 	action: ItemAction;
-
 	/**
-	 * Идентификационный номер
+	 * Массив измененных полей
 	 */
-	id: string;
+	flags: keyof Omit<IHistoryItem, 'flags' | 'editedBy' | 'action' | 'modificationDate'>;
 	/**
-	 * Наименование
+	 * Комментарий к статусу
 	 */
-	name: string;
-	/**
-	 * Тип СИ
-	 */
-	type: string;
-	/**
-	 * Заводской номер
-	 */
-	factoryNumber: string;
-	/**
-	 * Инвентарный номер
-	 */
-	inventoryNumber: string;
-	/**
-	 * Подразделение
-	 */
-	division: string;
-	/**
-	 * Дата поверки
-	 */
-	verificationDate: string;
-	/**
-	 * Дата следующией поверки
-	 */
-	dateOfTheNextVerification: string;
-	/**
-	 * Вид работ
-	 */
-	typeOfWork: string;
-	/**
-	 * Состояние
-	 */
-	condition: string;
-	/**
-	 * Госреестр
-	 */
-	stateRegister: string;
-	/**
-	 * Свидетельство
-	 */
-	certificate: string;
-	/**
-	 * Дата производства
-	 */
-	productionDate: string;
-	/**
-	 * Организация
-	 */
-	organization: string;
-	/**
-	 * Класс точности
-	 */
-	accuracyClass: string;
-	/**
-	 * Предел измерения
-	 */
-	measurementLimit: string;
-	/**
-	 * Размер
-	 */
-	size: string;
-	/**
-	 * Примечания
-	 */
-	notes: string;
-
-	/**
-	 * Массив id пользователей, у которых данных позиция записана в избранное
-	 */
-	userIds: string[];
-	/**
-	 * Межповерочный интервал
-	 */
-	interVerificationInterval: number;
-	/**
-	 * Контроль поверки в Госреестр
-	 */
-	verificationControlInStateRegister: boolean;
-	/**
-	 * Местоположение СИ
-	 */
-	location: string;
-	/**
-	 * Ответственный
-	 */
-	responsible: string;
-	/**
-	 * Пригодность
-	 */
-	suitability: string;
-	/**
-	 * Ссылка
-	 */
-	fgisUrl: string;
-	/**
-	 * Доп. Данные
-	 */
-	additionalData: string;
-	/**
-	 * Методика
-	 */
-	methodology: string;
-	/**
-	 * Стоимость
-	 */
-	cost: string;
-	/**
-	 * Вид
-	 */
-	view: string;
-	flags: any;
+	conditionDescription: string;
 }
 
 export interface IDocument {

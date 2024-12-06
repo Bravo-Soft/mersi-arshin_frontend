@@ -16,7 +16,6 @@ export const dateFormTransform = <T extends UpdatePropsType>(data: T) => {
 		dateOfCommissioning,
 		...other
 	} = data;
-
 	return {
 		...other,
 		cost: parseFloat(cost).toFixed(2),

@@ -25,7 +25,7 @@ export const setDefaultValue = (data?: IDataItem | null) => {
 			verificationDate: dayjs(verificationDate),
 			dateOfTheNextVerification: dayjs(dateOfTheNextVerification),
 			dateOfCommissioning: dayjs(dateOfCommissioning),
-			comment: '',
+			conditionDescription: '',
 		};
 	}
 };

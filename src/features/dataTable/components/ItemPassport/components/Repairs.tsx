@@ -11,29 +11,36 @@ export const Repairs = ({ repairs }: { repairs: ItemRepair[] }) => {
 		<>
 			<TableRow>
 				<TableCell colSpan={6} align='center' sx={{ fontWeight: '700' }}>
-					Сведения о ремонте/техническом обслуживании/консервации
+					Сведения о ремонте/техническом обслуживании/консервации{' '}
+					{!repairs.length && 'отсутствуют'}
 				</TableCell>
 			</TableRow>
-			<TableRow>
-				{repairColumns.map((col, idx) => (
-					<TableCell colSpan={6 / repairColumns.length} align='center' key={idx}>
-						{col}
-					</TableCell>
-				))}
-			</TableRow>
-			{repairs.map(({ repareDate, repairType, fio }, idx) => (
-				<TableRow key={idx}>
-					<TableCell colSpan={6 / repairColumns.length} align='center'>
-						{dayjs(repareDate).format(dayjsFormatVariant)}
-					</TableCell>
-					<TableCell colSpan={6 / repairColumns.length} align='center'>
-						{repairType}
-					</TableCell>
-					<TableCell colSpan={6 / repairColumns.length} align='center'>
-						{fio}
-					</TableCell>
-				</TableRow>
-			))}
+			{repairs.length ? (
+				<>
+					<TableRow>
+						{repairColumns.map((col, idx) => (
+							<TableCell colSpan={6 / repairColumns.length} align='center' key={idx}>
+								{col}
+							</TableCell>
+						))}
+					</TableRow>
+					{repairs.map(({ modificationDate, editedBy, conditionDescription }, idx) => (
+						<TableRow key={idx}>
+							<TableCell colSpan={6 / repairColumns.length} align='center'>
+								{dayjs(modificationDate).format(dayjsFormatVariant)}
+							</TableCell>
+							<TableCell colSpan={6 / repairColumns.length} align='center'>
+								{conditionDescription}
+							</TableCell>
+							<TableCell colSpan={6 / repairColumns.length} align='center'>
+								{editedBy}
+							</TableCell>
+						</TableRow>
+					))}
+				</>
+			) : (
+				<></>
+			)}
 		</>
 	);
 };

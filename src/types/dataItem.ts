@@ -139,7 +139,7 @@ export interface IDataItem {
 	/**
 	 * Комментарий к ремонту (опционально)
 	 */
-	comment?: string;
+	conditionDescription?: string;
 }
 
 export interface IDocument {
@@ -179,4 +179,8 @@ export interface IDataItemWithDates
 	 * Дата ввода в эксплуатацию
 	 */
 	dateOfCommissioning: Dayjs;
+}
+
+export interface IConditionData extends Pick<IDataItem, 'id' | 'condition'> {
+	description: string;
 }

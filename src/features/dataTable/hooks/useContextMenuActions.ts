@@ -26,6 +26,7 @@ import { useAddItemsMutation } from '../modules/Arshin/arshinTableApiSlice';
 import type { ColumnNames } from 'constant/columnsName';
 import { dayjsFormatVariant } from 'constant/dateFormat';
 import { Messages } from 'constant/messages';
+import { setSelectedId } from 'features/historyTable/historyTableSlice';
 import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
 import { isValueDefined } from 'guards/isValueDefined';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
@@ -220,8 +221,11 @@ export const useContextMenuActions = (
 		}
 	};
 
-	const handleGetItemHistory = async () => {
-		navigate('/history');
+	const handleViewItemHistory = async () => {
+		if (selectedDataItem) {
+			dispatch(setSelectedId(selectedDataItem.id));
+			navigate('/history');
+		}
 	};
 
 	const handleViewItemPassport = () => {
@@ -245,7 +249,7 @@ export const useContextMenuActions = (
 			handleRemoveFromFavorite,
 			handleCopySelectedValues,
 			handleAddToArshin,
-			handleGetItemHistory,
+			handleViewItemHistory,
 			handleViewItemPassport,
 		},
 	};
