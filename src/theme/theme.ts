@@ -90,7 +90,6 @@ export const theme = createTheme(
 			},
 			secondary: {
 				main: '#FFF',
-
 				contrastText: '#FFFFFF',
 			},
 			background: {
@@ -190,6 +189,13 @@ export const theme = createTheme(
 							boxShadow: 'none',
 						},
 					}),
+				},
+			},
+			MuiPopover: {
+				styleOverrides: {
+					root: {
+						zIndex: 2000,
+					},
 				},
 			},
 		},

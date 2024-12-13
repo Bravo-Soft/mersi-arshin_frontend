@@ -59,6 +59,7 @@ function DataTableToolbar(): JSX.Element {
 						divider={<Divider orientation='vertical' flexItem />}
 					>
 						<ButtonsNavigation />
+
 						<Tooltip
 							title={
 								expanded
