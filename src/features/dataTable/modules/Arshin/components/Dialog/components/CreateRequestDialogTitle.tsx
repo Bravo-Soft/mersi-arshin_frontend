@@ -9,7 +9,7 @@ function CreateRequestDialogTitle() {
 			<TextField
 				label='Укажите название запроса'
 				fullWidth
-				{...register('requestTitle')}
+				{...register('name')}
 				sx={{
 					mt: 2,
 					'& .MuiInputBase-input': {

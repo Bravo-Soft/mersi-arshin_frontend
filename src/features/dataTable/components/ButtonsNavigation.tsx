@@ -48,9 +48,6 @@ function ButtonsNavigation() {
 				Контроль поверки в госреестре
 				{!isArshin && !isLoading && <LockIcon sx={{ ml: 1 }} />}
 			</StyledToggleButton>
-			{pathname === AppRoutes.HISTORY && (
-				<StyledToggleButton value={AppRoutes.HISTORY}>История</StyledToggleButton>
-			)}
 		</StyledToggleButtonGroup>
 	);
 }

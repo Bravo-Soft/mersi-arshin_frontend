@@ -3,39 +3,30 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import { selectRequest } from '../../arshinTableSlice';
 import { useArshinRequests } from '../../hooks/useArshinRequests';
+import { updateRequestItemFormatter } from '../../utils/requestItemFormatter';
+import { setDefaultValue } from '../../utils/setDefaultValue';
 
 import CreateRequestDialogContent from './components/CreateRequestDialogContent';
 import CreateRequestDialogTitle from './components/CreateRequestDialogTitle';
 import DialogButtons from './components/DialogButtons';
 
+import { useAppSelector } from 'hooks/redux';
 import FormContainer from 'styled/FormContainer';
 import { IRequestItemWithDates } from 'types/arshinIntegration';
-import { createDateISO } from 'utils/createDateISO';
 
 function EditingRequestDialog(): JSX.Element {
-	const { selectedRequest, isEditingRequestDialogOpen, handleSendRequest, handleCloseDialog } =
+	const selectedRequest = useAppSelector(selectRequest);
+	const { isEditingRequestDialogOpen, handleUpdateRequest, handleCloseDialog } =
 		useArshinRequests();
 
-	const methods = useForm<IRequestItemWithDates>({
-		defaultValues: {
-			requestId: selectedRequest?.requestId,
-			status: selectedRequest?.status,
-			requestTitle: selectedRequest?.requestTitle,
-			fieldsDate: selectedRequest?.fieldsDate,
-			periodicity: selectedRequest?.periodicity,
-			items: selectedRequest?.items,
-		},
+	const methods = useForm<Omit<IRequestItemWithDates, 'dataIds' | 'status' | 'creator'>>({
+		values: setDefaultValue(selectedRequest),
 		// resolver: verificationResolver,
 		mode: 'onChange',
 	});
 
-	const onSubmit = methods.handleSubmit(async data => {
-		const upd = {
-			...data,
-			fieldsDate: data.fieldsDate.map(el => createDateISO(el)),
-			author: 'Филипп Бедросович',
-		};
-		await handleSendRequest(upd);
+	const onSubmit = methods.handleSubmit(data => {
+		handleUpdateRequest(updateRequestItemFormatter(data));
 		methods.reset();
 	});
 

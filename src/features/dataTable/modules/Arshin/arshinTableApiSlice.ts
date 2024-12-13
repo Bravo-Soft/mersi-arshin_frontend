@@ -1,12 +1,12 @@
 import { GridSelectionModel } from '@mui/x-data-grid-pro';
 import { enqueueSnackbar } from 'notistack';
 
-import { setNotValidArshinItem, setRequestsList } from './arshinTableSlice';
+import { setNotValidArshinItem, setPendingRequest } from './arshinTableSlice';
 import { changeDialogState } from './dialogArshinSlice';
-import { REQUESTS_MOCK } from './REQUESTS_MOCK';
 
 import { API } from 'app/api';
 import { apiSlice } from 'app/apiSlice';
+import { Messages } from 'constant/messages';
 import {
 	IDataItemArshin,
 	IFormFilterArshin,
@@ -16,8 +16,12 @@ import {
 
 export const arshinTableApiSlice = apiSlice.injectEndpoints({
 	endpoints: builder => ({
-		getData: builder.query<IDataItemArshin[], void>({
-			query: () => API.arshin.getData,
+		getGroupData: builder.query<IDataItemArshin[], void>({
+			query: () => API.arshin.getGroupData,
+			providesTags: ['ArshinData', 'ArshinStart'],
+		}),
+		getUserData: builder.query<IDataItemArshin[], void>({
+			query: () => API.arshin.getUserData,
 			providesTags: ['ArshinData', 'ArshinStart'],
 		}),
 		addItems: builder.mutation<void, GridSelectionModel>({
@@ -40,33 +44,10 @@ export const arshinTableApiSlice = apiSlice.injectEndpoints({
 		synchronizeItems: builder.mutation<void, GridSelectionModel>({
 			query: ids => ({
 				url: API.arshin.synchronizeItems,
-				method: 'POST',
+				method: 'PUT',
 				body: ids,
 			}),
 			invalidatesTags: ['ArshinData'],
-		}),
-		startArshin: builder.mutation<void, string[]>({
-			query: body => ({
-				url: API.arshin.startArshin,
-				method: 'POST',
-				body,
-			}),
-			invalidatesTags: ['ArshinStart'],
-			onQueryStarted: async (_, { queryFulfilled }) => {
-				try {
-					await queryFulfilled;
-					enqueueSnackbar('Данные отправленные на проверку', { variant: 'success' });
-				} catch {
-					enqueueSnackbar('Не удалось отправить данные на проверку', { variant: 'error' });
-				}
-			},
-		}),
-		cancelArshin: builder.mutation<void, void>({
-			query: () => ({
-				url: API.arshin.cancelArshin,
-				body: [],
-				method: 'POST',
-			}),
 		}),
 		getFilters: builder.query<IFormFilterArshin, void>({
 			query: () => API.arshin.getFilters,
@@ -87,16 +68,20 @@ export const arshinTableApiSlice = apiSlice.injectEndpoints({
 			}),
 			invalidatesTags: ['ArshinFilters'],
 		}),
-		validateArshin: builder.mutation<IResponseValidateArshin[], string[]>({
+		validateArshin: builder.mutation<
+			IResponseValidateArshin[],
+			Omit<IRequestItem, 'id' | 'status' | 'creator'>
+		>({
 			queryFn: async (body, { dispatch }, _extraOptions, baseQuery) => {
 				const response = await baseQuery({
 					url: API.arshin.validateArshin,
 					method: 'POST',
-					body,
+					body: body.dataIds,
 				});
 
 				if (Array.isArray(response.data) && response.data.length) {
 					dispatch(setNotValidArshinItem(response.data));
+					dispatch(setPendingRequest(body));
 					dispatch(changeDialogState('validate'));
 					return { error: { status: 'CUSTOM_ERROR', error: 'List of tags is empty' } };
 				}
@@ -106,46 +91,86 @@ export const arshinTableApiSlice = apiSlice.injectEndpoints({
 			},
 		}),
 		getRequestsList: builder.query<IRequestItem[], void>({
-			queryFn: async (_, { dispatch }) => {
-				await new Promise(resolve => setTimeout(resolve, 500));
-				dispatch(setRequestsList(REQUESTS_MOCK));
-				return { data: REQUESTS_MOCK };
-			},
+			query: () => API.arshin.getRequestsList,
 			providesTags: ['RequestsList'],
 		}),
-		// getRequestData: builder.query<IRequestItem, string>({
-		// 	queryFn: async (requestId, { dispatch }) => {
-		// 		await new Promise(resolve => setTimeout(resolve, 500));
-		// 		const data = REQUESTS_MOCK.filter((el) => el.requestId === requestId)
-		// 		return data  ;
-		// 	},
-		// 	providesTags: ['RequestsList'],
-		// }),
-		createNewRequest: builder.mutation<IRequestItem[], IRequestItem>({
-			queryFn: async (data, { dispatch }) => {
-				await new Promise(resolve => setTimeout(resolve, 500));
-				const updatedData = [...REQUESTS_MOCK, data];
-				dispatch(setRequestsList(updatedData));
-				return { data: updatedData };
+		createNewRequest: builder.mutation<
+			IRequestItem[],
+			Omit<IRequestItem, 'id' | 'status' | 'creator'>
+		>({
+			query: body => ({
+				url: API.arshin.createRequest,
+				method: 'POST',
+				body,
+			}),
+			invalidatesTags: ['RequestsList'],
+			onQueryStarted: async (_arg, { queryFulfilled }) => {
+				try {
+					await queryFulfilled;
+					enqueueSnackbar(Messages.REQUEST_SUCCESSFULLY_SENDED, { variant: 'success' });
+				} catch {
+					enqueueSnackbar(Messages.FAILED_SEND_REQUEST, { variant: 'error' });
+				}
 			},
-			// invalidatesTags: ['RequestsList'],
 		}),
-		// getRequestItems: builder.query<IDataItemArshin[], string>({
-		// }),
+		updateRequest: builder.mutation<void, Omit<IRequestItem, 'creator' | 'dataIds' | 'status'>>({
+			query: ({ id, ...body }) => ({
+				url: API.arshin.updateRequest(id),
+				method: 'PUT',
+				body,
+			}),
+			invalidatesTags: ['RequestsList'],
+			onQueryStarted: async (_arg, { queryFulfilled }) => {
+				try {
+					await queryFulfilled;
+					enqueueSnackbar(Messages.REQUEST_SUCCESSFULLY_EDIT, { variant: 'success' });
+				} catch {
+					enqueueSnackbar(Messages.FAILED_EDIT_REQUEST, { variant: 'error' });
+				}
+			},
+		}),
+		startRequest: builder.mutation<void, string>({
+			query: requestId => ({
+				url: API.arshin.startRequest(requestId),
+				method: 'PATCH',
+			}),
+			invalidatesTags: ['RequestsList'],
+		}),
+		stopRequest: builder.mutation<void, string>({
+			query: requestId => ({
+				url: API.arshin.stopRequest(requestId),
+				method: 'PATCH',
+			}),
+			invalidatesTags: ['RequestsList'],
+		}),
+		deleteRequest: builder.mutation<void, string>({
+			query: requestId => ({
+				url: API.arshin.deleteRequest(requestId),
+				method: 'DELETE',
+			}),
+			invalidatesTags: ['RequestsList'],
+		}),
+		getRequestData: builder.query<IDataItemArshin[], string>({
+			query: requestId => API.arshin.getRequestItems(requestId),
+		}),
 	}),
 });
 
 export const {
-	useGetDataQuery,
+	useGetGroupDataQuery,
+	useGetUserDataQuery,
 	useGetFiltersQuery,
 	useEditFiltersMutation,
 	useResetFiltersMutation,
 	useAddItemsMutation,
 	useDeleteItemsMutation,
 	useSynchronizeItemsMutation,
-	useStartArshinMutation,
-	useCancelArshinMutation,
 	useValidateArshinMutation,
 	useGetRequestsListQuery,
 	useCreateNewRequestMutation,
+	useUpdateRequestMutation,
+	useStartRequestMutation,
+	useStopRequestMutation,
+	useDeleteRequestMutation,
+	useGetRequestDataQuery,
 } = arshinTableApiSlice;

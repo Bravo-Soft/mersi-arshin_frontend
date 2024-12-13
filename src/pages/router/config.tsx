@@ -62,6 +62,14 @@ const config: RouteObject[] = [
 					</PrivateRoute>
 				),
 			},
+			{
+				path: AppRoutes.ITEM_HISTORY,
+				element: (
+					<PrivateRoute>
+						<HistoryPage />
+					</PrivateRoute>
+				),
+			},
 		],
 	},
 ];

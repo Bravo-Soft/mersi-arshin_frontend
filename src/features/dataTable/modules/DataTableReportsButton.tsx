@@ -7,38 +7,24 @@ import type { MouseEvent } from 'react';
 
 import CreateVerificationScheduleMenuItem from './CreateVerificationSchedule/CreateVerificationScheduleMenuItem';
 import ExportMenuItem from './Export/ExportMenuItem';
-import NotificationsMenuItem from './Notifications/NotificationsMenuItem';
-import TemplateForm from './Templates/TemplateForm';
-import TemplatesMenuItem from './Templates/TemplatesMenuItem';
+import XMLMenuItem from './Export/XMLMenuItem';
 
-import { PrintMenuItem } from 'features/dataTable/modules/Printing';
 import { selectActualStep } from 'features/quickTour/components/quickTourSlice';
-import { usePrefetch } from 'features/user/userApiSlice';
 import { useAppSelector } from 'hooks/redux';
 
-function DataTableModulesButton(): JSX.Element {
-	const [templateFormIsOpen, setTemplateFormIsOpen] = useState(false);
+function DataTableReportsButton(): JSX.Element {
 	const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 	const buttonRef = useRef<HTMLButtonElement>(null);
-	const loadUserNotificationSettings = usePrefetch('getUserNotification');
 	const actualStep = useAppSelector(selectActualStep);
 
 	const open = Boolean(anchorEl);
 
-	const handleOpenModulesMenu = (event: MouseEvent<HTMLButtonElement>) => {
+	const handleOpenReportsMenu = (event: MouseEvent<HTMLButtonElement>) => {
 		setAnchorEl(event.currentTarget);
 	};
 
-	const handleCloseModulesMenu = () => {
+	const handleCloseReportsMenu = () => {
 		setAnchorEl(null);
-	};
-
-	const handleToggleTemplateForm = () => {
-		setTemplateFormIsOpen(prev => !prev);
-	};
-
-	const handlePrefetchUserNotificationSettings = () => {
-		loadUserNotificationSettings();
 	};
 
 	useEffect(() => {
@@ -51,10 +37,10 @@ function DataTableModulesButton(): JSX.Element {
 
 	return (
 		<>
-			<Tooltip title='Открыть панель инструментов'>
+			<Tooltip title='Открыть панель отчетов'>
 				<Button
 					ref={buttonRef}
-					onClick={handleOpenModulesMenu}
+					onClick={handleOpenReportsMenu}
 					id='modules-btn'
 					startIcon={
 						<ExpandIcon
@@ -65,12 +51,12 @@ function DataTableModulesButton(): JSX.Element {
 						/>
 					}
 				>
-					Инструменты
+					Выгрузить
 				</Button>
 			</Tooltip>
 			<Menu
 				open={open}
-				onClose={handleCloseModulesMenu}
+				onClose={handleCloseReportsMenu}
 				anchorEl={anchorEl}
 				anchorOrigin={{
 					vertical: 'bottom',
@@ -82,23 +68,15 @@ function DataTableModulesButton(): JSX.Element {
 				}}
 				PaperProps={{ sx: { width: 280 } }}
 			>
-				<TemplatesMenuItem
-					onOpenTemplateForm={handleToggleTemplateForm}
-					onCloseMenu={handleCloseModulesMenu}
+				<CreateVerificationScheduleMenuItem onCloseMenu={handleCloseReportsMenu} />
+				<XMLMenuItem onCloseMenu={handleCloseReportsMenu} />
+				<ExportMenuItem
+					onCloseMenu={handleCloseReportsMenu}
 					openTourMenuItems={actualStep === 11}
-				/>
-				<PrintMenuItem
-					onCloseMenu={handleCloseModulesMenu}
-					openTourMenuItems={actualStep === 11}
-				/>
-				<NotificationsMenuItem
-					onCloseMenu={handleCloseModulesMenu}
-					onMouseEnter={handlePrefetchUserNotificationSettings}
 				/>
 			</Menu>
-			<TemplateForm open={templateFormIsOpen} onClose={handleToggleTemplateForm} />
 		</>
 	);
 }
 
-export default DataTableModulesButton;
+export default DataTableReportsButton;

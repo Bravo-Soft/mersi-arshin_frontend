@@ -93,7 +93,7 @@ function UserProfile(): JSX.Element {
 				<Stack width={1} rowGap={1}>
 					{inputs.map(({ key, label }) =>
 						status.isUserProfileLoading ? (
-							<Skeleton variant='text' sx={{ width: 1, height: 48 }} />
+							<Skeleton key={key} variant='text' sx={{ width: 1, height: 48 }} />
 						) : (
 							<TextField
 								{...register(key)}

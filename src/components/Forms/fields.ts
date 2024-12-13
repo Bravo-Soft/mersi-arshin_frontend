@@ -86,6 +86,11 @@ export const editFields: IField<KeysOfEdit>[] = [
 		stringLength: ColumnsMaxStringLength.SMALL,
 	},
 	{
+		key: 'snils',
+		label: ColumnNames.SNILS,
+		stringLength: ColumnsMaxStringLength.SMALL,
+	},
+	{
 		key: 'location',
 		label: ColumnNames.LOCATION,
 		stringLength: ColumnsMaxStringLength.MEDIUM,
@@ -142,11 +147,6 @@ export const editFields: IField<KeysOfEdit>[] = [
 		key: 'instrumentCertificate',
 		label: ColumnNames.INSTRUMENT_CERTIFICATE,
 		stringLength: ColumnsMaxStringLength.LARGE,
-	},
-	{
-		key: 'snils',
-		label: ColumnNames.SNILS,
-		stringLength: ColumnsMaxStringLength.SMALL,
 	},
 ];
 

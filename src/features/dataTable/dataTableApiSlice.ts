@@ -6,7 +6,7 @@ import { API } from 'app/api';
 import { apiSlice } from 'app/apiSlice';
 import { HttpCodes } from 'constant/httpCodes';
 import { Messages } from 'constant/messages';
-import type { IConditionData, IDataItem } from 'types/dataItem';
+import type { IDataItem } from 'types/dataItem';
 
 export const dataTableApiSlice = apiSlice.injectEndpoints({
 	overrideExisting: false,
@@ -48,13 +48,21 @@ export const dataTableApiSlice = apiSlice.injectEndpoints({
 			},
 		}),
 
-		updateDataItem: builder.mutation<void, Omit<IDataItem, 'userIds'>>({
-			query: ({ id, ...body }) => ({
-				url: `${API.data.default}/${id}`,
+		updateDataItem: builder.mutation<
+			void,
+			Omit<IDataItem, 'userIds' | 'fgisUrl' | 'verificationControlInStateRegister'> & {
+				editType?: string;
+			}
+		>({
+			query: ({ id, editType, ...body }) => ({
+				url:
+					editType === 'mr'
+						? `${API.data.default}/${id}?type=mr`
+						: `${API.data.default}/${id}?type=tr`,
 				method: 'PUT',
 				body,
 			}),
-			invalidatesTags: (_result, _error, { id }) => [{ type: 'Data', id }],
+			invalidatesTags: (_result, _error, { id }) => [{ type: 'Data', id }, 'ArshinData'],
 			onQueryStarted: async (_arg, { queryFulfilled }) => {
 				try {
 					await queryFulfilled;

@@ -1,68 +1,62 @@
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import StopIcon from '@mui/icons-material/Stop';
-import { Box, Card, CardContent, IconButton, Tooltip, Typography } from '@mui/material';
+import { Box, Card, CardContent, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 
 import { useArshinRequests } from '../../hooks/useArshinRequests';
+import { periodFormatter } from '../../utils/periodFormatter';
+
+import { ButtonsBlock } from './components/ButtonsBlock';
 
 import { dayjsFormatVariant } from 'constant/dateFormat';
-import { IRequestItem } from 'types/arshinIntegration';
+import { IRequestItem, REQUEST_STATUS } from 'types/arshinIntegration';
 
 export const RequestItem: React.FC<IRequestItem> = ({
-	author,
-	requestId,
-	requestTitle,
+	creator,
+	id,
+	name,
 	status,
-	fieldsDate,
-	periodicity,
-	items,
+	range,
+	period,
+	sendEmail,
+	dataIds,
 }) => {
-	const { selectedRequest, handleSelectRequest, handleEditRequest, handleDeleteRequestItem } =
-		useArshinRequests();
+	const { selectedRequest, handleSelectRequest } = useArshinRequests();
 
 	const statusColor =
-		status === 'В процессе' ? '#014E5F' : status === 'Готово' ? '#45a445' : '#d52929';
+		status === REQUEST_STATUS.PROCESS
+			? '#014E5F'
+			: status === REQUEST_STATUS.READY
+			? '#2b92698e'
+			: '#d52929';
 
-	const onEditRequest = () => {
+	const selectRequest = () =>
 		handleSelectRequest({
-			author,
-			requestId,
-			requestTitle,
+			creator,
+			id,
+			name,
 			status,
-			fieldsDate,
-			periodicity,
-			items,
+			range,
+			period,
+			sendEmail,
+			dataIds,
 		});
-		handleEditRequest();
-	};
 
 	return (
 		<Card
 			sx={{
-				border: 'none',
 				display: 'flex',
-				background: selectedRequest?.requestId === requestId ? '#014e5f1e' : '#f3f3f3',
+				background: selectedRequest?.id === id ? 'rgba(1, 78, 95, 0.08)' : '#fff',
 			}}
 		>
 			<Box
 				sx={{ flexDirection: 'column', width: '100%', cursor: 'pointer' }}
-				onClick={() =>
-					handleSelectRequest({
-						author,
-						requestId,
-						requestTitle,
-						status,
-						fieldsDate,
-						periodicity,
-						items,
-					})
-				}
+				onClick={selectRequest}
 			>
-				<CardContent sx={{ flex: '1 0 auto' }}>
-					<Box sx={{ display: 'flex' }}>
-						<Typography variant='body1'>{requestTitle}</Typography>-
+				<CardContent sx={{ flex: '1 0 auto', py: 1 }}>
+					<Box display={'flex'} alignItems={'center'} gap={2}>
+						<Typography component='div' variant='body1'>
+							{name}
+						</Typography>
+
 						<Typography
 							component='div'
 							variant='body1'
@@ -73,49 +67,18 @@ export const RequestItem: React.FC<IRequestItem> = ({
 					</Box>
 
 					<Typography component='div' variant='caption'>
-						Диапазон даты: {dayjs(fieldsDate[0]).format(dayjsFormatVariant)} -{' '}
-						{dayjs(fieldsDate[1]).format(dayjsFormatVariant)}
+						Диапазон даты: {dayjs(range[0]).format(dayjsFormatVariant)} -{' '}
+						{dayjs(range[1]).format(dayjsFormatVariant)}
 					</Typography>
 					<Typography component='div' variant='caption'>
-						Периодичность: {periodicity} раз в сутки.
+						Периодичность: {periodFormatter(period)}
 					</Typography>
 					<Typography component='div' variant='caption'>
-						Автор: {author}
+						Автор: {creator}
 					</Typography>
 				</CardContent>
 			</Box>
-			<Box
-				sx={{
-					display: 'flex',
-					flexWrap: 'wrap',
-					alignItems: 'center',
-					justifyContent: 'flex-end',
-					maxHeight: '70%',
-				}}
-			>
-				<IconButton aria-label='previous' disabled={status !== 'Отменен'}>
-					<Tooltip title='Запустить'>
-						<PlayArrowIcon />
-					</Tooltip>
-				</IconButton>
-
-				<IconButton>
-					{status === 'В процессе' ? (
-						<Tooltip title='Остановить запрос'>
-							<StopIcon />
-						</Tooltip>
-					) : (
-						<Tooltip title='Удалить'>
-							<DeleteIcon onClick={handleDeleteRequestItem} />
-						</Tooltip>
-					)}
-				</IconButton>
-				<IconButton aria-label='next' disabled={status !== 'Отменен'}>
-					<Tooltip title='Редактировать'>
-						<EditIcon onClick={onEditRequest} />
-					</Tooltip>
-				</IconButton>
-			</Box>
+			<ButtonsBlock status={status} id={id} handleSelect={selectRequest} />
 		</Card>
 	);
 };

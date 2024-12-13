@@ -1,4 +1,4 @@
-import Collapse from '@mui/material/Collapse';
+import { Button } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import Toolbar from '@mui/material/Toolbar';
@@ -8,40 +8,19 @@ import {
 	GridToolbarDensitySelector,
 	GridToolbarFilterButton,
 } from '@mui/x-data-grid-pro';
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
+import { useParams } from 'react-router-dom';
 
 import DataTableColumnButton from './DataTableColumnButton';
-import DataTableToolbarFilter from './DataTableToolbarFilter';
 import { scrollbarStyles } from './scrollbarStyles';
 
 import ButtonsNavigation from 'features/dataTable/components/ButtonsNavigation';
 import DataTableModulesButton from 'features/dataTable/modules/DataTableModulesButton';
-import { selectActualStep, selectMenuStart } from 'features/quickTour/components/quickTourSlice';
-import { useAppSelector } from 'hooks/redux';
 
 function HistoryTableToolbar(): JSX.Element {
-	const [expanded, setExpanded] = useState(false);
-
-	const actualStep = useAppSelector(selectActualStep);
-	const startIsMenu = useAppSelector(selectMenuStart);
-
-	const handleToggleFilterPanel = () => {
-		setExpanded(prev => !prev);
-	};
+	const { itemId } = useParams();
 
 	const densityRef = useRef<HTMLButtonElement | null>(null);
-
-	useEffect(() => {
-		//если 7 шаг и запущенно из меню ( чтобы успел отработать анимация открытия )
-		if (actualStep === 7 && densityRef.current && startIsMenu) {
-			densityRef.current.click();
-		} else if (actualStep === 3 && startIsMenu) {
-			//трекер открытия toolbar
-			setExpanded(true);
-		} else {
-			setExpanded(false);
-		}
-	}, [actualStep, startIsMenu]);
 
 	return (
 		<>
@@ -62,6 +41,12 @@ function HistoryTableToolbar(): JSX.Element {
 						alignItems='center'
 						sx={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
 					>
+						{itemId && (
+							<Button variant='contained' size='large'>
+								История СИ
+							</Button>
+						)}
+
 						<div id='column'>
 							<DataTableColumnButton />
 						</div>
@@ -79,10 +64,6 @@ function HistoryTableToolbar(): JSX.Element {
 						<DataTableModulesButton />
 					</Stack>
 				</Toolbar>
-
-				<Collapse in={expanded} sx={{ width: 1, position: 'relative' }}>
-					<DataTableToolbarFilter />
-				</Collapse>
 			</GridToolbarContainer>
 		</>
 	);

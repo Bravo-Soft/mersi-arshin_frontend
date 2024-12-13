@@ -2,11 +2,7 @@ import { GridColDef, GridComparatorFn } from '@mui/x-data-grid-pro';
 
 import { ArshinStatus } from 'constant/arshinStatus';
 import { ColumnNames } from 'constant/columnsName';
-import { Tag } from 'constant/tag';
-import {
-	RenderCellExpand,
-	RenderCellExpandedRegister,
-} from 'features/dataTable/components/RenderCellExpand';
+import { RenderCellExpand } from 'features/dataTable/components/RenderCellExpand';
 import { formatDateCallback } from 'features/dataTable/utils/formatDateCallback';
 import { quickFilterDateFormat } from 'features/dataTable/utils/quickFilterDateFormat';
 import { IDataItemArshin } from 'types/arshinIntegration';
@@ -23,16 +19,6 @@ const sortComparator: GridComparatorFn = (v1, v2, cellParams1, cellParams2) => {
 };
 
 export const columnsArshin: GridColDef<IDataItemArshin>[] = [
-	{
-		field: 'verificationControlInStateRegister',
-		disableColumnMenu: true,
-		// sortable: false,
-		headerName: '',
-		width: 10,
-		type: 'boolean',
-		headerAlign: 'center',
-		renderCell: RenderCellExpandedRegister,
-	},
 	{
 		field: 'status',
 		//sortable: false,
@@ -74,43 +60,6 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	},
 
 	{
-		field: 'inventoryNumber',
-		hide: true,
-		// sortable: false,
-		headerName: ColumnNames.INVENTORY_NUMBER,
-		width: 200,
-		headerAlign: 'center',
-		renderCell: RenderCellExpand,
-	},
-	{
-		field: 'division',
-		hide: true,
-		// sortable: false,
-		headerName: ColumnNames.DIVISION,
-		width: 200,
-		headerAlign: 'center',
-		renderCell: RenderCellExpand,
-	},
-
-	{
-		field: 'location',
-		hide: true,
-		// sortable: false,
-		headerName: ColumnNames.LOCATION,
-		width: 200,
-		headerAlign: 'center',
-		renderCell: RenderCellExpand,
-	},
-	{
-		field: 'responsible',
-		hide: true,
-		// sortable: false,
-		headerName: ColumnNames.RESPONSIBLE,
-		width: 200,
-		headerAlign: 'center',
-		renderCell: RenderCellExpand,
-	},
-	{
 		field: 'verificationDate',
 		// sortable: false,
 		headerName: ColumnNames.VERIFICATION_DATE,
@@ -123,15 +72,6 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 	},
 
 	{
-		field: 'interVerificationInterval',
-		hide: true,
-		// sortable: false,
-		headerName: ColumnNames.VERIFICATION_INTERVAL,
-		width: 200,
-		headerAlign: 'center',
-		renderCell: RenderCellExpand,
-	},
-	{
 		field: 'dateOfTheNextVerification',
 		// sortable: false,
 		headerName: ColumnNames.DATE_OF_THE_NEXT_VERIFICATION,
@@ -141,15 +81,6 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 		type: 'date',
 		valueFormatter: formatDateCallback,
 		getApplyQuickFilterFn: quickFilterDateFormat,
-	},
-	{
-		field: 'typeOfWork',
-		hide: true,
-		// sortable: false,
-		headerName: ColumnNames.TYPE_OF_WORK,
-		width: 200,
-		headerAlign: 'center',
-		renderCell: RenderCellExpand,
 	},
 
 	{
@@ -163,25 +94,6 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 			{ label: 'Да', value: true },
 			{ label: 'Нет', value: false },
 		],
-	},
-
-	{
-		field: 'condition',
-		hide: true,
-		// sortable: false,
-		headerName: ColumnNames.CONDITION,
-		width: 200,
-		headerAlign: 'center',
-		renderCell: RenderCellExpand,
-	},
-	{
-		field: 'stateRegister',
-		hide: true,
-		//sortable: false,
-		headerName: ColumnNames.STATE_REGISTER,
-		width: 200,
-		headerAlign: 'center',
-		renderCell: RenderCellExpand,
 	},
 	{
 		field: 'fgisUrl',
@@ -200,87 +112,9 @@ export const columnsArshin: GridColDef<IDataItemArshin>[] = [
 		renderCell: RenderCellExpand,
 	},
 	{
-		field: 'productionDate',
-		hide: true,
-		//sortable: false,
-		headerName: ColumnNames.PRODUCTION_DATE,
-		width: 200,
-		resizable: false,
-		headerAlign: 'center',
-		type: 'date',
-		valueFormatter: formatDateCallback,
-	},
-	{
 		field: 'organization',
 		//sortable: false,
 		headerName: ColumnNames.ORGANIZATION,
-		width: 200,
-		headerAlign: 'center',
-		renderCell: RenderCellExpand,
-	},
-	{
-		field: 'accuracyClass',
-		hide: true,
-		//sortable: false,
-		headerName: ColumnNames.ACCURACY_CLASS,
-		width: 200,
-		headerAlign: 'center',
-		renderCell: RenderCellExpand,
-	},
-	{
-		field: 'measurementLimit',
-		hide: true,
-		//sortable: false,
-		headerName: ColumnNames.MEASUREMENT_LIMIT,
-		width: 200,
-		headerAlign: 'center',
-		renderCell: RenderCellExpand,
-	},
-	{
-		field: 'additionalData',
-		hide: true,
-		//sortable: false,
-		headerName: ColumnNames.ADDITIONAL_DATA,
-		width: 200,
-		headerAlign: 'center',
-		renderCell: RenderCellExpand,
-	},
-	{
-		field: 'size',
-		hide: true,
-		//sortable: false,
-		headerName: ColumnNames.SIZE,
-		width: 200,
-		headerAlign: 'center',
-		type: 'singleSelect',
-		valueOptions: [Tag.SMALL, Tag.MEDIUM, Tag.LARGE],
-		renderCell: RenderCellExpand,
-	},
-	{
-		field: 'methodology',
-		hide: true,
-		//sortable: false,
-		headerName: ColumnNames.METHODOLOGY,
-		width: 200,
-		headerAlign: 'center',
-		renderCell: RenderCellExpand,
-	},
-	{
-		field: 'cost',
-		hide: true,
-		//sortable: false,
-		headerName: ColumnNames.COST,
-		width: 200,
-		headerAlign: 'center',
-		type: 'number',
-		renderCell: RenderCellExpand,
-	},
-
-	{
-		field: 'notes',
-		hide: true,
-		//sortable: false,
-		headerName: ColumnNames.NOTES,
 		width: 200,
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,

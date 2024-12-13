@@ -46,49 +46,42 @@ export const usePassportData = () => {
 		interVerificationInterval,
 	};
 
-	const verifications = [
-		{
-			verificationDate: '2024-07-08T21:00:00.000Z',
-			workType: 'Поверка',
-			document: '111111',
-			organization: 'ООО "ФНИИМ"',
-			resolution: 'Годен',
-			fio: 'Иванов И.И.',
-		},
-		{
-			verificationDate: '2024-07-08T21:00:00.000Z',
-			workType: 'Доверка',
-			document: '39у38',
-			organization: 'ООО "Ктопришел"',
-			resolution: 'Годен',
-			fio: 'Иванов И.И.',
-		},
-		{
-			verificationDate: '2024-07-08T21:00:00.000Z',
-			workType: 'Переверка',
-			document: '11113111',
-			organization: 'ООО "ААА"',
-			resolution: 'Годен',
-			fio: 'Иванов И.И.',
-		},
-	];
-
 	const { data: historyData = [], isFetching } = useGetHistoryDataByIdQuery(
 		selectedItem?.id as string,
 		{ skip: !selectedItem }
 	);
 
 	const getVerificationsAndRepairs = () => {
-		const data = historyData
+		const repairs = historyData
 			.filter(el => el.flags.includes('condition') && el.condition !== 'В работе')
 			.map(({ editedBy, modificationDate, conditionDescription }) => ({
 				editedBy,
 				modificationDate,
 				conditionDescription,
 			}));
-		return { repairs: data };
+
+		const verifications = historyData
+			.filter(el => el.typeUpdate === 'mr')
+			.map(
+				({
+					verificationDate,
+					typeOfWork,
+					organization,
+					certificate,
+					editedBy,
+					suitability,
+				}) => ({
+					verificationDate,
+					typeOfWork,
+					organization,
+					certificate,
+					editedBy,
+					suitability,
+				})
+			);
+		return { repairs, verifications };
 	};
-	const { repairs } = getVerificationsAndRepairs();
+	const { repairs, verifications } = getVerificationsAndRepairs();
 
 	useEffect(() => {
 		if (historyData.length) {

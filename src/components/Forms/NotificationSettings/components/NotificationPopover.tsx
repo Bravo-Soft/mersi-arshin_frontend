@@ -20,7 +20,7 @@ function NotificationPopover({ index, closeFilters: handleCloseFilter }: INotifi
 
 	const { fields, append, remove } = useFieldArray({
 		control: control,
-		name: `subscribedEmails.${index}.emailFilters`,
+		name: `subscribedEmails.${index}.filters`,
 		keyName: 'id',
 	});
 

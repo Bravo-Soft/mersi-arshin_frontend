@@ -9,6 +9,7 @@ import Menu from '@mui/material/Menu';
 
 import { selectSelectedArshin } from '../arshinTableSlice';
 import { useArshinActions } from '../hooks/useArshinActions';
+import { useArshinRequests } from '../hooks/useArshinRequests';
 import { UseArshinContextMenuActionsReturned } from '../hooks/useContextMenuActions';
 
 import UpdateMenuItem from './UpdateMenuItem';
@@ -26,12 +27,10 @@ interface IMenuItem {
 
 function ContextMenuArshin({ contextMenu, actions }: UseArshinContextMenuActionsReturned) {
 	const { handleDeleteItems, handleContextMenuEditArshinItem } = useArshinActions();
-
+	const { handleCreateRequest } = useArshinRequests();
 	const selectedDataIds = useAppSelector(selectSelectedArshin);
 
 	const { handleCloseContextMenu } = actions;
-
-	const handleOpenCreateRequestModal = () => console.log(1);
 
 	const menuItems: IMenuItem[] = [
 		{
@@ -44,7 +43,7 @@ function ContextMenuArshin({ contextMenu, actions }: UseArshinContextMenuActions
 			title: 'Создать запрос',
 			Icon: AddIcon,
 			isDisabled: Boolean(selectedDataIds?.length),
-			action: handleOpenCreateRequestModal,
+			action: handleCreateRequest,
 		},
 		{
 			title: 'Удалить выделенное',

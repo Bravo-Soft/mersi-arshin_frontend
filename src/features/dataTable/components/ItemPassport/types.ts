@@ -19,11 +19,11 @@ export interface ISummary
 
 export type ItemVerification = {
 	verificationDate: string;
-	workType: string;
-	document: string;
+	typeOfWork: string;
+	certificate: string;
 	organization: string;
-	resolution: string;
-	fio: string;
+	suitability: string | boolean;
+	editedBy: string;
 };
 
 export type ItemRepair = {

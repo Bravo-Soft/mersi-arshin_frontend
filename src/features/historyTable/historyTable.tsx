@@ -1,10 +1,7 @@
-import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
 import LinearProgress from '@mui/material/LinearProgress';
-import { DataGridPro, DataGridProProps, useGridApiRef } from '@mui/x-data-grid-pro';
-import { useCallback } from 'react';
+import { DataGridPro, useGridApiRef } from '@mui/x-data-grid-pro';
 
 import columns from './columns';
-import HistoryCollapse from './components/HistoryCollapse/HistoryCollapse';
 import { NoResultsOverlay } from './components/NoResultsOverlay';
 import { NoRowsOverlay } from './components/NoRowsOverlay';
 import { Toolbar } from './components/Toolbar';
@@ -22,20 +19,10 @@ function HistoryTable(): JSX.Element {
 	/* Загрузка данных в зависимости от наличия/отсутствия id */
 	const { data, isFetching } = useGetHistoryData();
 
-	// //Функции для отрисовки подменю строки
-
-	// const getDetailPanelContent = useCallback<
-	// 	NonNullable<DataGridProProps['getDetailPanelContent']>
-	// >(({ row }) => <HistoryCollapse row={row} />, []);
-
-	// const getDetailPanelHeight = useCallback(() => 'auto', []);
-
 	return (
 		<>
 			<DataTableBox sidebarIsOpen={sidebarIsOpen}>
 				<DataGridPro
-					// getDetailPanelContent={getDetailPanelContent}
-					// getDetailPanelHeight={getDetailPanelHeight}
 					rowThreshold={0}
 					apiRef={apiRef}
 					columns={columns}
@@ -56,8 +43,6 @@ function HistoryTable(): JSX.Element {
 						Toolbar,
 						NoResultsOverlay,
 						NoRowsOverlay,
-						// DetailPanelCollapseIcon: KeyboardArrowUp,
-						// DetailPanelExpandIcon: KeyboardArrowDown,
 					}}
 					componentsProps={{
 						filterPanel: {

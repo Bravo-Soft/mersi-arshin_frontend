@@ -1,27 +1,22 @@
 import ExpandIcon from '@mui/icons-material/ExpandMore';
-import FileIcon from '@mui/icons-material/InsertDriveFile';
 import UploadIcon from '@mui/icons-material/Upload';
 import Collapse from '@mui/material/Collapse';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { useState } from 'react';
 
-import type { IModuleMenuItemPropsAndOpenTourProps } from '../moduleMenuItem';
+import type { IModuleMenuItemProps } from '../moduleMenuItem';
 
-import ExcelIcon from './ExcelIcon';
 import { useUploadHandlers } from './hooks/useUploadHandlers';
+import XMLIcon from './XmlIcon';
 
 import StyledMenuList from 'features/dataTable/styled/StyledMenuList';
 import StyledMenuItem from 'styled/StyledMenuItem';
 
-function ExportMenuItem({
-	onCloseMenu,
-	openTourMenuItems = false,
-	...othen
-}: IModuleMenuItemPropsAndOpenTourProps): JSX.Element {
-	const [open, setOpen] = useState(openTourMenuItems);
+function XMLMenuItem({ onCloseMenu, ...other }: IModuleMenuItemProps): JSX.Element {
+	const [open, setOpen] = useState(false);
 
-	const { handleUploadToCSV, handleUploadToXLSX } = useUploadHandlers({
+	const { downloadDataXML } = useUploadHandlers({
 		onCloseMenu,
 	});
 
@@ -31,11 +26,11 @@ function ExportMenuItem({
 
 	return (
 		<>
-			<StyledMenuItem moduleIsActive onClick={handleToggleNestedMenuItem} {...othen}>
+			<StyledMenuItem moduleIsActive onClick={handleToggleNestedMenuItem} {...other}>
 				<ListItemIcon>
 					<UploadIcon />
 				</ListItemIcon>
-				<ListItemText>Единый реестр</ListItemText>
+				<ListItemText>Отчеты в формате XML</ListItemText>
 				<ExpandIcon
 					color='action'
 					sx={{
@@ -46,17 +41,17 @@ function ExportMenuItem({
 			</StyledMenuItem>
 			<Collapse in={open}>
 				<StyledMenuList disablePadding component='div'>
-					<StyledMenuItem moduleIsActive={true} onClick={handleUploadToCSV}>
+					<StyledMenuItem moduleIsActive={true} onClick={downloadDataXML}>
 						<ListItemIcon>
-							<FileIcon />
+							<XMLIcon />
 						</ListItemIcon>
-						<ListItemText primary='Выгрузить в CSV' />
+						<ListItemText primary='Отчет для Росакредитации' />
 					</StyledMenuItem>
-					<StyledMenuItem moduleIsActive={true} onClick={handleUploadToXLSX}>
+					<StyledMenuItem moduleIsActive={true} onClick={downloadDataXML}>
 						<ListItemIcon>
-							<ExcelIcon />
+							<XMLIcon />
 						</ListItemIcon>
-						<ListItemText primary='Выгрузить в XLSX' />
+						<ListItemText primary='Отчет XML' />
 					</StyledMenuItem>
 				</StyledMenuList>
 			</Collapse>
@@ -64,4 +59,4 @@ function ExportMenuItem({
 	);
 }
 
-export default ExportMenuItem;
+export default XMLMenuItem;

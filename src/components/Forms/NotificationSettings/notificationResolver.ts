@@ -13,8 +13,8 @@ import { DATE_OF_SENDING_NOTIFICATION, RANGE_OF_SELECTION } from 'constant/maile
 import { Tag } from 'constant/tag';
 
 const notificationSchema = z.object({
-	isNotificationEnabled: z.boolean(),
-	dateOfSendingNotification: z.nativeEnum(DATE_OF_SENDING_NOTIFICATION),
+	isEnabled: z.boolean(),
+	dateOfSending: z.nativeEnum(DATE_OF_SENDING_NOTIFICATION),
 	rangeOfSelection: z.nativeEnum(RANGE_OF_SELECTION),
 	subscribedEmails: z
 		.array(
@@ -23,7 +23,7 @@ const notificationSchema = z.object({
 					.string()
 					.transform(e => e.trim())
 					.pipe(z.string().email('Введите email в верном формате').min(1, 'Введите почту')),
-				emailFilters: z.array(
+				filters: z.array(
 					z.object({
 						columnFilter: z.string(),
 						operatorValue: z.string(),

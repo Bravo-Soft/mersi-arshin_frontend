@@ -1,8 +1,8 @@
 import { enqueueSnackbar } from 'notistack';
 
 import {
+	useCreateNewRequestMutation,
 	useDeleteItemsMutation,
-	useStartArshinMutation,
 	useSynchronizeItemsMutation,
 } from '../arshinTableApiSlice';
 import {
@@ -11,9 +11,9 @@ import {
 	selectIsOpenSynchronizeDialog,
 	selectModelSynchronizeIds,
 	selectNotValidArshinItem,
+	selectPendingRequestItem,
 	selectSelectedArshin,
 	selectSynchronizeIds,
-	setCreateRequestModal,
 } from '../arshinTableSlice';
 import { changeDialogState, resetDialogState, selectIsOpenDialog } from '../dialogArshinSlice';
 import { selectIsWorkingArshin } from '../eventSourceSlice';
@@ -29,7 +29,7 @@ export const useArshinActions = () => {
 
 	const [deleteFromArshin] = useDeleteItemsMutation();
 	const [synchronizeItemsArshin] = useSynchronizeItemsMutation();
-	const [arshinStart] = useStartArshinMutation();
+	const [sendRequest] = useCreateNewRequestMutation();
 
 	const isOpen = useAppSelector(selectIsOpenDialog);
 
@@ -46,6 +46,8 @@ export const useArshinActions = () => {
 	const selectedDataIds = useAppSelector(selectSelectedArshin);
 
 	const isWorking = useAppSelector(selectIsWorkingArshin);
+
+	const pendingRequest = useAppSelector(selectPendingRequestItem);
 
 	const handleSynchronize = async () => {
 		try {
@@ -102,9 +104,12 @@ export const useArshinActions = () => {
 
 	const handleCancelSending = async () => {
 		const validate = tableItemsNotValidateModel.map(({ id }) => id);
-		const sendArray = selectedDataIds.filter(id => !validate.includes(id));
+		const sendItemsArray = selectedDataIds.filter(id => !validate.includes(id));
 		handleCloseDialog();
-		await arshinStart(sendArray);
+		if (pendingRequest) {
+			const sendingRequestData = { ...pendingRequest, dataIds: sendItemsArray };
+			await sendRequest(sendingRequestData);
+		}
 	};
 
 	const handleEditArshinItem = () => {

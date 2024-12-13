@@ -22,16 +22,21 @@ export const Verifications = ({ verifications }: { verifications: ItemVerificati
 				))}
 			</TableRow>
 			{verifications.map(
-				({ verificationDate, workType, document, organization, resolution, fio }, idx) => (
+				(
+					{ verificationDate, typeOfWork, certificate, organization, suitability, editedBy },
+					idx
+				) => (
 					<TableRow key={idx}>
 						<TableCell align='center'>
 							{dayjs(verificationDate).format(dayjsFormatVariant)}
 						</TableCell>
-						<TableCell align='center'>{workType}</TableCell>
-						<TableCell align='center'>{document}</TableCell>
+						<TableCell align='center'>{typeOfWork}</TableCell>
+						<TableCell align='center'>{certificate}</TableCell>
 						<TableCell align='center'>{organization}</TableCell>
-						<TableCell align='center'>{resolution}</TableCell>
-						<TableCell align='center'>{fio}</TableCell>
+						<TableCell align='center'>
+							{suitability === true ? 'Пригоден' : 'Не пригоден'}
+						</TableCell>
+						<TableCell align='center'>{editedBy}</TableCell>
 					</TableRow>
 				)
 			)}

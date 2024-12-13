@@ -90,9 +90,11 @@ export enum Messages {
 
 	//Уведомления - Запросы в Аршин - Успешные
 	REQUEST_SUCCESSFULLY_SENDED = 'Новый запрос успешно отправлен!',
+	REQUEST_SUCCESSFULLY_EDIT = 'Изменения внесены',
 	REQUEST_SUCCESSFULLY_DELETED = 'Запрос успешно удален',
 
 	//Уведомления - Запросы в Аршин - Ошибочные
 	FAILED_SEND_REQUEST = 'Не удалось отправить запрос',
+	FAILED_EDIT_REQUEST = 'Не удалось изменить запрос',
 	FAILED_DELETE_REQUEST = 'Не удалось удалить запрос',
 }

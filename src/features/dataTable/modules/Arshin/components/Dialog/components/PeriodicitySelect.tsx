@@ -1,5 +1,4 @@
 import FormControl from '@mui/material/FormControl';
-import FormHelperText from '@mui/material/FormHelperText';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
@@ -9,20 +8,17 @@ function PeriodicitySelect(): JSX.Element {
 	const { control } = useFormContext();
 	return (
 		<FormControl fullWidth variant='standard'>
-			<InputLabel id='select-periodicity'>
-				Периодичность отправки запроса в ФГИС "Аршин"
-			</InputLabel>
+			<InputLabel id='select-period'>Периодичность отправки запроса в ФГИС "Аршин"</InputLabel>
 			<Controller
-				name='periodicity'
+				name='period'
 				control={control}
-				render={({ field, fieldState: { error } }) => (
+				render={({ field }) => (
 					<>
-						<Select {...field} labelId='select-periodicity' id='select-periodicity'>
+						<Select {...field} labelId='select-period' id='select-period'>
 							<MenuItem value={1}>1 раз в сутки</MenuItem>
-							<MenuItem value={3}>3 раза в сутки</MenuItem>
-							<MenuItem value={5}>5 раз в сутки</MenuItem>
+							<MenuItem value={2}>1 раз в 4 часа</MenuItem>
+							<MenuItem value={3}>1 раз в 6 часов</MenuItem>
 						</Select>
-						<FormHelperText>{error?.message ?? ' '}</FormHelperText>
 					</>
 				)}
 			/>

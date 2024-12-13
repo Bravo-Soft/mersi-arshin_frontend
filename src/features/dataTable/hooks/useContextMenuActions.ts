@@ -224,7 +224,7 @@ export const useContextMenuActions = (
 	const handleViewItemHistory = async () => {
 		if (selectedDataItem) {
 			dispatch(setSelectedId(selectedDataItem.id));
-			navigate('/history');
+			navigate(`/history/${selectedDataItem.id}`);
 		}
 	};
 

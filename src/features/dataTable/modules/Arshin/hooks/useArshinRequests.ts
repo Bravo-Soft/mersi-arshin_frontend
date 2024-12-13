@@ -1,8 +1,21 @@
 import dayjs from 'dayjs';
 import { enqueueSnackbar } from 'notistack';
 
-import { useCreateNewRequestMutation } from '../arshinTableApiSlice';
-import { setRequest, selectRequest, resetSelectedDataItem } from '../arshinTableSlice';
+import {
+	useCreateNewRequestMutation,
+	useDeleteRequestMutation,
+	useUpdateRequestMutation,
+} from '../arshinTableApiSlice';
+import {
+	setRequest,
+	selectRequest,
+	resetPendingRequest,
+	resetSelectedDataItems,
+	selectSelectedDataItems,
+	setFilterType,
+	selectSelectedArshin,
+	selectUploadModelIds,
+} from '../arshinTableSlice';
 import {
 	changeDialogState,
 	resetDialogState,
@@ -12,21 +25,29 @@ import {
 	selectIsOpenDialog,
 } from '../dialogArshinSlice';
 
+import { useSendingArshin } from './useSendingArshin';
+
 import { Messages } from 'constant/messages';
 import { selectSidebarStateOfArshinPage } from 'features/sidebar/sidebarSlice';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { useSidebarAction } from 'hooks/useSidebarActions';
-import { type IRequestItem } from 'types/arshinIntegration';
+import { ARSHIN_FILTER_TYPE, type IRequestItem } from 'types/arshinIntegration';
 
 export const useArshinRequests = () => {
 	const dispatch = useAppDispatch();
-	const { openSidebarWith } = useSidebarAction('arshin');
+	const { openSidebarWith, closeSidebar } = useSidebarAction('arshin');
+	const { handleStart } = useSendingArshin();
 
-	// const [deleteRequest] = useDeleteRequestMutation();
-	const [createRequest] = useCreateNewRequestMutation();
+	const [createRequest, { isLoading: isCreating }] = useCreateNewRequestMutation();
+	const [updateRequest] = useUpdateRequestMutation();
+	const [deleteRequest] = useDeleteRequestMutation();
 
 	const { open: isRequestsListOpen } = useAppSelector(selectSidebarStateOfArshinPage);
-	const selectedRequest = useAppSelector(selectRequest) as IRequestItem;
+
+	const selectedDataItems = useAppSelector(selectSelectedDataItems);
+	const selectedDataIds = useAppSelector(selectSelectedArshin);
+
+	const selectedRequest = useAppSelector(selectRequest);
 
 	const isCreatingRequestDialogOpen = useAppSelector(selectCreatingRequestDialog);
 	const isEditingRequestDialogOpen = useAppSelector(selectEditingRequestDialog);
@@ -38,40 +59,47 @@ export const useArshinRequests = () => {
 
 	const handleSelectRequest = (data: IRequestItem) => {
 		dispatch(setRequest(data));
+		dispatch(setFilterType(ARSHIN_FILTER_TYPE.REQUEST_ITEMS));
 	};
 
 	const handleCloseDialog = () => {
+		dispatch(resetPendingRequest());
+		dispatch(resetSelectedDataItems());
 		dispatch(resetDialogState());
 	};
 
 	const handleCreateRequest = () => {
-		return dispatch(changeDialogState('createRequest'));
+		dispatch(changeDialogState('createRequest'));
 	};
 
 	const handleEditRequest = () => {
-		return dispatch(changeDialogState('editRequest'));
+		dispatch(changeDialogState('editRequest'));
 	};
 
-	const handleSendRequest = async (data: IRequestItem) => {
-		try {
-			await createRequest(data).unwrap();
-			enqueueSnackbar(Messages.REQUEST_SUCCESSFULLY_SENDED, { variant: 'success' });
-			openSidebarWith('RequestsList');
-		} catch {
-			enqueueSnackbar(Messages.FAILED_SEND_REQUEST, { variant: 'error' });
-		} finally {
-			dispatch(resetSelectedDataItem());
-			handleCloseDialog();
-		}
+	const handleSendRequest = async (data: Omit<IRequestItem, 'id' | 'status' | 'creator'>) => {
+		await handleStart(data);
+		closeSidebar();
+		handleCloseDialog();
+		openSidebarWith('RequestsList');
 	};
 
-	const handleDeleteRequestItem = () => {
+	const handleUpdateRequest = async (
+		data: Omit<IRequestItem, 'dataIds' | 'status' | 'creator'>
+	) => {
+		await updateRequest(data).unwrap();
+		handleCloseDialog();
+	};
+
+	const handleDeleteRequestItem = async () => {
 		if (!isDeletingRequestDialogOpen) {
 			return dispatch(changeDialogState('deleteRequest'));
 		}
 		try {
-			// await deleteRequest(deleteId).unwrap();
-			enqueueSnackbar(Messages.REQUEST_SUCCESSFULLY_DELETED, { variant: 'success' });
+			if (selectedRequest?.id) {
+				await deleteRequest(selectedRequest.id).unwrap();
+				resetSelectedRequest();
+				enqueueSnackbar(Messages.REQUEST_SUCCESSFULLY_DELETED, { variant: 'success' });
+			}
 		} catch {
 			enqueueSnackbar(Messages.FAILED_DELETE_REQUEST, { variant: 'error' });
 		} finally {
@@ -79,7 +107,10 @@ export const useArshinRequests = () => {
 		}
 	};
 
-	const resetSelectedRequest = () => dispatch(setRequest(null));
+	const resetSelectedRequest = () => {
+		dispatch(setRequest(null));
+		dispatch(setFilterType(ARSHIN_FILTER_TYPE.MY_ITEMS));
+	};
 
 	return {
 		now,
@@ -88,12 +119,16 @@ export const useArshinRequests = () => {
 		isEditingRequestDialogOpen,
 		isDeletingRequestDialogOpen,
 		isRequestsListOpen,
+		isCreating,
 		selectedRequest,
+		selectedDataItems,
+		selectedDataIds,
 		handleCloseDialog,
 		handleSelectRequest,
 		handleCreateRequest,
 		handleEditRequest,
 		handleSendRequest,
+		handleUpdateRequest,
 		handleDeleteRequestItem,
 		resetSelectedRequest,
 	};

@@ -126,7 +126,9 @@ function CreateDataItem(): JSX.Element {
 				return (
 					<Fragment key={key}>
 						<Box my={2}>
-							<Divider sx={{ color: 'text.secondary', fontWeight: 500 }}>Поверка СИ</Divider>
+							<Divider sx={{ color: 'text.secondary', fontWeight: 500 }}>
+								Метрологические работы
+							</Divider>
 						</Box>
 						<DateField nameOfKey={key} label={label} />
 					</Fragment>

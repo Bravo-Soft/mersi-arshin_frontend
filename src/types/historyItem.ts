@@ -29,6 +29,11 @@ export interface IHistoryItem extends IDataItem {
 	 * Комментарий к статусу
 	 */
 	conditionDescription: string;
+	/**
+	 * Флаг для поверки: mr - новые МР, tr-редактирование текущей МР
+	 */
+
+	typeUpdate: 'mr' | 'tr';
 }
 
 export interface IDocument {

@@ -87,7 +87,7 @@ export interface IDataItem {
 	/**
 	 * Контроль поверки в Госреестр
 	 */
-	verificationControlInStateRegister: boolean;
+	verificationControlInStateRegister?: boolean;
 	/**
 	 * Местоположение СИ
 	 */
@@ -103,7 +103,7 @@ export interface IDataItem {
 	/**
 	 * Ссылка
 	 */
-	fgisUrl: string;
+	fgisUrl?: string;
 	/**
 	 * Доп. Данные
 	 */

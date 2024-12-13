@@ -3,7 +3,6 @@ import { GridCellParams, GridRowParams, GridSelectionModel } from '@mui/x-data-g
 import {
 	selectArshinData,
 	selectNotValidArshinClassesItem,
-	selectSelectedArshinData,
 	selectSelectedDataIds,
 	setSelectedDataItem,
 	setSelectedDataItems,
@@ -29,8 +28,6 @@ const useTableActions = () => {
 	const { open } = useAppSelector(selectSidebarStateOfArshinPage);
 
 	const { closeSidebar, openSidebarWith } = useSidebarAction('arshin');
-
-	const selectedArshinDataItem = useAppSelector(selectSelectedArshinData);
 
 	const dataArshin = useAppSelector(selectArshinData);
 

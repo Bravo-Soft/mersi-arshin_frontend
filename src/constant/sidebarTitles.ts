@@ -2,7 +2,7 @@ export const enum SidebarTitles {
 	ADD_ITEM = 'Добавить СИ',
 	EDIT_ITEM = 'Редактировать СИ',
 	ITEM_INFORMATION = 'Информация о СИ',
-	VERIFICATION_ITEM = 'Поверка СИ',
+	VERIFICATION_ITEM = 'Метрологические работы',
 	ITEM_FILES = 'Файлы',
 	PROFILE_SETTINGS = 'Настройка профиля',
 	NOTIFICATION_SETTINGS = 'Настройка уведомлений',

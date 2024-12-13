@@ -31,7 +31,9 @@ function EditSidebarArshinItemForm() {
 		skip: !ids,
 	});
 
-	const methods = useForm<Omit<IDataItemWithDates, 'userIds'>>({
+	const methods = useForm<
+		Omit<IDataItemWithDates, 'userIds' | 'fgisUrl' | 'verificationControlInStateRegister'>
+	>({
 		defaultValues: defaultValueSidebarArshin,
 		values: setDefaultValue(data),
 		mode: 'all',

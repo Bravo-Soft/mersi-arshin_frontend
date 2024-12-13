@@ -1,6 +1,8 @@
 import HistoryIcon from '@mui/icons-material/History';
-import { Button, Tooltip } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { Tooltip } from '@mui/material';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+import StyledLayoutHistoryButton from './styled/StyledLayoutHistoryButton ';
 
 import { AppRoutes } from 'constant/appRoutes';
 import { setSelectedId } from 'features/historyTable/historyTableSlice';
@@ -11,6 +13,7 @@ function LayoutButtonHistory() {
 	const isAuth = useAuth();
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch(); //Заменить логику сброса id
+	const { pathname } = useLocation();
 
 	if (!isAuth) {
 		return null;
@@ -23,14 +26,14 @@ function LayoutButtonHistory() {
 
 	return (
 		<Tooltip title='Посмотреть историю изменения СИ'>
-			<Button
-				size='small'
+			<StyledLayoutHistoryButton
+				pathname={pathname}
+				size={pathname === AppRoutes.HISTORY ? 'large' : 'small'}
 				startIcon={<HistoryIcon fontSize='large' />}
-				sx={{ color: '#ffffff' }}
 				onClick={handleClick}
 			>
-				История
-			</Button>
+				История реестра
+			</StyledLayoutHistoryButton>
 		</Tooltip>
 	);
 }

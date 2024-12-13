@@ -1,35 +1,51 @@
-import { useGridApiContext } from '@mui/x-data-grid-pro';
-import { useState } from 'react';
+import { useMemo } from 'react';
 
-import { arshinFilterStatusDone } from 'constant/arshinStatus';
+import { selectFilterType, selectRequest } from '../arshinTableSlice';
+
+import { ArshinStatus } from 'constant/arshinStatus';
+import { selectUserId } from 'features/user/userSlice';
+import { useAppSelector } from 'hooks/redux';
+import { ARSHIN_FILTER_TYPE, IDataItemArshin } from 'types/arshinIntegration';
 
 /**
- * @package хук отправления данных на проверку в Arshin
- * @props url => url для коннекта к каналу SSE
- * @props callBack
- * @function handleSelectItems => функция обработки модели
- * @function handleDisabledSelectedRow => функция блокирующая возможность изменения выбранной модели
- * @argument selectionIds => выбранная модель
- * @returns возвращает [updateArshinFilter, completeDone]
+ * @package хук фильтрации данных таблицы Аршин
+ * @props data - строки таблицы Аршин
+ * @returns возвращает filteredData - массив отфильтрованных строк
  */
 
-export const useFilterArshin = (): [VoidFunction, boolean] => {
-	const apiRef = useGridApiContext();
+export const useFilterArshin = (data: IDataItemArshin[] = []) => {
+	const currentUserId = useAppSelector(selectUserId) as string;
+	const filterType = useAppSelector(selectFilterType);
+	const selectedRequest = useAppSelector(selectRequest);
 
-	const localeStorageArshinState = Boolean(localStorage.getItem('Arshin-filter'));
+	return useMemo(() => {
+		switch (filterType) {
+			case ARSHIN_FILTER_TYPE.MY_ITEMS: {
+				const filteredData = data.filter(({ usersArshinId }) =>
+					usersArshinId.includes(currentUserId)
+				);
+				return filteredData;
+			}
+			case ARSHIN_FILTER_TYPE.MY_COMPLETED: {
+				const filteredData = data.filter(
+					({ usersArshinId, status }) =>
+						usersArshinId.includes(currentUserId) && status === ArshinStatus.DONE
+				);
+				return filteredData;
+			}
+			case ARSHIN_FILTER_TYPE.ALL:
+				return data;
 
-	const [completeDone, setCompleteDone] = useState(localeStorageArshinState);
+			case ARSHIN_FILTER_TYPE.REQUEST_ITEMS: {
+				if (selectedRequest) {
+					const { dataIds } = selectedRequest;
+					return dataIds as IDataItemArshin[];
+				}
 
-	const updateArshinFilter = () => {
-		if (completeDone) {
-			localStorage.removeItem('Arshin-filter');
-			apiRef.current.deleteFilterItem(arshinFilterStatusDone);
-		} else {
-			localStorage.setItem('Arshin-filter', 'done');
-			apiRef.current.upsertFilterItem(arshinFilterStatusDone);
+				return [];
+			}
+			default:
+				return [];
 		}
-		setCompleteDone(prev => !prev);
-	};
-
-	return [updateArshinFilter, completeDone];
+	}, [currentUserId, filterType, selectedRequest, data]);
 };

@@ -1,46 +1,44 @@
 import { Dialog } from '@mui/material';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { selectRequest, selectSelectedDataIds } from '../../arshinTableSlice';
+import {
+	selectRequestDataIds,
+	selectSelectedArshin,
+	selectSelectedDataIds,
+	selectSelectedDataItems,
+} from '../../arshinTableSlice';
 import { useArshinRequests } from '../../hooks/useArshinRequests';
+import { requestItemFormatter } from '../../utils/requestItemFormatter';
 
 import CreateRequestDialogContent from './components/CreateRequestDialogContent';
 import CreateRequestDialogTitle from './components/CreateRequestDialogTitle';
 import DialogButtons from './components/DialogButtons';
 
-import { useAppSelector } from 'hooks/redux';
 import FormContainer from 'styled/FormContainer';
 import { IRequestItemWithDates } from 'types/arshinIntegration';
-import { createDateISO } from 'utils/createDateISO';
 
 function CreatingRequestDialog(): JSX.Element {
-	const selectedItems = useAppSelector(selectSelectedDataIds);
+	const {
+		selectedDataIds,
+		now,
+		isCreatingRequestDialogOpen,
+		handleSendRequest,
+		handleCloseDialog,
+	} = useArshinRequests();
 
-	const { now, isCreatingRequestDialogOpen, handleSendRequest, handleCloseDialog } =
-		useArshinRequests();
-
-	const methods = useForm<IRequestItemWithDates>({
+	const methods = useForm<Omit<IRequestItemWithDates, 'id' | 'creator' | 'status' | 'dataIds'>>({
 		defaultValues: {
-			requestId: now.toString(),
-			status: 'В процессе',
-			requestTitle: '',
-			fieldsDate: [now, now],
-			periodicity: 1,
-			items: selectedItems,
-			author: '',
+			name: '',
+			range: [now, now],
+			period: 1,
+			sendEmail: false,
 		},
 		// resolver: verificationResolver,
 		mode: 'onChange',
 	});
 
 	const onSubmit = methods.handleSubmit(async data => {
-		const upd = {
-			...data,
-			requestTitle: data.requestTitle ?? `Запрос от ${now}`,
-			fieldsDate: data.fieldsDate.map(el => createDateISO(el)),
-			author: 'Филипп Бедросович',
-		};
-		await handleSendRequest(upd);
+		await handleSendRequest(requestItemFormatter({ ...data, dataIds: selectedDataIds }));
 		methods.reset();
 	});
 

@@ -5,7 +5,12 @@ import { arshinTableApiSlice } from './arshinTableApiSlice';
 import { RootState } from 'app/store';
 import { ArshinStatus } from 'constant/arshinStatus';
 import { isValueDefined } from 'guards/isValueDefined';
-import { IDataItemArshin, INotValidArshinItem, IRequestItem } from 'types/arshinIntegration';
+import {
+	ARSHIN_FILTER_TYPE,
+	IDataItemArshin,
+	INotValidArshinItem,
+	IRequestItem,
+} from 'types/arshinIntegration';
 import { getArrayWithoutDuplicates } from 'utils/getArrayWithoutDuplicates';
 
 interface IArshinTableState {
@@ -16,8 +21,9 @@ interface IArshinTableState {
 	notValidArshinItem: INotValidArshinItem[];
 	notValidArshinClassesItem: INotValidArshinItem[];
 	isOpenCreateRequestModal: boolean;
-	requestsList: IRequestItem[];
 	requestItem: IRequestItem | null;
+	pendingRequestItem: Omit<IRequestItem, 'id' | 'status' | 'creator'> | null;
+	filterType: ARSHIN_FILTER_TYPE;
 }
 
 const initialState: IArshinTableState = {
@@ -28,8 +34,9 @@ const initialState: IArshinTableState = {
 	notValidArshinClassesItem: [],
 	selectedEditItemIds: '',
 	isOpenCreateRequestModal: false,
-	requestsList: [],
 	requestItem: null,
+	pendingRequestItem: null,
+	filterType: ARSHIN_FILTER_TYPE.MY_ITEMS,
 };
 
 const arshinTableSlice = createSlice({
@@ -41,6 +48,9 @@ const arshinTableSlice = createSlice({
 		},
 		setSelectedDataItems: (state, action: PayloadAction<IDataItemArshin[]>) => {
 			state.selectedDataItems = action.payload;
+		},
+		resetSelectedDataItems: state => {
+			state.selectedDataItems = initialState.selectedDataItems;
 		},
 		resetSelectedDataItem: () => initialState,
 
@@ -68,18 +78,39 @@ const arshinTableSlice = createSlice({
 		setCreateRequestModal: (state, action: PayloadAction<boolean>) => {
 			state.isOpenCreateRequestModal = action.payload;
 		},
-		setRequestsList: (state, action: PayloadAction<IRequestItem[]>) => {
-			state.requestsList = action.payload;
-		},
+
 		setRequest: (state, action: PayloadAction<IRequestItem | null>) => {
 			state.requestItem = action.payload;
+		},
+
+		setRequestDataIds: (state, action: PayloadAction<IDataItemArshin[] | string[]>) => {
+			if (state.requestItem) {
+				state.requestItem.dataIds = action.payload;
+			}
+		},
+		setPendingRequest: (
+			state,
+			action: PayloadAction<Omit<IRequestItem, 'id' | 'status' | 'creator'> | null>
+		) => {
+			state.pendingRequestItem = action.payload;
+		},
+		resetPendingRequest: state => {
+			state.pendingRequestItem = initialState.pendingRequestItem;
+		},
+		setPendingRequestDataIds: (state, action: PayloadAction<string[]>) => {
+			if (state.pendingRequestItem) {
+				state.pendingRequestItem.dataIds = action.payload;
+			}
+		},
+		setFilterType: (state, action: PayloadAction<ARSHIN_FILTER_TYPE>) => {
+			state.filterType = action.payload;
 		},
 	},
 });
 
-export const selectRequestsList = (state: RootState) => state.arshinTable.requestsList;
 export const selectRequest = (state: RootState) => state.arshinTable.requestItem;
-
+export const selectPendingRequestItem = (state: RootState) => state.arshinTable.pendingRequestItem;
+export const selectRequestDataIds = (state: RootState) => state.arshinTable.requestItem?.dataIds;
 //Selected model (Модель выбора)
 export const selectSelectedDataItem = (state: RootState) =>
 	state.arshinTable.selectedDataItem ?? null;
@@ -92,7 +123,7 @@ export const selectSelectedDataIds = (state: RootState) =>
 
 //Arshin all data (все позиции для аршин)
 export const selectArshinData = (state: RootState) =>
-	arshinTableApiSlice.endpoints.getData.select()(state).data ?? [];
+	arshinTableApiSlice.endpoints.getGroupData.select()(state).data ?? [];
 
 //hovered element id (айди элемента на котором курсор наведен)
 export const selectSelectedArshinData = (state: RootState) =>
@@ -196,10 +227,14 @@ export const selectNotValidArshinClassesItem = (state: RootState) =>
 export const selectIsOpenCreateRequestModal = (state: RootState) =>
 	state.arshinTable.isOpenCreateRequestModal;
 
+//--
+export const selectFilterType = (state: RootState) => state.arshinTable.filterType;
+
 export const {
 	setSelectedDataItem,
 	setSelectedDataItems,
 	resetSelectedDataItem,
+	resetSelectedDataItems,
 	setNotValidArshinItem,
 	setSelectedDataArshinItem,
 	resetSelectedDataArshinItem,
@@ -207,8 +242,12 @@ export const {
 	setSelectedEditItemIds,
 	deleteNotValidArshinItem,
 	setCreateRequestModal,
-	setRequestsList,
 	setRequest,
+	setRequestDataIds,
+	setPendingRequest,
+	setPendingRequestDataIds,
+	resetPendingRequest,
+	setFilterType,
 } = arshinTableSlice.actions;
 
 export const arshinTablePath = arshinTableSlice.name;

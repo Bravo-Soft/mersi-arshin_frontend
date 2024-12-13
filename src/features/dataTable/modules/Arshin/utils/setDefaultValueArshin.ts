@@ -4,30 +4,29 @@ import dayjs from 'dayjs';
 import { Tag } from 'constant/tag';
 import type { IDataItem } from 'types/dataItem';
 
-export const setDefaultValue = (data?: IDataItem | null) => {
+export const setDefaultValueArshin = (data?: IDataItem | null) => {
 	if (data) {
 		const {
+			name,
+			type,
+			factoryNumber,
+			organization,
+			certificate,
 			suitability,
-			productionDate,
 			verificationDate,
 			dateOfTheNextVerification,
-			interVerificationInterval,
-			userIds,
-			dateOfCommissioning,
-			fgisUrl,
-			verificationControlInStateRegister,
 			...other
 		} = data;
 
 		return {
-			...other,
-			interVerificationInterval: Number(interVerificationInterval),
+			name,
+			type,
+			factoryNumber,
+			organization,
+			certificate,
 			suitability: suitability.toString(),
-			productionDate: dayjs(productionDate),
 			verificationDate: dayjs(verificationDate),
 			dateOfTheNextVerification: dayjs(dateOfTheNextVerification),
-			dateOfCommissioning: dayjs(dateOfCommissioning),
-			conditionDescription: '',
 		};
 	}
 };

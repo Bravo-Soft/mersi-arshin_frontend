@@ -1,42 +1,44 @@
+import { FormControlLabel, Switch } from '@mui/material';
 import DialogContent from '@mui/material/DialogContent';
 import { DateRangePicker } from '@mui/x-date-pickers-pro';
-import dayjs from 'dayjs';
 import { Controller, useFormContext } from 'react-hook-form';
 
 import PeriodicitySelect from './PeriodicitySelect';
 
-// import { maxDate, minDate } from 'constant/dateMasks';
+import { IRequestItemWithDates } from 'types/arshinIntegration';
 
 function CreateRequestDialogContent() {
-	const { control } = useFormContext<any>();
+	const { control } =
+		useFormContext<Pick<IRequestItemWithDates, 'range' | 'sendEmail' | 'period'>>();
 
 	return (
 		<DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
 			<Controller
 				control={control}
-				name='fieldsDate'
+				name='range'
 				render={({ field: { value, onChange, ref }, formState: { errors } }) => (
 					<DateRangePicker
 						ref={ref}
 						value={value}
 						onChange={onChange}
-						// minDate={dayjs(Date.now())}
-						// maxDate={dayjs(Date.now())}
 						slotProps={{
 							fieldSeparator: { hidden: true },
-							// textField: ({ position }) => {
-							// 	const error = null;
-							// 	return {
-							// 		error: Boolean(error ?? errors.fieldsDate),
-							// 		helperText: error?.message ?? ' ',
-							// 	};
-							// },
 						}}
 						localeText={{ start: 'Начальная дата', end: 'Дата окончания' }}
 					/>
 				)}
 			/>
 			<PeriodicitySelect />
+			<Controller
+				control={control}
+				name='sendEmail'
+				render={({ field: { value, onChange, ref } }) => (
+					<FormControlLabel
+						control={<Switch ref={ref} checked={value} onChange={onChange} />}
+						label='Уведомление на почту'
+					/>
+				)}
+			/>
 		</DialogContent>
 	);
 }

@@ -21,7 +21,7 @@ function NotificationFilterItem(props: INotificationFilterItemProps) {
 	const { index, indexK, removeEmail } = props;
 
 	const { columnName, operatorName, valueName, fieldName } = useNameGenerator({
-		name: `subscribedEmails.${index}.emailFilters.${indexK}`,
+		name: `subscribedEmails.${index}.filters.${indexK}`,
 	});
 
 	const { columnChange, operationChange, operatorValueX, operatorValue } = useFilterAction({

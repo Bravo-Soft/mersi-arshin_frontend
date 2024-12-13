@@ -6,6 +6,7 @@ import {
 	RenderCellExpand /* RenderCellExpandedRegister */,
 	RenderCellExpandedRegister,
 } from './components/RenderCellExpand';
+import { RenderHeaderExpandRegister } from './components/RenderHeaderExpandRegister';
 import { formatDateCallback } from './utils/formatDateCallback';
 import { quickFilterDateFormat } from './utils/quickFilterDateFormat';
 
@@ -54,7 +55,9 @@ export const columns: GridColDef<IDataItem>[] = [
 	},
 	{
 		field: 'verificationControlInStateRegister',
-		headerName: ColumnNames.VERIFICATION_CONTROL_STATE_REGISTER,
+		renderHeader: RenderHeaderExpandRegister,
+		disableColumnMenu: true,
+		sortable: false,
 		width: initialWidth,
 		type: 'boolean',
 		headerAlign: 'center',
@@ -255,6 +258,14 @@ export const columns: GridColDef<IDataItem>[] = [
 	{
 		field: 'instrumentCertificate',
 		headerName: ColumnNames.INSTRUMENT_CERTIFICATE,
+		width: initialWidth,
+		headerAlign: 'center',
+		renderCell: RenderCellExpand,
+	},
+	{
+		field: 'snils',
+		hide: true,
+		headerName: ColumnNames.SNILS,
 		width: initialWidth,
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,

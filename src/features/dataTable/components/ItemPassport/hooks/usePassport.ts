@@ -152,11 +152,11 @@ export const usePassport = () => {
 		passportData?.verifications.forEach(verification => {
 			worksheet.getRow(rowIndex).values = [
 				dayjs(verification.verificationDate).format('DD.MM.YYYY'),
-				verification.workType,
-				verification.document,
+				verification.typeOfWork,
+				verification.certificate,
 				verification.organization,
-				verification.resolution,
-				verification.fio,
+				verification.suitability === 'true' ? 'Пригоден' : 'Не пригоден',
+				verification.editedBy,
 			];
 
 			rowIndex++;
