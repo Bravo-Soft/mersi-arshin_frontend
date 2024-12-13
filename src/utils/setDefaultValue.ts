@@ -13,6 +13,9 @@ export const setDefaultValue = (data?: IDataItem | null) => {
 			dateOfTheNextVerification,
 			interVerificationInterval,
 			userIds,
+			dateOfCommissioning,
+			fgisUrl,
+			verificationControlInStateRegister,
 			...other
 		} = data;
 
@@ -23,6 +26,8 @@ export const setDefaultValue = (data?: IDataItem | null) => {
 			productionDate: dayjs(productionDate),
 			verificationDate: dayjs(verificationDate),
 			dateOfTheNextVerification: dayjs(dateOfTheNextVerification),
+			dateOfCommissioning: dayjs(dateOfCommissioning),
+			conditionDescription: '',
 		};
 	}
 };

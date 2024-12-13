@@ -9,6 +9,7 @@ export const arshinFormaterItem = <T extends UpdatePropsType>(data: T) => {
 		suitability,
 		interVerificationInterval,
 		cost,
+		dateOfCommissioning,
 		...other
 	} = data;
 	return {
@@ -19,5 +20,6 @@ export const arshinFormaterItem = <T extends UpdatePropsType>(data: T) => {
 		dateOfTheNextVerification: createDateISO(dateOfTheNextVerification),
 		productionDate: createDateISO(productionDate),
 		verificationDate: createDateISO(verificationDate),
+		dateOfCommissioning: createDateISO(dateOfCommissioning),
 	};
 };

@@ -4,11 +4,11 @@ export interface INotificationSettings {
 	/**
 	 * Включены ли уведомления у пользователя
 	 */
-	isNotificationEnabled: boolean;
+	isEnabled: boolean;
 	/**
 	 * Дата отправки уведомления
 	 */
-	dateOfSendingNotification: DATE_OF_SENDING_NOTIFICATION;
+	dateOfSending: DATE_OF_SENDING_NOTIFICATION;
 	/**
 	 * Диапазон средств измерений
 	 */
@@ -28,7 +28,7 @@ export interface IEmailSettings {
 	/**
 	 * Фильтр данных для почтового ящика
 	 */
-	emailFilters: IEmailFilter[];
+	filters: IEmailFilter[];
 
 	/**
 	 * Условия группировки фильтров данных для почтового ящика

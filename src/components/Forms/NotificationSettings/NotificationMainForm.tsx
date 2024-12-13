@@ -14,13 +14,13 @@ import SelectInputs from './SelectInputs';
 function NotificationMainForm() {
 	const { control, watch } = useFormContext<INotificationSettings>();
 
-	const switchNotification = watch('isNotificationEnabled');
+	const switchNotification = watch('isEnabled');
 
 	return (
 		<Box>
 			<Controller
 				control={control}
-				name='isNotificationEnabled'
+				name='isEnabled'
 				render={({ field: { value, ...props } }) => (
 					<FormControlLabel
 						sx={{ mb: 2 }}

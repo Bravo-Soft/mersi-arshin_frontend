@@ -58,7 +58,7 @@ export const useSidebarElements = (page: SidebarPages): ISidebarElement<SidebarS
 					headerTitle: SidebarTitles.NOTIFICATION_SETTINGS,
 				});
 			}
-			if (isFileStorage.enable) {
+			if (isFileStorage) {
 				sidebarElements.push({
 					Component: FilesDataItem,
 					selector: 'FilesDataItem',

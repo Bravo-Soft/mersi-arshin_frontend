@@ -82,7 +82,6 @@ function DataTableModulesButton(): JSX.Element {
 				}}
 				PaperProps={{ sx: { width: 280 } }}
 			>
-				<CreateVerificationScheduleMenuItem onCloseMenu={handleCloseModulesMenu} />
 				<TemplatesMenuItem
 					onOpenTemplateForm={handleToggleTemplateForm}
 					onCloseMenu={handleCloseModulesMenu}
@@ -95,10 +94,6 @@ function DataTableModulesButton(): JSX.Element {
 				<NotificationsMenuItem
 					onCloseMenu={handleCloseModulesMenu}
 					onMouseEnter={handlePrefetchUserNotificationSettings}
-				/>
-				<ExportMenuItem
-					onCloseMenu={handleCloseModulesMenu}
-					openTourMenuItems={actualStep === 11}
 				/>
 			</Menu>
 			<TemplateForm open={templateFormIsOpen} onClose={handleToggleTemplateForm} />

@@ -1,6 +1,8 @@
-import CreateRequestModal from 'features/dataTable/modules/Arshin/components/CreateRequestForm/CreateRequestModal';
 import DataTableArshin from 'features/dataTable/modules/Arshin/components/DataTableArshin';
+import CreatingRequestDialog from 'features/dataTable/modules/Arshin/components/Dialog/CreatingRequestDialog';
 import DeletingDialog from 'features/dataTable/modules/Arshin/components/Dialog/DeletingDialog';
+import DeletingRequestDialog from 'features/dataTable/modules/Arshin/components/Dialog/DeletingRequestDialog';
+import EditingRequestDialog from 'features/dataTable/modules/Arshin/components/Dialog/EditingRequestDialog';
 import FiltersDialog from 'features/dataTable/modules/Arshin/components/Dialog/FiltersDialog';
 import SynchronizeDialog from 'features/dataTable/modules/Arshin/components/Dialog/SynchronizeDialog';
 import ValidateDialog from 'features/dataTable/modules/Arshin/components/Dialog/ValidateDialog';
@@ -24,7 +26,9 @@ function ArshinIntegrationPage() {
 			<DeletingDialog />
 			<SynchronizeDialog />
 			<ValidateDialog />
-			<CreateRequestModal />
+			<CreatingRequestDialog />
+			<EditingRequestDialog />
+			<DeletingRequestDialog />
 		</PageBox>
 	);
 }

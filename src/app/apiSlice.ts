@@ -91,6 +91,7 @@ export const apiSlice = createApi({
 		'PushNotification',
 		'DownloadListFiles',
 		'RequestsList',
+		'History',
 	],
 	endpoints: () => ({}),
 });

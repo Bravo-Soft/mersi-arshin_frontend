@@ -1,59 +1,84 @@
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import StopIcon from '@mui/icons-material/Stop';
-import { Box, Card, CardContent, IconButton, Typography } from '@mui/material';
+import { Box, Card, CardContent, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 
-import { IRequestItem } from 'types/arshinIntegration';
+import { useArshinRequests } from '../../hooks/useArshinRequests';
+import { periodFormatter } from '../../utils/periodFormatter';
+
+import { ButtonsBlock } from './components/ButtonsBlock';
+
+import { dayjsFormatVariant } from 'constant/dateFormat';
+import { IRequestItem, REQUEST_STATUS } from 'types/arshinIntegration';
 
 export const RequestItem: React.FC<IRequestItem> = ({
-	requestTitle,
+	creator,
+	id,
+	name,
 	status,
-	fieldsDate,
-	periodicity,
+	range,
+	period,
+	sendEmail,
+	dataIds,
 }) => {
+	const { selectedRequest, handleSelectRequest } = useArshinRequests();
+
+	const statusColor =
+		status === REQUEST_STATUS.PROCESS
+			? '#014E5F'
+			: status === REQUEST_STATUS.READY
+			? '#2b92698e'
+			: '#d52929';
+
+	const selectRequest = () =>
+		handleSelectRequest({
+			creator,
+			id,
+			name,
+			status,
+			range,
+			period,
+			sendEmail,
+			dataIds,
+		});
+
 	return (
-		<Card sx={{ display: 'flex', background: '#f3f3f3' }}>
+		<Card
+			sx={{
+				display: 'flex',
+				background: selectedRequest?.id === id ? 'rgba(1, 78, 95, 0.08)' : '#fff',
+			}}
+		>
 			<Box
 				sx={{ flexDirection: 'column', width: '100%', cursor: 'pointer' }}
-				onClick={() => console.log(1)}
+				onClick={selectRequest}
 			>
-				<CardContent sx={{ flex: '1 0 auto' }}>
-					<Typography component='div' variant='body1'>
-						{requestTitle} - {status}
+				<CardContent sx={{ flex: '1 0 auto', py: 1 }}>
+					<Box display={'flex'} alignItems={'center'} gap={2}>
+						<Typography component='div' variant='body1'>
+							{name}
+						</Typography>
+
+						<Typography
+							component='div'
+							variant='body1'
+							sx={{ color: statusColor, fontWeight: 'bold' }}
+						>
+							{status}
+						</Typography>
+					</Box>
+
+					<Typography component='div' variant='caption'>
+						Диапазон даты: {dayjs(range[0]).format(dayjsFormatVariant)} -{' '}
+						{dayjs(range[1]).format(dayjsFormatVariant)}
 					</Typography>
 					<Typography component='div' variant='caption'>
-						Диапазон даты: {dayjs(fieldsDate[0]).format('DD.MM.YYYY')} -{' '}
-						{dayjs(fieldsDate[1]).format('DD.MM.YYYY')}
+						Периодичность: {periodFormatter(period)}
 					</Typography>
 					<Typography component='div' variant='caption'>
-						Периодичность: {periodicity} раз в сутки.
+						Автор: {creator}
 					</Typography>
 				</CardContent>
 			</Box>
-			<Box
-				sx={{
-					display: 'flex',
-					flexWrap: 'wrap',
-					alignItems: 'center',
-					justifyContent: 'flex-end',
-				}}
-			>
-				<IconButton aria-label='previous' disabled={status !== 'Отменен'}>
-					<PlayArrowIcon sx={{ height: 24, width: 24 }} />
-				</IconButton>
-				<IconButton aria-label='play/pause'>
-					{status === 'В процессе' ? (
-						<StopIcon sx={{ height: 24, width: 24 }} />
-					) : (
-						<DeleteIcon sx={{ height: 24, width: 24 }} />
-					)}
-				</IconButton>
-				<IconButton aria-label='next' disabled={status !== 'Отменен'}>
-					{<EditIcon sx={{ height: 24, width: 24 }} />}
-				</IconButton>
-			</Box>
+			<ButtonsBlock status={status} id={id} handleSelect={selectRequest} />
 		</Card>
 	);
 };

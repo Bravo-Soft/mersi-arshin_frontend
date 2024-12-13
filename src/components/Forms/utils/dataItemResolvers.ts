@@ -35,7 +35,6 @@ export const itemSchema = z.object({
 	location: z.string().max(512, mediumLengthField),
 	responsible: z.string().max(128, smallLengthField),
 	suitability: z.string(),
-	fgisUrl: z.string().max(256, largeLengthField),
 	additionalData: z.string().max(1024, biggerLengthField),
 	methodology: z.string().max(256, largeLengthField),
 	cost: z
@@ -50,8 +49,11 @@ export const itemSchema = z.object({
 		.number()
 		.positive('Число не может быть менее 0')
 		.lte(9999, 'Число не может быть больше чем 9999'),
-	verificationControlInStateRegister: z.boolean(),
 	id: z.string(),
+	conditionDescription: z.string(),
+	manufacturer: z.string(),
+	instrumentCertificate: z.string(),
+	snils: z.string(),
 });
 
 const dateSchema = z
@@ -59,15 +61,8 @@ const dateSchema = z
 		verificationDate: z
 			.instanceof(dayjs as unknown as typeof Dayjs, { message: 'Неверный формат даты' })
 			.refine(e => e.isValid(), 'Неверный формат даты')
-			.transform(e => new Date(e.format()))
-			.pipe(
-				z
-					.date({
-						required_error: 'Это обязательное поле',
-					})
-					.min(minDateConstant, minDateMessageConstant)
-					.max(maxDateConstant, maxDateMessageConstant)
-			),
+			.transform(e => new Date(e.format())),
+
 		dateOfTheNextVerification: z
 			.instanceof(dayjs as unknown as typeof Dayjs, { message: 'Неверный формат даты' })
 			.refine(e => e.isValid(), 'Неверный формат даты')
@@ -89,6 +84,16 @@ const dateSchema = z
 					.date({
 						required_error: 'Это обязательное поле',
 					})
+					.min(minDateConstant, minDateMessageConstant)
+					.max(maxDateConstant, maxDateMessageConstant)
+			),
+		dateOfCommissioning: z
+			.instanceof(dayjs as unknown as typeof Dayjs, { message: 'Неверный формат даты' })
+			.refine(e => e.isValid(), 'Неверный формат даты')
+			.transform(e => new Date(e.format()))
+			.pipe(
+				z
+					.date()
 					.min(minDateConstant, minDateMessageConstant)
 					.max(maxDateConstant, maxDateMessageConstant)
 			),
@@ -147,8 +152,9 @@ export const schema = itemSchema.and(dateSchema);
 export const createSchema = itemSchema
 	.omit({
 		id: true,
+		conditionDescription: true,
 	})
-	.and(z.object({ verificationControlInStateRegister: z.boolean() }))
+
 	.and(dateSchema);
 
 export const formResolver = zodResolver(schema);

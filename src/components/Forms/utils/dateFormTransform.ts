@@ -13,9 +13,9 @@ export const dateFormTransform = <T extends UpdatePropsType>(data: T) => {
 		suitability,
 		interVerificationInterval,
 		cost,
+		dateOfCommissioning,
 		...other
 	} = data;
-
 	return {
 		...other,
 		cost: parseFloat(cost).toFixed(2),
@@ -24,5 +24,6 @@ export const dateFormTransform = <T extends UpdatePropsType>(data: T) => {
 		dateOfTheNextVerification: createDateISO(dateOfTheNextVerification),
 		productionDate: createDateISO(productionDate),
 		verificationDate: createDateISO(verificationDate),
+		dateOfCommissioning: createDateISO(dateOfCommissioning),
 	};
 };

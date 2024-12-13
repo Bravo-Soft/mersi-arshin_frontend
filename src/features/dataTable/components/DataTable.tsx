@@ -1,5 +1,7 @@
+import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
 import LinearProgress from '@mui/material/LinearProgress';
-import { DataGridPro, useGridApiRef } from '@mui/x-data-grid-pro';
+import { DataGridPro, DataGridProProps, useGridApiRef } from '@mui/x-data-grid-pro';
+import { useCallback } from 'react';
 
 import columns from '../columns';
 import { useGetAllDataQuery } from '../dataTableApiSlice';
@@ -22,6 +24,7 @@ import { NoResultsOverlay } from './NoResultsOverlay';
 import { NoRowsOverlay } from './NoRowsOverlay';
 import { Toolbar } from './Toolbar';
 
+import HistoryCollapse from 'features/historyTable/components/HistoryCollapse/HistoryCollapse';
 import { useQuickTourActions } from 'features/quickTour/hooks/useQuickTourActions';
 import { selectSidebarStateOfHomePage } from 'features/sidebar/sidebarSlice';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
@@ -69,6 +72,14 @@ function DataTable(): JSX.Element {
 	//new
 	useQuickTourActions(apiRef);
 
+	//Функции для отрисовки подменю строки
+
+	const getDetailPanelContent = useCallback<
+		NonNullable<DataGridProProps['getDetailPanelContent']>
+	>(({ row }) => <HistoryCollapse row={row} />, []);
+
+	const getDetailPanelHeight = useCallback(() => 'auto', []);
+
 	return (
 		<DataTableBox sidebarIsOpen={sidebarIsOpen}>
 			<DataGridPro
@@ -95,6 +106,8 @@ function DataTable(): JSX.Element {
 				onRowDoubleClick={handleDoubleClickOnRow}
 				selectionModel={selectionModel}
 				getRowClassName={generateClasses}
+				getDetailPanelContent={getDetailPanelContent}
+				getDetailPanelHeight={getDetailPanelHeight}
 				initialState={{ columns: { columnVisibilityModel: {} } }}
 				components={{
 					LoadingOverlay: LinearProgress,
@@ -103,11 +116,13 @@ function DataTable(): JSX.Element {
 					ColumnMenu,
 					NoRowsOverlay,
 					NoResultsOverlay,
+					DetailPanelCollapseIcon: KeyboardArrowUp,
+					DetailPanelExpandIcon: KeyboardArrowDown,
 				}}
 				componentsProps={{
 					row: {
 						onContextMenu: actionsOfContextMenu.handleOpenContextMenu,
-						style: { cursor: 'pointer' },
+						// style: { cursor: 'pointer' },
 					},
 					filterPanel: {
 						id: 'filter-panel',

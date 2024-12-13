@@ -2,7 +2,12 @@ import type { GridCellParams, GridColDef } from '@mui/x-data-grid-pro';
 import cn from 'classnames';
 import dayjs from 'dayjs';
 
-import { RenderCellExpand, RenderCellExpandedRegister } from './components/RenderCellExpand';
+import {
+	RenderCellExpand /* RenderCellExpandedRegister */,
+	RenderCellExpandedRegister,
+} from './components/RenderCellExpand';
+import { RenderHeaderExpandRegister } from './components/RenderHeaderExpandRegister';
+
 import { formatDateCallback } from './utils/formatDateCallback';
 import { quickFilterDateFormat } from './utils/quickFilterDateFormat';
 
@@ -51,7 +56,9 @@ export const columns: GridColDef<IDataItem>[] = [
 	},
 	{
 		field: 'verificationControlInStateRegister',
-		headerName: ColumnNames.VERIFICATION_CONTROL_STATE_REGISTER,
+		renderHeader: RenderHeaderExpandRegister,
+		disableColumnMenu: true,
+		sortable: false,
 		width: initialWidth,
 		type: 'boolean',
 		headerAlign: 'center',
@@ -228,6 +235,38 @@ export const columns: GridColDef<IDataItem>[] = [
 	{
 		field: 'notes',
 		headerName: ColumnNames.NOTES,
+		width: initialWidth,
+		headerAlign: 'center',
+		renderCell: RenderCellExpand,
+	},
+	{
+		field: 'manufacturer',
+		headerName: ColumnNames.MANUFACTURER,
+		width: initialWidth,
+		headerAlign: 'center',
+		renderCell: RenderCellExpand,
+	},
+	{
+		field: 'dateOfCommissioning',
+		headerName: ColumnNames.DATE_OF_COMISSIONING,
+		width: initialWidth,
+		headerAlign: 'center',
+		type: 'date',
+		resizable: false,
+		valueFormatter: formatDateCallback,
+		getApplyQuickFilterFn: quickFilterDateFormat,
+	},
+	{
+		field: 'instrumentCertificate',
+		headerName: ColumnNames.INSTRUMENT_CERTIFICATE,
+		width: initialWidth,
+		headerAlign: 'center',
+		renderCell: RenderCellExpand,
+	},
+	{
+		field: 'snils',
+		hide: true,
+		headerName: ColumnNames.SNILS,
 		width: initialWidth,
 		headerAlign: 'center',
 		renderCell: RenderCellExpand,

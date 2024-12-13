@@ -43,7 +43,7 @@ function EmailInputs() {
 	const addNewEmail = () => {
 		append({
 			email: '',
-			emailFilters: [],
+			filters: [],
 			linkOperator: 'and',
 		});
 	};
@@ -83,7 +83,7 @@ function EmailInputs() {
 						flexGrow={1}
 					>
 						<NotificationAddButton
-							watchEmailFilters={watchEmailFilters[index].emailFilters.length}
+							watchEmailFilters={watchEmailFilters[index].filters.length}
 							handleClickFilters={handleClickFilters}
 							index={index}
 						/>

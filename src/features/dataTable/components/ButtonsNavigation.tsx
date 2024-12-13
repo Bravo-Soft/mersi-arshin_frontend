@@ -1,5 +1,4 @@
 import LockIcon from '@mui/icons-material/Lock';
-import ToggleButton from '@mui/material/ToggleButton';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -39,12 +38,12 @@ function ButtonsNavigation() {
 	return (
 		<StyledToggleButtonGroup
 			color='primary'
-			size='small'
+			size='medium'
 			exclusive
 			value={item}
 			onChange={handleChange}
 		>
-			<ToggleButton value={AppRoutes.HOME}>Средства Измерения</ToggleButton>
+			<StyledToggleButton value={AppRoutes.HOME}>Единый реестр</StyledToggleButton>
 			<StyledToggleButton moduleIsActive={isArshin || isLoading} value={AppRoutes.ARSHIN}>
 				Контроль поверки в госреестре
 				{!isArshin && !isLoading && <LockIcon sx={{ ml: 1 }} />}

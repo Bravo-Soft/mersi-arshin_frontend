@@ -89,11 +89,11 @@ export const theme = createTheme(
 				light: '#EAF0F2',
 			},
 			secondary: {
-				main: '#014E5F',
-				light: '#EAF0F2',
+				main: '#FFF',
+				contrastText: '#FFFFFF',
 			},
 			background: {
-				default: '#EDEEF0',
+				default: '#f0eded',
 				paper: '#FFF',
 			},
 		},

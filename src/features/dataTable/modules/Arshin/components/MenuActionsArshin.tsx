@@ -22,22 +22,16 @@ function MenuActionsArshin() {
 	const selectionIds = useAppSelector(selectSelectedDataIds);
 
 	const { anchorEl, open, handleCloseMenu, handleOpenMenu } = useMenuActions();
-	const { handleDeleteItems } = useArshinActions();
 
 	const isWorking = useAppSelector(selectIsWorkingArshin);
 
 	const isDeleteActive = Boolean(selectionIds.length);
 
-	const handleRemoveItems = async () => {
-		await handleDeleteItems();
-		handleCloseMenu();
-	};
-
 	const synchronizeModelData = useAppSelector(selectModelSynchronizeIds);
 
 	const synchronizeTableData = useAppSelector(selectSynchronizeIds);
 
-	const { handleModelSynchronize, handleSynchronize } = useArshinActions();
+	const { handleDeleteItems, handleModelSynchronize, handleSynchronize } = useArshinActions();
 
 	const handleAllSynchronize = () => {
 		handleCloseMenu();
@@ -64,12 +58,12 @@ function MenuActionsArshin() {
 				}
 				onClick={handleOpenMenu}
 			>
-				Перезаписать данные в МерСИ
+				Перезаписать данные в реестр
 			</Button>
 			<Button
 				disabled={!isDeleteActive}
 				startIcon={<DeleteIcon />}
-				onClick={handleRemoveItems}
+				onClick={handleDeleteItems}
 				sx={{
 					':hover': {
 						backgroundColor: red[50],

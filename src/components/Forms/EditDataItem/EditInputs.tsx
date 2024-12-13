@@ -4,6 +4,7 @@ import { editFields } from '../fields';
 import { useFilterAutocomplete } from '../hooks/useAutocomplete';
 
 import AutocompleteField from 'components/AutocompleteField';
+import ConditionSelect from 'components/ConditionSelect';
 import DateField from 'components/DateField';
 import SizeSelect from 'components/SizeSelect';
 import { selectedVisibleColumns } from 'features/dataTable/dataTableSlice';
@@ -24,9 +25,12 @@ function EditInputs({ isReader }: IEditInputsProps): JSX.Element {
 			{renderColumns.map(({ key, label, stringLength }) => {
 				switch (key) {
 					case 'productionDate':
+					case 'dateOfCommissioning':
 						return <DateField key={key} readOnly={isReader} nameOfKey={key} label={label} />;
 					case 'size':
 						return <SizeSelect key={key} readOnly={isReader} />;
+					case 'condition':
+						return <ConditionSelect key={key} readOnly={isReader} />;
 					default:
 						return (
 							<AutocompleteField

@@ -1,8 +1,8 @@
-import { useCancelArshinMutation, useStartArshinMutation, useValidateArshinMutation } from '../arshinTableApiSlice';
+import { useCreateNewRequestMutation, useValidateArshinMutation } from '../arshinTableApiSlice';
 import { resetState } from '../eventSourceSlice';
 
 import { useAppDispatch } from 'hooks/redux';
-
+import { IRequestItem } from 'types/arshinIntegration';
 /**
  * @package хук отправления данных на проверку в Arshin
  * @function handleStart => функция отправляет выбранную модель id на валидацию , в случае успеха данные пойдут на отправку
@@ -11,18 +11,17 @@ import { useAppDispatch } from 'hooks/redux';
  */
 
 export const useSendingArshin = () => {
-	const [arshinStart] = useStartArshinMutation();
-	const [arshinCancel] = useCancelArshinMutation();
+	const [sendRequest] = useCreateNewRequestMutation();
 	const [arshinValidate] = useValidateArshinMutation();
+
 	const dispatch = useAppDispatch();
 
-	const handleStart = async (data: string[]) => {
+	const handleStart = async (data: Omit<IRequestItem, 'id' | 'status' | 'creator'>) => {
 		await arshinValidate(data).unwrap();
-		await arshinStart(data).unwrap();
+		await sendRequest(data).unwrap();
 	};
 
 	const handleCancel = async () => {
-		await arshinCancel().unwrap();
 		dispatch(resetState());
 	};
 

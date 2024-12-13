@@ -17,7 +17,12 @@ export const printingSort = (tag: ITag) => {
 		.map(e => copy[e]);
 };
 
-const dateArray = ['Дата производства', 'Дата следующей поверки', 'Дата поверки'];
+const dateArray = [
+	'Дата производства',
+	'Дата следующих МР',
+	'Дата МР',
+	'Дата ввода в эксплуатацию',
+];
 
 export const printingManySort = (tags: ITag[]): ISortedTagItems[] => {
 	return tags.map(({ id, size, ...el }) => ({

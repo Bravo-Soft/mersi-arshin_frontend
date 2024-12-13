@@ -21,7 +21,7 @@ function ExportMenuItem({
 }: IModuleMenuItemPropsAndOpenTourProps): JSX.Element {
 	const [open, setOpen] = useState(openTourMenuItems);
 
-	const { handleUploadToCSV, handleUploadToXLSX, downloadDataXML } = useUploadHandlers({
+	const { handleUploadToCSV, handleUploadToXLSX } = useUploadHandlers({
 		onCloseMenu,
 	});
 
@@ -35,7 +35,7 @@ function ExportMenuItem({
 				<ListItemIcon>
 					<UploadIcon />
 				</ListItemIcon>
-				<ListItemText>Выгрузить</ListItemText>
+				<ListItemText>Единый реестр</ListItemText>
 				<ExpandIcon
 					color='action'
 					sx={{
@@ -57,12 +57,6 @@ function ExportMenuItem({
 							<ExcelIcon />
 						</ListItemIcon>
 						<ListItemText primary='Выгрузить в XLSX' />
-					</StyledMenuItem>
-					<StyledMenuItem moduleIsActive={true} onClick={downloadDataXML}>
-						<ListItemIcon>
-							<ExcelIcon />
-						</ListItemIcon>
-						<ListItemText primary='Выгрузить в XML' />
 					</StyledMenuItem>
 				</StyledMenuList>
 			</Collapse>

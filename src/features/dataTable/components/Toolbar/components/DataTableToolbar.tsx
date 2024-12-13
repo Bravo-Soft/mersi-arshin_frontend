@@ -19,6 +19,7 @@ import DataTableToolbarFilter from './DataTableToolbarFilter';
 import { scrollbarStyles } from './scrollbarStyles';
 
 import DataTableModulesButton from 'features/dataTable/modules/DataTableModulesButton';
+import DataTableReportsButton from 'features/dataTable/modules/DataTableReportsButton';
 import { selectActualStep, selectMenuStart } from 'features/quickTour/components/quickTourSlice';
 import { useAppSelector } from 'hooks/redux';
 
@@ -86,16 +87,17 @@ function DataTableToolbar(): JSX.Element {
 							<DataTableColumnButton />
 						</div>
 
-						<div id='density'>
+						{/* <div id='density'>
 							<Tooltip title='Настройка высоты строк в таблице'>
 								<GridToolbarDensitySelector ref={densityRef} />
 							</Tooltip>
-						</div>
+						</div> */}
 
 						<div id='filter'>
 							<GridToolbarFilterButton />
 						</div>
 
+						<DataTableReportsButton />
 						<DataTableModulesButton />
 					</Stack>
 				</Toolbar>

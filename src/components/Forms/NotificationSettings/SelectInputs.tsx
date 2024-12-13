@@ -15,7 +15,7 @@ function SelectInputs() {
 		<Stack gap={1}>
 			<Controller
 				control={control}
-				name='dateOfSendingNotification'
+				name='dateOfSending'
 				render={({ field }) => (
 					<FormControl fullWidth variant='standard'>
 						<InputLabel id='select-date-of-sending-label'>

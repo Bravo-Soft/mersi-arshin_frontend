@@ -14,6 +14,7 @@ import { createResolver } from './utils/dataItemResolvers';
 import { dateFormTransform } from './utils/dateFormTransform';
 
 import AutocompleteField from 'components/AutocompleteField';
+import ConditionSelect from 'components/ConditionSelect';
 import DateField from 'components/DateField';
 import SizeSelect from 'components/SizeSelect';
 import SuitabilitySelect from 'components/SuitabilitySelect';
@@ -24,7 +25,7 @@ import {
 	useGetAllDataQuery,
 } from 'features/dataTable/dataTableApiSlice';
 import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
-import { selectUserPermissions } from 'features/user/userSlice';
+import { selectUserPermissions, selectUserRoles } from 'features/user/userSlice';
 import { isValueDefined } from 'guards/isValueDefined';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import ButtonContainer from 'styled/ButtonContainer';
@@ -41,7 +42,7 @@ const defaultValues = {
 	dateOfTheNextVerification: today,
 	accuracyClass: '',
 	certificate: '',
-	condition: '',
+	condition: 'В работе',
 	division: '',
 	factoryNumber: '',
 	interVerificationInterval: 1,
@@ -57,16 +58,19 @@ const defaultValues = {
 	location: '',
 	responsible: '',
 	suitability: 'false',
-	fgisUrl: '',
 	additionalData: '',
 	methodology: '',
 	cost: '0',
-	verificationControlInStateRegister: false,
+	manufacturer: '',
+	dateOfCommissioning: today,
+	instrumentCertificate: '',
+	snils: '',
 };
 
 function CreateDataItem(): JSX.Element {
 	const dispatch = useAppDispatch();
 	const { maxRowsPerTable } = useAppSelector(selectUserPermissions);
+	const { isReader } = useAppSelector(selectUserRoles);
 
 	const { data } = useGetAllDataQuery();
 	const [createNewItem, { isLoading, isSuccess }] = useCreateNewDataItemMutation();
@@ -116,16 +120,21 @@ function CreateDataItem(): JSX.Element {
 				return <SuitabilitySelect key={key} />;
 			case 'productionDate':
 			case 'dateOfTheNextVerification':
+			case 'dateOfCommissioning':
 				return <DateField key={key} nameOfKey={key} label={label} />;
 			case 'verificationDate':
 				return (
 					<Fragment key={key}>
 						<Box my={2}>
-							<Divider sx={{ color: 'text.secondary', fontWeight: 500 }}>Поверка СИ</Divider>
+							<Divider sx={{ color: 'text.secondary', fontWeight: 500 }}>
+								Метрологические работы
+							</Divider>
 						</Box>
 						<DateField nameOfKey={key} label={label} />
 					</Fragment>
 				);
+			case 'condition':
+				return <ConditionSelect key={key} readOnly={isReader} />;
 			case 'interVerificationInterval':
 				return (
 					<Controller
@@ -162,29 +171,7 @@ function CreateDataItem(): JSX.Element {
 						type='number'
 					/>
 				);
-			case 'fgisUrl':
-				return (
-					<Controller
-						name={key}
-						key={key}
-						control={control}
-						render={({ field: { onChange, value, ref }, fieldState: { error } }) => (
-							<TextField
-								value={value}
-								onChange={e => {
-									onChange(e.target.value);
-									trigger(key);
-								}}
-								label={label}
-								error={Boolean(error)}
-								helperText={error?.message ?? ' '}
-								inputRef={ref}
-								InputLabelProps={{ shrink: true }}
-								inputProps={{ maxLength: stringLength }}
-							/>
-						)}
-					/>
-				);
+
 			default:
 				return (
 					<AutocompleteField

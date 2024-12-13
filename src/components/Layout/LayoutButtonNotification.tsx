@@ -43,10 +43,21 @@ function LayoutButtonNotification() {
 	return (
 		<>
 			<Tooltip title='Уведомления'>
-				<StyledLayoutNotificationBtn onClick={handleOpen} moduleIsActive={isArshin}>
+				<StyledLayoutNotificationBtn
+					onClick={handleOpen}
+					moduleIsActive={isArshin}
+					size='small'
+				>
 					<Badge badgeContent={notification.length} color='info' variant='dot'>
-						<NotificationsIcon sx={{ color: '#ffffff' }} />
+						<NotificationsIcon fontSize='small' sx={{ color: '#ffffff' }} />
 					</Badge>
+					<Typography
+						variant='button'
+						fontSize='small'
+						sx={{ color: '#ffffff', marginLeft: 1 }}
+					>
+						Уведомления
+					</Typography>
 				</StyledLayoutNotificationBtn>
 			</Tooltip>
 			<StyledLayoutNotificationPopover

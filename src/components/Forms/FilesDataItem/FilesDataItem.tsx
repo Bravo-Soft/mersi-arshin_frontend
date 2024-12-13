@@ -28,7 +28,7 @@ function FilesDataItem(): JSX.Element {
 
 	/* Селекторы */
 	const selectedDataItem = useAppSelector(selectSelectedDataItem);
-	const { isFileStorage } = useAppSelector(selectUserPermissions);
+	const { isFileStorage, maxSizePerRow } = useAppSelector(selectUserPermissions);
 	const { isWriter, isAdmin } = useAppSelector(selectUserRoles);
 	const { open } = useAppSelector(selectSidebarStateOfHomePage);
 
@@ -47,7 +47,7 @@ function FilesDataItem(): JSX.Element {
 		files,
 		setFiles,
 		documents,
-		maxSizeOfSpacePerPosition: isFileStorage.maxSizePerRow,
+		maxSizeOfSpacePerPosition: maxSizePerRow,
 	});
 
 	/* Обработка ошибки недопустимого типа файла */
@@ -105,7 +105,7 @@ function FilesDataItem(): JSX.Element {
 				)}
 
 				<SpaceNotification
-					maxSizeOfSpacePerPosition={isFileStorage.maxSizePerRow}
+					maxSizeOfSpacePerPosition={maxSizePerRow}
 					occupiedSpace={occupiedSpace}
 				/>
 				<FilesList documents={documents} itemId={selectedDataItem?.id} />

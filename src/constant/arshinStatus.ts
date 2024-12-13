@@ -12,3 +12,9 @@ export const arshinFilterStatusDone = {
 	operatorValue: 'is',
 	value: ArshinStatus.DONE,
 };
+export const arshinFilterMyItems = (currentUserId: string) => ({
+	columnField: 'userIds',
+	operatorValue: 'is',
+	value: ArshinStatus.DONE,
+	userIds: { $in: [currentUserId] },
+});

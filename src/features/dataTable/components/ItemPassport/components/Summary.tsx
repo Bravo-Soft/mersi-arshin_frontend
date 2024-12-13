@@ -1,5 +1,4 @@
 import { TableCell, TableRow, Typography } from '@mui/material';
-import dayjs from 'dayjs';
 
 import { type ISummary } from '../types';
 
@@ -68,23 +67,6 @@ export const Summary = ({ summaryData }: { summaryData: ISummary }) => {
 				<TableCell colSpan={4} sx={{ color: '#014E5F', fontWeight: 'bold' }}>
 					{interVerificationInterval} мес.
 				</TableCell>
-			</StyledTableRow>
-
-			{/* <StyledTableRow>
-				<TableCell colSpan={4} sx={{ color: '#014E5F', fontWeight: 'bold' }}>
-					12 мес. с 01.01.2021
-				</TableCell>
-			</StyledTableRow> */}
-
-			<StyledTableRow>
-				<TableCell
-					colSpan={6}
-					sx={{
-						color: '#014E5F',
-						fontWeight: 'bold',
-						background: '#014E5F',
-					}}
-				/>
 			</StyledTableRow>
 		</>
 	);

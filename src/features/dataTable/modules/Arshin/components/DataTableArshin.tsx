@@ -1,12 +1,15 @@
 import LinearProgress from '@mui/material/LinearProgress';
 import { DataGridPro, GridSelectionModel, useGridApiRef } from '@mui/x-data-grid-pro';
 
-import { useGetDataQuery } from '../arshinTableApiSlice';
+import { useGetGroupDataQuery, useGetRequestDataQuery } from '../arshinTableApiSlice';
+import { selectRequest } from '../arshinTableSlice';
 import { columnsArshin } from '../config/columns';
 import { useApplyTemplate } from '../hooks/useApplyTemplate';
+// import { useArshinRequests } from '../hooks/useArshinRequests';
 import { useContextMenuActions } from '../hooks/useContextMenuActions';
+import { useFilterArshin } from '../hooks/useFilterArshin';
 import useTableActions from '../hooks/useTableActions';
-import { useProcessArshin } from '../hooks/useWorkingArshin';
+// import { useProcessArshin } from '../hooks/useWorkingArshin';
 
 import ContextMenuArshin from './ContextMenuArshin';
 import DataTableArshinToolbar from './DataTableArshinToolbar';
@@ -24,45 +27,61 @@ const emptyData: IDataItemArshin[] = [];
 
 function DataTableArshin() {
 	const apiRef = useGridApiRef();
-	const isOpen = useProcessArshin();
+	// const isOpen = useProcessArshin();
 
 	useApplyTemplate(apiRef);
-	const { data, isFetching } = useGetDataQuery(undefined, {
+	const { data, isFetching } = useGetGroupDataQuery(undefined, {
 		refetchOnMountOrArgChange: true,
-		skip: !isOpen,
+		pollingInterval: 30000,
+		// skip: !isOpen,
 		selectFromResult: ({ data, isFetching }) => ({
 			data: data ?? emptyData,
 			isFetching,
 		}),
 	});
+	const selectedRequest = useAppSelector(selectRequest);
+	const { data: requestDataItems = [], isLoading } = useGetRequestDataQuery(
+		selectedRequest?.id ?? '',
+		{
+			skip: !selectedRequest,
+		}
+	);
 
-	const { selectionIds, handleSelectItems, handleDisabledSelectedRow, handleGetCellClassName } =
-		useTableActions();
+	const {
+		selectionIds,
+		handleSelectItems,
+		handleDisabledSelectedRow,
+		handleGetCellClassName,
+		handleDoubleClickOnRow,
+	} = useTableActions();
 
 	const { open: sidebarIsOpen, selector } = useAppSelector(selectSidebarStateOfArshinPage);
 
 	const { contextMenu, actions } = useContextMenuActions(data);
+
+	const filteredData = useFilterArshin(data);
 
 	return (
 		<DataTableBox sidebarIsOpen={sidebarIsOpen} selector={selector}>
 			<DataGridPro
 				apiRef={apiRef}
 				columns={columnsArshin}
-				rows={data}
+				rows={filteredData || requestDataItems}
 				loading={isFetching}
-				// disableColumnMenu
 				pagination
 				checkboxSelection
+				// disableColumnMenu
 				// disableColumnFilter
-				disableSelectionOnClick
+				// disableSelectionOnClick
 				// disableColumnResize
 				// disableColumnReorder
-				disableColumnSelector
+				// onRowDoubleClick={handleDoubleClickOnRow}
+				// disableColumnSelector
 				density='compact'
 				components={{
 					LoadingOverlay: LinearProgress,
 					Toolbar: DataTableArshinToolbar,
-					ColumnMenu, // add column menu
+					ColumnMenu,
 					NoRowsOverlay,
 					NoResultsOverlay,
 				}}
@@ -81,7 +100,7 @@ function DataTableArshin() {
 			/>
 
 			<ContextMenuArshin contextMenu={contextMenu} actions={actions} />
-			<ProcessArshin apiRef={apiRef} />
+			{/* <ProcessArshin apiRef={apiRef} /> */}
 		</DataTableBox>
 	);
 }

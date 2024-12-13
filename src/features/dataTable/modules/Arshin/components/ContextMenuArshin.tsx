@@ -1,3 +1,4 @@
+import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { SvgIconProps } from '@mui/material';
@@ -8,6 +9,7 @@ import Menu from '@mui/material/Menu';
 
 import { selectSelectedArshin } from '../arshinTableSlice';
 import { useArshinActions } from '../hooks/useArshinActions';
+import { useArshinRequests } from '../hooks/useArshinRequests';
 import { UseArshinContextMenuActionsReturned } from '../hooks/useContextMenuActions';
 
 import UpdateMenuItem from './UpdateMenuItem';
@@ -25,7 +27,7 @@ interface IMenuItem {
 
 function ContextMenuArshin({ contextMenu, actions }: UseArshinContextMenuActionsReturned) {
 	const { handleDeleteItems, handleContextMenuEditArshinItem } = useArshinActions();
-
+	const { handleCreateRequest } = useArshinRequests();
 	const selectedDataIds = useAppSelector(selectSelectedArshin);
 
 	const { handleCloseContextMenu } = actions;
@@ -36,6 +38,12 @@ function ContextMenuArshin({ contextMenu, actions }: UseArshinContextMenuActions
 			Icon: EditIcon,
 			isDisabled: true,
 			action: handleContextMenuEditArshinItem,
+		},
+		{
+			title: 'Создать запрос',
+			Icon: AddIcon,
+			isDisabled: Boolean(selectedDataIds?.length),
+			action: handleCreateRequest,
 		},
 		{
 			title: 'Удалить выделенное',

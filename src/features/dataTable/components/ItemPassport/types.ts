@@ -17,14 +17,28 @@ export interface ISummary
 	startDate: string;
 }
 
-export type itemVerification = {
+export type ItemVerification = {
 	verificationDate: string;
-	workType: string;
-	document: string;
+	typeOfWork: string;
+	certificate: string;
 	organization: string;
-	resolution: string;
-	fio: string;
+	suitability: string | boolean;
+	editedBy: string;
 };
+
+export type ItemRepair = {
+	modificationDate: string;
+	conditionDescription: string;
+	editedBy: string;
+};
+
+export interface IPassportData {
+	division: string[];
+	organization: string;
+	summaryData: ISummary;
+	verifications: ItemVerification[];
+	repairs: ItemRepair[];
+}
 
 export interface IPassportMock {
 	passportId: string;
@@ -36,6 +50,6 @@ export interface IPassportMock {
 	measuringRange: string;
 	factoryNumber: string;
 	accuracyClass: string;
-	verifications: itemVerification[];
-	repairs: any[];
+	verifications: ItemVerification[];
+	repairs: ItemRepair[];
 }

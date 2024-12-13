@@ -91,12 +91,13 @@ export const useUploadHandlers = ({ onCloseMenu }: IUseUploadHandlers) => {
 			'<?xml version="1.0" encoding="UTF-8"?>\n<Message xsi:noNamespaceSchemaLocation="schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">\n<VerificationMeasuringInstrumentData>\n';
 
 		filteredData.forEach(
-			({ stateRegister, verificationDate, dateOfTheNextVerification, type }) => {
+			({ stateRegister, verificationDate, dateOfTheNextVerification, type, suitability }) => {
 				xml += '  <VerificationMeasuringInstrument>\n';
 				xml += `		<NumberVerification>${stateRegister}</NumberVerification>`;
 				xml += `		<DateVerification>${verificationDate}</DateVerification>`;
 				xml += `		<DateEndVerification>${dateOfTheNextVerification}</DateEndVerification>`;
 				xml += `		<TypeMeasuringInstrument>${type}</TypeMeasuringInstrument>`;
+				xml += `		<ResultVerification>${suitability ? 1 : 2}</ResultVerification>`;
 				xml += '  </VerificationMeasuringInstrument>\n';
 			}
 		);

@@ -16,7 +16,7 @@ type Props = {
 };
 
 function ArshinEditInputs({ arshinItems, activeStep, handleBack, isLastStep }: Props) {
-	useValdatingForm();
+	// useValdatingForm();
 
 	return (
 		<>

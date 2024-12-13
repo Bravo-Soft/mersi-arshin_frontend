@@ -1,6 +1,6 @@
 export const notificationDefaultValue = {
-	isNotificationEnabled: false,
+	isEnabled: false,
 	subscribedEmails: [],
-	dateOfSendingNotification: 1,
+	dateOfSending: 1,
 	rangeOfSelection: 1,
 };

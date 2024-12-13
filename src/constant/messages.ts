@@ -86,4 +86,17 @@ export enum Messages {
 	FAILED_ARSHIN_ITEMS_ADDED = 'Не удалось добавить позицию(и) в Контроль поверки в Госреестре',
 	FAILED_ARSHIN_ITEM_UPDATED = 'Не удалось обновить позицию(и)',
 	FAILED_ITEM_HISTORY_LOADING = 'Невозможно отобразить историю: заводской номер прибора не указан!',
+
+	//Диалоги- Запросы в Аршин
+	DELETE_REQUEST = 'Вы действительно хотите удалить запрос? Это действие невозможно отменить!',
+
+	//Уведомления - Запросы в Аршин - Успешные
+	REQUEST_SUCCESSFULLY_SENDED = 'Новый запрос успешно отправлен!',
+	REQUEST_SUCCESSFULLY_EDIT = 'Изменения внесены',
+	REQUEST_SUCCESSFULLY_DELETED = 'Запрос успешно удален',
+
+	//Уведомления - Запросы в Аршин - Ошибочные
+	FAILED_SEND_REQUEST = 'Не удалось отправить запрос',
+	FAILED_EDIT_REQUEST = 'Не удалось изменить запрос',
+	FAILED_DELETE_REQUEST = 'Не удалось удалить запрос',
 }

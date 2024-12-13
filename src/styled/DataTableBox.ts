@@ -158,12 +158,12 @@ const TableBox = styled(Box, {
 			color: '#000',
 		},
 		'& .cellUpdated': {
-			backgroundColor: '#22abc9ac',
-			color: '#000',
+			backgroundColor: '#014e5fa8',
+			color: '#fff',
 		},
 		'& .cellRemoved': {
-			backgroundColor: red[50],
-			color: red[700],
+			backgroundColor: '#ff7e7ae3',
+			color: '#000',
 		},
 
 		'& .overdueItem': {

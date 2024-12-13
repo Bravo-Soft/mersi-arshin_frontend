@@ -12,7 +12,13 @@ export const convertColumnsToObjectView = (
 
 	appColums
 		.map(col => col.field)
-		.filter(col => col !== 'notes' && col !== 'size')
+		.filter(
+			col =>
+				col !== 'notes' &&
+				col !== 'size' &&
+				col !== 'verificationControlInStateRegister' &&
+				col !== 'fgisUrl'
+		)
 		.forEach(key => {
 			const value = visibleColumns.includes(key);
 			result[key] = value;

@@ -87,7 +87,7 @@ export interface IDataItem {
 	/**
 	 * Контроль поверки в Госреестр
 	 */
-	verificationControlInStateRegister: boolean;
+	verificationControlInStateRegister?: boolean;
 	/**
 	 * Местоположение СИ
 	 */
@@ -103,7 +103,7 @@ export interface IDataItem {
 	/**
 	 * Ссылка
 	 */
-	fgisUrl: string;
+	fgisUrl?: string;
 	/**
 	 * Доп. Данные
 	 */
@@ -120,6 +120,26 @@ export interface IDataItem {
 	 * Вид
 	 */
 	view: string;
+	/**
+	 * Завод-изготовитель
+	 */
+	manufacturer: string;
+	/**
+	 * Дата производства
+	 */
+	dateOfCommissioning: string;
+	/**
+	 * Аттестат
+	 */
+	instrumentCertificate: string;
+	/**
+	 * СНИЛС
+	 */
+	snils: string;
+	/**
+	 * Комментарий к ремонту (опционально)
+	 */
+	conditionDescription?: string;
 }
 
 export interface IDocument {
@@ -139,7 +159,10 @@ export interface IDocument {
 
 /* Интерфейс копирует родительский, но только изменяет тип данных трёх ключей. Необходим для отправки формы на сервер */
 export interface IDataItemWithDates
-	extends Omit<IDataItem, 'verificationDate' | 'productionDate' | 'dateOfTheNextVerification'> {
+	extends Omit<
+		IDataItem,
+		'verificationDate' | 'productionDate' | 'dateOfTheNextVerification' | 'dateOfCommissioning'
+	> {
 	/**
 	 * Дата поверки
 	 */
@@ -152,4 +175,12 @@ export interface IDataItemWithDates
 	 * Дата следующией поверки
 	 */
 	dateOfTheNextVerification: Dayjs;
+	/**
+	 * Дата ввода в эксплуатацию
+	 */
+	dateOfCommissioning: Dayjs;
+}
+
+export interface IConditionData extends Pick<IDataItem, 'id' | 'condition'> {
+	description: string;
 }

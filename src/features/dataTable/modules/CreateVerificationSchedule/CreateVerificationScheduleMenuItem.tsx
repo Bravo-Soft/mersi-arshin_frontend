@@ -33,7 +33,9 @@ function CreateVerificationScheduleMenuItem({
 			<ListItemIcon>
 				<AddchartIcon />
 			</ListItemIcon>
-			<ListItemText>Создать график поверки</ListItemText>
+			<ListItemText sx={{ whiteSpace: 'normal' }}>
+				График метрологических работ (МР)
+			</ListItemText>
 		</StyledMenuItem>
 	);
 }

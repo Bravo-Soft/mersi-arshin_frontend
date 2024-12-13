@@ -41,16 +41,12 @@ export const selectUserPermissions = ({ user }: RootState) => ({
 	maxRowsPerTable: user.groupInfo?.maxRowsPerTable ?? 0,
 	maxNumberUserTemplates: user.groupInfo?.maxNumberUserTemplates ?? 0,
 	maxNumberUsersAccountGroup: user.groupInfo?.maxNumberUsersAccountGroup ?? 0,
-	isGroupAdministration: user.groupInfo?.groupModules.isGroupAdministration ?? false,
-	isPrintLabel: user.groupInfo?.groupModules.isPrintLabel ?? false,
-	isReceiveNotifications: user.groupInfo?.groupModules.isReceiveNotifications ?? false,
-	isFileStorage: {
-		enable: user.groupInfo?.groupModules.isFileStorage.enable ?? false,
-		maxSizePerRow: user.groupInfo?.groupModules.isFileStorage.maxSizePerRow
-			? user.groupInfo.groupModules.isFileStorage.maxSizePerRow
-			: 0,
-	},
-	isArshin: user.groupInfo?.groupModules.hasArhinIntegration ?? false,
+	isGroupAdministration: user.groupInfo?.isGroupAdministration ?? false,
+	isPrintLabel: user.groupInfo?.isPrintLabel ?? false,
+	isReceiveNotifications: user.groupInfo?.isReceiveNotifications ?? false,
+	isFileStorage: user.groupInfo?.isFileStorage ?? false,
+	maxSizePerRow: user.groupInfo?.maxSizePerRow ? user.groupInfo?.maxSizePerRow : 0,
+	isArshin: user.groupInfo?.hasArhinIntegration ?? false,
 });
 
 export const selectUserId = (state: RootState) => state.user.id;

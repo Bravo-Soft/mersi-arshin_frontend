@@ -1,37 +1,20 @@
 import AddIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button';
 
-import { selectUploadModelIds, setCreateRequestModal } from '../arshinTableSlice';
+import { useArshinRequests } from '../hooks/useArshinRequests';
 
-import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import { ArshinStatus } from 'constant/arshinStatus';
 
 function ArshinSendingBtn() {
-	// const apiRef = useGridApiContext();
-	// const { handleStart } = useSendingArshin();
-	// const isWorking = useAppSelector(selectIsWorkingArshin);
+	const { handleCreateRequest, selectedDataItems } = useArshinRequests();
 
-	const processData = useAppSelector(selectUploadModelIds);
-	// const { closeSidebar } = useSidebarAction('arshin');
-
-	const dispatch = useAppDispatch();
-	// const handleSend = async () => {
-	// 	closeSidebar();
-	// 	await handleStart(processData);
-	// 	apiRef.current.setSelectionModel([]);
-	// };
-
-	const handleOpenCreateRequestModal = async () => {
-		dispatch(setCreateRequestModal(true));
-	};
+	const isReady = selectedDataItems?.some(({ status }) => status === ArshinStatus.DONE);
 
 	return (
-		// <Button disabled={!processData.length} startIcon={<GetAppIcon />} onClick={handleSend}>
-		// 	{isWorking ? 'Добавить сейчас' : 'Получить сейчас'}
-		// </Button>
 		<Button
 			startIcon={<AddIcon />}
-			disabled={!processData.length}
-			onClick={handleOpenCreateRequestModal}
+			disabled={!selectedDataItems.length || isReady}
+			onClick={handleCreateRequest}
 		>
 			Создать запрос
 		</Button>
