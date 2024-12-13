@@ -14,7 +14,6 @@ import {
 	selectSelectedDataItems,
 	setFilterType,
 	selectSelectedArshin,
-	selectUploadModelIds,
 } from '../arshinTableSlice';
 import {
 	changeDialogState,
