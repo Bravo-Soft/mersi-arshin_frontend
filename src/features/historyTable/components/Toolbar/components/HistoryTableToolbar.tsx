@@ -12,10 +12,10 @@ import { useRef } from 'react';
 import { useParams } from 'react-router-dom';
 
 import DataTableColumnButton from './DataTableColumnButton';
+import ReportsButton from './ReportsButton';
 import { scrollbarStyles } from './scrollbarStyles';
 
 import ButtonsNavigation from 'features/dataTable/components/ButtonsNavigation';
-import DataTableModulesButton from 'features/dataTable/modules/DataTableModulesButton';
 
 function HistoryTableToolbar(): JSX.Element {
 	const { itemId } = useParams();
@@ -50,18 +50,22 @@ function HistoryTableToolbar(): JSX.Element {
 						<div id='column'>
 							<DataTableColumnButton />
 						</div>
-
+						{/* 
 						<div id='density'>
 							<Tooltip title='Настройка высоты строк в таблице'>
 								<GridToolbarDensitySelector ref={densityRef} />
 							</Tooltip>
-						</div>
+						</div> */}
 
 						<div id='filter'>
 							<GridToolbarFilterButton />
 						</div>
 
-						<DataTableModulesButton />
+						{/* <DataTableModulesButton />
+
+						 */}
+
+						<ReportsButton />
 					</Stack>
 				</Toolbar>
 			</GridToolbarContainer>

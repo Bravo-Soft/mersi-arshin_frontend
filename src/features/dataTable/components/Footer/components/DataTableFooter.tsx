@@ -16,9 +16,6 @@ import { selectActualStartTour } from 'features/quickTour/components/quickTourSl
 import { selectUserRoles } from 'features/user/userSlice';
 import { useAppSelector } from 'hooks/redux';
 
-
-
-
 function DataTableFooter(): JSX.Element {
 	const { isWriter, isAdmin } = useAppSelector(selectUserRoles);
 	const startIsMenu = useAppSelector(selectActualStartTour);
@@ -26,7 +23,6 @@ function DataTableFooter(): JSX.Element {
 	const apiRef = useGridApiContext();
 	const selectedRowCount = useGridSelector(apiRef, selectedGridRowsCountSelector);
 	const { spacing } = useTheme();
-
 
 	return (
 		<GridFooterContainer>

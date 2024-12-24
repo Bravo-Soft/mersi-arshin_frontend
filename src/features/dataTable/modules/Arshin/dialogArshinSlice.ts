@@ -7,7 +7,6 @@ export type DialogVariants =
 	| 'synchronize'
 	| 'deleting'
 	| 'validate'
-	| 'filter'
 	| 'createRequest'
 	| 'editRequest'
 	| 'deleteRequest'
@@ -43,9 +42,6 @@ export const selectEditingRequestDialog = (state: RootState) =>
 	state.dialogArshin.variant === 'editRequest';
 export const selectDeletingRequestDialog = (state: RootState) =>
 	state.dialogArshin.variant === 'deleteRequest';
-
-export const selectOpenFilterDialogArshin = (state: RootState) =>
-	state.dialogArshin.variant === 'filter';
 
 export const selectIsOpenDialog = (state: RootState) => Boolean(state.dialogArshin.variant);
 

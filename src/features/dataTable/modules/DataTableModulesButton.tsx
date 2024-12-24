@@ -2,11 +2,8 @@ import ExpandIcon from '@mui/icons-material/ExpandMore';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import Tooltip from '@mui/material/Tooltip';
-import { useRef, useState, useEffect } from 'react';
-import type { MouseEvent } from 'react';
+import { useRef, useState, useEffect, type MouseEvent } from 'react';
 
-import CreateVerificationScheduleMenuItem from './CreateVerificationSchedule/CreateVerificationScheduleMenuItem';
-import ExportMenuItem from './Export/ExportMenuItem';
 import NotificationsMenuItem from './Notifications/NotificationsMenuItem';
 import TemplateForm from './Templates/TemplateForm';
 import TemplatesMenuItem from './Templates/TemplatesMenuItem';

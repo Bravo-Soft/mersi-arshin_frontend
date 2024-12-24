@@ -20,6 +20,7 @@
 		"@types/node": "^16.7.13",
 		"@types/react": "^18.0.0",
 		"@types/react-dom": "^18.0.0",
+		"@typescript-eslint/parser": "^8.18.1",
 		"async-mutex": "^0.4.0",
 		"classnames": "^2.3.1",
 		"dayjs": "^1.11.9",
@@ -37,6 +38,7 @@
 		"react-scripts": "5.0.1",
 		"react-to-print": "^2.14.10",
 		"typescript": "^4.4.2",
+		"typescript-eslint": "^8.18.1",
 		"web-vitals": "^2.1.0",
 		"zod": "^3.21.4"
 	},
@@ -72,10 +74,10 @@
 		]
 	},
 	"devDependencies": {
-		"eslint": "^8.23.0",
+		"eslint": "^8.38.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-import-resolver-typescript": "^3.5.5",
-		"eslint-plugin-import": "^2.27.5",
+		"eslint-plugin-import": "^2.31.0",
 		"eslint-plugin-react-refresh": "^0.4.1",
 		"husky": "^8.0.2",
 		"prettier": "^2.7.1"

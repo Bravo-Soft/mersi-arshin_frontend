@@ -1,6 +1,14 @@
 import CloseIcon from '@mui/icons-material/Close';
 import PrintIcon from '@mui/icons-material/Print';
-import { Button, ButtonGroup, Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
+import {
+	Box,
+	Button,
+	ButtonGroup,
+	Dialog,
+	DialogContent,
+	DialogTitle,
+	IconButton,
+} from '@mui/material';
 
 import PassportTable from './components/PassportTable';
 import { usePassport } from './hooks/usePassport';
@@ -19,21 +27,23 @@ function ItemPassport(): JSX.Element {
 
 	return (
 		<Dialog open={open} onClose={handleClosePassport} fullWidth maxWidth={'lg'}>
-			<DialogTitle sx={{ display: 'flex', justifyContent: 'space-between' }}>
+			<DialogTitle display={'flex'} justifyContent={'space-between'}>
 				Паспорт средства измерения
-				{!isLoading && (
-					<ButtonGroup aria-label='Close' variant='text' size='small'>
-						<Button onClick={exportPassportToXslx} startIcon={<ExcelIcon />}>
-							Экспорт в XLSX
-						</Button>
-						<Button onClick={handlePrint} endIcon={<PrintIcon />}>
-							Печать
-						</Button>
-					</ButtonGroup>
-				)}
-				<IconButton aria-label='Close' onClick={handleClosePassport}>
-					<CloseIcon />
-				</IconButton>
+				<Box display={'flex'} alignItems={'center'}>
+					{!isLoading && (
+						<ButtonGroup aria-label='Close' variant='text' size='small'>
+							<Button onClick={exportPassportToXslx} startIcon={<ExcelIcon />}>
+								Экспорт в XLSX
+							</Button>
+							<Button onClick={handlePrint} endIcon={<PrintIcon />}>
+								Печать
+							</Button>
+						</ButtonGroup>
+					)}
+					<IconButton aria-label='Close' onClick={handleClosePassport}>
+						<CloseIcon />
+					</IconButton>
+				</Box>
 			</DialogTitle>
 			<DialogContent ref={passportPrintRef}>
 				<PassportTable />

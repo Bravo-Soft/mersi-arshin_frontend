@@ -19,6 +19,7 @@ export const setDefaultValueArshin = (data?: IDataItem | null) => {
 		} = data;
 
 		return {
+			...other,
 			name,
 			type,
 			factoryNumber,

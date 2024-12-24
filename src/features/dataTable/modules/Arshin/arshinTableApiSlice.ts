@@ -7,12 +7,16 @@ import { changeDialogState } from './dialogArshinSlice';
 import { API } from 'app/api';
 import { apiSlice } from 'app/apiSlice';
 import { Messages } from 'constant/messages';
-import {
-	IDataItemArshin,
-	IFormFilterArshin,
-	IRequestItem,
-	IResponseValidateArshin,
-} from 'types/arshinIntegration';
+import { IDataItemArshin, IRequestItem, IResponseValidateArshin } from 'types/arshinIntegration';
+
+interface ApiError {
+	error: {
+		status: number;
+		data: {
+			message: string;
+		};
+	};
+}
 
 export const arshinTableApiSlice = apiSlice.injectEndpoints({
 	endpoints: builder => ({
@@ -47,26 +51,7 @@ export const arshinTableApiSlice = apiSlice.injectEndpoints({
 				method: 'PUT',
 				body: ids,
 			}),
-			invalidatesTags: ['ArshinData'],
-		}),
-		getFilters: builder.query<IFormFilterArshin, void>({
-			query: () => API.arshin.getFilters,
-			providesTags: ['ArshinFilters'],
-		}),
-		editFilters: builder.mutation<void, IFormFilterArshin>({
-			query: body => ({
-				url: API.arshin.editFilters,
-				method: 'PUT',
-				body,
-			}),
-			invalidatesTags: ['ArshinFilters'],
-		}),
-		resetFilters: builder.mutation<void, void>({
-			query: () => ({
-				url: API.arshin.resetFilters,
-				method: 'PUT',
-			}),
-			invalidatesTags: ['ArshinFilters'],
+			invalidatesTags: ['ArshinData', 'RequestsList'],
 		}),
 		validateArshin: builder.mutation<
 			IResponseValidateArshin[],
@@ -108,8 +93,12 @@ export const arshinTableApiSlice = apiSlice.injectEndpoints({
 				try {
 					await queryFulfilled;
 					enqueueSnackbar(Messages.REQUEST_SUCCESSFULLY_SENDED, { variant: 'success' });
-				} catch {
-					enqueueSnackbar(Messages.FAILED_SEND_REQUEST, { variant: 'error' });
+				} catch (error: unknown) {
+					if ((error as ApiError).error?.status === 400) {
+						enqueueSnackbar((error as ApiError).error.data.message, { variant: 'error' });
+					} else {
+						enqueueSnackbar(Messages.FAILED_SEND_REQUEST, { variant: 'error' });
+					}
 				}
 			},
 		}),
@@ -159,9 +148,6 @@ export const arshinTableApiSlice = apiSlice.injectEndpoints({
 export const {
 	useGetGroupDataQuery,
 	useGetUserDataQuery,
-	useGetFiltersQuery,
-	useEditFiltersMutation,
-	useResetFiltersMutation,
 	useAddItemsMutation,
 	useDeleteItemsMutation,
 	useSynchronizeItemsMutation,

@@ -11,7 +11,18 @@ export const useValidateArshin = () => {
 
 	const watches = watch();
 
-	const { productionDate } = watches;
+	const { productionDate, factoryNumber } = watches;
+
+	const validateFactoryNumber = (factoryNumber: string) => {
+		if (!factoryNumber || factoryNumber.trim() === '') {
+			return 'Заводской номер не должен быть пустым';
+		}
+		const factoryNumberPattern = /^[A-Za-z0-9-]+$/;
+		if (!factoryNumberPattern.test(factoryNumber)) {
+			return 'Номер завода должен содержать только буквы, цифры и дефисы';
+		}
+		return true;
+	};
 
 	const verificationDateBefore = (
 		verificationDate: Dayjs,
@@ -30,6 +41,7 @@ export const useValidateArshin = () => {
 		dateOfTheNextVerification: Dayjs,
 		{ verificationDate }: FormType
 	) => {
+		if (!verificationDate) return `Дата МР должна быть заполнена`;
 		const nextVerificationDateBeforeValid = !verificationDate.isAfter(dateOfTheNextVerification);
 		return (
 			nextVerificationDateBeforeValid ||
@@ -40,6 +52,9 @@ export const useValidateArshin = () => {
 	};
 
 	const isBeforeCreateOfDateOfTheNextVerification = (nextVerification: Dayjs) => {
+		if (!productionDate) {
+			return true;
+		}
 		const productionDateFromNextVerificationValid = !productionDate.isAfter(nextVerification);
 		return (
 			productionDateFromNextVerificationValid ||
@@ -50,6 +65,9 @@ export const useValidateArshin = () => {
 	};
 
 	const isBeforeCreateOfVerificationDate = (verificationDate: Dayjs) => {
+		if (!productionDate) {
+			return true;
+		}
 		const productionDateFromVerificationValid = !productionDate.isAfter(verificationDate);
 		return (
 			productionDateFromVerificationValid ||
@@ -59,7 +77,12 @@ export const useValidateArshin = () => {
 		);
 	};
 
-	const handleValidateDate = (date: Dayjs) => date.isValid() || 'Неверный формат даты';
+	const handleValidateDate = (date: Dayjs) => {
+		if (date) {
+			return date.isValid();
+		}
+		return 'Неверный формат даты';
+	};
 
 	const requiredValidation = (bool?: boolean) => {
 		return bool && 'Обязательное поле';
@@ -77,9 +100,14 @@ export const useValidateArshin = () => {
 		isBeforeCreate: isBeforeCreateOfDateOfTheNextVerification,
 	};
 
+	const factoryNumberValidate = {
+		valid: validateFactoryNumber,
+	};
+
 	return {
 		requiredValidation,
 		verificationDateValidate,
 		dateOfTheNextVerificationValidate,
+		factoryNumberValidate,
 	};
 };

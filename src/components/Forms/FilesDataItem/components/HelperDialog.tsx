@@ -1,4 +1,3 @@
-
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
@@ -11,7 +10,7 @@ import { acceptedFiles } from '../acceptedFiles';
 import Dialog from 'components/Dialog';
 
 const extensions = Object.values(acceptedFiles).flat();
-const previewExtensions = extensions?.filter((e) => isFileExtensionAvailableToPreview(e?.slice(1)));
+const previewExtensions = extensions?.filter(e => isFileExtensionAvailableToPreview(e?.slice(1)));
 
 function HelperDialog(): JSX.Element {
 	/* Состояние */

@@ -1,11 +1,7 @@
 import dayjs from 'dayjs';
 import { enqueueSnackbar } from 'notistack';
 
-import {
-	useCreateNewRequestMutation,
-	useDeleteRequestMutation,
-	useUpdateRequestMutation,
-} from '../arshinTableApiSlice';
+import { useDeleteRequestMutation, useUpdateRequestMutation } from '../arshinTableApiSlice';
 import {
 	setRequest,
 	selectRequest,
@@ -35,9 +31,8 @@ import { ARSHIN_FILTER_TYPE, type IRequestItem } from 'types/arshinIntegration';
 export const useArshinRequests = () => {
 	const dispatch = useAppDispatch();
 	const { openSidebarWith, closeSidebar } = useSidebarAction('arshin');
-	const { handleStart } = useSendingArshin();
+	const { isCreating, handleStart } = useSendingArshin();
 
-	const [createRequest, { isLoading: isCreating }] = useCreateNewRequestMutation();
 	const [updateRequest] = useUpdateRequestMutation();
 	const [deleteRequest] = useDeleteRequestMutation();
 
@@ -55,6 +50,7 @@ export const useArshinRequests = () => {
 	const isDialogOpen = useAppSelector(selectIsOpenDialog);
 
 	const now = dayjs(new Date());
+	const futureDate = now.add(40, 'day');
 
 	const handleSelectRequest = (data: IRequestItem) => {
 		dispatch(setRequest(data));
@@ -113,6 +109,7 @@ export const useArshinRequests = () => {
 
 	return {
 		now,
+		futureDate,
 		isDialogOpen,
 		isCreatingRequestDialogOpen,
 		isEditingRequestDialogOpen,

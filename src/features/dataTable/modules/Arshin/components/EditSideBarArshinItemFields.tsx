@@ -15,10 +15,11 @@ function EditSideBarArshinItemFields() {
 		formState: { errors },
 	} = useFormContext<Omit<IDataItemWithDates, 'userIds'>>();
 
-	const { verificationDateValidate, dateOfTheNextVerificationValidate } = useValidateArshin();
+	const { verificationDateValidate, dateOfTheNextVerificationValidate, factoryNumberValidate } =
+		useValidateArshin();
 
 	return (
-		<Stack direction='column' px={3} pb={3.5} flexGrow={1}>
+		<Stack direction='column' px={3} flexGrow={1}>
 			<TextField
 				{...register('name')}
 				label={ColumnNames.NAME}
@@ -36,13 +37,22 @@ function EditSideBarArshinItemFields() {
 				error={Boolean(errors.type)}
 				helperText={errors.type?.message ?? ' '}
 			/>
-			<TextField
-				{...register('factoryNumber')}
-				label={ColumnNames.FACTORY_NUMBER}
-				type='text'
-				InputLabelProps={{ shrink: true }}
-				error={Boolean(errors.factoryNumber)}
-				helperText={errors.factoryNumber?.message ?? ' '}
+			<Controller
+				control={control}
+				name='factoryNumber'
+				rules={{
+					validate: factoryNumberValidate,
+				}}
+				render={({ field: { ref, ...field }, fieldState: { error } }) => (
+					<TextField
+						{...register('factoryNumber')}
+						label={ColumnNames.FACTORY_NUMBER}
+						type='text'
+						InputLabelProps={{ shrink: true }}
+						error={Boolean(errors.factoryNumber)}
+						helperText={errors.factoryNumber?.message ?? ' '}
+					/>
+				)}
 			/>
 
 			<Controller

@@ -36,36 +36,40 @@ export const DocxViewer = ({ url }: IDocxViewer) => {
 		}
 	}, [blob]);
 
-	return (
-		typeof emptyFile === 'boolean' || emptyFile === null ? !emptyFile ? <Box
-					ref={docxContainerRef as RefObject<HTMLDivElement>}
-					sx={{
-						width: '100%',
-						'& .docx-wrapper': {
-							borderRadius: '0 0 8px 8px',
-							maxHeight: '80vh',
-						},
-						'& .docx-wrapper .docx': {
-							minHeight: 'unset !important',
-							padding: '16px !important',
-							overflowY: 'auto',
-						},
-					}}
-				/>
-			: <Box
-					sx={{
-						width: '100%',
-						minHeight: '10rem',
-						textAlign: 'center',
-						fontSize: '24px',
-						padding: '10px 25px 10px 5vw !important',
+	return typeof emptyFile === 'boolean' || emptyFile === null ? (
+		!emptyFile ? (
+			<Box
+				ref={docxContainerRef as RefObject<HTMLDivElement>}
+				sx={{
+					width: '100%',
+					'& .docx-wrapper': {
+						borderRadius: '0 0 8px 8px',
+						maxHeight: '80vh',
+					},
+					'& .docx-wrapper .docx': {
+						minHeight: 'unset !important',
+						padding: '16px !important',
 						overflowY: 'auto',
-						background: '#fff',
-						border: 'none',
-					}}
-				>
-					Файл пуст
-				</Box>
-		: <></>
+					},
+				}}
+			/>
+		) : (
+			<Box
+				sx={{
+					width: '100%',
+					minHeight: '10rem',
+					textAlign: 'center',
+					fontSize: '24px',
+					padding: '10px 25px 10px 5vw !important',
+					overflowY: 'auto',
+					background: '#fff',
+					border: 'none',
+				}}
+			>
+				Файл пуст
+			</Box>
+		)
+	) : (
+		<></>
 	);
 };

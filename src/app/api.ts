@@ -22,7 +22,7 @@ export const API = {
 		notification: `/settings/notification`,
 		favoritesData: `/list-data/favorites`,
 		printSettings: `/settings/print`,
-		reviews: `/user/reviews`,
+		reviews: `/reviews`,
 	},
 	data: {
 		default: `/data`,
@@ -39,9 +39,6 @@ export const API = {
 	arshin: {
 		getGroupData: `/arshin/data/group`,
 		getUserData: `/arshin/data/user`,
-		getFilters: `/arshin/group/settings`,
-		editFilters: `/arshin/group/settings`,
-		resetFilters: `/arshin/group/settings/reset`,
 		addItems: `/arshin/data/add`,
 		deleteItems: `/arshin/data/remove`,
 		synchronizeItems: `/arshin/data/synchronize`,

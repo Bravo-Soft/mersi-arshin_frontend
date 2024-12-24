@@ -1,5 +1,5 @@
 import Tooltip from '@mui/material/Tooltip';
-import { GridToolbarColumnsButton } from '@mui/x-data-grid/components';
+import { GridToolbarColumnsButton } from '@mui/x-data-grid-pro';
 
 function DataTableColumnButton(): JSX.Element {
 	return (

@@ -70,9 +70,14 @@ export const useArshinActions = () => {
 		}
 		try {
 			await synchronizeItemsArshin(synchronizeModelData).unwrap();
-			enqueueSnackbar(Messages.ARSHIN_ITEM_SUCCESSFULLY_UPDATED, {
-				variant: 'success',
-			});
+			enqueueSnackbar(
+				synchronizeData.length <= 1
+					? Messages.ARSHIN_ITEM_SUCCESSFULLY_UPDATED
+					: Messages.ARSHIN_ITEMS_SUCCESSFULLY_UPDATED,
+				{
+					variant: 'success',
+				}
+			);
 		} catch {
 			enqueueSnackbar(Messages.FAILED_ARSHIN_ITEM_UPDATED, {
 				variant: 'error',

@@ -1,12 +1,6 @@
 import { Dialog } from '@mui/material';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import {
-	selectRequestDataIds,
-	selectSelectedArshin,
-	selectSelectedDataIds,
-	selectSelectedDataItems,
-} from '../../arshinTableSlice';
 import { useArshinRequests } from '../../hooks/useArshinRequests';
 import { requestItemFormatter } from '../../utils/requestItemFormatter';
 
@@ -21,6 +15,7 @@ function CreatingRequestDialog(): JSX.Element {
 	const {
 		selectedDataIds,
 		now,
+		futureDate,
 		isCreatingRequestDialogOpen,
 		handleSendRequest,
 		handleCloseDialog,
@@ -29,11 +24,10 @@ function CreatingRequestDialog(): JSX.Element {
 	const methods = useForm<Omit<IRequestItemWithDates, 'id' | 'creator' | 'status' | 'dataIds'>>({
 		defaultValues: {
 			name: '',
-			range: [now, now],
+			range: [now, futureDate],
 			period: 1,
 			sendEmail: false,
 		},
-		// resolver: verificationResolver,
 		mode: 'onChange',
 	});
 

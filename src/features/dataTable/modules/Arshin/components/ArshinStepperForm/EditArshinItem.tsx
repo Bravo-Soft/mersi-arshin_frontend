@@ -3,7 +3,6 @@ import TextField from '@mui/material/TextField';
 import { DatePicker } from '@mui/x-date-pickers';
 import { Controller, useFormContext } from 'react-hook-form';
 
-import { useGetFiltersQuery } from '../../arshinTableApiSlice';
 import { useValidateArshin } from '../../hooks/useValidateArshin';
 
 import SuitabilitySelect from 'components/SuitabilitySelect';
@@ -18,7 +17,15 @@ function EditArshinItem() {
 		formState: { errors },
 	} = useFormContext<Omit<IDataItemWithDates, 'userIds'>>();
 
-	const { data: filterConfig = {} as IFormFilterArshin } = useGetFiltersQuery();
+	const filterConfig = {
+		organization: true,
+		type: false,
+		factoryNumber: true,
+		verificationDate: true,
+		dateOfTheNextVerification: true,
+		certificate: false,
+		suitability: false,
+	};
 
 	const { requiredValidation, verificationDateValidate, dateOfTheNextVerificationValidate } =
 		useValidateArshin();

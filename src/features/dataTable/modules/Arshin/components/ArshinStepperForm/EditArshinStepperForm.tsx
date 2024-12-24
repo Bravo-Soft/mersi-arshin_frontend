@@ -4,6 +4,7 @@ import { deleteNotValidArshinItem } from '../../arshinTableSlice';
 import { defaultValueSidebarArshin } from '../../config/defaultValueSidebarArshin';
 import { useArshinStepper } from '../../hooks/useArshinStepper';
 import { arshinFormaterItem } from '../../utils/arshinFormaterItem';
+import { setDefaultValueArshin } from '../../utils/setDefaultValueArshin';
 
 import ArshinEditInputs from './ArshinEditInputs';
 
@@ -17,6 +18,7 @@ import FormContainer from 'styled/FormContainer';
 import { IDataItemWithDates } from 'types/dataItem';
 import { formTrimming } from 'utils/formTrimming';
 import { setDefaultValue } from 'utils/setDefaultValue';
+import { Box, Typography } from '@mui/material';
 
 function EditArshinStepperForm() {
 	const dispatch = useAppDispatch();
@@ -50,19 +52,24 @@ function EditArshinStepperForm() {
 	});
 
 	return (
-		<FormContainer onSubmit={onSubmit} style={{ flexGrow: 1 }} noValidate>
-			<FetchingProgress isFetching={isUpdateLoading} />
-			{!isUpdateLoading && (
-				<FormProvider {...methods}>
-					<ArshinEditInputs
-						arshinItems={arshinItems}
-						activeStep={activeStep}
-						handleBack={handleBack}
-						isLastStep={isLastStep}
-					/>
-				</FormProvider>
-			)}
-		</FormContainer>
+		<>
+			<FormContainer onSubmit={onSubmit} style={{ flexGrow: 1 }} noValidate>
+				<FetchingProgress isFetching={isUpdateLoading} />
+				{!isUpdateLoading && (
+					<FormProvider {...methods}>
+						<ArshinEditInputs
+							arshinItems={arshinItems}
+							activeStep={activeStep}
+							handleBack={handleBack}
+							isLastStep={isLastStep}
+						/>
+					</FormProvider>
+				)}
+			</FormContainer>
+			<Box>
+				<Typography>Изменения будут также внесены в единый реестр!</Typography>
+			</Box>
+		</>
 	);
 }
 

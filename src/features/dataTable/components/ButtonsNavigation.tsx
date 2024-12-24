@@ -22,6 +22,9 @@ function ButtonsNavigation() {
 	const { isLoading } = useGetUserDataQuery();
 
 	const handleChange = (event: React.MouseEvent<HTMLElement>, newAlignment: string) => {
+		if (newAlignment === item) {
+			event.preventDefault();
+		}
 		if (!isArshin && newAlignment === AppRoutes.ARSHIN) {
 			return dispatch(
 				changeSmartDialogState({
@@ -43,8 +46,14 @@ function ButtonsNavigation() {
 			value={item}
 			onChange={handleChange}
 		>
-			<StyledToggleButton value={AppRoutes.HOME}>Единый реестр</StyledToggleButton>
-			<StyledToggleButton moduleIsActive={isArshin || isLoading} value={AppRoutes.ARSHIN}>
+			<StyledToggleButton disabled={item === AppRoutes.HOME} value={AppRoutes.HOME}>
+				Единый реестр
+			</StyledToggleButton>
+			<StyledToggleButton
+				disabled={item === AppRoutes.ARSHIN}
+				moduleIsActive={isArshin || isLoading}
+				value={AppRoutes.ARSHIN}
+			>
 				Контроль поверки в госреестре
 				{!isArshin && !isLoading && <LockIcon sx={{ ml: 1 }} />}
 			</StyledToggleButton>
