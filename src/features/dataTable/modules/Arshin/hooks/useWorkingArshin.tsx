@@ -32,7 +32,8 @@ export const useProcessArshin = () => {
 			}
 			if (arshinSseGuardRequestStatus(data)) {
 				dispatch(apiSlice.util.invalidateTags(['ArshinData', 'RequestsList']));
-				enqueueSnackbar(data.message.message, { variant: statusVariant[data?.message.status] });
+
+				// enqueueSnackbar(data.message.message, { variant: statusVariant[data?.message.status] });
 			}
 
 			if (arshinSseGuardProcessStatus(data)) {
