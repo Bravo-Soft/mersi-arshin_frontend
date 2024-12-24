@@ -64,6 +64,8 @@ export enum Messages {
 	INVALID_REQUEST_BODY = 'Неверный формат данных',
 	FAILED_TO_UPLOAD_FILES = 'Не удалось загрузить файл(ы)',
 	FAILED_TO_DELETING_FILE = 'Не удалось удалить файл',
+	FAILED_TO_READ_FILE = 'Ошибка чтения файла',
+	FILE_IS_EMPTY = 'Файл пуст',
 	FILE_NOT_FOUND = 'Файл не найден',
 	FAILED_TO_SAVE_WORKBOOK = 'Не удалось экспортировать таблицу',
 	FAILED_ADDED_TO_FAVORITE = 'Не удалось добавить в избранное',
