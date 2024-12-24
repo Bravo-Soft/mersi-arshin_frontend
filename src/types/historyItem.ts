@@ -24,7 +24,7 @@ export interface IHistoryItem extends IDataItem {
 	/**
 	 * Массив измененных полей
 	 */
-	flags: keyof Omit<IHistoryItem, 'flags' | 'editedBy' | 'action' | 'modificationDate'>;
+	flags: Array<keyof Omit<IHistoryItem, 'flags' | 'editedBy' | 'action' | 'modificationDate'>>;
 	/**
 	 * Комментарий к статусу
 	 */

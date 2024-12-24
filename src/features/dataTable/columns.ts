@@ -7,7 +7,6 @@ import {
 	RenderCellExpandedRegister,
 } from './components/RenderCellExpand';
 import { RenderHeaderExpandRegister } from './components/RenderHeaderExpandRegister';
-
 import { formatDateCallback } from './utils/formatDateCallback';
 import { quickFilterDateFormat } from './utils/quickFilterDateFormat';
 

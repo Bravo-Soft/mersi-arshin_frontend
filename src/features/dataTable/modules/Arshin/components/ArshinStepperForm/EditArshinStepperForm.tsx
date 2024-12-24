@@ -1,10 +1,10 @@
+import { Box, Typography } from '@mui/material';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { deleteNotValidArshinItem } from '../../arshinTableSlice';
 import { defaultValueSidebarArshin } from '../../config/defaultValueSidebarArshin';
 import { useArshinStepper } from '../../hooks/useArshinStepper';
 import { arshinFormaterItem } from '../../utils/arshinFormaterItem';
-import { setDefaultValueArshin } from '../../utils/setDefaultValueArshin';
 
 import ArshinEditInputs from './ArshinEditInputs';
 
@@ -18,7 +18,6 @@ import FormContainer from 'styled/FormContainer';
 import { IDataItemWithDates } from 'types/dataItem';
 import { formTrimming } from 'utils/formTrimming';
 import { setDefaultValue } from 'utils/setDefaultValue';
-import { Box, Typography } from '@mui/material';
 
 function EditArshinStepperForm() {
 	const dispatch = useAppDispatch();

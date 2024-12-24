@@ -4,8 +4,9 @@ import FormHelperText from '@mui/material/FormHelperText';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import { SelectChangeEvent } from '@mui/material/Select';
 import { useState, useRef, useEffect } from 'react';
-import { Controller, useFormContext } from 'react-hook-form';
+import { Controller, useFormContext, ControllerRenderProps } from 'react-hook-form';
 
 import { ColumnNames } from 'constant/columnsName';
 import { Condition } from 'constant/condition';
@@ -37,7 +38,13 @@ function ConditionSelect({ readOnly }: IConditionSelectProps): JSX.Element {
 		}
 	}, [condition, previousCondition, setValue]);
 
-	const handleConditionChange = (field: any, e: any) => {
+	const handleConditionChange = (
+		field: ControllerRenderProps<
+			Pick<IDataItem, 'condition' | 'conditionDescription'>,
+			'condition'
+		>,
+		e: SelectChangeEvent<string>
+	) => {
 		field.onChange(e);
 	};
 

@@ -51,7 +51,7 @@ export const usePushNotification = () => {
 	};
 
 	const handleClickIconNotification = (event: SyntheticEvent) => {
-		isArshin
+		return isArshin
 			? handleOpen(event)
 			: dispatch(
 					changeSmartDialogState({
