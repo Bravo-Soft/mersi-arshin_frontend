@@ -22,6 +22,7 @@ interface IArshinTableState {
 	notValidArshinClassesItem: INotValidArshinItem[];
 	isOpenCreateRequestModal: boolean;
 	requestItem: IRequestItem | null;
+	creatingRequestIds: string[];
 	pendingRequestItem: Omit<IRequestItem, 'id' | 'status' | 'creator'> | null;
 	filterType: ARSHIN_FILTER_TYPE;
 }
@@ -35,6 +36,7 @@ const initialState: IArshinTableState = {
 	selectedEditItemIds: '',
 	isOpenCreateRequestModal: false,
 	requestItem: null,
+	creatingRequestIds: [],
 	pendingRequestItem: null,
 	filterType: ARSHIN_FILTER_TYPE.MY_ITEMS,
 };
@@ -88,6 +90,12 @@ const arshinTableSlice = createSlice({
 				state.requestItem.dataIds = action.payload;
 			}
 		},
+		setCreatingRequestIds: (state, action: PayloadAction<string[]>) => {
+			state.creatingRequestIds = action.payload;
+		},
+		resetCreatingRequestIds: state => {
+			state.creatingRequestIds = [];
+		},
 		setPendingRequest: (
 			state,
 			action: PayloadAction<Omit<IRequestItem, 'id' | 'status' | 'creator'> | null>
@@ -109,6 +117,7 @@ const arshinTableSlice = createSlice({
 });
 
 export const selectRequest = (state: RootState) => state.arshinTable.requestItem;
+export const selectCreatingRequestIds = (state: RootState) => state.arshinTable.creatingRequestIds;
 export const selectPendingRequestItem = (state: RootState) => state.arshinTable.pendingRequestItem;
 export const selectRequestDataIds = (state: RootState) => state.arshinTable.requestItem?.dataIds;
 //Selected model (Модель выбора)
@@ -244,6 +253,8 @@ export const {
 	setCreateRequestModal,
 	setRequest,
 	setRequestDataIds,
+	setCreatingRequestIds,
+	resetCreatingRequestIds,
 	setPendingRequest,
 	setPendingRequestDataIds,
 	resetPendingRequest,

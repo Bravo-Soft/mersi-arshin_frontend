@@ -55,6 +55,7 @@ export const columns: GridColDef<IDataItem>[] = [
 	},
 	{
 		field: 'verificationControlInStateRegister',
+		headerName: ColumnNames.VERIFICATION_CONTROL_STATE_REGISTER,
 		renderHeader: RenderHeaderExpandRegister,
 		disableColumnMenu: true,
 		sortable: false,

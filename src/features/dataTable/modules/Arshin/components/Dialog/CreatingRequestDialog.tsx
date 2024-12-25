@@ -13,7 +13,7 @@ import { IRequestItemWithDates } from 'types/arshinIntegration';
 
 function CreatingRequestDialog(): JSX.Element {
 	const {
-		selectedDataIds,
+		requestDataItemsIds,
 		now,
 		futureDate,
 		isCreatingRequestDialogOpen,
@@ -32,7 +32,7 @@ function CreatingRequestDialog(): JSX.Element {
 	});
 
 	const onSubmit = methods.handleSubmit(async data => {
-		await handleSendRequest(requestItemFormatter({ ...data, dataIds: selectedDataIds }));
+		await handleSendRequest(requestItemFormatter({ ...data, dataIds: requestDataItemsIds }));
 		methods.reset();
 	});
 

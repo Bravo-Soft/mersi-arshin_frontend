@@ -71,6 +71,9 @@ export const usePassportData = () => {
 			'suitability',
 			'cost',
 		];
+
+		const mapVerificationName = (currentName: string) => currentName.slice(0, -1) + 'и';
+
 		const editedVerifications = historyData
 			.filter(
 				({ typeUpdate, flags }) =>
@@ -82,7 +85,7 @@ export const usePassportData = () => {
 				certificate,
 				editedBy,
 				suitability,
-				typeOfWork: 'Редактирование',
+				typeOfWork: `Редактирование ${mapVerificationName(typeOfWork)}`,
 			}));
 
 		const newVerifications = historyData
@@ -106,6 +109,7 @@ export const usePassportData = () => {
 			);
 
 		const verifications = [...newVerifications, ...editedVerifications];
+		console.log(editedVerifications);
 		return { repairs, verifications };
 	};
 

@@ -10,6 +10,9 @@ import {
 	selectSelectedDataItems,
 	setFilterType,
 	selectSelectedArshin,
+	setCreatingRequestIds,
+	selectCreatingRequestIds,
+	resetCreatingRequestIds,
 } from '../arshinTableSlice';
 import {
 	changeDialogState,
@@ -40,6 +43,7 @@ export const useArshinRequests = () => {
 
 	const selectedDataItems = useAppSelector(selectSelectedDataItems);
 	const selectedDataIds = useAppSelector(selectSelectedArshin);
+	const requestDataItemsIds = useAppSelector(selectCreatingRequestIds);
 
 	const selectedRequest = useAppSelector(selectRequest);
 
@@ -60,10 +64,12 @@ export const useArshinRequests = () => {
 	const handleCloseDialog = () => {
 		dispatch(resetPendingRequest());
 		dispatch(resetSelectedDataItems());
+		dispatch(resetCreatingRequestIds());
 		dispatch(resetDialogState());
 	};
 
 	const handleCreateRequest = () => {
+		dispatch(setCreatingRequestIds(selectedDataIds));
 		dispatch(changeDialogState('createRequest'));
 	};
 
@@ -118,7 +124,7 @@ export const useArshinRequests = () => {
 		isCreating,
 		selectedRequest,
 		selectedDataItems,
-		selectedDataIds,
+		requestDataItemsIds,
 		handleCloseDialog,
 		handleSelectRequest,
 		handleCreateRequest,

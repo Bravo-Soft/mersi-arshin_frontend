@@ -7,7 +7,6 @@ import { RequestItem } from './RequestItem';
 import Loader from 'components/Loader';
 
 function RequestsList() {
-	// const { requestItems = [], isLoading } = useDynamicPolling();
 	const { data: requestItems = [], isLoading } = useGetRequestsListQuery(undefined, {
 		pollingInterval: 60000,
 		refetchOnMountOrArgChange: true,
