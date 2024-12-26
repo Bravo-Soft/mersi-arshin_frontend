@@ -11,10 +11,11 @@ import { IRequestItem } from 'types/arshinIntegration';
  */
 
 export const useSendingArshin = () => {
-	const [sendRequest] = useCreateNewRequestMutation();
-	const [arshinValidate] = useValidateArshinMutation();
+	const [sendRequest, { isLoading }] = useCreateNewRequestMutation();
+	const [arshinValidate, { isLoading: isValidating }] = useValidateArshinMutation();
 
 	const dispatch = useAppDispatch();
+	const isCreating = isValidating;
 
 	const handleStart = async (data: Omit<IRequestItem, 'id' | 'status' | 'creator'>) => {
 		await arshinValidate(data).unwrap();
@@ -25,5 +26,5 @@ export const useSendingArshin = () => {
 		dispatch(resetState());
 	};
 
-	return { handleStart, handleCancel };
+	return { isCreating, handleStart, handleCancel };
 };

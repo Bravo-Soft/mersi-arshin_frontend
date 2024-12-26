@@ -5,11 +5,10 @@ import { useGetGroupDataQuery, useGetRequestDataQuery } from '../arshinTableApiS
 import { selectRequest } from '../arshinTableSlice';
 import { columnsArshin } from '../config/columns';
 import { useApplyTemplate } from '../hooks/useApplyTemplate';
-// import { useArshinRequests } from '../hooks/useArshinRequests';
 import { useContextMenuActions } from '../hooks/useContextMenuActions';
 import { useFilterArshin } from '../hooks/useFilterArshin';
 import useTableActions from '../hooks/useTableActions';
-// import { useProcessArshin } from '../hooks/useWorkingArshin';
+import { useProcessArshin } from '../hooks/useWorkingArshin';
 
 import ContextMenuArshin from './ContextMenuArshin';
 import DataTableArshinToolbar from './DataTableArshinToolbar';
@@ -27,13 +26,13 @@ const emptyData: IDataItemArshin[] = [];
 
 function DataTableArshin() {
 	const apiRef = useGridApiRef();
-	// const isOpen = useProcessArshin();
+	const isOpen = useProcessArshin();
 
 	useApplyTemplate(apiRef);
 	const { data, isFetching } = useGetGroupDataQuery(undefined, {
 		refetchOnMountOrArgChange: true,
 		pollingInterval: 30000,
-		// skip: !isOpen,
+		skip: !isOpen,
 		selectFromResult: ({ data, isFetching }) => ({
 			data: data ?? emptyData,
 			isFetching,
@@ -70,12 +69,12 @@ function DataTableArshin() {
 				loading={isFetching}
 				pagination
 				checkboxSelection
+				disableColumnReorder
+				onRowDoubleClick={handleDoubleClickOnRow}
 				// disableColumnMenu
 				// disableColumnFilter
 				// disableSelectionOnClick
 				// disableColumnResize
-				// disableColumnReorder
-				// onRowDoubleClick={handleDoubleClickOnRow}
 				// disableColumnSelector
 				density='compact'
 				components={{
@@ -100,7 +99,7 @@ function DataTableArshin() {
 			/>
 
 			<ContextMenuArshin contextMenu={contextMenu} actions={actions} />
-			{/* <ProcessArshin apiRef={apiRef} /> */}
+			<ProcessArshin apiRef={apiRef} />
 		</DataTableBox>
 	);
 }

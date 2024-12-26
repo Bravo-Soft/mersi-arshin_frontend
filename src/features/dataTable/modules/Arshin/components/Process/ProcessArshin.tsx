@@ -17,6 +17,7 @@ type Props = {
 
 function ProcessArshin({ apiRef }: Props) {
 	const isWorking = useAppSelector(selectIsWorkingArshin);
+
 	const anchor = apiRef?.current?.windowRef?.current;
 
 	if (!anchor) return null;

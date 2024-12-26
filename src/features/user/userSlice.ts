@@ -1,5 +1,5 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createSelector } from '@reduxjs/toolkit';
 
 import type { RootState } from 'app/store';
 import { Role } from 'constant/role';
@@ -37,25 +37,28 @@ const userSlice = createSlice({
 	},
 });
 
-export const selectUserPermissions = ({ user }: RootState) => ({
-	maxRowsPerTable: user.groupInfo?.maxRowsPerTable ?? 0,
-	maxNumberUserTemplates: user.groupInfo?.maxNumberUserTemplates ?? 0,
-	maxNumberUsersAccountGroup: user.groupInfo?.maxNumberUsersAccountGroup ?? 0,
-	isGroupAdministration: user.groupInfo?.isGroupAdministration ?? false,
-	isPrintLabel: user.groupInfo?.isPrintLabel ?? false,
-	isReceiveNotifications: user.groupInfo?.isReceiveNotifications ?? false,
-	isFileStorage: user.groupInfo?.isFileStorage ?? false,
-	maxSizePerRow: user.groupInfo?.maxSizePerRow ? user.groupInfo?.maxSizePerRow : 0,
-	isArshin: user.groupInfo?.hasArhinIntegration ?? false,
-});
+export const selectUserPermissions = createSelector(
+	[(state: RootState) => state.user.groupInfo],
+	groupInfo => ({
+		maxRowsPerTable: groupInfo?.maxRowsPerTable ?? 0,
+		maxNumberUserTemplates: groupInfo?.maxNumberUserTemplates ?? 0,
+		maxNumberUsersAccountGroup: groupInfo?.maxNumberUsersAccountGroup ?? 0,
+		isGroupAdministration: groupInfo?.isGroupAdministration ?? false,
+		isPrintLabel: groupInfo?.isPrintLabel ?? false,
+		isReceiveNotifications: groupInfo?.isReceiveNotifications ?? false,
+		isFileStorage: groupInfo?.isFileStorage ?? false,
+		maxSizePerRow: groupInfo?.maxSizePerRow ?? 0,
+		isArshin: groupInfo?.hasArhinIntegration ?? false,
+	})
+);
 
 export const selectUserId = (state: RootState) => state.user.id;
 
-export const selectUserRoles = ({ user }: RootState) => ({
-	isReader: user.role === Role.USER_READER,
-	isWriter: user.role === Role.USER_WRITER,
-	isAdmin: user.role === Role.SUPER_ADMIN,
-});
+export const selectUserRoles = createSelector([(state: RootState) => state.user.role], role => ({
+	isReader: role === Role.USER_READER,
+	isWriter: role === Role.USER_WRITER,
+	isAdmin: role === Role.SUPER_ADMIN,
+}));
 
 export const userPath = userSlice.name;
 export const userReducer = userSlice.reducer;

@@ -23,7 +23,12 @@ function ValidateDialog() {
 				<>
 					<Stack direction='row' columnGap={1}>
 						<Button onClick={handleCloseDialog}>Закрыть</Button>
-						<Button onClick={handleCancelSending}>Отправить заполненные</Button>
+						<Button
+							disabled={arshinItems.length === model.length}
+							onClick={handleCancelSending}
+						>
+							Отправить заполненные
+						</Button>
 						<Button onClick={handleEditArshinItem}>Редактировать</Button>
 					</Stack>
 				</>

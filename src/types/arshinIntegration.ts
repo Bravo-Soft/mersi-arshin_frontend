@@ -23,7 +23,7 @@ export interface IFormFilterArshin {
 	dateOfTheNextVerification: boolean;
 	certificate: boolean;
 	suitability: boolean;
-	period: number;
+	// period: number;
 }
 
 export interface IConfigMainFiltersArshin {

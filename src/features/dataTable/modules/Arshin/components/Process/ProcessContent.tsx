@@ -28,7 +28,7 @@ function ProcessContent() {
 			</StyledIconButton>
 			<Stack direction='column' flexGrow={1} gap={0.5}>
 				<Typography variant='body1' color='text.secondary'>
-					Отправка данных...
+					Обработка данных запроса...
 				</Typography>
 				<LinearProgress sx={{ height: 6, borderRadius: 50 }} />
 			</Stack>

@@ -19,5 +19,5 @@ export const usePushSse = () => {
 		[dispatch]
 	);
 
-	useServerSentEvent(`/api/notifications/arshin`, callBack);
+	useServerSentEvent(`/api/notifications/message`, callBack);
 };

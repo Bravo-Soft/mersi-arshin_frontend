@@ -7,18 +7,21 @@ import { RequestItem } from './RequestItem';
 import Loader from 'components/Loader';
 
 function RequestsList() {
-	const { data = [], isLoading } = useGetRequestsListQuery();
+	const { data: requestItems = [], isLoading } = useGetRequestsListQuery(undefined, {
+		pollingInterval: 60000,
+		refetchOnMountOrArgChange: true,
+	});
 
 	return (
 		<Stack spacing={2} margin={1}>
 			{isLoading ? (
 				<Loader />
-			) : !data.length ? (
+			) : !requestItems.length ? (
 				<Typography display={'flex'} justifyContent='center'>
 					Запросы отсутствуют
 				</Typography>
 			) : (
-				data.map(item => <RequestItem key={item.id} {...item} />)
+				requestItems.map(item => <RequestItem key={item.id} {...item} />)
 			)}
 		</Stack>
 	);

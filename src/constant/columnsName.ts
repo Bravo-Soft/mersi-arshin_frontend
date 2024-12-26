@@ -17,7 +17,7 @@ export enum ColumnNames {
 	SIZE = 'Размер бирки',
 	NOTES = 'Примечания',
 	VERIFICATION_INTERVAL = 'Интервал МР',
-	VERIFICATION_CONTROL_STATE_REGISTER = '',
+	VERIFICATION_CONTROL_STATE_REGISTER = 'Контроль поверки в госреестре',
 	LOCATION = 'Местоположение СИ',
 	RESPONSIBLE = 'Ответственный',
 	SUITABILITY = 'Пригодность',

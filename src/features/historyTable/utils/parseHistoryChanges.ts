@@ -23,20 +23,18 @@ export const parseHistoryChanges = (data: IHistoryItem[]) => {
 			'dateOfCommissioning',
 		];
 
-		const updates = Array.isArray(flags)
-			? flags.map((field: keyof IDataItem) => {
-					return {
-						field,
-						editedBy,
-						oldValue: datesArray.includes(field)
-							? dayjs(previous[field] as unknown as Dayjs).format('DD.MM.YYYY')
-							: previous[field],
-						newValue: datesArray.includes(field)
-							? dayjs(current[field] as unknown as Dayjs).format('DD.MM.YYYY')
-							: current[field] || 'Неизвестно',
-					};
-			  })
-			: [];
+		const updates = flags.map(field => {
+			return {
+				field,
+				editedBy,
+				oldValue: datesArray.includes(field)
+					? dayjs(previous[field] as unknown as Dayjs).format('DD.MM.YYYY')
+					: previous[field],
+				newValue: datesArray.includes(field)
+					? dayjs(current[field] as unknown as Dayjs).format('DD.MM.YYYY')
+					: current[field] || 'Неизвестно',
+			};
+		});
 
 		return {
 			action,

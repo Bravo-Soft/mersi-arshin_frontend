@@ -60,7 +60,35 @@ export const usePassportData = () => {
 				conditionDescription,
 			}));
 
-		const verifications = historyData
+		const verifyKeys = [
+			'verificationDate',
+			'interVerificationInterval',
+			'dateOfTheNextVerification',
+			'typeOfWork',
+			'stateRegister',
+			'certificate',
+			'organization',
+			'suitability',
+			'cost',
+		];
+
+		const mapVerificationName = (currentName: string) => currentName.slice(0, -1) + 'и';
+
+		const editedVerifications = historyData
+			.filter(
+				({ typeUpdate, flags }) =>
+					typeUpdate === 'tr' && flags.some(flag => verifyKeys.includes(flag))
+			)
+			.map(({ verificationDate, organization, certificate, editedBy, suitability }) => ({
+				verificationDate,
+				organization,
+				certificate,
+				editedBy,
+				suitability,
+				typeOfWork: `Редактирование ${mapVerificationName(typeOfWork)}`,
+			}));
+
+		const newVerifications = historyData
 			.filter(el => el.typeUpdate === 'mr')
 			.map(
 				({
@@ -79,8 +107,12 @@ export const usePassportData = () => {
 					suitability,
 				})
 			);
+
+		const verifications = [...newVerifications, ...editedVerifications];
+		console.log(editedVerifications);
 		return { repairs, verifications };
 	};
+
 	const { repairs, verifications } = getVerificationsAndRepairs();
 
 	useEffect(() => {

@@ -1,3 +1,4 @@
+import { Box, Typography } from '@mui/material';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { deleteNotValidArshinItem } from '../../arshinTableSlice';
@@ -50,19 +51,24 @@ function EditArshinStepperForm() {
 	});
 
 	return (
-		<FormContainer onSubmit={onSubmit} style={{ flexGrow: 1 }} noValidate>
-			<FetchingProgress isFetching={isUpdateLoading} />
-			{!isUpdateLoading && (
-				<FormProvider {...methods}>
-					<ArshinEditInputs
-						arshinItems={arshinItems}
-						activeStep={activeStep}
-						handleBack={handleBack}
-						isLastStep={isLastStep}
-					/>
-				</FormProvider>
-			)}
-		</FormContainer>
+		<>
+			<FormContainer onSubmit={onSubmit} style={{ flexGrow: 1 }} noValidate>
+				<FetchingProgress isFetching={isUpdateLoading} />
+				{!isUpdateLoading && (
+					<FormProvider {...methods}>
+						<ArshinEditInputs
+							arshinItems={arshinItems}
+							activeStep={activeStep}
+							handleBack={handleBack}
+							isLastStep={isLastStep}
+						/>
+					</FormProvider>
+				)}
+			</FormContainer>
+			<Box>
+				<Typography>Изменения будут также внесены в единый реестр!</Typography>
+			</Box>
+		</>
 	);
 }
 

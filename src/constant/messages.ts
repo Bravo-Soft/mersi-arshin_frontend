@@ -40,7 +40,8 @@ export enum Messages {
 	ARSHIN_FILTERS_SUCCESSFULLY_EDITED = 'Фильтры успешно обновлены',
 	ARSHIN_FILTERS_SUCCESSFULLY_RESET = 'Применены стандартные фильтра',
 	ARSHIN_ITEMS_SUCCESSFULLY_ADDED = 'Позиция(и) добавлены в Контроль поверки в Госреестре',
-	ARSHIN_ITEM_SUCCESSFULLY_UPDATED = 'Позиция(и) успешно обновлена(ы)',
+	ARSHIN_ITEM_SUCCESSFULLY_UPDATED = 'Позиция успешно обновлена',
+	ARSHIN_ITEMS_SUCCESSFULLY_UPDATED = 'Позиции успешно обновлены',
 
 	//Уведомления – ошибочные
 	FORBIDDEN = 'Нет доступа',

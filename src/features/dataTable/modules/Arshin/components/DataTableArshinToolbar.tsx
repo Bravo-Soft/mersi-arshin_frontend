@@ -5,7 +5,6 @@ import { GridToolbarContainer } from '@mui/x-data-grid-pro';
 import { useState } from 'react';
 
 import { useArshinRequests } from '../hooks/useArshinRequests';
-import { useFilterArshin } from '../hooks/useFilterArshin';
 
 import ArshinSendingBtn from './ArshinSendingBtn';
 import ArshinTableToolbarFilter from './ArshinTableToolbarFilter';
@@ -43,7 +42,7 @@ function DataTableArshinToolbar(): JSX.Element {
 	return (
 		<>
 			<GridToolbarContainer>
-				<Toolbar sx={{ width: 1 }}>
+				<Toolbar sx={{ width: 1, overflow: 'scroll' }}>
 					<Stack direction='row' alignItems='center' flexGrow={1} spacing={2}>
 						<ButtonsNavigation />
 						<Divider orientation='vertical' flexItem />

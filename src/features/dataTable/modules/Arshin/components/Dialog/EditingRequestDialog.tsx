@@ -21,7 +21,6 @@ function EditingRequestDialog(): JSX.Element {
 
 	const methods = useForm<Omit<IRequestItemWithDates, 'dataIds' | 'status' | 'creator'>>({
 		values: setDefaultValue(selectedRequest),
-		// resolver: verificationResolver,
 		mode: 'onChange',
 	});
 

@@ -3,7 +3,6 @@ import CreatingRequestDialog from 'features/dataTable/modules/Arshin/components/
 import DeletingDialog from 'features/dataTable/modules/Arshin/components/Dialog/DeletingDialog';
 import DeletingRequestDialog from 'features/dataTable/modules/Arshin/components/Dialog/DeletingRequestDialog';
 import EditingRequestDialog from 'features/dataTable/modules/Arshin/components/Dialog/EditingRequestDialog';
-import FiltersDialog from 'features/dataTable/modules/Arshin/components/Dialog/FiltersDialog';
 import SynchronizeDialog from 'features/dataTable/modules/Arshin/components/Dialog/SynchronizeDialog';
 import ValidateDialog from 'features/dataTable/modules/Arshin/components/Dialog/ValidateDialog';
 import Sidebar from 'features/sidebar/components/Sidebar';
@@ -22,7 +21,6 @@ function ArshinIntegrationPage() {
 		<PageBox>
 			<DataTableArshin />
 			<Sidebar open={open} currentSelector={selector} sidebarElements={sidebarElements} />
-			<FiltersDialog />
 			<DeletingDialog />
 			<SynchronizeDialog />
 			<ValidateDialog />

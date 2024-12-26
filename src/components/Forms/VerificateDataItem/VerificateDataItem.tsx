@@ -22,7 +22,7 @@ import { formTrimming } from 'utils/formTrimming';
 import { setDefaultValue } from 'utils/setDefaultValue';
 
 function VerificateDataItem(): JSX.Element {
-	const [editType, setEditType] = useState('tr');
+	const [editType, setEditType] = useState('mr');
 
 	const selectedDataItem = useAppSelector(selectSelectedDataItem);
 	const { isWriter, isAdmin, isReader } = useAppSelector(selectUserRoles);

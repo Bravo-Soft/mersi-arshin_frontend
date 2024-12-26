@@ -1,6 +1,7 @@
 import type { GridCellParams, GridColDef } from '@mui/x-data-grid-pro';
 
 import { RenderCellExpand, RenderCellExpandedRegister } from './components/RenderCellExpand';
+import { RenderHeaderExpandRegister } from './components/RenderHeaderExpandRegister';
 import { formatDateCallback } from './utils/formatDateCallback';
 import { quickFilterDateFormat } from './utils/quickFilterDateFormat';
 
@@ -86,6 +87,7 @@ export const columns: GridColDef<IHistoryItem>[] = [
 	{
 		field: 'verificationControlInStateRegister',
 		headerName: ColumnNames.VERIFICATION_CONTROL_STATE_REGISTER,
+		renderHeader: RenderHeaderExpandRegister,
 		width: initialWidth,
 		type: 'boolean',
 		headerAlign: 'center',

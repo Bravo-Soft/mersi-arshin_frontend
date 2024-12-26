@@ -17,7 +17,7 @@ const photoApiSlice = apiSlice.injectEndpoints({
 				const response = await baseQuery({
 					url: API.user.profile.photo,
 				});
-
+				// if (!(response.data as IPhotoResponse).url) return { data: '' };
 				if (response.error && response.error.status !== HttpCodes.NOT_FOUND)
 					return { error: response.error };
 

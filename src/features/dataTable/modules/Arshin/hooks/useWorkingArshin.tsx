@@ -4,7 +4,11 @@ import { useCallback } from 'react';
 import { apiSlice } from '../../../../../app/apiSlice';
 import { statusVariant } from '../config/arshinProcessConfig';
 import { setEventSourceData } from '../eventSourceSlice';
-import { arshinSseGuardProcessStatus, arshinSseGuardWorking } from '../utils/arshinSSEGuard';
+import {
+	arshinSseGuardProcessStatus,
+	arshinSseGuardRequestStatus,
+	arshinSseGuardWorking,
+} from '../utils/arshinSSEGuard';
 
 import { useServerSentEvent } from './useServerSentEvent';
 
@@ -23,13 +27,17 @@ export const useProcessArshin = () => {
 	const callBackWorking = useCallback(
 		(event: MessageEvent) => {
 			const data = JSON.parse(event.data);
-
 			if (arshinSseGuardWorking(data)) {
 				dispatch(setEventSourceData(data.isWorking));
 			}
+			if (arshinSseGuardRequestStatus(data)) {
+				dispatch(apiSlice.util.invalidateTags(['ArshinData', 'RequestsList']));
+
+				// enqueueSnackbar(data.message.message, { variant: statusVariant[data?.message.status] });
+			}
 
 			if (arshinSseGuardProcessStatus(data)) {
-				dispatch(apiSlice.util.invalidateTags(['ArshinData']));
+				dispatch(apiSlice.util.invalidateTags(['ArshinData', 'RequestsList']));
 				enqueueSnackbar(data.message, { variant: statusVariant[data.status] });
 			}
 		},

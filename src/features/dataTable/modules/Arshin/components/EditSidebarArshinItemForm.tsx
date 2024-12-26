@@ -1,3 +1,4 @@
+import { Box, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import { useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -62,6 +63,21 @@ function EditSidebarArshinItemForm() {
 				) : (
 					<EditSideBarArshinItemFields />
 				)}
+				<Box
+					component={'div'}
+					boxShadow={' 0px 0px 10px 0px rgba(34, 60, 80, 0.2)'}
+					sx={{
+						border: '2px solid #0b4e60',
+						borderRadius: 1,
+						p: 1,
+						width: 300,
+						m: '5px auto',
+					}}
+				>
+					<Typography textAlign={'center'} variant='body1'>
+						Изменения будут также внесены в единый реестр
+					</Typography>
+				</Box>
 
 				<ButtonContainer>
 					<Button variant='contained' fullWidth type='submit'>

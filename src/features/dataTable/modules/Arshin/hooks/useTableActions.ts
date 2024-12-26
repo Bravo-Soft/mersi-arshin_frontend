@@ -4,8 +4,10 @@ import {
 	selectArshinData,
 	selectNotValidArshinClassesItem,
 	selectSelectedDataIds,
+	setSelectedDataArshinItem,
 	setSelectedDataItem,
 	setSelectedDataItems,
+	setSelectedEditItemIds,
 } from '../arshinTableSlice';
 
 import { ArshinStatus } from 'constant/arshinStatus';
@@ -59,13 +61,12 @@ const useTableActions = () => {
 			if (open) {
 				closeSidebar();
 			} else {
-				dispatch(setSelectedDataItem(row));
+				dispatch(setSelectedEditItemIds(row.id));
 			}
 		} else {
-			dispatch(setSelectedDataItem(row));
-			openSidebarWith('EditArshinItem');
+			dispatch(setSelectedEditItemIds(row.id));
+			openSidebarWith('EditSidebarArshinItem');
 		}
-		openSidebarWith('EditArshinItem');
 	};
 
 	return {

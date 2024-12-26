@@ -8,10 +8,13 @@ import {
 
 import { AppRoutes } from 'constant/appRoutes';
 import { Messages } from 'constant/messages';
+import { setFilterType } from 'features/dataTable/modules/Arshin/arshinTableSlice';
 import { useAnchor } from 'features/dataTable/modules/CreateVerificationSchedule/components/utils/hooks';
 import { changeSmartDialogState } from 'features/smartDialog/smartDialogSlice';
 import { selectUserPermissions } from 'features/user/userSlice';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import { useSidebarAction } from 'hooks/useSidebarActions';
+import { ARSHIN_FILTER_TYPE } from 'types/arshinIntegration';
 
 export const usePushNotification = () => {
 	const navigate = useNavigate();
@@ -19,7 +22,7 @@ export const usePushNotification = () => {
 	const dispatch = useAppDispatch();
 
 	const { isArshin } = useAppSelector(selectUserPermissions);
-
+	const { openSidebarWith } = useSidebarAction('arshin');
 	const [anchorEl, handleOpen, handleClose] = useAnchor();
 
 	const [readMutation] = useReadNotificationMutation();
@@ -30,7 +33,8 @@ export const usePushNotification = () => {
 			await readMutation(id);
 		} finally {
 			navigate(AppRoutes.ARSHIN);
-			localStorage.setItem('Arshin-filter', 'Done');
+			openSidebarWith('RequestsList');
+			dispatch(setFilterType(ARSHIN_FILTER_TYPE.MY_COMPLETED));
 			handleClose();
 		}
 	};
@@ -47,7 +51,7 @@ export const usePushNotification = () => {
 	};
 
 	const handleClickIconNotification = (event: SyntheticEvent) => {
-		isArshin
+		return isArshin
 			? handleOpen(event)
 			: dispatch(
 					changeSmartDialogState({

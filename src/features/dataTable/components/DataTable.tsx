@@ -106,8 +106,8 @@ function DataTable(): JSX.Element {
 				onRowDoubleClick={handleDoubleClickOnRow}
 				selectionModel={selectionModel}
 				getRowClassName={generateClasses}
-				getDetailPanelContent={getDetailPanelContent}
-				getDetailPanelHeight={getDetailPanelHeight}
+				// getDetailPanelContent={getDetailPanelContent}
+				// getDetailPanelHeight={getDetailPanelHeight}
 				initialState={{ columns: { columnVisibilityModel: {} } }}
 				components={{
 					LoadingOverlay: LinearProgress,
@@ -116,8 +116,8 @@ function DataTable(): JSX.Element {
 					ColumnMenu,
 					NoRowsOverlay,
 					NoResultsOverlay,
-					DetailPanelCollapseIcon: KeyboardArrowUp,
-					DetailPanelExpandIcon: KeyboardArrowDown,
+					// DetailPanelCollapseIcon: KeyboardArrowUp,
+					// DetailPanelExpandIcon: KeyboardArrowDown,
 				}}
 				componentsProps={{
 					row: {

@@ -7,7 +7,6 @@ import {
 	RenderCellExpandedRegister,
 } from './components/RenderCellExpand';
 import { RenderHeaderExpandRegister } from './components/RenderHeaderExpandRegister';
-
 import { formatDateCallback } from './utils/formatDateCallback';
 import { quickFilterDateFormat } from './utils/quickFilterDateFormat';
 
@@ -56,6 +55,7 @@ export const columns: GridColDef<IDataItem>[] = [
 	},
 	{
 		field: 'verificationControlInStateRegister',
+		headerName: ColumnNames.VERIFICATION_CONTROL_STATE_REGISTER,
 		renderHeader: RenderHeaderExpandRegister,
 		disableColumnMenu: true,
 		sortable: false,

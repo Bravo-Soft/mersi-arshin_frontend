@@ -31,7 +31,7 @@ import StyledMenuItem from 'styled/StyledMenuItem';
 interface IMenuItem {
 	title: SidebarTitles | string;
 	isActive: boolean;
-	Icon: (props: SvgIconProps) => JSX.Element;
+	Icon: React.ComponentType<SvgIconProps>;
 	action: () => void;
 }
 

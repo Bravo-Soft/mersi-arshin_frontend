@@ -87,12 +87,6 @@ function DataTableToolbar(): JSX.Element {
 							<DataTableColumnButton />
 						</div>
 
-						{/* <div id='density'>
-							<Tooltip title='Настройка высоты строк в таблице'>
-								<GridToolbarDensitySelector ref={densityRef} />
-							</Tooltip>
-						</div> */}
-
 						<div id='filter'>
 							<GridToolbarFilterButton />
 						</div>

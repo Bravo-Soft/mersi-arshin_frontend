@@ -1,7 +1,5 @@
 import { useState, MouseEvent } from 'react';
 
-import { changeDialogState } from '../dialogArshinSlice';
-
 import { useAppDispatch } from 'hooks/redux';
 
 /**
@@ -14,7 +12,6 @@ import { useAppDispatch } from 'hooks/redux';
 		open,
 		handleOpenMenu,
 		handleCloseMenu,
-		handleOpenFilter,
 	};
  */
 
@@ -31,15 +28,10 @@ export const useMenuActions = () => {
 	};
 	const dispatch = useAppDispatch();
 
-	const handleOpenFilter = () => {
-		dispatch(changeDialogState('filter'));
-	};
-
 	return {
 		anchorEl,
 		open,
 		handleOpenMenu,
 		handleCloseMenu,
-		handleOpenFilter,
 	};
 };
