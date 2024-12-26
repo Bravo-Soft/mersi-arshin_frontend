@@ -6,7 +6,11 @@ import { changeSmartDialogState, selectDeletingVariant } from './smartDialogSlic
 
 import Dialog from 'components/Dialog';
 import { useDeleteDataItemMutation } from 'features/dataTable/dataTableApiSlice';
-import { selectSelectedDataItem, selectSelectionModel } from 'features/dataTable/dataTableSlice';
+import {
+	resetSelectedDataItem,
+	selectSelectedDataItem,
+	selectSelectionModel,
+} from 'features/dataTable/dataTableSlice';
 import { selectSidebarStateOfHomePage } from 'features/sidebar/sidebarSlice';
 import { isFormSelector } from 'guards/isFormSelector';
 import { isValueDefined } from 'guards/isValueDefined';

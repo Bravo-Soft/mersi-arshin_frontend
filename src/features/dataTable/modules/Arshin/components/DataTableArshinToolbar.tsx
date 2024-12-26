@@ -75,8 +75,6 @@ function DataTableArshinToolbar(): JSX.Element {
 							}}
 							color={open && selector === 'RequestsList' ? 'primary' : 'default'}
 						/>
-					</Stack>
-					<Stack direction='row' gap={4}>
 						<MenuActionsArshin />
 					</Stack>
 				</Toolbar>

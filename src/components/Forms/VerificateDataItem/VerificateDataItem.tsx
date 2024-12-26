@@ -1,3 +1,4 @@
+import { Tab, Tabs } from '@mui/material';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -15,8 +16,6 @@ import { useAppSelector } from 'hooks/redux';
 import { useUpdateSelectedDataItem } from 'hooks/useUpdateSelectedDataItem';
 import ButtonContainer from 'styled/ButtonContainer';
 import FormContainer from 'styled/FormContainer';
-import StyledToggleButton from 'styled/StyledToggleButton';
-import StyledToggleButtonGroup from 'styled/StyledToggleButtonGroup';
 import type { IDataItemWithDates } from 'types/dataItem';
 import { formTrimming } from 'utils/formTrimming';
 import { setDefaultValue } from 'utils/setDefaultValue';
@@ -37,6 +36,8 @@ function VerificateDataItem(): JSX.Element {
 
 	useUpdateSelectedDataItem(selectedDataItem);
 
+	const handleTypeChange = (_: React.SyntheticEvent, newValue: string) => setEditType(newValue);
+
 	const onSubmit = methods.handleSubmit(async data => {
 		await sendUpdatedItem({ ...dateFormTransform(formTrimming(data)), editType }).unwrap();
 	});
@@ -46,16 +47,15 @@ function VerificateDataItem(): JSX.Element {
 			<FetchingProgress isFetching={isUpdateLoading} />
 			{!isUpdateLoading && (
 				<FormProvider {...methods}>
-					<StyledToggleButtonGroup
-						color='primary'
+					<Tabs
+						variant='fullWidth'
 						value={editType}
-						exclusive
-						onChange={(_, newValue) => setEditType(newValue)}
-						sx={{ display: 'flex', justifyContent: 'center' }}
+						onChange={handleTypeChange}
+						sx={{ mb: 1 }}
 					>
-						<StyledToggleButton value='mr'>Новая МР</StyledToggleButton>
-						<StyledToggleButton value='tr'>Редактирование</StyledToggleButton>
-					</StyledToggleButtonGroup>
+						<Tab label='Новая МР' value='mr' />
+						<Tab label='Редактирование' value='tr' />
+					</Tabs>
 					<VerificateInputs isReader={isReader} />
 				</FormProvider>
 			)}
