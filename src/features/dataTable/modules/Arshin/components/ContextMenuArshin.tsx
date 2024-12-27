@@ -18,10 +18,10 @@ import { UseArshinContextMenuActionsReturned } from '../hooks/useContextMenuActi
 
 import UpdateMenuItem from './UpdateMenuItem';
 
+import { ArshinStatus } from 'constant/arshinStatus';
 import { SidebarTitles } from 'constant/sidebarTitles';
 import { useAppSelector } from 'hooks/redux';
 import StyledMenuItem from 'styled/StyledMenuItem';
-import { ArshinStatus } from 'constant/arshinStatus';
 
 interface IMenuItem {
 	title: string;
