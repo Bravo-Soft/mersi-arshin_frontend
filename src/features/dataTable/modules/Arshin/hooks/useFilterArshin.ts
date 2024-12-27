@@ -1,51 +1,70 @@
 import { useMemo } from 'react';
 
+import {
+	useGetGroupDataQuery,
+	useGetRequestDataQuery,
+	useGetUserArshinDataQuery,
+} from '../arshinTableApiSlice';
 import { selectFilterType, selectRequest } from '../arshinTableSlice';
 
+import { useProcessArshin } from './useWorkingArshin';
+
 import { ArshinStatus } from 'constant/arshinStatus';
-import { selectUserId } from 'features/user/userSlice';
 import { useAppSelector } from 'hooks/redux';
-import { ARSHIN_FILTER_TYPE, IDataItemArshin } from 'types/arshinIntegration';
+import { ARSHIN_FILTER_TYPE } from 'types/arshinIntegration';
 
 /**
  * @package хук фильтрации данных таблицы Аршин
- * @props data - строки таблицы Аршин
- * @returns возвращает filteredData - массив отфильтрованных строк
+ * @props null
+ * @returns возвращает {isLoading  - массив отфильтрованных строк , data - данные по типу фильтра}
  */
 
-export const useFilterArshin = (data: IDataItemArshin[] = []) => {
-	const currentUserId = useAppSelector(selectUserId) as string;
+export const useFilterArshin = () => {
+	const isOpen = useProcessArshin();
+
 	const filterType = useAppSelector(selectFilterType);
 	const selectedRequest = useAppSelector(selectRequest);
 
-	return useMemo(() => {
-		switch (filterType) {
-			case ARSHIN_FILTER_TYPE.MY_ITEMS: {
-				const filteredData = data.filter(({ usersArshinId }) =>
-					usersArshinId.includes(currentUserId)
-				);
-				return filteredData;
-			}
-			case ARSHIN_FILTER_TYPE.MY_COMPLETED: {
-				const filteredData = data.filter(
-					({ usersArshinId, status }) =>
-						usersArshinId.includes(currentUserId) && status === ArshinStatus.DONE
-				);
-				return filteredData;
-			}
-			case ARSHIN_FILTER_TYPE.ALL:
-				return data;
-
-			case ARSHIN_FILTER_TYPE.REQUEST_ITEMS: {
-				if (selectedRequest) {
-					const { dataIds } = selectedRequest;
-					return dataIds as IDataItemArshin[];
-				}
-
-				return [];
-			}
-			default:
-				return [];
+	const { data: userData = [], isFetching: isUserDataLoading } = useGetUserArshinDataQuery(
+		undefined,
+		{
+			refetchOnMountOrArgChange: true,
+			pollingInterval: 30000,
+			skip: !isOpen,
 		}
-	}, [currentUserId, filterType, selectedRequest, data]);
+	);
+
+	const { data: groupData = [], isFetching: isGroupDataLoading } = useGetGroupDataQuery(
+		undefined,
+		{
+			refetchOnMountOrArgChange: true,
+			skip: !isOpen || filterType !== ARSHIN_FILTER_TYPE.ALL,
+		}
+	);
+
+	const { data: requestDataItems = [], isFetching: isRequestsLoading } = useGetRequestDataQuery(
+		selectedRequest?.id ?? '',
+		{
+			skip: !isOpen || !selectedRequest,
+		}
+	);
+	const userDoneItems = useMemo(
+		() => userData?.filter(({ status }) => status === ArshinStatus.DONE),
+		[userData]
+	);
+
+	const data =
+		filterType === ARSHIN_FILTER_TYPE.MY_ITEMS
+			? userData
+			: filterType === ARSHIN_FILTER_TYPE.ALL
+			? groupData
+			: filterType === ARSHIN_FILTER_TYPE.MY_COMPLETED
+			? userDoneItems
+			: filterType === ARSHIN_FILTER_TYPE.REQUEST_ITEMS
+			? requestDataItems
+			: [];
+
+	const isLoading = isUserDataLoading || isGroupDataLoading || isRequestsLoading;
+
+	return { isLoading, data };
 };

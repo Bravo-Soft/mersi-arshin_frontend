@@ -24,7 +24,7 @@ export const arshinTableApiSlice = apiSlice.injectEndpoints({
 			query: () => API.arshin.getGroupData,
 			providesTags: ['ArshinData', 'ArshinStart'],
 		}),
-		getUserData: builder.query<IDataItemArshin[], void>({
+		getUserArshinData: builder.query<IDataItemArshin[], void>({
 			query: () => API.arshin.getUserData,
 			providesTags: ['ArshinData', 'ArshinStart'],
 		}),
@@ -88,7 +88,7 @@ export const arshinTableApiSlice = apiSlice.injectEndpoints({
 				method: 'POST',
 				body,
 			}),
-			invalidatesTags: ['RequestsList'],
+			invalidatesTags: ['RequestsList', 'ArshinData'],
 			onQueryStarted: async (_arg, { queryFulfilled }) => {
 				try {
 					await queryFulfilled;
@@ -108,7 +108,7 @@ export const arshinTableApiSlice = apiSlice.injectEndpoints({
 				method: 'PUT',
 				body,
 			}),
-			invalidatesTags: ['RequestsList'],
+			invalidatesTags: ['RequestsList', 'ArshinData'],
 			onQueryStarted: async (_arg, { queryFulfilled }) => {
 				try {
 					await queryFulfilled;
@@ -137,7 +137,7 @@ export const arshinTableApiSlice = apiSlice.injectEndpoints({
 				url: API.arshin.deleteRequest(requestId),
 				method: 'DELETE',
 			}),
-			invalidatesTags: ['RequestsList'],
+			invalidatesTags: ['RequestsList', 'ArshinData'],
 		}),
 		getRequestData: builder.query<IDataItemArshin[], string>({
 			query: requestId => API.arshin.getRequestItems(requestId),
@@ -147,7 +147,7 @@ export const arshinTableApiSlice = apiSlice.injectEndpoints({
 
 export const {
 	useGetGroupDataQuery,
-	useGetUserDataQuery,
+	useGetUserArshinDataQuery,
 	useAddItemsMutation,
 	useDeleteItemsMutation,
 	useSynchronizeItemsMutation,

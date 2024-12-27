@@ -1,7 +1,11 @@
 import LinearProgress from '@mui/material/LinearProgress';
 import { DataGridPro, GridSelectionModel, useGridApiRef } from '@mui/x-data-grid-pro';
 
-import { useGetGroupDataQuery, useGetRequestDataQuery } from '../arshinTableApiSlice';
+import {
+	useGetGroupDataQuery,
+	useGetRequestDataQuery,
+	useGetUserArshinDataQuery,
+} from '../arshinTableApiSlice';
 import { selectRequest } from '../arshinTableSlice';
 import { columnsArshin } from '../config/columns';
 import { useApplyTemplate } from '../hooks/useApplyTemplate';
@@ -22,29 +26,12 @@ import { useAppSelector } from 'hooks/redux';
 import DataTableBox from 'styled/DataTableBox';
 import { IDataItemArshin } from 'types/arshinIntegration';
 
-const emptyData: IDataItemArshin[] = [];
-
 function DataTableArshin() {
 	const apiRef = useGridApiRef();
-	const isOpen = useProcessArshin();
+
+	const { isLoading, data } = useFilterArshin();
 
 	useApplyTemplate(apiRef);
-	const { data, isFetching } = useGetGroupDataQuery(undefined, {
-		refetchOnMountOrArgChange: true,
-		pollingInterval: 30000,
-		skip: !isOpen,
-		selectFromResult: ({ data, isFetching }) => ({
-			data: data ?? emptyData,
-			isFetching,
-		}),
-	});
-	const selectedRequest = useAppSelector(selectRequest);
-	const { data: requestDataItems = [], isLoading } = useGetRequestDataQuery(
-		selectedRequest?.id ?? '',
-		{
-			skip: !selectedRequest,
-		}
-	);
 
 	const {
 		selectionIds,
@@ -58,15 +45,13 @@ function DataTableArshin() {
 
 	const { contextMenu, actions } = useContextMenuActions(data);
 
-	const filteredData = useFilterArshin(data);
-
 	return (
 		<DataTableBox sidebarIsOpen={sidebarIsOpen} selector={selector}>
 			<DataGridPro
 				apiRef={apiRef}
 				columns={columnsArshin}
-				rows={filteredData || requestDataItems}
-				loading={isFetching}
+				rows={data}
+				loading={isLoading}
 				pagination
 				checkboxSelection
 				disableColumnReorder

@@ -59,7 +59,7 @@ export const columns: GridColDef<IDataItem>[] = [
 		renderHeader: RenderHeaderExpandRegister,
 		disableColumnMenu: true,
 		sortable: false,
-		width: initialWidth,
+		width: 5,
 		type: 'boolean',
 		headerAlign: 'center',
 		renderCell: RenderCellExpandedRegister,

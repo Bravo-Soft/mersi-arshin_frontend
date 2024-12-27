@@ -38,7 +38,7 @@ export const API = {
 	},
 	arshin: {
 		getGroupData: `/arshin/data/group`,
-		getUserData: `/arshin/data/user`,
+		getUserData: `/arshin/data/my`,
 		addItems: `/arshin/data/add`,
 		deleteItems: `/arshin/data/remove`,
 		synchronizeItems: `/arshin/data/synchronize`,

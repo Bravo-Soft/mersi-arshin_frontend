@@ -132,7 +132,7 @@ export const selectSelectedDataIds = (state: RootState) =>
 
 //Arshin all data (все позиции для аршин)
 export const selectArshinData = (state: RootState) =>
-	arshinTableApiSlice.endpoints.getGroupData.select()(state).data ?? [];
+	arshinTableApiSlice.endpoints.getUserArshinData.select()(state).data ?? [];
 
 //hovered element id (айди элемента на котором курсор наведен)
 export const selectSelectedArshinData = (state: RootState) =>
@@ -192,6 +192,7 @@ export const selectModelSynchronizeIds = (state: RootState) => {
 //Все данные таблицы для синхронизации
 export const selectSynchronize = (state: RootState) => {
 	const data = selectArshinData(state);
+
 	return data.filter(({ status }) => status === ArshinStatus.DONE);
 };
 

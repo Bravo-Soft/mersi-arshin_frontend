@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import type { GridRenderCellParams } from '@mui/x-data-grid';
 import { memo, useEffect, useRef, useState } from 'react';
 
-// import { ArshinIcon } from '../modules/Arshin/ArshinIcon';
+import { ArshinIcon } from 'features/dataTable/modules/Arshin/ArshinIcon';
 
 const stringIsUrl = (value: string) => {
 	return /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/.test(value);
@@ -170,5 +170,5 @@ export function RenderCellExpand(params: GridRenderCellParams<string>): JSX.Elem
 export function RenderCellExpandedRegister(
 	params: GridRenderCellParams<boolean>
 ): JSX.Element | string {
-	return params.value ? <></> : '–';
+	return params.value ? <ArshinIcon /> : '–';
 }
