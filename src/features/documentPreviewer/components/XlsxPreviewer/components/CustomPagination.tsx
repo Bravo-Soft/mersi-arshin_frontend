@@ -17,13 +17,7 @@ export function CustomPagination({ sheets, tab, handleChangeTab }: ICustomPagina
 				borderTop: '1px solid #777',
 			}}
 		>
-			<Tabs
-				value={tab}
-				onChange={handleChangeTab}
-				variant='scrollable'
-				scrollButtons='auto'
-				aria-label='scrollable auto tabs example'
-			>
+			<Tabs value={tab} onChange={handleChangeTab} variant='scrollable' scrollButtons='auto'>
 				{sheets.map((sheet, index) => {
 					return (
 						<Tab

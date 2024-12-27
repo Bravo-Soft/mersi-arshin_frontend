@@ -109,7 +109,6 @@ export const usePassportData = () => {
 			);
 
 		const verifications = [...newVerifications, ...editedVerifications];
-		console.log(editedVerifications);
 		return { repairs, verifications };
 	};
 

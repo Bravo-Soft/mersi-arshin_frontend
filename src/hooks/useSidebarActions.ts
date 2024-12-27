@@ -1,4 +1,8 @@
-import { changeSidebarIsOpen, setSidebarSelector } from '../features/sidebar/sidebarSlice';
+import {
+	changeSidebarIsOpen,
+	resetSidebarState,
+	setSidebarSelector,
+} from '../features/sidebar/sidebarSlice';
 import type { SidebarPages, SidebarSelectors } from '../features/sidebar/sidebarSlice';
 
 import { setFilterType } from 'features/dataTable/modules/Arshin/arshinTableSlice';
@@ -22,6 +26,7 @@ export const useSidebarAction = (page: SidebarPages) => {
 
 	const closeSidebar = () => {
 		dispatch(changeSidebarIsOpen({ page, open: false }));
+		dispatch(resetSidebarState());
 		page === 'arshin' && dispatch(setFilterType(ARSHIN_FILTER_TYPE.MY_ITEMS));
 	};
 
