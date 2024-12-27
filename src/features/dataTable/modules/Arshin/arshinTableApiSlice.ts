@@ -141,6 +141,7 @@ export const arshinTableApiSlice = apiSlice.injectEndpoints({
 		}),
 		getRequestData: builder.query<IDataItemArshin[], string>({
 			query: requestId => API.arshin.getRequestItems(requestId),
+			providesTags: ['ArshinData'],
 		}),
 	}),
 });

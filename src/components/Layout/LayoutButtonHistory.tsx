@@ -1,6 +1,6 @@
 import HistoryIcon from '@mui/icons-material/History';
 import { Tooltip } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import StyledLayoutHistoryButton from './styled/StyledLayoutHistoryButton ';
@@ -11,16 +11,18 @@ import { useAppDispatch } from 'hooks/redux';
 import { useAuth } from 'hooks/useAuth';
 
 function LayoutButtonHistory() {
+	const isAuth = useAuth();
 	const [active, setActive] = useState(false);
 
-	const isAuth = useAuth();
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 	const { pathname } = useLocation();
 
-	if (!isAuth) {
-		return null;
-	}
+	useEffect(() => {
+		if (pathname !== AppRoutes.HISTORY) {
+			setActive(false);
+		}
+	}, [pathname]);
 
 	const handleClick = () => {
 		if (active) {
