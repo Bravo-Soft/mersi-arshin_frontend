@@ -7,7 +7,11 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Menu from '@mui/material/Menu';
 
-import { selectSelectedArshin } from '../arshinTableSlice';
+import {
+	selectArshinData,
+	selectSelectedArshin,
+	selectSelectedArshinData,
+} from '../arshinTableSlice';
 import { useArshinActions } from '../hooks/useArshinActions';
 import { useArshinRequests } from '../hooks/useArshinRequests';
 import { UseArshinContextMenuActionsReturned } from '../hooks/useContextMenuActions';
@@ -17,6 +21,7 @@ import UpdateMenuItem from './UpdateMenuItem';
 import { SidebarTitles } from 'constant/sidebarTitles';
 import { useAppSelector } from 'hooks/redux';
 import StyledMenuItem from 'styled/StyledMenuItem';
+import { ArshinStatus } from 'constant/arshinStatus';
 
 interface IMenuItem {
 	title: string;
@@ -29,26 +34,29 @@ function ContextMenuArshin({ contextMenu, actions }: UseArshinContextMenuActions
 	const { handleDeleteItems, handleContextMenuEditArshinItem } = useArshinActions();
 	const { handleCreateRequest } = useArshinRequests();
 	const selectedDataIds = useAppSelector(selectSelectedArshin);
+	const selectedItem = useAppSelector(selectSelectedArshinData);
 
 	const { handleCloseContextMenu } = actions;
+
+	const itemInProcess = selectedItem?.status === ArshinStatus.PROCESS;
 
 	const menuItems: IMenuItem[] = [
 		{
 			title: SidebarTitles.EDIT_ITEM,
 			Icon: EditIcon,
-			isDisabled: true,
+			isDisabled: itemInProcess,
 			action: handleContextMenuEditArshinItem,
 		},
 		{
 			title: 'Создать запрос',
 			Icon: AddIcon,
-			isDisabled: Boolean(selectedDataIds?.length),
+			isDisabled: Boolean(!selectedDataIds?.length) || itemInProcess,
 			action: handleCreateRequest,
 		},
 		{
 			title: 'Удалить выделенное',
 			Icon: DeleteIcon,
-			isDisabled: Boolean(selectedDataIds?.length),
+			isDisabled: Boolean(!selectedDataIds?.length) || itemInProcess,
 			action: handleDeleteItems,
 		},
 	];
@@ -84,7 +92,7 @@ function ContextMenuArshin({ contextMenu, actions }: UseArshinContextMenuActions
 			{menuItems.map(({ action, title, Icon, isDisabled }) => (
 				<StyledMenuItem
 					moduleIsActive={true}
-					disabled={!isDisabled}
+					disabled={isDisabled}
 					key={title}
 					onClick={handleClick(action, isDisabled)}
 					sx={{

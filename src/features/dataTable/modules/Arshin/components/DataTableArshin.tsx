@@ -1,18 +1,12 @@
 import LinearProgress from '@mui/material/LinearProgress';
 import { DataGridPro, GridSelectionModel, useGridApiRef } from '@mui/x-data-grid-pro';
 
-import {
-	useGetGroupDataQuery,
-	useGetRequestDataQuery,
-	useGetUserArshinDataQuery,
-} from '../arshinTableApiSlice';
 import { selectRequest } from '../arshinTableSlice';
 import { columnsArshin } from '../config/columns';
 import { useApplyTemplate } from '../hooks/useApplyTemplate';
 import { useContextMenuActions } from '../hooks/useContextMenuActions';
 import { useFilterArshin } from '../hooks/useFilterArshin';
 import useTableActions from '../hooks/useTableActions';
-import { useProcessArshin } from '../hooks/useWorkingArshin';
 
 import ContextMenuArshin from './ContextMenuArshin';
 import DataTableArshinToolbar from './DataTableArshinToolbar';
@@ -24,7 +18,6 @@ import { NoRowsOverlay } from 'features/dataTable/components/NoRowsOverlay';
 import { selectSidebarStateOfArshinPage } from 'features/sidebar/sidebarSlice';
 import { useAppSelector } from 'hooks/redux';
 import DataTableBox from 'styled/DataTableBox';
-import { IDataItemArshin } from 'types/arshinIntegration';
 
 function DataTableArshin() {
 	const apiRef = useGridApiRef();

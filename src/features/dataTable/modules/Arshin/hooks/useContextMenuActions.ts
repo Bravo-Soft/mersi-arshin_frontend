@@ -5,11 +5,10 @@ import {
 	setSelectedDataArshinItem,
 	setSelectedEditItemIds,
 } from '../arshinTableSlice';
-import { selectIsWorkingArshin } from '../eventSourceSlice';
 
 import { ICoordinates } from 'features/dataTable/hooks/useContextMenuActions';
 import { isValueDefined } from 'guards/isValueDefined';
-import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import { useAppDispatch } from 'hooks/redux';
 import { IDataItemArshin } from 'types/arshinIntegration';
 
 export type UseArshinContextMenuActionsReturned = ReturnType<typeof useContextMenuActions>;
@@ -19,8 +18,6 @@ export const useContextMenuActions = (data: IDataItemArshin[]) => {
 
 	const dispatch = useAppDispatch();
 
-	const isWorking = useAppSelector(selectIsWorkingArshin);
-
 	const handleCloseContextMenu = () => {
 		dispatch(resetSelectedDataArshinItem());
 		setContextMenu(null);
@@ -28,8 +25,6 @@ export const useContextMenuActions = (data: IDataItemArshin[]) => {
 
 	const handleOpenContextMenu = (event: MouseEvent<HTMLDivElement>) => {
 		event.preventDefault();
-
-		if (isWorking) return;
 
 		const currentId = event.currentTarget.getAttribute('data-id');
 		if (currentId !== null) {
