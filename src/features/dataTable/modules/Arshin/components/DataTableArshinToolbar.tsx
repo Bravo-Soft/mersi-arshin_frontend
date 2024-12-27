@@ -75,8 +75,8 @@ function DataTableArshinToolbar(): JSX.Element {
 							}}
 							color={open && selector === 'RequestsList' ? 'primary' : 'default'}
 						/>
-						<MenuActionsArshin />
 					</Stack>
+					<MenuActionsArshin />
 				</Toolbar>
 				<Collapse in={expanded} sx={{ width: 1, position: 'relative' }}>
 					<ArshinTableToolbarFilter />
