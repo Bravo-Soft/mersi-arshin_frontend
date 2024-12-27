@@ -123,14 +123,14 @@ export const arshinTableApiSlice = apiSlice.injectEndpoints({
 				url: API.arshin.startRequest(requestId),
 				method: 'PATCH',
 			}),
-			invalidatesTags: ['RequestsList'],
+			invalidatesTags: ['RequestsList', 'ArshinData'],
 		}),
 		stopRequest: builder.mutation<void, string>({
 			query: requestId => ({
 				url: API.arshin.stopRequest(requestId),
 				method: 'PATCH',
 			}),
-			invalidatesTags: ['RequestsList'],
+			invalidatesTags: ['RequestsList', 'ArshinData'],
 		}),
 		deleteRequest: builder.mutation<void, string>({
 			query: requestId => ({
@@ -141,6 +141,7 @@ export const arshinTableApiSlice = apiSlice.injectEndpoints({
 		}),
 		getRequestData: builder.query<IDataItemArshin[], string>({
 			query: requestId => API.arshin.getRequestItems(requestId),
+			providesTags: ['ArshinData'],
 		}),
 	}),
 });
