@@ -51,6 +51,7 @@ export const EditTabs = ({ currentSelector }: { currentSelector: string }) => {
 				borderBottom: '1px solid #ccc',
 				backgroundColor: '#f1f1f1',
 				borderRadius: '4px',
+				mb: 1,
 			}}
 		>
 			{editSidebarElements.map(({ value, icon, tooltip, active }) => {

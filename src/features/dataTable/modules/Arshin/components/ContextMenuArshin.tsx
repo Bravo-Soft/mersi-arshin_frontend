@@ -7,11 +7,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Menu from '@mui/material/Menu';
 
-import {
-	selectArshinData,
-	selectSelectedArshin,
-	selectSelectedArshinData,
-} from '../arshinTableSlice';
+import { selectSelectedArshin, selectSelectedArshinData } from '../arshinTableSlice';
 import { useArshinActions } from '../hooks/useArshinActions';
 import { useArshinRequests } from '../hooks/useArshinRequests';
 import { UseArshinContextMenuActionsReturned } from '../hooks/useContextMenuActions';
